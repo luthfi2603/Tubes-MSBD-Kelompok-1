@@ -9,12 +9,8 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('users', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->string('username');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
+        Schema::create('jenis_tulisans', function (Blueprint $table) {
+            $table->string('jenis_tulisan')->primary();
             $table->timestamps();
         });
     }
@@ -23,6 +19,6 @@ return new class extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('jenis_tulisans');
     }
 };
