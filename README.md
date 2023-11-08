@@ -21,7 +21,7 @@
             Najwa Amanda (221402068)
         </li>
         <li>
-            Frenky Saputra (221402021)
+            Frengky Saputra (221402021)
         </li>
     </ol>
 </p>
