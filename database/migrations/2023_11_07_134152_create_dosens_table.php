@@ -11,8 +11,9 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('dosens', function (Blueprint $table) {
             $table->char('nidn', 10)->primary();
-            $table->char('kode_dosen', 3);
             $table->char('nip', 18);
+            $table->string('nama');
+            $table->char('kode_dosen', 3);
             $table->enum('jenis_kelamin', ['P','L']);
             $table->string('foto');
             $table->integer('user_id');
