@@ -9,18 +9,15 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('karya_tulis', function (Blueprint $table) {
+        Schema::create('log_ebooks', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->string('judul', 500);
-            $table->text('abstrak');
-            $table->string('bidang_ilmu');
-            $table->foreign('bidang_ilmu')->references('jenis_bidang_ilmu')->on('bidang_ilmus')->onDelete('restrict')->onUpdate('cascade');
+            $table->string('penulis');
             $table->string('url_file');
-            $table->string('jenis');
-            $table->foreign('jenis')->references('jenis_tulisan')->on('jenis_tulisans')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('view');
-            $table->char('tahun', 4);
+            $table->string('tgl_terbit');
             $table->string('diupload_oleh');
+            $table->enum('action', ['insert','update', 'delete']);
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
-        Schema::dropIfExists('karya_tulis');
+        Schema::dropIfExists('log_ebooks');
     }
 };
