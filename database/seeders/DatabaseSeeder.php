@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Prodi;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
@@ -16,5 +19,26 @@ class DatabaseSeeder extends Seeder {
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        User::create([
+            'username' => 'kelompok1',
+            'email' => 'kelompok1',
+            'password' => bcrypt('kelompok1')
+        ]);
+
+        /* User::create([
+            'username' => 'ZeeroXc',
+            'email' => 'luthfim904@gmail.com',
+            'password' => bcrypt('password')
+        ]);
+        
+        User::create([
+            'username' => 'fortyche',
+            'email' => 'rifqijabrah@gmail.com',
+            'password' => bcrypt('password')
+        ]); */
+
+        $this->call(ProdisTableSeeder::class);
+        $this->call(MahasiswasTableSeeder::class);
     }
 }
