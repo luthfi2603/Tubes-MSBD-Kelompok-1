@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->integer('id');
             $table->string('nama');
             $table->enum('status', ['admin','super_admin']);
-            $table->integer('user_id');
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
