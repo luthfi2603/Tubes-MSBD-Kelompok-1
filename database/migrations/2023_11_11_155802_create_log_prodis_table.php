@@ -13,8 +13,8 @@ return new class extends Migration {
             $table->char('kode_prodi', 2)->primary();
             $table->string('nama_prodi');
             $table->char('jenjang', 2);
-            $table->enum('action', ['insert','update', 'delete']);
-            $table->timestamps();
+            $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
+            $table->timestamp('waktu')->default(now());
         });
     }
 

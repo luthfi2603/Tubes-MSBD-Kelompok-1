@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->enum('status', ['aktif','tidak_aktif', 'lulus']);
             $table->integer('user_id');
             $table->char('kode_prodi', 2);
-            $table->enum('action', ['insert','update', 'delete']);
-            $table->timestamps();
+            $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
+            $table->timestamp('waktu')->default(now());
         });
     }
 

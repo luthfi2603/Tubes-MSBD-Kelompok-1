@@ -17,6 +17,13 @@ return new class extends Migration {
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::unprepared('
+            CREATE TRIGGER tes AFTER INSERT ON `users` FOR EACH ROW
+            BEGIN
+            INSERT INTO log_users (`username`, `email`, `action`) VALUES (NEW.username, NEW.email, "insert");
+            END
+        ');
     }
 
     /**

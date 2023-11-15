@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->integer('view');
             $table->string('tgl_terbit');
             $table->string('diupload_oleh');
-            $table->enum('action', ['insert','update', 'delete']);
-            $table->timestamps();
+            $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
+            $table->timestamp('waktu')->default(now());
         });
     }
 
