@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('log_karya_tulis', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->increments('id');
             $table->string('judul', 500);
             $table->text('abstrak');
             $table->string('bidang_ilmu');
