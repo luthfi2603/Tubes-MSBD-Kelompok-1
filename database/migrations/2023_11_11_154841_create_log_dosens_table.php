@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('log_dosens', function (Blueprint $table) {
-            $table->char('nidn', 10)->primary();
+            $table->char('nidn', 10);
             $table->char('nip', 18);
             $table->string('nama');
             $table->char('kode_dosen', 3);

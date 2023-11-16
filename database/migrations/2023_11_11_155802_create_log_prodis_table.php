@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('log_prodis', function (Blueprint $table) {
-            $table->char('kode_prodi', 2)->primary();
+            $table->char('kode_prodi', 2);
             $table->string('nama_prodi');
             $table->char('jenjang', 2);
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
