@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->string('judul', 500);
             $table->string('penulis');
             $table->string('url_file');
-            $table->integer('view');
             $table->string('tgl_terbit');
             $table->string('diupload_oleh');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);

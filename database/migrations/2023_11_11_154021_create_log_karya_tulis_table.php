@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string('bidang_ilmu');
             $table->string('url_file');
             $table->string('jenis');
-            $table->integer('view');
             $table->char('tahun', 4);
             $table->string('diupload_oleh');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
