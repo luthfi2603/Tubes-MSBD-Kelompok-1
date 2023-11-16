@@ -35,7 +35,7 @@ return new class extends Migration {
         DB::unprepared('
             CREATE TRIGGER log_admins_delete AFTER DELETE ON `admins` FOR EACH ROW
             BEGIN
-                INSERT INTO log_admins VALUES (OLD.id, OLD.nama, OLD.status, OLD.user_id, "INSERT", NULL);
+                INSERT INTO log_admins VALUES (OLD.id, OLD.nama, OLD.status, OLD.user_id, "DELETE", NULL);
             END
         ');
     }

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('judul', 500);
             $table->string('penulis');
             $table->string('url_file');
-            $table->string('tgl_terbit');
+            $table->char('tahun_terbit', 4);
             $table->string('diupload_oleh');
             $table->timestamps();
         });
@@ -22,19 +22,19 @@ return new class extends Migration {
         DB::unprepared('
             CREATE TRIGGER log_ebooks_insert AFTER INSERT ON `ebooks` FOR EACH ROW
             BEGIN
-                INSERT INTO log_ebooks VALUES (NEW.id, NEW.judul, NEW.penulis, NEW.url_file, NEW.tgl_terbit, NEW.diupload_oleh, "INSERT", NULL);
+                INSERT INTO log_ebooks VALUES (NEW.id, NEW.judul, NEW.penulis, NEW.url_file, NEW.tahun_terbit, NEW.diupload_oleh, "INSERT", NULL);
             END
         ');
         DB::unprepared('
             CREATE TRIGGER log_ebooks_update AFTER UPDATE ON `ebooks` FOR EACH ROW
             BEGIN
-                INSERT INTO log_ebooks VALUES (NEW.id, NEW.judul, NEW.penulis, NEW.url_file, NEW.tgl_terbit, NEW.diupload_oleh, "UPDATE", NULL);
+                INSERT INTO log_ebooks VALUES (NEW.id, NEW.judul, NEW.penulis, NEW.url_file, NEW.tahun_terbit, NEW.diupload_oleh, "UPDATE", NULL);
             END
         ');
         DB::unprepared('
             CREATE TRIGGER log_ebooks_delete AFTER DELETE ON `ebooks` FOR EACH ROW
             BEGIN
-                INSERT INTO log_ebooks VALUES (OLD.id, OLD.judul, OLD.penulis, OLD.url_file, OLD.tgl_terbit, OLD.diupload_oleh, "DELETE", NULL);
+                INSERT INTO log_ebooks VALUES (OLD.id, OLD.judul, OLD.penulis, OLD.url_file, OLD.tahun_terbit, OLD.diupload_oleh, "DELETE", NULL);
             END
         ');
 
