@@ -10,11 +10,10 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('ebooks', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->increments('id');
             $table->string('judul', 500);
             $table->string('penulis');
             $table->string('url_file');
-            $table->integer('view');
             $table->string('tgl_terbit');
             $table->string('diupload_oleh');
             $table->timestamps();
