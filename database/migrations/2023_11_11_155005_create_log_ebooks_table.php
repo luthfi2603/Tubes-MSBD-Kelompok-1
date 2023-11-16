@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('judul', 500);
             $table->string('penulis');
             $table->string('url_file');
-            $table->string('tgl_terbit');
+            $table->char('tahun_terbit', 4);
             $table->string('diupload_oleh');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
             $table->timestamp('waktu')->default(now());

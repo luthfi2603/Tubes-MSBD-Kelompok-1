@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Prodi;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -40,5 +39,7 @@ class DatabaseSeeder extends Seeder {
 
         $this->call(ProdisTableSeeder::class);
         $this->call(MahasiswasTableSeeder::class);
+        $this->call(BidangIlmuTableSeeder::class);
+        $this->call(JenisTulisanTableSeeder::class);
     }
 }

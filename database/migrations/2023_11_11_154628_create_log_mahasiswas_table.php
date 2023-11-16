@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('log_mahasiswas', function (Blueprint $table) {
-            $table->char('nim', 9)->primary();
+            $table->char('nim', 9);
             $table->string('nama');
             $table->char('angkatan', 4);
             $table->enum('jenis_kelamin', ['P', 'L']);
