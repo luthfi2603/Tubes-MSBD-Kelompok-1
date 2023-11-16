@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('log_admins', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
             $table->string('nama');
             $table->enum('status', ['admin','super_admin']);
             $table->integer('user_id');

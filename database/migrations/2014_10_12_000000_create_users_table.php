@@ -19,9 +19,9 @@ return new class extends Migration {
         });
 
         DB::unprepared('
-            CREATE TRIGGER tes AFTER INSERT ON `users` FOR EACH ROW
+            CREATE TRIGGER log_users_insert AFTER INSERT ON `users` FOR EACH ROW
             BEGIN
-            INSERT INTO log_users (`username`, `email`, `action`) VALUES (NEW.username, NEW.email, "insert");
+                INSERT INTO log_users (`username`, `email`, `action`) VALUES (NEW.username, NEW.email, "INSERT");
             END
         ');
     }
