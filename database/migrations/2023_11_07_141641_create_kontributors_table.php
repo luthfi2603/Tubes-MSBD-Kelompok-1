@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->char('nidn', 10);
             $table->foreign('nidn')->references('nidn')->on('dosens')->onDelete('restrict')->onUpdate('cascade');
             $table->enum('status', ['penulis','pembimbing', 'kontributor']);
-            $table->integer('karya_id');
+            $table->unsignedInteger('karya_id');
             $table->foreign('karya_id')->references('id')->on('karya_tulis')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

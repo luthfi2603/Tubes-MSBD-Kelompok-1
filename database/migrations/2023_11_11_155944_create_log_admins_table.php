@@ -10,10 +10,10 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('log_admins', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedInteger('id');
             $table->string('nama');
             $table->enum('status', ['admin','super_admin']);
-            $table->integer('user_id');
+            $table->unsignedInteger('user_id');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
             $table->timestamp('waktu')->default(now());
         });

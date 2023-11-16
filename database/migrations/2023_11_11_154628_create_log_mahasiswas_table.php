@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->enum('jenis_kelamin', ['P', 'L']);
             $table->string('foto');
             $table->enum('status', ['aktif','tidak_aktif', 'lulus']);
-            $table->integer('user_id');
+            $table->unsignedInteger('user_id');
             $table->char('kode_prodi', 2);
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
             $table->timestamp('waktu')->default(now());

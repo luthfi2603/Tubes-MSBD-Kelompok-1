@@ -22,6 +22,27 @@ return new class extends Migration {
             $table->foreign('kode_prodi')->references('kode_prodi')->on('prodis')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
+
+        DB::unprepared('
+            CREATE TRIGGER log_mahasiswas_insert AFTER INSERT ON `mahasiswas` FOR EACH ROW
+            BEGIN
+                INSERT INTO log_mahasiswas VALUES (NEW.nim, NEW.nama, NEW.angkatan, NEW.jenis_kelamin, NEW.foto, NEW.status, NEW.user_id, NEW.kode_prodi, "INSERT", NULL);
+            END
+        ');
+        
+        DB::unprepared('
+            CREATE TRIGGER log_mahasiswas_update AFTER UPDATE ON `mahasiswas` FOR EACH ROW
+            BEGIN
+                INSERT INTO log_mahasiswas VALUES (NEW.nim, NEW.nama, NEW.angkatan, NEW.jenis_kelamin, NEW.foto, NEW.status, NEW.user_id, NEW.kode_prodi, "UPDATE", NULL);
+            END
+        ');
+        
+        DB::unprepared('
+            CREATE TRIGGER log_mahasiswas_delete AFTER DELETE ON `mahasiswas` FOR EACH ROW
+            BEGIN
+                INSERT INTO log_mahasiswas VALUES (OLD.nim, OLD.nama, OLD.angkatan, OLD.jenis_kelamin, OLD.foto, OLD.status, OLD.user_id, OLD.kode_prodi, "DELETE", NULL);
+            END
+        ');
     }
 
     /**

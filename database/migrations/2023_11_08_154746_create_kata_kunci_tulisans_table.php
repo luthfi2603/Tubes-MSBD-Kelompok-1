@@ -10,8 +10,8 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('kata_kunci_tulisans', function (Blueprint $table) {
-            $table->integer('tulisan_id');
-            $table->foreign('tulisan_id')->references('id')->on('karya_tulis')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedInteger('karya_id');
+            $table->foreign('karya_id')->references('id')->on('karya_tulis')->onDelete('cascade')->onUpdate('cascade');
             $table->string('kata_kunci', 20);
             $table->foreign('kata_kunci')->references('kata_kunci')->on('kata_kuncis')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared('
+            DROP PROCEDURE IF EXISTS tes;
             CREATE PROCEDURE tes(IN id INT)
             BEGIN
                 INSERT INTO user (username, email, password) VALUES ("tes","tes@gmail", "1");
