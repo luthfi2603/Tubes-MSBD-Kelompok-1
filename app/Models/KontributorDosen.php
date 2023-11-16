@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kontributor extends Model {
+class KontributorDosen extends Model
+{
     use HasFactory;
 }

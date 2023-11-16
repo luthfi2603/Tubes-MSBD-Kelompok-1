@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('jenis');
             $table->foreign('jenis')->references('jenis_tulisan')->on('jenis_tulisans')->onDelete('restrict')->onUpdate('cascade');
             $table->char('tahun', 4);
+            $table->integer('view');
             $table->string('diupload_oleh');
             $table->timestamps();
         });

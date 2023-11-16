@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('penulis');
             $table->string('url_file');
             $table->char('tahun_terbit', 4);
+            $table->integer('view');
             $table->string('diupload_oleh');
             $table->timestamps();
         });
