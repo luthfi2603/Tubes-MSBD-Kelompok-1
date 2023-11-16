@@ -22,7 +22,19 @@ return new class extends Migration {
         DB::unprepared('
             CREATE TRIGGER log_users_insert AFTER INSERT ON `users` FOR EACH ROW
             BEGIN
-                INSERT INTO log_users (`username`, `email`, `action`) VALUES (NEW.username, NEW.email, "INSERT");
+                INSERT INTO log_users VALUES (NEW.id, NEW.username, NEW.email, "INSERT");
+            END
+        ');
+        DB::unprepared('
+            CREATE TRIGGER log_users_update AFTER UPDATE ON `users` FOR EACH ROW
+            BEGIN
+                INSERT INTO log_users VALUES (NEW.id, NEW.username, NEW.email, "UPDATE");
+            END
+        ');
+        DB::unprepared('
+            CREATE TRIGGER log_users_delete AFTER DELETE ON `users` FOR EACH ROW
+            BEGIN
+                INSERT INTO log_users VALUES (OLD.id, OLD.username, OLD.email, "DELETE");
             END
         ');
     }
