@@ -15,7 +15,85 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+Route::get('/login2', function () {
+    return view('login');
+});
+Route::get('/register2', function () {
+    return view('register');
+});
+Route::get('/search-page', function () {
+    return view('search-page');
+});
+Route::get('/single-author', function () {
+    return view('single-author');
+});
+Route::get('/statistik', function () {
+    return view('statistik');
+});
+Route::get('/single-prodi', function () {
+    return view('single-prodi');
+});
+Route::get('/single-koleksi', function () {
+    return view('single-koleksi');
+});
+Route::get('/profile2', function () {
+    return view('profile');
+});
+Route::get('/detail-search', function () {
+    return view('detail-search');
+});
+Route::get('/favorite', function () {
+    return view('favorite');
+});
+Route::get('/coba', function () {
+    return view('coba');
+});
+Route::get('/advanced-search', function () {
+    return view('advanced-search');
+});
+Route::get('/edit-password', function () {
+    return view('edit-password');
+});
+Route::get('/edit-profile', function () {
+    return view('edit-profile');
+});
+Route::get('/admin-home', function () {
+    return view('admin.admin-home');
+});
+Route::get('/edit-karya-tulis', function () {
+    return view('admin.edit-karya-tulis');
+});
+Route::get('/edit-kategori', function () {
+    return view('admin.edit-kategori');
+});
+Route::get('/input-karya-tulis', function () {
+    return view('admin.input-karya-tulis');
+});
+Route::get('/input-kategori', function () {
+    return view('admin.input-kategori');
+});
+Route::get('/kelola-karya-tulis', function () {
+    return view('admin.kelola-karya-tulis');
+});
+Route::get('/kelola-kategori', function () {
+    return view('admin.kelola-kategori');
+});
+Route::get('/edit-pegawai', function () {
+    return view('super-admin.edit-pegawai');
+});
+Route::get('/edit-user', function () {
+    return view('super-admin.edit-user');
+});
+Route::get('/kelola-pegawai', function () {
+    return view('super-admin.kelola-pegawai');
+});
+Route::get('/kelola-user', function () {
+    return view('super-admin.kelola-user');
+});
+Route::get('/super-admin-home', function () {
+    return view('super-admin.super-admin-home');
 });
 
 Route::get('/dashboard', function () {
