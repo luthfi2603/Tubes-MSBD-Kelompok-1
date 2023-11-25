@@ -38,18 +38,28 @@
                                 </div>
                             </div>
 
-                            <form action="#" class="signin-form">
+                            <form action="{{ route('login') }}" method="POST" class="signin-form">
+                                @csrf
                                 <div class="form-group mb-3">
-                                    <label class="label" for="name">Email</label>
-                                    <input type="email" class="form-control" placeholder="Email" required>
+                                    <label class="label" for="email">Email</label>
+                                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}">
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="password">Password</label>
-                                    <input type="password" class="form-control" placeholder="Password" required>
+                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign
-                                        In</button>
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
                                 </div>
                                 <div class="form-group d-md-flex my-3">
                                     <div class="w-50 text-left">
@@ -63,7 +73,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <p class="text-center">Not Registed?? <a data-toggle="tab" href="register.html">Sign Up</a>
+                            <p class="text-center">Not Registed?? <a data-toggle="tab" href="{{ route('register') }}">Sign Up</a>
                             </p>
                         </div>
                     </div>

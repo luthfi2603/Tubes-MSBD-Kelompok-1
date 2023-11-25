@@ -49,13 +49,25 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/statistik">Statistik</a>
                         </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="/profile">
+                                    <i class="fa-solid fa-user" style="color: #ffff;"></i>
+                                </a>
+                            </li>
+                        @endauth
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-user" style="color: #ffff;"></i>
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="login.html">Login</a></li>
-                                <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                                @auth
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button onclick="return confirm('Apakah kamu yakin?')" type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                @else
+                                    <li><a class="dropdown-item" href="/register">Register</a></li>
+                                    <li><a class="dropdown-item" href="/login">Login</a></li>
+                                @endauth
                             </ul>
                         </li>
                     </ul>

@@ -42,17 +42,34 @@
                                         Sign Up</h3>
                                 </div>
                             </div>
-                            <form method="POST" action="{{ route('regis') }}" class="signin-form">
+                            <form method="POST" action="{{ route('register') }}" class="signin-form">
                                 @csrf
                                 <div class="form-group mb-3">
-                                    <input type="radio" id="dosen" class="" name="status" value="dosen" required>
-                                    <label class="label" for="dosen">Dosen</label>
-                                    <input type="radio" id="mahasiswa" class="" name="status" value="mahasiswa" required>
-                                    <label class="label" for="mahasiswa">Mahasiswa</label>
+                                    @if(old('status') == 'mahasiswa')
+                                        <input type="radio" id="dosen" name="status" value="dosen">
+                                        <label class="label" for="dosen">Dosen</label>
+                                        <input type="radio" id="mahasiswa" name="status" value="mahasiswa" checked>
+                                        <label class="label" for="mahasiswa">Mahasiswa</label>
+                                    @elseif(old('status') == 'dosen')
+                                        <input type="radio" id="dosen" name="status" value="dosen" checked>
+                                        <label class="label" for="dosen">Dosen</label>
+                                        <input type="radio" id="mahasiswa" name="status" value="mahasiswa">
+                                        <label class="label" for="mahasiswa">Mahasiswa</label>
+                                    @else
+                                        <input type="radio" id="dosen" name="status" value="dosen">
+                                        <label class="label" for="dosen">Dosen</label>
+                                        <input type="radio" id="mahasiswa" name="status" value="mahasiswa">
+                                        <label class="label" for="mahasiswa">Mahasiswa</label>
+                                        @error('status')
+                                            <div style="color: #dc3545; font-size: medium;">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    @endif
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="nim_nip">Nim/Nip</label>
-                                    <input type="text" name="nim_nip" class="form-control @error('nim_nip') is-invalid @enderror" placeholder="Nim/Nip" autofocus value="{{ old('nim_nip') }}" required>
+                                    <input type="text" name="nim_nip" class="form-control @error('nim_nip') is-invalid @enderror" placeholder="Nim/Nip" autofocus value="{{ old('nim_nip') }}">
                                     @error('nim_nip')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -61,7 +78,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="username">Username</label>
-                                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"  placeholder="Username" value="{{ old('username') }}" required>
+                                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"  placeholder="Username" value="{{ old('username') }}">
                                     @error('username')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -70,8 +87,8 @@
                                 </div>
                                 <!-- tambai kondimen lain -->
                                 <div class="form-group mb-3">
-                                    <label class="label" for="password">Email</label>
-                                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" required>
+                                    <label class="label" for="email">Email</label>
+                                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}">
                                     @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -80,7 +97,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="password">Password</label>
-                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" required>
+                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                                     @error('password')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -89,7 +106,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="konfirmasi_password">Konfirmasi Password</label>
-                                    <input type="password" name="konfirmasi_password" class="form-control @error('konfirmasi_password') is-invalid @enderror" placeholder="Konfirmasi Password" required>
+                                    <input type="password" name="konfirmasi_password" class="form-control @error('konfirmasi_password') is-invalid @enderror" placeholder="Konfirmasi Password">
                                     @error('konfirmasi_password')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -97,20 +114,10 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign
-                                        Up</button>
-                                </div>
-                                <div class="form-group d-md-flex my-3">
-                                    <div class="w-50 text-left">
-                                        <label class="checkbox-wrap checkbox-primary mb-0">Remember Me
-                                            <input type="checkbox" checked>
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign Up</button>
                                 </div>
                             </form>
-                            <p class="text-center">Already have registed?? <a data-toggle="tab" href="login.html">Sign
-                                    In</a></p>
+                            <p class="text-center">Already have registed?? <a data-toggle="tab" href="{{ route('login') }}">Sign In</a></p>
                         </div>
                     </div>
                 </div>
