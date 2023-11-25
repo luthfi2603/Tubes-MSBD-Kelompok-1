@@ -16,24 +16,25 @@ class RegisterController extends Controller
             'status' => ['required'],
             'nim_nip' => ['required'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'same:konfirmasi_password'],
-            'konfirmasi_password' => ['required', 'same:password'],
+            'password' => ['required', 'same:konfirmasi_password', 'min:8'],
+            'konfirmasi_password' => ['required', 'same:password', 'min:8'],
         ]);
-        // dd($request->all());
 
-        // if($request->status == 'dosen'){
-        //     $user = User::create([
-        //         'username' => $request->username,
-        //         'email' => $request->email,
-        //         'password' => Hash::make($request->password)
-        //     ]);
         $password = Hash::make($request->password);
 
         if($request->status == 'mahasiswa'){
-            DB::select('call create_user(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 1));
+            try {
+                DB::select('call create_user(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 1));
+            }catch(\Throwable $th){
+                return back()->with('failed', 'NIM/NIDN tidak terdaftar atau anda telah memiliki akun');
+            }
         }elseif($request->status == 'dosen'){
-            DB::select('call create_user(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 2));
+            try {
+                DB::select('call create_user(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 2));
+            } catch (\Throwable $th) {
+                return back()->with('failed', 'NIM/NIDN tidak terdaftar atau anda telah memiliki akun');
+            }
         }
-        return redirect('/login2')->with('success', 'registrasi akun berhasil');
+        return redirect('/login2')->with('success', 'Registrasi akun berhasil');
     }
 }

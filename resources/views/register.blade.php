@@ -19,6 +19,17 @@
 <body>
     <section class="ftco-section">
         <div class="container">
+            @if(session()->has('failed'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('failed') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @elseif(session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="wrap d-md-flex">
@@ -35,9 +46,9 @@
                                 @csrf
                                 <div class="form-group mb-3">
                                     <input type="radio" id="dosen" class="" name="status" value="dosen" required>
-                                    <label class="label" for="status">Dosen</label>
+                                    <label class="label" for="dosen">Dosen</label>
                                     <input type="radio" id="mahasiswa" class="" name="status" value="mahasiswa" required>
-                                    <label class="label" for="status">Mahasiswa</label>
+                                    <label class="label" for="mahasiswa">Mahasiswa</label>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="nim_nip">Nim/Nip</label>
@@ -60,7 +71,7 @@
                                 <!-- tambai kondimen lain -->
                                 <div class="form-group mb-3">
                                     <label class="label" for="password">Email</label>
-                                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Password" value="{{ old('email') }}" required>
+                                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" required>
                                     @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
