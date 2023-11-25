@@ -18,13 +18,6 @@ use App\Http\Controllers\RegisterController;
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/login2', function () {
-    return view('login');
-})->name('log');
-Route::get('/register2', function () {
-    return view('register');
-});
-Route::post('/register2', [RegisterController::class, 'store'])->name('regis');
 Route::get('/search-page', function () {
     return view('search-page');
 });
@@ -40,7 +33,7 @@ Route::get('/single-prodi', function () {
 Route::get('/single-koleksi', function () {
     return view('single-koleksi');
 });
-Route::get('/profile2', function () {
+Route::get('/profile', function () {
     return view('profile');
 });
 Route::get('/detail-search', function () {
@@ -103,7 +96,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile2', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
