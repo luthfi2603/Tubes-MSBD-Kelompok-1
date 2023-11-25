@@ -12,6 +12,7 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username');
+            $table->enum('status', ['admin', 'civitas', 'super_admin']);
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
@@ -22,7 +23,7 @@ return new class extends Migration {
         DB::unprepared('
             CREATE TRIGGER log_users_insert AFTER INSERT ON `users` FOR EACH ROW
             BEGIN
-                INSERT INTO log_users VALUES (NEW.id, NEW.username, NEW.email, "INSERT", NULL);
+                INSERT INTO log_users VALUES (NEW.id, NEW.username, NEW.email, "INSERT", NOW());
             END
         ');
         DB::unprepared('

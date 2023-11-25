@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -32,22 +33,33 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'username' => ['required', 'min:3', 'max:30', 'unique:users'],
-            'pilihan' => ['required'],
-            'kode' => ['required'],
+            'status' => ['required'],
+            'nim_nip' => ['required'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'same:konfirmasi_password'],
+            'konfirmasi_password' => ['required', 'same:password'],
         ]);
+        // dd($request->all());
 
-        if($request->pilihan == 1){
-            $user = User::create([
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
-            ]);
+        // if($request->status == 'dosen'){
+        //     $user = User::create([
+        //         'username' => $request->username,
+        //         'email' => $request->email,
+        //         'password' => Hash::make($request->password)
+        //     ]);
+        $password = Hash::make($request->password);
+
+        if($request->status == 'mahasiswa'){
+            try {
+                $user = DB::select('call create_user(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 1));
+            } catch (\Throwable $th) {
+
+            }
+            
     
-            event(new Registered($user));
+            // event(new Registered($user));
     
-            Auth::login($user);
+            // Auth::login($user);
     
             return redirect(RouteServiceProvider::HOME);
         }else{

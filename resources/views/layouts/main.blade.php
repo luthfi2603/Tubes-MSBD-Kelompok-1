@@ -54,6 +54,7 @@
                                 <i class="fa-solid fa-user" style="color: #ffff;"></i>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/register2">Register</a></li>
                                 <li><a class="dropdown-item" href="login.html">Login</a></li>
                                 <li><a class="dropdown-item" href="login.html">Logout</a></li>
                             </ul>

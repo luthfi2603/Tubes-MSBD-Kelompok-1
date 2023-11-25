@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->char('tahun_terbit', 4);
             $table->string('diupload_oleh');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
-            $table->timestamp('waktu')->default(now());
+            $table->timestamp('waktu')->useCurrent()->nullable();
         });
     }
 

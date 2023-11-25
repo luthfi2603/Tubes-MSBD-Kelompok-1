@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('nama_prodi');
             $table->char('jenjang', 2);
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
-            $table->timestamp('waktu')->default(now());
+            $table->timestamp('waktu')->useCurrent()->nullable();
         });
     }
 

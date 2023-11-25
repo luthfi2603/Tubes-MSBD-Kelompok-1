@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->integer('user_id');
             $table->char('kode_prodi', 2);
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
-            $table->timestamp('waktu')->default(now());
+            $table->timestamp('waktu')->useCurrent()->nullable();
         });
     }
 
