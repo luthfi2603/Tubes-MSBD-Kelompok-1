@@ -12,45 +12,54 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared('
-            DROP PROCEDURE IF EXISTS tes;
-            CREATE PROCEDURE tes(IN nimp char(9))
+            DROP FUNCTION IF EXISTS cek_akun;
+            CREATE FUNCTION cek_akun(status INT(1), kode CHAR(10))
+            RETURNS BOOLEAN
             BEGIN
-                UPDATE mahasiswas SET user_id = 2 WHERE nim = nimp;
+                IF(status = 1) THEN
+                    IF(SELECT COUNT(*) FROM mahasiswas WHERE nim = kode COLLATE utf8mb4_unicode_ci) THEN
+                        IF((SELECT user_id FROM mahasiswas WHERE nim = kode COLLATE utf8mb4_unicode_ci) = 1) THEN
+                            RETURN 1;
+                        ELSE RETURN 0;
+                        END IF;
+                    ELSE RETURN 0;
+                    END IF;
+                ELSEIF(status = 2) THEN
+                    IF(SELECT COUNT(*) FROM dosens WHERE nidn = kode COLLATE utf8mb4_unicode_ci) THEN
+                        IF((SELECT user_id FROM dosens WHERE nidn = kode COLLATE utf8mb4_unicode_ci) = 1) THEN
+                            RETURN 1;
+                        ELSE RETURN 0;
+                        END IF;
+                    ELSE RETURN 0;
+                    END IF;
+                END IF;
             END
-        ');
-
-        DB::unprepared('
-            DROP FUNTION IF EXISTS cek_akun;
-
         ');
 
         DB::unprepared('
             DROP PROCEDURE IF EXISTS create_user;
             CREATE PROCEDURE create_user(IN usernamep VARCHAR(255), IN emailp VARCHAR(255), IN passwordp VARCHAR(255), IN kode char(10), IN status int(1))
             BEGIN
-                DECLARE id_temp int;
-                DECLARE EXIT HANDLER FOR SQLEXCEPTION ROLLBACK;
+                DECLARE id_temp INT;
+                DECLARE cek BOOLEAN;
         
-                START TRANSACTION;
-                IF (status = 1 OR status = 2) THEN
-                    INSERT INTO users (username, status, email, password) VALUES (usernamep, "civitas", emailp, passwordp);
-                ELSEIF (status = 3) THEN
-                    INSERT INTO users (username, status, email, password) VALUES (usernamep, "admin", emailp, passwordp);
-                END IF;
+                SET cek = cek_akun(status, kode);
 
-                SELECT id INTO id_temp from users ORDER BY id DESC LIMIT 1;
-                
-                IF (status = 1) THEN
-                    UPDATE mahasiswas SET user_id = id_temp WHERE nim = kode COLLATE utf8mb4_unicode_ci;
-                ELSEIF (status = 2) THEN
-                    UPDATE dosens SET user_id = id_temp WHERE nidn = kode COLLATE utf8mb4_unicode_ci;
-                ELSEIF (status = 3) THEN
-                    UPDATE admins SET user_id = id_temp WHERE id = kode COLLATE utf8mb4_unicode_ci;
+                IF(cek) THEN
+                    INSERT INTO users (username, status, email, password) VALUES (usernamep, "civitas", emailp, passwordp);
+
+                    SELECT id INTO id_temp from users ORDER BY id DESC LIMIT 1;
+                    
+                    IF (status = 1) THEN
+                        UPDATE mahasiswas SET user_id = id_temp WHERE nim = kode COLLATE utf8mb4_unicode_ci;
+                    ELSEIF (status = 2) THEN
+                        UPDATE dosens SET user_id = id_temp WHERE nidn = kode COLLATE utf8mb4_unicode_ci;
+                    END IF;
+                ELSE
+                    SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "NIM/NIDN tidak terdaftar atau anda telah memiliki akun";
                 END IF;
-                COMMIT;
             END
         ');
-
     }
 
     /**
