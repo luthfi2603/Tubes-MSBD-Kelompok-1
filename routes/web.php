@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +20,11 @@ Route::get('/', function () {
 });
 Route::get('/login2', function () {
     return view('login');
-});
+})->name('log');
 Route::get('/register2', function () {
     return view('register');
 });
+Route::post('/register2', [RegisterController::class, 'store'])->name('regis');
 Route::get('/search-page', function () {
     return view('search-page');
 });

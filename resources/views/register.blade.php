@@ -31,19 +31,59 @@
                                         Sign Up</h3>
                                 </div>
                             </div>
-                            <form action="#" class="signin-form">
+                            <form method="POST" action="{{ route('regis') }}" class="signin-form">
+                                @csrf
                                 <div class="form-group mb-3">
-                                    <label class="label" for="name">Nama</label>
-                                    <input type="text" class="form-control" placeholder="Name" required>
+                                    <input type="radio" id="dosen" class="" name="status" value="dosen" required>
+                                    <label class="label" for="status">Dosen</label>
+                                    <input type="radio" id="mahasiswa" class="" name="status" value="mahasiswa" required>
+                                    <label class="label" for="status">Mahasiswa</label>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="nim_nip">Nim/Nip</label>
+                                    <input type="text" name="nim_nip" class="form-control @error('nim_nip') is-invalid @enderror" placeholder="Nim/Nip" autofocus value="{{ old('nim_nip') }}" required>
+                                    @error('nim_nip')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="username">Username</label>
+                                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"  placeholder="Username" value="{{ old('username') }}" required>
+                                    @error('username')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <!-- tambai kondimen lain -->
                                 <div class="form-group mb-3">
                                     <label class="label" for="password">Email</label>
-                                    <input type="text" class="form-control" placeholder="Password" required>
+                                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Password" value="{{ old('email') }}" required>
+                                    @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="password">Password</label>
-                                    <input type="password" class="form-control" placeholder="Password" required>
+                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" required>
+                                    @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="konfirmasi_password">Konfirmasi Password</label>
+                                    <input type="password" name="konfirmasi_password" class="form-control @error('konfirmasi_password') is-invalid @enderror" placeholder="Konfirmasi Password" required>
+                                    @error('konfirmasi_password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign

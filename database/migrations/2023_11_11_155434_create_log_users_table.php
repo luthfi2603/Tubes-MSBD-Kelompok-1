@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('username');
             $table->string('email');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
-            $table->timestamp('waktu')->default(now());
+            $table->timestamp('waktu')->useCurrent()->nullable();
         });
     }
 
