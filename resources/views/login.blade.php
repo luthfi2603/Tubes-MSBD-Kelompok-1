@@ -17,16 +17,16 @@
 </head>
 
 <body>
-    @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
+                    @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                     <div class="wrap d-md-flex">
                         <div class="img" style="background-image: url(assets/img/loginimg.png);">
                         </div>

@@ -12,31 +12,7 @@ class DatabaseSeeder extends Seeder {
      * Seed the application's database.
      */
     public function run(): void {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        User::create([
-            'username' => 'kelompok1',
-            'email' => 'kelompok1@gmail.com',
-            'password' => bcrypt('kelompok1')
-        ]);
-
-        /* User::create([
-            'username' => 'ZeeroXc',
-            'email' => 'luthfim904@gmail.com',
-            'password' => bcrypt('password')
-        ]);
-        
-        User::create([
-            'username' => 'fortyche',
-            'email' => 'rifqijabrah@gmail.com',
-            'password' => bcrypt('password')
-        ]); */
-
+        $this->call(UsersTableSeeder::class);
         $this->call(ProdisTableSeeder::class);
         $this->call(MahasiswasTableSeeder::class);
         $this->call(DosenTableSeeder::class);

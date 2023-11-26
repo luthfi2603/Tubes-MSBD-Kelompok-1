@@ -7,7 +7,7 @@
 
         <div class="col-lg-6">
             <!-- Konten di sini -->
-            <a href="../admin/halamankelolakaryatulis.html">
+            <a href="{{ route('kelola.karya.tulis') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
@@ -29,7 +29,7 @@
 
         <div class="col-lg-6 ">
             <!-- Konten di sini -->
-            <a href="../admin/halamankelolakategori.html">
+            <a href="{{ route('kelola.kategori') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 

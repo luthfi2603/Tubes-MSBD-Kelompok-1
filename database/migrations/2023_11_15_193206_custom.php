@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared('
-            DROP FUNCTION IF EXISTS cek_akun;
-            CREATE FUNCTION cek_akun(status INT(1), kode CHAR(10))
+            DROP FUNCTION IF EXISTS cekAkun;
+            CREATE FUNCTION cekAkun(status INT(1), kode CHAR(10))
             RETURNS BOOLEAN
             BEGIN
                 IF(status = 1) THEN
@@ -33,12 +33,12 @@ return new class extends Migration
         ');
 
         DB::unprepared('
-            DROP PROCEDURE IF EXISTS create_user;
-            CREATE PROCEDURE create_user(IN usernamep VARCHAR(255), IN emailp VARCHAR(255), IN passwordp VARCHAR(255), IN kode char(10), IN status int(1))
+            DROP PROCEDURE IF EXISTS createUser;
+            CREATE PROCEDURE createUser(IN usernamep VARCHAR(255), IN emailp VARCHAR(255), IN passwordp VARCHAR(255), IN kode char(10), IN status int(1))
             BEGIN
                 DECLARE id_temp INT;
 
-                IF(cek_akun(status, kode)) THEN
+                IF(cekAkun(status, kode)) THEN
                     INSERT INTO users (username, status, email, password) VALUES (usernamep, "civitas", emailp, passwordp);
 
                     SELECT id INTO id_temp from users ORDER BY id DESC LIMIT 1;

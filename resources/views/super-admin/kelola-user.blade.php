@@ -6,7 +6,7 @@
         <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-users"></i> Kelola User</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <button class="purple-button">Add +</button>
+            <a class="purple-button" href="#">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">
@@ -43,7 +43,7 @@
                     <td>Teknologi Informasi</td>
                     <td>08956182910</td>
                     <td>
-                        <a href="edituser.html" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
+                        <a href="{{ route('edit.user') }}" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deleteuser"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>
@@ -55,7 +55,7 @@
                     <td>Teknologi Informasi</td>
                     <td>08956182910</td>
                     <td>
-                        <a href="edituser.html" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
+                        <a href="{{ route('edit.user') }}" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deleteuser"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>
@@ -67,7 +67,7 @@
                     <td>Teknologi Informasi</td>
                     <td>08956182910</td>
                     <td>
-                        <a href="edituser.html" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
+                        <a href="{{ route('edit.user') }}" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deleteuser"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>
@@ -79,7 +79,7 @@
                     <td>Teknologi Informasi</td>
                     <td>08956182910</td>
                     <td>
-                        <a href="edituser.html" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
+                        <a href="{{ route('edit.user') }}" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deleteuser"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>
@@ -91,7 +91,7 @@
                     <td>Teknologi Informasi</td>
                     <td>08956182910</td>
                     <td>
-                        <a href="edituser.html" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
+                        <a href="{{ route('edit.user') }}" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deleteuser"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>

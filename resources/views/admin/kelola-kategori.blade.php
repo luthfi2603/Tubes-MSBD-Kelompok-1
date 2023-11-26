@@ -6,7 +6,7 @@
         <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Kelola Kategori</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <button class="purple-button">Add +</button>
+            <a class="purple-button" href="{{ route('input.kategori') }}">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">
@@ -37,7 +37,7 @@
                     <td>01-01-2023,20:00</td>
                     <td>.....</td>
                     <td>
-                        <a href="halamaneditkategori.html" id="editkategori"><i
+                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
                                 class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
@@ -47,7 +47,7 @@
                     <td>01-01-2023,20:00</td>
                     <td>.....</td>
                     <td>
-                        <a href="halamaneditkategori.html" id="editkategori"><i
+                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
                                 class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
@@ -57,7 +57,7 @@
                     <td>01-01-2023,20:00</td>
                     <td>.....</td>
                     <td>
-                        <a href="halamaneditkategori.html" id="editkategori"><i
+                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
                                 class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
@@ -67,7 +67,7 @@
                     <td>01-01-2023,20:00</td>
                     <td>.....</td>
                     <td>
-                        <a href="halamaneditkategori.html" id="editkategori"><i
+                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
                                 class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
@@ -77,7 +77,7 @@
                     <td>01-01-2023,20:00</td>
                     <td>.....</td>
                     <td>
-                        <a href="halamaneditkategori.html" id="editkategori"><i
+                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
                                 class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>

@@ -8,7 +8,7 @@
 
         <div class="col-lg-6 mb-3">
             <!-- Konten di sini -->
-            <a href="../superadmin/kelolakaryatulis.html">
+            <a href="{{ route('kelola.karya.tulis') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
@@ -29,7 +29,7 @@
 
         <div class="col-lg-6 mb-3 ">
             <!-- Konten di sini -->
-            <a href="../superadmin/kelolakategori.html">
+            <a href="{{ route('kelola.kategori') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
@@ -50,7 +50,7 @@
 
         <div class="col-lg-6 mb-3">
             <!-- Konten di sini -->
-            <a href="../superadmin/kelolapegawai.html">
+            <a href="{{ route('kelola.pegawai') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
@@ -71,7 +71,7 @@
 
         <div class="col-lg-6 mb-3">
             <!-- Konten di sini -->
-            <a href="../superadmin/kelolauser.html">
+            <a href="{{ route('kelola.user') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
