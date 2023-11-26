@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -52,6 +53,41 @@ return new class extends Migration
                     SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "NIM/NIDN tidak terdaftar atau anda telah memiliki akun";
                 END IF;
             END
+        ');
+
+        DB::unprepared('
+            DROP VIEW IF EXISTS profile_mahasiswa;
+            CREATE VIEW profile_mahasiswa AS
+            SELECT
+                a.username,
+                a.email,
+                b.nama,
+                b.nim,
+                b.angkatan,
+                b.jenis_kelamin,
+                b.status,
+                b.foto,
+                c.nama_prodi
+            FROM users a
+            INNER JOIN mahasiswas b ON a.id = b.user_id
+            INNER JOIN prodis c ON b.kode_prodi = c.kode_prodi;
+        ');
+        
+        DB::unprepared('
+            DROP VIEW IF EXISTS profile_dosen;
+            CREATE VIEW profile_dosen AS
+            SELECT
+                a.username,
+                a.email,
+                b.nama,
+                b.nip,
+                b.nidn,
+                b.foto,
+                b.jenis_kelamin,
+                c.nama_prodi
+            FROM users a
+            INNER JOIN dosens b ON a.id = b.user_id
+            INNER JOIN prodis c ON b.kode_prodi = c.kode_prodi;
         ');
     }
 

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,8 +16,9 @@ class UsersTableSeeder extends Seeder
     {
         User::create([
             'username' => 'kelompok1',
-            'status' => 'civitas',
+            'status' => 'mahasiswa',
             'email' => 'kelompok1@gmail.com',
+            'email_verified_at' => Carbon::now(),
             'password' => bcrypt('1')
         ]);
 
@@ -24,6 +26,7 @@ class UsersTableSeeder extends Seeder
             'username' => 'admin',
             'status' => 'admin',
             'email' => 'admin@gmail.com',
+            'email_verified_at' => Carbon::now(),
             'password' => bcrypt('1')
         ]);
         
@@ -31,6 +34,23 @@ class UsersTableSeeder extends Seeder
             'username' => 'super_admin',
             'status' => 'super_admin',
             'email' => 'superadmin@gmail.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => bcrypt('1')
+        ]);
+        
+        User::create([
+            'username' => 'ZeeroXc',
+            'status' => 'mahasiswa',
+            'email' => 'luthfim904@gmail.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => bcrypt('1')
+        ]);
+        
+        User::create([
+            'username' => 'IvanJaya',
+            'status' => 'dosen',
+            'email' => 'ivansanjaya@gmail.com',
+            'email_verified_at' => Carbon::now(),
             'password' => bcrypt('1')
         ]);
     }
