@@ -39,7 +39,7 @@ return new class extends Migration
                 DECLARE id_temp INT;
 
                 IF(cekAkun(status, kode)) THEN
-                    INSERT INTO users (username, status, email, password) VALUES (usernamep, "civitas", emailp, passwordp);
+                    INSERT INTO users (username, status, email, password, created_at, updated_at) VALUES (usernamep, "civitas", emailp, passwordp, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
                     SELECT id INTO id_temp from users ORDER BY id DESC LIMIT 1;
                     

@@ -2,23 +2,9 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <div>
-            <input type="radio" name="pilihan" id="1" value="1">
-            <label for="1">Mahasiswa</label>
-            <input type="radio" name="pilihan" id="2" value="2">
-            <label for="2">Dosen</label>
-        </div>
-
-        <!-- NIM/NIDN -->
-        <div class="mt-4">
-            <x-input-label for="kode" :value="__('NIM/NIDN')" />
-            <x-text-input id="kode" class="block mt-1 w-full" type="number" name="kode" :value="old('kode')" required autofocus autocomplete="kode" />
-            <x-input-error :messages="$errors->get('kode')" class="mt-2" />
-        </div>
-
         <!-- username -->
-        <div class="mt-4">
-            <x-input-label for="username" :value="__('Username')" />
+        <div>
+            <x-input-label for="username" :value="__('username')" />
             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
