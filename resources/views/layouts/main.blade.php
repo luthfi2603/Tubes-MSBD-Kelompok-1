@@ -44,7 +44,17 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
+                            @auth
+                                @if(auth()->user()->status == 'admin')
+                                    <a class="nav-link" href="{{ route('admin.home') }}">Home</a>
+                                @elseif(auth()->user()->status == 'super_admin')
+                                    <a class="nav-link" href="{{ route('super.admin.home') }}">Home</a>
+                                @else
+                                    <a class="nav-link" href="/">Home</a>
+                                @endif
+                            @else
+                                <a class="nav-link" href="/">Home</a>
+                            @endauth
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/statistik">Statistik</a>
@@ -58,7 +68,7 @@
                         @endauth
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 @auth
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf

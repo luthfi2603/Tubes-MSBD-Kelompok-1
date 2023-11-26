@@ -24,13 +24,13 @@ class RegisterController extends Controller
 
         if($request->status == 'mahasiswa'){
             try {
-                DB::select('call create_user(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 1));
+                DB::select('call createUser(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 1));
             }catch(\Throwable $th){
                 return back()->with('failed', 'NIM/NIDN tidak terdaftar atau anda telah memiliki akun');
             }
         }elseif($request->status == 'dosen'){
             try {
-                DB::select('call create_user(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 2));
+                DB::select('call createUser(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 2));
             } catch (\Throwable $th) {
                 return back()->with('failed', 'NIM/NIDN tidak terdaftar atau anda telah memiliki akun');
             }

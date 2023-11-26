@@ -6,7 +6,7 @@
         <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-book"></i> Kelola Karya Tulis</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <button class="purple-button">Add +</button>
+            <a class="purple-button" href="{{ route('input.karya.tulis') }}">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">
@@ -49,7 +49,7 @@
                     <td>Andy Situmorang</td>
                     <td class="file">Senyumankambing.pdf</td>
                     <td>
-                        <a href="halamaneditkaryatulis.html"><i class="fa-solid fa-pen icon-edit"></i></a>
+                        <a href="{{ route('edit.karya.tulis') }}"><i class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deletekaryatulis"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>
@@ -66,7 +66,7 @@
                     <td>Andy Situmorang</td>
                     <td class="file">Senyumankambing.pdf</td>
                     <td>
-                        <a href="halamaneditkaryatulis.html"><i class="fa-solid fa-pen icon-edit"></i></a>
+                        <a href="{{ route('edit.karya.tulis') }}"><i class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deletekaryatulis"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>
