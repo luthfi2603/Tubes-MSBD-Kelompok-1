@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -35,6 +36,9 @@ class RegisterController extends Controller
                 return back()->with('failed', 'NIM/NIDN tidak terdaftar atau anda telah memiliki akun');
             }
         }
+
+        event(new Registered(User::latest()->first()));
+
         return redirect('/login')->with('success', 'Registrasi akun berhasil');
     }
 }
