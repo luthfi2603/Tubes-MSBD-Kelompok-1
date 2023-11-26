@@ -43,15 +43,19 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin-home">Home</a>
+                            @if(auth()->user()->status == 'admin')
+                                <a class="nav-link" href="{{ route('admin.home') }}">Home</a>
+                            @else
+                                <a class="nav-link" href="{{ route('super.admin.home') }}">Home</a>
+                            @endif
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-user" style="color: #ffff;"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Login</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button onclick="return confirm('Apakah kamu yakin?')" type="submit" class="dropdown-item">Logout</button>
+                                </form>
                             </ul>
                         </li>
                     </ul>

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -12,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared('
-            DROP FUNCTION IF EXISTS cek_akun;
-            CREATE FUNCTION cek_akun(status INT(1), kode CHAR(10))
+            DROP FUNCTION IF EXISTS cekAkun;
+            CREATE FUNCTION cekAkun(status INT(1), kode CHAR(10))
             RETURNS BOOLEAN
             BEGIN
                 IF(status = 1) THEN
@@ -33,13 +34,13 @@ return new class extends Migration
         ');
 
         DB::unprepared('
-            DROP PROCEDURE IF EXISTS create_user;
-            CREATE PROCEDURE create_user(IN usernamep VARCHAR(255), IN emailp VARCHAR(255), IN passwordp VARCHAR(255), IN kode char(10), IN status int(1))
+            DROP PROCEDURE IF EXISTS createUser;
+            CREATE PROCEDURE createUser(IN usernamep VARCHAR(255), IN emailp VARCHAR(255), IN passwordp VARCHAR(255), IN kode char(10), IN status int(1))
             BEGIN
                 DECLARE id_temp INT;
 
-                IF(cek_akun(status, kode)) THEN
-                    INSERT INTO users (username, status, email, password) VALUES (usernamep, "civitas", emailp, passwordp);
+                IF(cekAkun(status, kode)) THEN
+                    INSERT INTO users (username, status, email, password, created_at, updated_at) VALUES (usernamep, "civitas", emailp, passwordp, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
                     SELECT id INTO id_temp from users ORDER BY id DESC LIMIT 1;
                     
@@ -52,6 +53,23 @@ return new class extends Migration
                     SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "NIM/NIDN tidak terdaftar atau anda telah memiliki akun";
                 END IF;
             END
+        ');
+
+        DB::unprepared('
+            DROP VIEW IF EXISTS profile_mahasiswa;
+            CREATE VIEW profile_mahasiswa AS
+            SELECT
+                a.username,
+                a.email,
+                b.nama,
+                b.nim,
+                b.angkatan,
+                b.jenis_kelamin,
+                b.status,
+                c.nama_prodi
+            FROM users a
+            INNER JOIN mahasiswas b ON a.id = b.user_id
+            INNER JOIN prodis c ON b.kode_prodi = c.kode_prodi;
         ');
     }
 

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +13,15 @@ use App\Http\Controllers\RegisterController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
+    if(auth()->user()){
+        if(auth()->user()->email_verified_at == NULL){
+            return redirect('/verify-email');
+        }
+    }
     return view('index');
 });
+
 Route::get('/search-page', function () {
     return view('search-page');
 });
@@ -29,21 +33,19 @@ Route::get('/statistik', function () {
 });
 Route::get('/single-prodi', function () {
     return view('single-prodi');
-});
+})->name('single.prodi');
 Route::get('/single-koleksi', function () {
     return view('single-koleksi');
-});
+})->name('single.koleksi');
+// profile
 Route::get('/profile', function () {
     return view('profile');
 });
 Route::get('/detail-search', function () {
     return view('detail-search');
-});
+})->name('detail.search');
 Route::get('/favorite', function () {
     return view('favorite');
-});
-Route::get('/coba', function () {
-    return view('coba');
 });
 Route::get('/advanced-search', function () {
     return view('advanced-search');
@@ -54,41 +56,47 @@ Route::get('/edit-password', function () {
 Route::get('/edit-profile', function () {
     return view('edit-profile');
 });
-Route::get('/admin-home', function () {
-    return view('admin.admin-home');
+
+Route::middleware(['auth', 'role:admin,super_admin'])->group(function () {
+    Route::get('/admin-home', function () {
+        return view('admin.admin-home');
+    })->name('admin.home');
+    Route::get('/edit-karya-tulis', function () {
+        return view('admin.edit-karya-tulis');
+    })->name('edit.karya.tulis');
+    Route::get('/edit-kategori', function () {
+        return view('admin.edit-kategori');
+    })->name('edit.kategori');
+    Route::get('/input-karya-tulis', function () {
+        return view('admin.input-karya-tulis');
+    })->name('input.karya.tulis');
+    Route::get('/input-kategori', function () {
+        return view('admin.input-kategori');
+    })->name('input.kategori');
+    Route::get('/kelola-karya-tulis', function () {
+        return view('admin.kelola-karya-tulis');
+    })->name('kelola.karya.tulis');
+    Route::get('/kelola-kategori', function () {
+        return view('admin.kelola-kategori');
+    })->name('kelola.kategori');
 });
-Route::get('/edit-karya-tulis', function () {
-    return view('admin.edit-karya-tulis');
-});
-Route::get('/edit-kategori', function () {
-    return view('admin.edit-kategori');
-});
-Route::get('/input-karya-tulis', function () {
-    return view('admin.input-karya-tulis');
-});
-Route::get('/input-kategori', function () {
-    return view('admin.input-kategori');
-});
-Route::get('/kelola-karya-tulis', function () {
-    return view('admin.kelola-karya-tulis');
-});
-Route::get('/kelola-kategori', function () {
-    return view('admin.kelola-kategori');
-});
-Route::get('/edit-pegawai', function () {
-    return view('super-admin.edit-pegawai');
-});
-Route::get('/edit-user', function () {
-    return view('super-admin.edit-user');
-});
-Route::get('/kelola-pegawai', function () {
-    return view('super-admin.kelola-pegawai');
-});
-Route::get('/kelola-user', function () {
-    return view('super-admin.kelola-user');
-});
-Route::get('/super-admin-home', function () {
-    return view('super-admin.super-admin-home');
+
+Route::middleware(['auth', 'role:super_admin'])->group(function () {
+    Route::get('/edit-pegawai', function () {
+        return view('super-admin.edit-pegawai');
+    })->name('edit.pegawai');
+    Route::get('/edit-user', function () {
+        return view('super-admin.edit-user');
+    })->name('edit.user');
+    Route::get('/kelola-pegawai', function () {
+        return view('super-admin.kelola-pegawai');
+    })->name('kelola.pegawai');
+    Route::get('/kelola-user', function () {
+        return view('super-admin.kelola-user');
+    })->name('kelola.user');
+    Route::get('/super-admin-home', function () {
+        return view('super-admin.super-admin-home');
+    })->name('super.admin.home');
 });
 
 Route::get('/dashboard', function () {
