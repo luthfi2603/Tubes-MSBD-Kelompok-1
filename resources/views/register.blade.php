@@ -68,9 +68,9 @@
                                     @endif
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="label" for="nim_nip">Nim/Nip</label>
-                                    <input type="text" name="nim_nip" class="form-control @error('nim_nip') is-invalid @enderror" placeholder="Nim/Nip" autofocus value="{{ old('nim_nip') }}">
-                                    @error('nim_nip')
+                                    <label class="label" for="nim_nidn">NIM/NIDN</label>
+                                    <input type="text" name="nim_nidn" class="form-control @error('nim_nidn') is-invalid @enderror" placeholder="NIM/NIDN" autofocus value="{{ old('nim_nidn') }}">
+                                    @error('nim_nidn')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

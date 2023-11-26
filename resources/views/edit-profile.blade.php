@@ -13,9 +13,8 @@
             <div class="row no-gutters row-bordered row-border-light">
                 <div class="col-md-3 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
-                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#">General</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="editpassword.html">Change password</a>
+                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="{{ route('profile') }}">General</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ route('password.edit') }}">Change password</a>
                     </div>
                 </div>
                 <div class="col-md-9">

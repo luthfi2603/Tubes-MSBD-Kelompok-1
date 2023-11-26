@@ -15,23 +15,23 @@ class RegisterController extends Controller
         $request->validate([
             'username' => ['required', 'min:1', 'max:30', 'unique:users'],
             'status' => ['required'],
-            'nim_nip' => ['required'],
+            'nim_nidn' => ['required'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'same:konfirmasi_password', 'min:1'],
-            'konfirmasi_password' => ['required', 'same:password', 'min:1'],
+            'konfirmasi_password' => ['required', 'same:password', 'min:1']
         ]);
 
         $password = Hash::make($request->password);
 
         if($request->status == 'mahasiswa'){
             try {
-                DB::select('call createUser(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 1));
+                DB::select('call createUser(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nidn, 1));
             }catch(\Throwable $th){
                 return back()->with('failed', 'NIM/NIDN tidak terdaftar atau anda telah memiliki akun');
             }
-        }elseif($request->status == 'dosen'){
+        }else{
             try {
-                DB::select('call createUser(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nip, 2));
+                DB::select('call createUser(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nidn, 2));
             } catch (\Throwable $th) {
                 return back()->with('failed', 'NIM/NIDN tidak terdaftar atau anda telah memiliki akun');
             }

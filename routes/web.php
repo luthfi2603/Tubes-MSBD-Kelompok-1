@@ -46,14 +46,8 @@ Route::get('/favorite', function () {
 Route::get('/advanced-search', function () {
     return view('advanced-search');
 });
-Route::get('/edit-password', function () {
-    return view('edit-password');
-});
-Route::get('/edit-profile', function () {
-    return view('edit-profile');
-});
 
-Route::middleware(['auth', 'role:admin,super_admin'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', function () {
         return view('admin.admin-home');
     })->name('admin.home');
@@ -77,7 +71,7 @@ Route::middleware(['auth', 'role:admin,super_admin'])->group(function () {
     })->name('kelola.kategori');
 });
 
-Route::middleware(['auth', 'role:super_admin'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
     Route::get('/edit-pegawai', function () {
         return view('super-admin.edit-pegawai');
     })->name('edit.pegawai');
@@ -95,10 +89,19 @@ Route::middleware(['auth', 'role:super_admin'])->group(function () {
     })->name('super.admin.home');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware('auth', 'verified')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'showProfile'])
+                ->name('profile');
+    Route::get('/edit-profile', [ProfileController::class, 'editProfile'])
+                ->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])
+                ->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+                ->name('profile.destroy');
+    Route::get('/edit-password', [ProfileController::class, 'editPassword'])
+                ->name('password.edit');
+    Route::put('/edit-password', [ProfileController::class, 'updatePassword'])
+                ->name('password.update2');
 });
 
 Route::get('/dashboard', function () {

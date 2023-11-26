@@ -40,13 +40,13 @@ return new class extends Migration
                 DECLARE id_temp INT;
 
                 IF(cekAkun(status, kode)) THEN
-                    INSERT INTO users (username, status, email, password, created_at, updated_at) VALUES (usernamep, "civitas", emailp, passwordp, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-
-                    SELECT id INTO id_temp from users ORDER BY id DESC LIMIT 1;
-                    
                     IF(status = 1) THEN
+                        INSERT INTO users (username, status, email, password, created_at, updated_at) VALUES (usernamep, "mahasiswa", emailp, passwordp, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+                        SELECT id INTO id_temp from users ORDER BY id DESC LIMIT 1;
                         UPDATE mahasiswas SET user_id = id_temp WHERE nim = kode COLLATE utf8mb4_unicode_ci;
                     ELSE
+                        INSERT INTO users (username, status, email, password, created_at, updated_at) VALUES (usernamep, "dosen", emailp, passwordp, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+                        SELECT id INTO id_temp from users ORDER BY id DESC LIMIT 1;
                         UPDATE dosens SET user_id = id_temp WHERE nidn = kode COLLATE utf8mb4_unicode_ci;
                     END IF;
                 ELSE
