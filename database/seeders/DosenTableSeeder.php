@@ -30,7 +30,7 @@ class DosenTableSeeder extends Seeder
             'kode_dosen' => 'IVJ',
             'jenis_kelamin' => 'L',
             'foto' => '',
-            'user_id' => '1',
+            'user_id' => '5',
             'kode_prodi' => '02',
         ]);
     }

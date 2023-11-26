@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration {
     /**
@@ -15,7 +16,7 @@ return new class extends Migration {
             $table->char('angkatan', 4);
             $table->enum('jenis_kelamin', ['P', 'L']);
             $table->string('foto');
-            $table->enum('status', ['aktif','tidak_aktif', 'lulus']);
+            $table->enum('status', ['Aktif','Tidak Aktif', 'Lulus']);
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->char('kode_prodi', 2);

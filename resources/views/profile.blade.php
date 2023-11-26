@@ -33,40 +33,48 @@
                                     <div class="col-lg-6">
                                         <div class="form-group mb-3">
                                             <label class="form-label">Username</label>
-                                            <input type="text" class="form-control" value="adiebayu" readonly>
+                                            <input type="text" class="form-control" value="{{ $items->username }}" readonly>
                                         </div>
-                                        
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">Email</label>
-                                            <input type="text" class="form-control" value="abiemayubayue@gmail.com" readonly>
-                                        </div>
-
                                         <div class="form-group mb-3">
                                             <label class="form-label">Name</label>
-                                            <input type="text" class="form-control" value="Arjuna Laskar" readonly>
-                                        </div>
-
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">NIM</label>
-                                            <input type="text" class="form-control" value="22140201003" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">Angkatan</label>
-                                            <input type="text" class="form-control" value="2022" readonly>
+                                            <input type="text" class="form-control" value="{{ $items->nama }}" readonly>
                                         </div>
                                         <div class="form-group mb-3">
-                                            <label class="form-label">Jenis Kelamin</label>
-                                            <input type="text" class="form-control" value="Perempuan" readonly>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">Status</label>
-                                            <input type="text" class="form-control" value="Aktif" readonly>
+                                            <label class="form-label">Email</label>
+                                            <input type="text" class="form-control" value="{{ $items->email }}" readonly>
                                         </div>
                                         <div class="form-group mb-3">
                                             <label class="form-label">Prodi</label>
-                                            <input type="text" class="form-control" value="S1 Teknologi Ilmu" readonly>
+                                            <input type="text" class="form-control" value="{{ $items->nama_prodi }}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        @if(auth()->user()->status == 'mahasiswa')
+                                            <div class="form-group mb-3">
+                                                <label class="form-label">NIM</label>
+                                                <input type="text" class="form-control" value="{{ $items->nim }}" readonly>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="form-label">Angkatan</label>
+                                                <input type="text" class="form-control" value="{{ $items->angkatan }}" readonly>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="form-label">Status</label>
+                                                <input type="text" class="form-control" value="{{ $items->status }}" readonly>
+                                            </div>
+                                        @else
+                                            <div class="form-group mb-3">
+                                                <label class="form-label">NIDN</label>
+                                                <input type="text" class="form-control" value="{{ $items->nidn }}" readonly>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="form-label">NIP</label>
+                                                <input type="text" class="form-control" value="{{ $items->nip }}" readonly>
+                                            </div>
+                                        @endif
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">Jenis Kelamin</label>
+                                            <input type="text" class="form-control" value="{{ $items->jenis_kelamin }}" readonly>
                                         </div>
                                     </div>
                                 </div>

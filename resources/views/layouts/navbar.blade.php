@@ -38,7 +38,7 @@
                     </li>
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="/profile">
+                            <a class="nav-link" href="{{ route('profile') }}">
                                 <i class="fa-solid fa-user" style="color: #ffff;"></i>
                             </a>
                         </li>

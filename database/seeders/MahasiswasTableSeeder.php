@@ -19,8 +19,8 @@ class MahasiswasTableSeeder extends Seeder
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
             'foto' => '',
-            'status' => 'aktif',
-            'user_id' => '1',
+            'status' => 'Aktif',
+            'user_id' => '4',
             'kode_prodi' => '02'
         ]);
         
@@ -30,7 +30,7 @@ class MahasiswasTableSeeder extends Seeder
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
             'foto' => '',
-            'status' => 'aktif',
+            'status' => 'Aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -41,7 +41,7 @@ class MahasiswasTableSeeder extends Seeder
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
             'foto' => '',
-            'status' => 'aktif',
+            'status' => 'Aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -52,7 +52,7 @@ class MahasiswasTableSeeder extends Seeder
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
             'foto' => '',
-            'status' => 'aktif',
+            'status' => 'Aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -63,7 +63,7 @@ class MahasiswasTableSeeder extends Seeder
             'angkatan' => '2022',
             'jenis_kelamin' => 'P',
             'foto' => '',
-            'status' => 'aktif',
+            'status' => 'Aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -74,7 +74,7 @@ class MahasiswasTableSeeder extends Seeder
             'angkatan' => '2022',
             'jenis_kelamin' => 'P',
             'foto' => '',
-            'status' => 'aktif',
+            'status' => 'Aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -85,7 +85,7 @@ class MahasiswasTableSeeder extends Seeder
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
             'foto' => '',
-            'status' => 'aktif',
+            'status' => 'Aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);

@@ -2,23 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function show(): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        if(auth()->user()->status == 'mahasiswa'){
+            $items = DB::table('profile_mahasiswa')
+                ->select('*')
+                ->where('email', Auth::user()->email)
+                ->get();
+            $items = $items[0];
+        }else{
+            $items = DB::table('profile_dosen')
+                ->select('*')
+                ->where('email', Auth::user()->email)
+                ->get();
+            $items = $items[0];
+        }
+
+        return view('profile', compact('items'));
     }
 
     /**

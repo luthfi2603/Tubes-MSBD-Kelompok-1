@@ -37,10 +37,6 @@ Route::get('/single-prodi', function () {
 Route::get('/single-koleksi', function () {
     return view('single-koleksi');
 })->name('single.koleksi');
-// profile
-Route::get('/profile', function () {
-    return view('profile');
-});
 Route::get('/detail-search', function () {
     return view('detail-search');
 })->name('detail.search');
@@ -99,14 +95,14 @@ Route::middleware(['auth', 'role:super_admin'])->group(function () {
     })->name('super.admin.home');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
-    Route::get('/profile2', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
