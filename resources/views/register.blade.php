@@ -69,48 +69,48 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="nim_nidn">NIM/NIDN</label>
-                                    <input type="text" name="nim_nidn" class="form-control @error('nim_nidn') is-invalid @enderror" placeholder="NIM/NIDN" autofocus value="{{ old('nim_nidn') }}">
+                                    <input type="text" name="nim_nidn" id="nim_nidn" class="form-control @error('nim_nidn') is-invalid @enderror" placeholder="NIM/NIDN" autofocus value="{{ old('nim_nidn') }}">
                                     @error('nim_nidn')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="username">Username</label>
-                                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"  placeholder="Username" value="{{ old('username') }}">
+                                    <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror"  placeholder="Username" value="{{ old('username') }}" autocomplete="username">
                                     @error('username')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
                                 <!-- tambai kondimen lain -->
                                 <div class="form-group mb-3">
                                     <label class="label" for="email">Email</label>
-                                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}">
+                                    <input type="text" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" autocomplete="email">
                                     @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="password">Password</label>
-                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
+                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                                     @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="konfirmasi_password">Konfirmasi Password</label>
-                                    <input type="password" name="konfirmasi_password" class="form-control @error('konfirmasi_password') is-invalid @enderror" placeholder="Konfirmasi Password">
+                                    <input type="password" name="konfirmasi_password" id="konfirmasi_password" class="form-control @error('konfirmasi_password') is-invalid @enderror" placeholder="Konfirmasi Password">
                                     @error('konfirmasi_password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
