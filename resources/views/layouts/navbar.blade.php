@@ -37,11 +37,13 @@
                         <a class="nav-link" href="/statistik">Statistik</a>
                     </li>
                     @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile') }}">
-                                <i class="fa-solid fa-user" style="color: #ffff;"></i>
-                            </a>
-                        </li>
+                        @if(auth()->user()->status != 'admin' && auth()->user()->status != 'super_admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profile') }}">
+                                    <i class="fa-solid fa-user" style="color: #ffff;"></i>
+                                </a>
+                            </li>
+                        @endif
                     @endauth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
