@@ -13,27 +13,7 @@ return new class extends Migration {
             $table->char('kode_prodi', 2)->primary();
             $table->string('nama_prodi');
             $table->char('jenjang', 2);
-            $table->timestamps();
         });
-
-        DB::unprepared('
-            CREATE TRIGGER log_prodis_insert AFTER INSERT ON `prodis` FOR EACH ROW
-            BEGIN
-                INSERT INTO log_prodis VALUES (NEW.kode_prodi, NEW.nama_prodi, NEW.jenjang, "INSERT", NULL);
-            END
-        ');
-        DB::unprepared('
-            CREATE TRIGGER log_prodis_update AFTER UPDATE ON `prodis` FOR EACH ROW
-            BEGIN
-                INSERT INTO log_prodis VALUES (NEW.kode_prodi, NEW.nama_prodi, NEW.jenjang, "UPDATE", NULL);
-            END
-        ');
-        DB::unprepared('
-            CREATE TRIGGER log_prodis_delete AFTER DELETE ON `prodis` FOR EACH ROW
-            BEGIN
-                INSERT INTO log_prodis VALUES (OLD.kode_prodi, OLD.nama_prodi, OLD.jenjang, "DELETE", NULL);
-            END
-        ');
     }
 
     /**

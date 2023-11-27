@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
@@ -73,9 +74,7 @@ Route::middleware(['auth', 'role:admin,super_admin'])->group(function () {
     Route::get('/input-kategori', function () {
         return view('admin.input-kategori');
     })->name('input.kategori');
-    Route::get('/kelola-karya-tulis', function () {
-        return view('admin.kelola-karya-tulis');
-    })->name('kelola.karya.tulis');
+    Route::get('/kelola-karya-tulis', [AdminController::class, 'karyaTulis'])->name('kelola.karya.tulis');
     Route::get('/kelola-kategori', function () {
         return view('admin.kelola-kategori');
     })->name('kelola.kategori');

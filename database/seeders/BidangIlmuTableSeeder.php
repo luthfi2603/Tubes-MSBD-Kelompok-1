@@ -16,5 +16,17 @@ class BidangIlmuTableSeeder extends Seeder
         BidangIlmu::create([
             'jenis_bidang_ilmu' => 'IoT'
         ]);
+        BidangIlmu::create([
+            'jenis_bidang_ilmu' => 'AI'
+        ]);
+        BidangIlmu::create([
+            'jenis_bidang_ilmu' => 'VR'
+        ]);
+        BidangIlmu::create([
+            'jenis_bidang_ilmu' => 'Data Science'
+        ]);
+        BidangIlmu::create([
+            'jenis_bidang_ilmu' => 'Machine Learning'
+        ]);
     }
 }

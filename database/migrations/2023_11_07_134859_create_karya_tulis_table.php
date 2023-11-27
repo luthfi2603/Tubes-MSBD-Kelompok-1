@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->char('tahun', 4);
             $table->integer('view');
             $table->string('diupload_oleh');
-            $table->timestamps();
         });
 
         DB::unprepared('

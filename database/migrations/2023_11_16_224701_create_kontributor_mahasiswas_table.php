@@ -17,7 +17,6 @@ return new class extends Migration
             $table->enum('status', ['penulis', 'kontributor']);
             $table->unsignedInteger('karya_id');
             $table->foreign('karya_id')->references('id')->on('karya_tulis')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 

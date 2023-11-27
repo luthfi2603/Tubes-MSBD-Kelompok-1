@@ -36,8 +36,9 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($karyas as $karya)
                 <tr>
-                    <td>Pengaruh Sayur Kangkung Terhadap Andy dan Senyum Kambingnya Pak Amat</td>
+                    <td>{{ $karya->judul }}</td>
                     <td>Lorem ipsum dolor sit amet consectetur. Convallis porta ornare condimentum fringilla massa
                         pharetra ullamcorper a faucibus. Pharetra tristique consectetur sagittis cursus id pulvinar
                         fusce.</td>
@@ -53,41 +54,7 @@
                         <a href="#" id="deletekaryatulis"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>
-                <tr>
-                    <td>Pengaruh Sayur Kangkung Terhadap Andy dan Senyum Kambingnya Pak Amat</td>
-                    <td>Lorem ipsum dolor sit amet consectetur. Convallis porta ornare condimentum fringilla massa
-                        pharetra ullamcorper a faucibus. Pharetra tristique consectetur sagittis cursus id pulvinar
-                        fusce.</td>
-                    <td>
-                        <!-- Disini untuk gambar yaaa -->
-                    </td>
-                    <td>Skripsi</td>
-                    <td>2004</td>
-                    <td>Andy Situmorang</td>
-                    <td class="file">Senyumankambing.pdf</td>
-                    <td>
-                        <a href="{{ route('edit.karya.tulis') }}"><i class="fa-solid fa-pen icon-edit"></i></a>
-                        <a href="#" id="deletekaryatulis"><i class="fa-solid fa-trash icon-delete"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pengaruh Sayur Kangkung Terhadap Andy dan Senyum Kambingnya Pak Amat</td>
-                    <td>Lorem ipsum dolor sit amet consectetur. Convallis porta ornare condimentum fringilla massa
-                        pharetra ullamcorper a faucibus. Pharetra tristique consectetur sagittis cursus id pulvinar
-                        fusce.</td>
-                    <td>
-                        <!-- Disini untuk gambar yaaa -->
-                    </td>
-                    <td>Skripsi</td>
-                    <td>2004</td>
-                    <td>Andy Situmorang</td>
-                    <td class="file">Senyumankambing.pdf</td>
-                    <td>
-                        <a href="halamankelolakaryatulis.html"><i class="fa-solid fa-pen icon-edit"></i></a>
-                        <button type="button" id="deletekaryatulis" class="icon-delete"><i
-                                class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
         <!-- Disini dibikin pagination kalo bingung tengo di figma. -->
