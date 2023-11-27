@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LogDosen extends Model {
+class LogKontributor extends Model
+{
     use HasFactory;
 }

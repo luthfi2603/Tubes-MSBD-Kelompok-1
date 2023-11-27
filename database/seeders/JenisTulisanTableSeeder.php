@@ -16,5 +16,17 @@ class JenisTulisanTableSeeder extends Seeder
         JenisTulisan::create([
             'jenis_tulisan' => 'Skripsi'
         ]);
+        JenisTulisan::create([
+            'jenis_tulisan' => 'Tesis'
+        ]);
+        JenisTulisan::create([
+            'jenis_tulisan' => 'Disertasi'
+        ]);
+        JenisTulisan::create([
+            'jenis_tulisan' => 'Jurnal'
+        ]);
+        JenisTulisan::create([
+            'jenis_tulisan' => 'Karya Ilmiah'
+        ]);
     }
 }

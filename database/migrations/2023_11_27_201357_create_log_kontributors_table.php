@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('log_users', function (Blueprint $table) {
+        Schema::create('log_kontributors', function (Blueprint $table) {
             $table->unsignedInteger('id');
-            $table->string('username');
-            $table->string('email');
+            $table->char('nim_nidn', 10);
+            $table->enum('status', ['penulis','pembimbing', 'kontributor']);
+            $table->unsignedInteger('karya_id');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
             $table->timestamp('waktu')->useCurrent()->nullable();
         });
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('log_users');
+        Schema::dropIfExists('log_kontributors');
     }
 };

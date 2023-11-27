@@ -89,6 +89,34 @@ return new class extends Migration
             INNER JOIN dosens b ON a.id = b.user_id
             INNER JOIN prodis c ON b.kode_prodi = c.kode_prodi;
         ');
+        
+        DB::unprepared('
+            DROP VIEW IF EXISTS list_karya;
+            CREATE VIEW list_karya AS
+            SELECT 
+                a.judul, 
+                a.abstrak, 
+                a.jenis, 
+                a.tahun, 
+                c.nama AS penulis, 
+                a.url_file
+            FROM karya_tulis a 
+            INNER JOIN kontributor_mahasiswas b ON a.id = b.karya_id 
+            INNER JOIN mahasiswas c ON b.nim = c.nim 
+            WHERE b.status = "penulis"
+            UNION
+            SELECT
+				a.judul, 
+                a.abstrak, 
+                a.jenis, 
+                a.tahun, 
+                e.nama AS penulis, 
+                a.url_file
+            FROM karya_tulis a 
+            INNER JOIN kontributor_dosens d ON a.id = d.karya_id 
+            INNER JOIN dosens e ON d.nidn = e.nidn
+            WHERE d.status = "penulis"
+        ');
     }
 
     /**

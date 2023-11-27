@@ -20,25 +20,6 @@ return new class extends Migration {
             $table->rememberToken();
             $table->timestamps();
         });
-
-        DB::unprepared('
-            CREATE TRIGGER log_users_insert AFTER INSERT ON `users` FOR EACH ROW
-            BEGIN
-                INSERT INTO log_users VALUES (NEW.id, NEW.username, NEW.email, "INSERT", NOW());
-            END
-        ');
-        DB::unprepared('
-            CREATE TRIGGER log_users_update AFTER UPDATE ON `users` FOR EACH ROW
-            BEGIN
-                INSERT INTO log_users VALUES (NEW.id, NEW.username, NEW.email, "UPDATE", NULL);
-            END
-        ');
-        DB::unprepared('
-            CREATE TRIGGER log_users_delete AFTER DELETE ON `users` FOR EACH ROW
-            BEGIN
-                INSERT INTO log_users VALUES (OLD.id, OLD.username, OLD.email, "DELETE", NULL);
-            END
-        ');
     }
 
     /**
