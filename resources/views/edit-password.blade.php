@@ -21,7 +21,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <form action="{{ route('password.update2') }}" method="POST" id="form-edit-password">
+        <form action="{{ route('password.update2') }}" method="POST" id="form">
             @csrf
             @method('PUT')
             <div class="card overflow-hidden">
@@ -80,8 +80,8 @@
             </div>
         </form>
         <div class="text-right mt-3 mb-5">
-            <button type="submit" id="submitbutton" class="btn btn-success">Save changes</button>&nbsp;
-            <button type="submit" id="cancelbutton" class="btn btn-default">Cancel</button>
+            <button type="button" id="submitbutton" class="btn btn-success">Save changes</button>&nbsp;
+            <button type="button" id="cancelbutton" class="btn btn-default">Cancel</button>
         </div>
     </div>
 </div>
