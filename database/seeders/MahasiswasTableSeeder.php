@@ -18,9 +18,8 @@ class MahasiswasTableSeeder extends Seeder
             'nama' => 'Muhammad Luthfi',
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
-            'foto' => '',
-            'status' => 'Aktif',
-            'user_id' => '4',
+            'status' => 'aktif',
+            'user_id' => '1',
             'kode_prodi' => '02'
         ]);
         
@@ -29,8 +28,7 @@ class MahasiswasTableSeeder extends Seeder
             'nama' => 'Rifqi Jabrah Rhae',
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
-            'foto' => '',
-            'status' => 'Aktif',
+            'status' => 'aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -40,8 +38,7 @@ class MahasiswasTableSeeder extends Seeder
             'nama' => 'Andy Septiawan Saragih',
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
-            'foto' => '',
-            'status' => 'Aktif',
+            'status' => 'aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -51,8 +48,7 @@ class MahasiswasTableSeeder extends Seeder
             'nama' => 'Ivan Mulatua Tambunan',
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
-            'foto' => '',
-            'status' => 'Aktif',
+            'status' => 'aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -62,8 +58,7 @@ class MahasiswasTableSeeder extends Seeder
             'nama' => 'Ruth Grace Manurung',
             'angkatan' => '2022',
             'jenis_kelamin' => 'P',
-            'foto' => '',
-            'status' => 'Aktif',
+            'status' => 'aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -73,8 +68,7 @@ class MahasiswasTableSeeder extends Seeder
             'nama' => 'Najwa Amanda',
             'angkatan' => '2022',
             'jenis_kelamin' => 'P',
-            'foto' => '',
-            'status' => 'Aktif',
+            'status' => 'aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -84,8 +78,7 @@ class MahasiswasTableSeeder extends Seeder
             'nama' => 'Frengky Saputra',
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
-            'foto' => '',
-            'status' => 'Aktif',
+            'status' => 'aktif',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);

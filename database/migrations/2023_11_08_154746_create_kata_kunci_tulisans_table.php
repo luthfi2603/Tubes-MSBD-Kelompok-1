@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->foreign('karya_id')->references('id')->on('karya_tulis')->onDelete('cascade')->onUpdate('cascade');
             $table->string('kata_kunci', 20);
             $table->foreign('kata_kunci')->references('kata_kunci')->on('kata_kuncis')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 

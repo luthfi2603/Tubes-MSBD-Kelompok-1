@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Prodi extends Model {
     use HasFactory;
+    public $timestamps = false;
 }

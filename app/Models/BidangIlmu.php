@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class BidangIlmu extends Model {
     use HasFactory;
+    public $timestamps = false;
 }

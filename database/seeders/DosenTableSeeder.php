@@ -19,7 +19,6 @@ class DosenTableSeeder extends Seeder
             'nama' => 'Dedy Arisandi S.T., M.Kom.',
             'kode_dosen' => 'DDY',
             'jenis_kelamin' => 'L',
-            'foto' => '',
             'user_id' => '1',
             'kode_prodi' => '02',
         ]);
@@ -29,8 +28,7 @@ class DosenTableSeeder extends Seeder
             'nama' => 'Ivan Jaya S.Si., M.Kom.',
             'kode_dosen' => 'IVJ',
             'jenis_kelamin' => 'L',
-            'foto' => '',
-            'user_id' => '5',
+            'user_id' => '1',
             'kode_prodi' => '02',
         ]);
     }
