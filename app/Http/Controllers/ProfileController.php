@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class ProfileController extends Controller
 {
@@ -43,6 +45,38 @@ class ProfileController extends Controller
         return view('edit-profile');
     }
     
+    public function updateProfile(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+
+        if(
+            $request->username == $user->username &&
+            $request->email == $user->email
+        ){
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }
+
+        $rules = [
+            'username' => ['required', 'string', 'max:255']
+        ];
+
+        if($request->email != $user->email){
+            $rules['email'] = 'required|string|lowercase|email|max:255|unique:'.User::class.'';
+        }
+
+        $validatedData = $request->validate($rules);
+        
+        if($request->email != $user->email){
+            $validatedData['email_verified_at'] = NULL;
+        }
+
+        User::where('id', $user->id)->update($validatedData);
+
+        event(new Registered(User::find($user->id)));
+        
+        return back()->with('success', 'Profile berhasil diubah');
+    }
+    
     public function editPassword()
     {
         return view('edit-password');
@@ -56,8 +90,7 @@ class ProfileController extends Controller
             'confirm_password' => ['required', 'same:new_password', 'min:1']
         ]);
 
-        $user = User::where('id', auth()->user()->id)->get();
-        $user = $user[0];
+        $user = User::find(auth()->user()->id);
         if(Hash::check($request->old_password, $user->password)){
             if($request->new_password == $request->old_password){
                 return back()->with('failed', 'Gagal update password, tidak ada perubahan pada password');

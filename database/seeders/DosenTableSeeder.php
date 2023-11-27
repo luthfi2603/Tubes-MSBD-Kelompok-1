@@ -28,7 +28,7 @@ class DosenTableSeeder extends Seeder
             'nama' => 'Ivan Jaya S.Si., M.Kom.',
             'kode_dosen' => 'IVJ',
             'jenis_kelamin' => 'L',
-            'user_id' => '1',
+            'user_id' => '5',
             'kode_prodi' => '02',
         ]);
     }

@@ -66,7 +66,6 @@ return new class extends Migration
                 b.angkatan,
                 b.jenis_kelamin,
                 b.status,
-                b.foto,
                 c.nama_prodi
             FROM users a
             INNER JOIN mahasiswas b ON a.id = b.user_id
@@ -82,7 +81,6 @@ return new class extends Migration
                 b.nama,
                 b.nip,
                 b.nidn,
-                b.foto,
                 b.jenis_kelamin,
                 c.nama_prodi
             FROM users a

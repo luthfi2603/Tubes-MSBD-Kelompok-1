@@ -567,3 +567,7 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 .like-button.active .like-text {
   color: #000;
 }
+
+.imagecel img{
+  width: 70px;
+}
