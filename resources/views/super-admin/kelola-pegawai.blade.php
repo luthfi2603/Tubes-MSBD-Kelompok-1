@@ -6,7 +6,7 @@
         <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-circle-user"></i> Kelola Pegawai</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <a class="purple-button" href="#">Add +</a>
+            <a class="purple-button" href="{{ route('input.pegawai') }}">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">

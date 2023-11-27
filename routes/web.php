@@ -84,12 +84,37 @@ Route::middleware(['auth', 'role:super_admin'])->group(function () {
     Route::get('/edit-user', function () {
         return view('super-admin.edit-user');
     })->name('edit.user');
+    Route::get('/edit-mahasiswa', function () {
+        return view('super-admin.edit-mahasiswa');
+    })->name('edit.mahasiswa');
+    Route::get('/edit-dosen', function () {
+        return view('super-admin.edit-dosen');
+    })->name('edit.dosen');
     Route::get('/kelola-pegawai', function () {
         return view('super-admin.kelola-pegawai');
     })->name('kelola.pegawai');
     Route::get('/kelola-user', function () {
         return view('super-admin.kelola-user');
     })->name('kelola.user');
+    Route::get('/kelola-mahasiswa', function () {
+        return view('super-admin.kelola-mahasiswa');
+    })->name('kelola.mahasiswa');
+    Route::get('/kelola-dosen', function () {
+        return view('super-admin.kelola-dosen');
+    })->name('kelola.dosen');
+    Route::get('/input-pegawai', function () {
+        return view('super-admin.input-pegawai');
+    })->name('input.pegawai');
+    Route::get('/input-user', function () {
+        return view('super-admin.input-user');
+    })->name('input.user');
+    Route::get('/input-mahasiswa', function () {
+        return view('super-admin.input-mahasiswa');
+    })->name('input.mahasiswa');
+    Route::get('/input-dosen', function () {
+        return view('super-admin.input-dosen');
+    })->name('input.dosen');
+    
     Route::get('/super-admin-home', function () {
         return view('super-admin.super-admin-home');
     })->name('super.admin.home');
