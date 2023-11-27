@@ -15,6 +15,7 @@ cancelButton.addEventListener('click', function () {
                 text: "Perubahan tidak akan disimpan",
                 icon: "error"
             });
+            // document.location.href = '/profile';
         }
     });
 });
@@ -36,6 +37,7 @@ submitButton.addEventListener('click', function () {
                 text: "Perubahan berhasil disimpan",
                 icon: "success"
             });
+            document.getElementById('form-edit-password').submit();
         }
     });
 });

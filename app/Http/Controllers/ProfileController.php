@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
@@ -15,23 +17,60 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function show(): View
+    public function showProfile(): View
     {
         if(auth()->user()->status == 'mahasiswa'){
-            $items = DB::table('profile_mahasiswa')
+            $profile = DB::table('profile_mahasiswa')
                 ->select('*')
                 ->where('email', Auth::user()->email)
                 ->get();
-            $items = $items[0];
+            $profile = $profile[0];
         }else{
-            $items = DB::table('profile_dosen')
+            $profile = DB::table('profile_dosen')
                 ->select('*')
                 ->where('email', Auth::user()->email)
                 ->get();
-            $items = $items[0];
+            $profile = $profile[0];
         }
 
-        return view('profile', compact('items'));
+        $profile->jenis_kelamin == 'L' ? $profile->jenis_kelamin = 'Laki-laki' : $profile->jenis_kelamin = 'Perempuan';
+
+        return view('profile', compact('profile'));
+    }
+
+    public function editProfile()
+    {
+        return view('edit-profile');
+    }
+    
+    public function editPassword()
+    {
+        return view('edit-password');
+    }
+    
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => ['required', 'same:confirm_password', 'min:1'],
+            'confirm_password' => ['required', 'same:new_password', 'min:1']
+        ]);
+
+        $user = User::where('id', auth()->user()->id)->get();
+        $user = $user[0];
+        if(Hash::check($request->old_password, $user->password)){
+            if($request->new_password == $request->old_password){
+                return back()->with('failed', 'Gagal update password, tidak ada perubahan pada password');
+            }
+
+            User::where('id', auth()->user()->id)->update([
+                'password' => bcrypt($request->new_password)
+            ]);
+
+            return back()->with('success', 'Password berhasil diubah');
+        }
+
+        return back()->with('failed', 'Gagal update password, password lama salah');
     }
 
     /**
