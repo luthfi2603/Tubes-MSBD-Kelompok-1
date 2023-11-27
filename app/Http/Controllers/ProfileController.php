@@ -50,18 +50,18 @@ class ProfileController extends Controller
     
     public function updatePassword(Request $request)
     {
-        if($request->new_password == $request->old_password){
-            return back()->with('failed', 'Gagal update password, tidak ada perubahan pada password');
-        }
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => ['required', 'same:confirm_password', 'min:1'],
+            'confirm_password' => ['required', 'same:new_password', 'min:1']
+        ]);
 
         $user = User::where('id', auth()->user()->id)->get();
         $user = $user[0];
         if(Hash::check($request->old_password, $user->password)){
-            $request->validate([
-                'old_password' => 'required',
-                'new_password' => ['required', 'same:confirm_password', 'min:1'],
-                'confirm_password' => ['required', 'same:new_password', 'min:1']
-            ]);
+            if($request->new_password == $request->old_password){
+                return back()->with('failed', 'Gagal update password, tidak ada perubahan pada password');
+            }
 
             User::where('id', auth()->user()->id)->update([
                 'password' => bcrypt($request->new_password)
@@ -70,7 +70,7 @@ class ProfileController extends Controller
             return back()->with('success', 'Password berhasil diubah');
         }
 
-        return back()->with('failed', 'Gagal update password');
+        return back()->with('failed', 'Gagal update password, password lama salah');
     }
 
     /**

@@ -15,6 +15,7 @@ cancelButton.addEventListener('click', function () {
                 text: "Perubahan tidak akan disimpan",
                 icon: "error"
             });
+            // document.location.href = '/profile';
         }
     });
 });
