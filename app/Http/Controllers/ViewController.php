@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JenisTulisan;
 use App\Models\Prodi;
+use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ViewController extends Controller
 {
@@ -16,6 +17,13 @@ class ViewController extends Controller
         }
         $jenisTulisans = JenisTulisan::all();
         $prodis = Prodi::all();
-        return view('index', compact('jenisTulisans', 'prodis'));
+        $karyas = DB::table('view_list_karya')
+            ->select('*')
+            ->paginate(5);
+        $penulis = DB::table('view_list_karya')
+            ->select('judul', 'penulis')
+            ->get();
+
+        return view('index', compact('jenisTulisans', 'prodis', 'karyas', 'penulis'));
     }
 }

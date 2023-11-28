@@ -21,114 +21,35 @@
                     <h6 class="sidebar-col"><span><i class="fa-solid fa-star"></i></span> Koleksi Terbaru</h6>
                     <hr class="garis">
 
-                    <div class="card mt-3" style="max-width: 100%;">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4">
-                                <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title textit"><a href="{{ route('detail.search') }}">Pengaruh Sayur Kangkung Terhadap Senyum Kambing</a></h5>
-                                    <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small></p>
-                                    <p class="card-text text">
-                                        Sayur kangkung adalah makanan kegemaran kambing yang
-                                        dapat menimbulkan rasa kesenangan seperti munculnya senyuman. Hal ini
-                                        didasarkan.
-                                    </p>
+                    @foreach ($karyas as $karya)
+                        <div class="card mt-3" style="max-width: 100%;">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title textit"><a href="{{ route('detail.search') }}">{{ $karya->judul }}</a></h5>
+                                        <p class="text-muted">
+                                            <small class="text-body-secondary">
+                                                {{ $karya->penulis }}
+                                                ({{ $karya->tahun }})
+                                            </small>
+                                        </p>
+                                        <div style="height: 100px;overflow: hidden;">
+                                            <p class="card-text text">
+                                                {{ $karya->abstrak }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card mt-3" style="max-width: 100%;">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4">
-                                <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title textit"><a href="{{ route('detail.search') }}">Pengaruh Sayur Kangkung Terhadap Senyum Kambing</a></h5>
-                                    <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small></p>
-                                    <p class="card-text text">
-                                        Sayur kangkung adalah makanan kegemaran kambing yang
-                                        dapat menimbulkan rasa kesenangan seperti munculnya senyuman. Hal ini
-                                        didasarkan.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mt-3" style="max-width: 100%;">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4">
-                                <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title textit"><a href="{{ route('detail.search') }}">Pengaruh Sayur Kangkung Terhadap Senyum Kambing</a></h5>
-                                    <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small></p>
-                                    <p class="card-text text">
-                                        Sayur kangkung adalah makanan kegemaran kambing yang
-                                        dapat menimbulkan rasa kesenangan seperti munculnya senyuman. Hal ini
-                                        didasarkan.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mt-3" style="max-width: 100%;">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4">
-                                <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title textit"><a href="{{ route('detail.search') }}">Pengaruh Sayur Kangkung Terhadap Senyum Kambing</a></h5>
-                                    <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small></p>
-                                    <p class="card-text text">
-                                        Sayur kangkung adalah makanan kegemaran kambing yang
-                                        dapat menimbulkan rasa kesenangan seperti munculnya senyuman. Hal ini
-                                        didasarkan.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mt-3" style="max-width: 100%;">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4">
-                                <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title textit"><a href="{{ route('detail.search') }}">Pengaruh Sayur Kangkung Terhadap Senyum Kambing</a></h5>
-                                    <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small></p>
-                                    <p class="card-text text">
-                                        Sayur kangkung adalah makanan kegemaran kambing yang
-                                        dapat menimbulkan rasa kesenangan seperti munculnya senyuman. Hal ini
-                                        didasarkan.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
 
                     <!-- Pagination -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination mt-3">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
+                    <nav aria-label="Page navigation example" class="pt-4">
+                        {{ $karyas->links() }}
                     </nav>
 
                 </div>
@@ -141,9 +62,9 @@
                 <h6 class="sidebar-col"><span><i class="fa-solid fa-book-bookmark"></i></span> Jenis Koleksi</h6>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="{{ route('single.koleksi') }}"><span><i class="fa-solid fa-angle-right"></i></span> Tesis</a></li>
-                <li class="list-group-item"><a href="{{ route('single.koleksi') }}"><span><i class="fa-solid fa-angle-right"></i></span> Disertasi</a></li>
-                <li class="list-group-item"><a href="{{ route('single.koleksi') }}"><span><i class="fa-solid fa-angle-right"></i></span> Skripsi</a></li>
+                @foreach ($jenisTulisans as $jenisTulisan)
+                    <li class="list-group-item"><a href="{{ route('single.koleksi') }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $jenisTulisan->jenis_tulisan }}</a></li>
+                @endforeach
             </ul>
 
             <!-- Prodi -->
@@ -151,11 +72,9 @@
                 <h6 class="sidebar-col"><span><i class="fa-solid fa-building-columns"></i></span> Prodi</h6>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="{{ route('single.prodi') }}"><span><i class="fa-solid fa-angle-right"></i></span> S3 Ilmu Komputer</a></li>
-                <li class="list-group-item"><a href="{{ route('single.prodi') }}"><span><i class="fa-solid fa-angle-right"></i></span> S2 Sains Data dan Kecerdasan Buatan</a></li>
-                <li class="list-group-item"><a href="{{ route('single.prodi') }}"><span><i class="fa-solid fa-angle-right"></i></span> S2 Teknik Informatika</a></li>
-                <li class="list-group-item"><a href="{{ route('single.prodi') }}"><span><i class="fa-solid fa-angle-right"></i></span> S1 Teknologi Informasi</a></li>
-                <li class="list-group-item"><a href="{{ route('single.prodi') }}"><span><i class="fa-solid fa-angle-right"></i></span> S1 Ilmu Komputer</a></li>
+                @foreach ($prodis as $prodi)
+                    <li class="list-group-item"><a href="{{ route('single.prodi') }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</a></li>
+                @endforeach
             </ul>
             <!-- E-Book -->
             <div class="d flex mt-3 mb-2">
