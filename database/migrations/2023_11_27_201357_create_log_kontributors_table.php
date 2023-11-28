@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('log_kontributors', function (Blueprint $table) {
-            $table->unsignedInteger('id');
             $table->char('nim_nidn', 10);
             $table->enum('status', ['penulis','pembimbing', 'kontributor']);
             $table->unsignedInteger('karya_id');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
-            $table->timestamp('waktu')->useCurrent()->nullable();
+            $table->timestamp('waktu');
         });
     }
 

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -18,6 +19,27 @@ return new class extends Migration
             $table->unsignedInteger('karya_id');
             $table->foreign('karya_id')->references('id')->on('karya_tulis')->onDelete('cascade')->onUpdate('cascade');
         });
+
+        DB::unprepared('
+            CREATE TRIGGER log_kontributor_mahasiswas_insert AFTER INSERT ON `kontributor_mahasiswas` FOR EACH ROW
+            BEGIN
+                INSERT INTO log_kontributors VALUES (NEW.nim, NEW.status, NEW.karya_id, "INSERT", CURRENT_TIMESTAMP());
+            END
+        ');
+        
+        DB::unprepared('
+            CREATE TRIGGER log_kontributor_mahasiswas_update AFTER UPDATE ON `kontributor_mahasiswas` FOR EACH ROW
+            BEGIN
+                INSERT INTO log_kontributors VALUES (NEW.nim, NEW.status, NEW.karya_id, "UPDATE", CURRENT_TIMESTAMP());
+            END
+        ');
+        
+        DB::unprepared('
+            CREATE TRIGGER log_kontributor_mahasiswas_delete AFTER DELETE ON `kontributor_mahasiswas` FOR EACH ROW
+            BEGIN
+                INSERT INTO log_kontributors VALUES (OLD.nim, OLD.status, OLD.karya_id, "DELETE", CURRENT_TIMESTAMP());
+            END
+        ');
     }
 
     /**

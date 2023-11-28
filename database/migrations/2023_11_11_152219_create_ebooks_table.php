@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration {
     /**
@@ -22,19 +23,19 @@ return new class extends Migration {
         DB::unprepared('
             CREATE TRIGGER log_ebooks_insert AFTER INSERT ON `ebooks` FOR EACH ROW
             BEGIN
-                INSERT INTO log_ebooks VALUES (NEW.id, NEW.judul, NEW.penulis, NEW.url_file, NEW.tahun_terbit, NEW.diupload_oleh, "INSERT", NULL);
+                INSERT INTO log_ebooks VALUES (NEW.judul, NEW.penulis, NEW.url_file, NEW.tahun_terbit, NEW.diupload_oleh, "INSERT", CURRENT_TIMESTAMP());
             END
         ');
         DB::unprepared('
             CREATE TRIGGER log_ebooks_update AFTER UPDATE ON `ebooks` FOR EACH ROW
             BEGIN
-                INSERT INTO log_ebooks VALUES (NEW.id, NEW.judul, NEW.penulis, NEW.url_file, NEW.tahun_terbit, NEW.diupload_oleh, "UPDATE", NULL);
+                INSERT INTO log_ebooks VALUES (NEW.judul, NEW.penulis, NEW.url_file, NEW.tahun_terbit, NEW.diupload_oleh, "UPDATE", CURRENT_TIMESTAMP());
             END
         ');
         DB::unprepared('
             CREATE TRIGGER log_ebooks_delete AFTER DELETE ON `ebooks` FOR EACH ROW
             BEGIN
-                INSERT INTO log_ebooks VALUES (OLD.id, OLD.judul, OLD.penulis, OLD.url_file, OLD.tahun_terbit, OLD.diupload_oleh, "DELETE", NULL);
+                INSERT INTO log_ebooks VALUES (OLD.judul, OLD.penulis, OLD.url_file, OLD.tahun_terbit, OLD.diupload_oleh, "DELETE", CURRENT_TIMESTAMP());
             END
         ');
 

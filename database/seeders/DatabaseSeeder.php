@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
@@ -16,10 +14,15 @@ class DatabaseSeeder extends Seeder {
         $this->call(ProdisTableSeeder::class);
         $this->call(MahasiswasTableSeeder::class);
         $this->call(DosenTableSeeder::class);
+        $this->call(AdminsTableSeeder::class);
         $this->call(BidangIlmuTableSeeder::class);
         $this->call(JenisTulisanTableSeeder::class);
         $this->call(KaryaTulisTableSeeder::class);
         $this->call(KontributorMahasiswaTableSeeder::class);
         $this->call(KontributorDosenTableSeeder::class);
+        $this->call(LikesTableSeeder::class);
+        $this->call(KataKuncisTableSeeder::class);
+        $this->call(KataKunciTulisansTableSeeder::class);
+        $this->call(EbooksTableSeeder::class);
     }
 }
