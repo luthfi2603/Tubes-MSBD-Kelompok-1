@@ -167,28 +167,37 @@ return new class extends Migration
             FROM karya_tulis a ORDER BY jumlah_like DESC
         ');
 
-        DB::unprepared('
+        DB::unprepared("
             DROP FUNCTION IF EXISTS hitungLikeAuthor;
-            CREATE FUNCTION hitungLikeAuthor(Author_idp char(10))
+            CREATE FUNCTION hitungLikeAuthor(Author_idp char(10), statusp int(1))
             RETURNS INT
             BEGIN
-                RETURN (SELECT COUNT(*) FROM likes WHERE karya_id IN(SELECT id FROM karya_tulis WHERE id IN(SELECT DISTINCT karya_id FROM kontributor_mahasiswas WHERE nim = Author_idp COLLATE utf8mb4_unicode_ci)));
+                DECLARE jlh_like INT;
+                IF (statusp = 1) THEN
+                    SELECT COUNT(*) into jlh_like FROM likes WHERE karya_id IN(SELECT DISTINCT karya_id FROM kontributor_mahasiswas WHERE status = CAST('penulis' AS CHAR) AND nim = Author_idp COLLATE utf8mb4_unicode_ci);
+                    RETURN jlh_like;
+                ELSEIF (statusp = 2) THEN
+                    SELECT COUNT(*) into jlh_like FROM likes WHERE karya_id IN(SELECT DISTINCT karya_id FROM kontributor_dosens WHERE status = CAST('penulis' AS CHAR) AND nidn = Author_idp COLLATE utf8mb4_unicode_ci);
+                    RETURN jlh_like;
+                END IF;
             END
-        ');
+        ");
 
         DB::unprepared('
             DROP VIEW IF EXISTS view_topAuthor;
             CREATE VIEW view_topAuthor AS
             SELECT
                 a.nama,
-                hitungLikeAuthor(a.nim) AS jumlah_like
+                hitungLikeAuthor(a.nim, 1) AS jumlah_like
             FROM mahasiswas a
             UNION
             SELECT
                 a.nama,
-                hitungLikeAuthor(a.nidn) AS jumlah_like
+                hitungLikeAuthor(a.nidn, 2) AS jumlah_like
             FROM dosens a ORDER BY jumlah_like DESC
         ');
+
+    
     }
 
     /**
