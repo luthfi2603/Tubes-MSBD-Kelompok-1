@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,16 +13,29 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.admin-home');
     }
 
-    public function karyaTulis(){
-        $karyas = DB::table('list_karya')
+    public function showKaryaTulis(){
+        $karyas = DB::table('view_list_karya')
         ->select('*')
-        ->get();
+        ->paginate(10);
         // dd($karyas);
-        return view('admin/kelola-karya-tulis', compact('karyas'));
+        return view('admin.kelola-karya-tulis', compact('karyas'));
     }
+    public function showJenisTulisan(){
+        $kategoris = JenisTulisan::paginate(5);
+        // dd($kategoris);
+        return view('admin.kelola-kategori', compact('kategoris'));
+    }
+    public function createKaryaTulis(){
+        return view('admin.input-karya-tulis');
+    }
+
+    public function storeKaryaTulis(Request $request){
+        
+    }
+
 
     /**
      * Show the form for creating a new resource.

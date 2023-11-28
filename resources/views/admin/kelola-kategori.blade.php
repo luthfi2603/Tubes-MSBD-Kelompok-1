@@ -32,8 +32,9 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($kategoris as $kategori)
                 <tr>
-                    <td>Disertasi</td>
+                    <td>{{ $kategori->jenis_tulisan }}</td>
                     <td>01-01-2023,20:00</td>
                     <td>.....</td>
                     <td>
@@ -42,46 +43,7 @@
                         <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>
-                <tr>
-                    <td>Tesis</td>
-                    <td>01-01-2023,20:00</td>
-                    <td>.....</td>
-                    <td>
-                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
-                                class="fa-solid fa-pen icon-edit"></i></a>
-                        <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Skripsi</td>
-                    <td>01-01-2023,20:00</td>
-                    <td>.....</td>
-                    <td>
-                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
-                                class="fa-solid fa-pen icon-edit"></i></a>
-                        <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Karya Tulis Ilmiah</td>
-                    <td>01-01-2023,20:00</td>
-                    <td>.....</td>
-                    <td>
-                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
-                                class="fa-solid fa-pen icon-edit"></i></a>
-                        <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Jurnal</td>
-                    <td>01-01-2023,20:00</td>
-                    <td>.....</td>
-                    <td>
-                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
-                                class="fa-solid fa-pen icon-edit"></i></a>
-                        <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
-                    </td>
-                </tr>
+                @endforeach
 
             </tbody>
         </table>

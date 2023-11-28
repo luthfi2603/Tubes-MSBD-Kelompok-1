@@ -56,8 +56,8 @@ return new class extends Migration
         ');
 
         DB::unprepared('
-            DROP VIEW IF EXISTS profile_mahasiswa;
-            CREATE VIEW profile_mahasiswa AS
+            DROP VIEW IF EXISTS view_profile_mahasiswa;
+            CREATE VIEW view_profile_mahasiswa AS
             SELECT
                 a.username,
                 a.email,
@@ -73,8 +73,8 @@ return new class extends Migration
         ');
         
         DB::unprepared('
-            DROP VIEW IF EXISTS profile_dosen;
-            CREATE VIEW profile_dosen AS
+            DROP VIEW IF EXISTS view_profile_dosen;
+            CREATE VIEW view_profile_dosen AS
             SELECT
                 a.username,
                 a.email,
@@ -89,8 +89,8 @@ return new class extends Migration
         ');
         
         DB::unprepared('
-            DROP VIEW IF EXISTS list_karya;
-            CREATE VIEW list_karya AS
+            DROP VIEW IF EXISTS view_list_karya;
+            CREATE VIEW view_list_karya AS
             SELECT 
                 a.judul, 
                 a.abstrak, 
