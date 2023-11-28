@@ -10,7 +10,6 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('log_karya_tulis', function (Blueprint $table) {
-            $table->unsignedInteger('id');
             $table->string('judul', 500);
             $table->text('abstrak');
             $table->string('bidang_ilmu');
@@ -19,7 +18,7 @@ return new class extends Migration {
             $table->char('tahun', 4);
             $table->string('diupload_oleh');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
-            $table->timestamp('waktu')->useCurrent()->nullable();
+            $table->timestamp('waktu');
         });
     }
 

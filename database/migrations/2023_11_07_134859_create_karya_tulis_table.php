@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration {
     /**
@@ -26,21 +27,21 @@ return new class extends Migration {
         DB::unprepared('
             CREATE TRIGGER log_karya_tulis_insert AFTER INSERT ON `karya_tulis` FOR EACH ROW
             BEGIN
-                INSERT INTO log_karya_tulis VALUES (NEW.id, NEW.judul, NEW.abstrak, NEW.bidang_ilmu, NEW.url_file, NEW.jenis, NEW.tahun, NEW.diupload_oleh, "INSERT", NULL);
+                INSERT INTO log_karya_tulis VALUES (NEW.judul, NEW.abstrak, NEW.bidang_ilmu, NEW.url_file, NEW.jenis, NEW.tahun, NEW.diupload_oleh, "INSERT", CURRENT_TIMESTAMP());
             END
         ');
         
         DB::unprepared('
             CREATE TRIGGER log_karya_tulis_update AFTER UPDATE ON `karya_tulis` FOR EACH ROW
             BEGIN
-                INSERT INTO log_karya_tulis VALUES (NEW.id, NEW.judul, NEW.abstrak, NEW.bidang_ilmu, NEW.url_file, NEW.jenis, NEW.tahun, NEW.diupload_oleh, "UPDATE", NULL);
+                INSERT INTO log_karya_tulis VALUES (NEW.judul, NEW.abstrak, NEW.bidang_ilmu, NEW.url_file, NEW.jenis, NEW.tahun, NEW.diupload_oleh, "UPDATE", CURRENT_TIMESTAMP());
             END
         ');
         
         DB::unprepared('
             CREATE TRIGGER log_karya_tulis_delete AFTER DELETE ON `karya_tulis` FOR EACH ROW
             BEGIN
-                INSERT INTO log_karya_tulis VALUES (OLD.id, OLD.judul, OLD.abstrak, OLD.bidang_ilmu, OLD.url_file, OLD.jenis, OLD.tahun, OLD.diupload_oleh, "DELETE", NULL);
+                INSERT INTO log_karya_tulis VALUES (OLD.judul, OLD.abstrak, OLD.bidang_ilmu, OLD.url_file, OLD.jenis, OLD.tahun, OLD.diupload_oleh, "DELETE", CURRENT_TIMESTAMP());
             END
         ');
     }
