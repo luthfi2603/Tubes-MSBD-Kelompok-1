@@ -32,11 +32,11 @@ submitButton.addEventListener('click', function () {
         confirmButtonText: "Submit"
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire({
+            /* Swal.fire({
                 title: "Succesed!",
                 text: "Perubahan berhasil disimpan",
                 icon: "success"
-            });
+            }); */
             document.getElementById('form').submit();
         }
     });

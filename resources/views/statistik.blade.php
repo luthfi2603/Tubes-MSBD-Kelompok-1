@@ -4,7 +4,7 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-            <a href="index.html">Home </a><i class="fa-solid fa-angle-right"></i><a href="#">Statistik</a>
+            <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><a href="#">Statistik</a>
         </h6>
         <hr class="mt-0">
     </div>

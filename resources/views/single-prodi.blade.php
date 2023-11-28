@@ -4,7 +4,7 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-        <a href="index.html">Home </a><i class="fa-solid fa-angle-right"></i><a href="singleprodi.html">S1 Ilmu Komputer</a>
+        <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><a href="singleprodi.html">S1 Ilmu Komputer</a>
         </h6>
         <hr class="mt-0">
     </div>

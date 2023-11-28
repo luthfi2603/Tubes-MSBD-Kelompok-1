@@ -47,6 +47,12 @@ Route::get('/favorite', function () {
 Route::get('/advanced-search', function () {
     return view('advanced-search');
 });
+Route::get('/single-ebook', function () {
+    return view('single-ebook');
+})->name('single.ebook');
+Route::get('/detail-ebook', function () {
+    return view('detail-ebook');
+})->name('detail.ebook');
 
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', function () {

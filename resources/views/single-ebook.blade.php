@@ -4,16 +4,18 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-            <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><a href="favorite.html">Favorite</a>
+            <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><a
+                href="{{ route('single.ebook') }}">E-Book</a>
         </h6>
         <hr class="mt-0">
     </div>
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-10 order-2 order-lg-first">
             <!-- ini untuk koleksi terbaru pake card -->
             <div class="d flex mb-5">
-                <h6 class="sidebar-col"><span><i class="fa-solid fa-heart"></i></span> Favorite Saya</h6>
-                <hr class="garis mb-3" style="width: 20%;">
+                <h6 class="sidebar-col"><span><i class="fa-solid fa-book-open-reader"></i></span> E-Book</h6>
+                <!-- untuk iconnya bisa diambil di statistik ato mau beda pun bole ambil dari font awesome -->
+                <hr class="garis mb-3" style="width: 70%;">
 
                 <div class="card mt-0" style="max-width: 100%;">
                     <div class="row g-0 align-items-center">
@@ -23,7 +25,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title textit"><a href="detailsearch.html">Pengaruh Sayur Kangkung
+                                <h5 class="card-title textit"><a href="{{ route('detail.ebook') }}">Pengaruh Sayur Kangkung
                                         Terhadap Senyum Kambing</a></h5>
                                 <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small>
                                 </p>
@@ -42,7 +44,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title textit"><a href="detailsearch.html">Pengaruh Sayur Kangkung
+                                <h5 class="card-title textit"><a href="{{ route('detail.ebook') }}">Pengaruh Sayur Kangkung
                                         Terhadap Senyum Kambing</a></h5>
                                 <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small>
                                 </p>
@@ -61,7 +63,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title textit"><a href="detailsearch.html">Pengaruh Sayur Kangkung
+                                <h5 class="card-title textit"><a href="{{ route('detail.ebook') }}">Pengaruh Sayur Kangkung
                                         Terhadap Senyum Kambing</a></h5>
                                 <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small>
                                 </p>
@@ -80,7 +82,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title textit"><a href="detailsearch.html">Pengaruh Sayur Kangkung
+                                <h5 class="card-title textit"><a href="{{ route('detail.ebook') }}">Pengaruh Sayur Kangkung
                                         Terhadap Senyum Kambing</a></h5>
                                 <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small>
                                 </p>
@@ -99,7 +101,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title textit"><a href="detailsearch.html">Pengaruh Sayur Kangkung
+                                <h5 class="card-title textit"><a href="{{ route('detail.ebook') }}">Pengaruh Sayur Kangkung
                                         Terhadap Senyum Kambing</a></h5>
                                 <p class="text-muted"><small class="text-body-secondary">Tambunan, Ivan (2023)</small>
                                 </p>
@@ -132,31 +134,7 @@
             </div>
         </div>
 
-        <!-- <div class="col-lg-3 mb-5"> -->
-        <!-- Jenis Koleksi -->
-        <!-- <div class="d flex mb-2">
-                            <h6 class="sidebar-col"><span><i class="fa-solid fa-book-bookmark"></i></span> Jenis Koleksi</h6>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                              <li class="list-group-item"><a href=""><span><i class="fa-solid fa-angle-right"></i></span> Tesis</a></li>
-                              <li class="list-group-item"><a href=""><span><i class="fa-solid fa-angle-right"></i></span> Disertasi</a></li>
-                              <li class="list-group-item"><a href=""><span><i class="fa-solid fa-angle-right"></i></span> Skripsi</a></li>
-                            </ul> -->
-
-        <!-- Prodi -->
-        <!-- <div class="d flex mt-3 mb-2">
-                            <h6 class="sidebar-col"><span><i class="fa-solid fa-building-columns"></i></span> Prodi</h6>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                              <li class="list-group-item"><a href=""><span><i class="fa-solid fa-angle-right"></i></span> S3 Ilmu Komputer</a></li>
-                              <li class="list-group-item"><a href=""><span><i class="fa-solid fa-angle-right"></i></span> S2 Sains Data dan Kecerdasan Buatan</a></li>
-                              <li class="list-group-item"><a href=""><span><i class="fa-solid fa-angle-right"></i></span> S2 Teknik Informatika</a></li>
-                              <li class="list-group-item"><a href=""><span><i class="fa-solid fa-angle-right"></i></span> S1 Teknologi Informasi</a></li>
-                              <li class="list-group-item"><a href=""><span><i class="fa-solid fa-angle-right"></i></span> S1 Ilmu Komputer</a></li>
-                            </ul>
-                          </div> -->
-        <!-- ini opsional, bagus ga kalo ditaro?? -->
-
+        
     </div>
 </div>
 @endsection
