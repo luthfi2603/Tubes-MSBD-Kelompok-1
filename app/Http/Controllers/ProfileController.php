@@ -56,9 +56,11 @@ class ProfileController extends Controller
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }
 
-        $rules = [
-            'username' => ['required', 'string', 'max:255']
-        ];
+        $rules = [];
+
+        if($request->username != $user->username){
+            $rules['username'] = ['required', 'string', 'max:255', 'unique:users'];
+        }
 
         if($request->email != $user->email){
             $rules['email'] = 'required|string|lowercase|email|max:255|unique:'.User::class.'';

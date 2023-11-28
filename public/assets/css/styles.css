@@ -571,3 +571,12 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 .imagecel img{
   width: 70px;
 }
+
+.ebook{
+  color: rgba(0, 0, 0, 0.527);
+  transition: 0.2s;
+}
+
+.ebook :hover{
+  color: #000000;
+}

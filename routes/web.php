@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +15,7 @@ use App\Http\Controllers\ProfileController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    if(auth()->user()){
-        if(auth()->user()->email_verified_at == NULL){
-            return redirect('/verify-email');
-        }
-    }
-    return view('index');
-});
-
+Route::get('/', [ViewController::class, 'index']);
 Route::get('/search-page', function () {
     return view('search-page');
 });
@@ -47,6 +40,12 @@ Route::get('/favorite', function () {
 Route::get('/advanced-search', function () {
     return view('advanced-search');
 });
+Route::get('/single-ebook', function () {
+    return view('single-ebook');
+})->name('single.ebook');
+Route::get('/detail-ebook', function () {
+    return view('detail-ebook');
+})->name('detail.ebook');
 
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', function () {
