@@ -37,7 +37,7 @@ submitButton.addEventListener('click', function () {
                 text: "Perubahan berhasil disimpan",
                 icon: "success"
             });
-            document.getElementById('form-edit-password').submit();
+            document.getElementById('form').submit();
         }
     });
 });

@@ -20,12 +20,6 @@
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="account-general">
-                            <div class="card-body media align-items-center">
-                                <img src="assets/img/kirby.jpeg" alt
-                                    class="d-block ui-w-80 rounded-circle-frame">
-                                
-                            </div>
-                            <hr class="border-light m-0">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-6">

@@ -75,14 +75,38 @@ Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
     Route::get('/edit-user', function () {
         return view('super-admin.edit-user');
     })->name('edit.user');
+    Route::get('/edit-mahasiswa', function () {
+        return view('super-admin.edit-mahasiswa');
+    })->name('edit.mahasiswa');
+    Route::get('/edit-dosen', function () {
+        return view('super-admin.edit-dosen');
+    })->name('edit.dosen');
     Route::get('/kelola-pegawai', function () {
         return view('super-admin.kelola-pegawai');
     })->name('kelola.pegawai');
     Route::get('/kelola-user', function () {
         return view('super-admin.kelola-user');
     })->name('kelola.user');
+    Route::get('/kelola-mahasiswa', function () {
+        return view('super-admin.kelola-mahasiswa');
+    })->name('kelola.mahasiswa');
+    Route::get('/kelola-dosen', function () {
+        return view('super-admin.kelola-dosen');
+    })->name('kelola.dosen');
+    Route::get('/input-pegawai', function () {
+        return view('super-admin.input-pegawai');
+    })->name('input.pegawai');
+    Route::get('/input-user', function () {
+        return view('super-admin.input-user');
+    })->name('input.user');
+    Route::get('/input-mahasiswa', function () {
+        return view('super-admin.input-mahasiswa');
+    })->name('input.mahasiswa');
+    Route::get('/input-dosen', function () {
+        return view('super-admin.input-dosen');
+    })->name('input.dosen');
     Route::get('/super-admin-home', function () {
-        return view('super-admin.super-admin-home');
+        return view('super-admin.super-admin-home2');
     })->name('super.admin.home');
 });
 
@@ -91,6 +115,8 @@ Route::middleware('auth', 'verified')->group(function () {
                 ->name('profile');
     Route::get('/edit-profile', [ProfileController::class, 'editProfile'])
                 ->name('profile.edit');
+    Route::put('/edit-profile', [ProfileController::class, 'updateProfile'])
+                ->name('profile.update2');
     Route::patch('/profile', [ProfileController::class, 'update'])
                 ->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])
