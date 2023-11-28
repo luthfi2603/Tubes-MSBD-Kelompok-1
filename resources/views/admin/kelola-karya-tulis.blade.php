@@ -27,7 +27,6 @@
                 <tr>
                     <th scope="col">Judul</th>
                     <th scope="col">Abstrak</th>
-                    <th scope="col">Foto</th>
                     <th scope="col">Kategori</th>
                     <th scope="col">Tahun</th>
                     <th scope="col">Penulis</th>
@@ -39,16 +38,11 @@
                 @foreach ($karyas as $karya)
                 <tr>
                     <td>{{ $karya->judul }}</td>
-                    <td>Lorem ipsum dolor sit amet consectetur. Convallis porta ornare condimentum fringilla massa
-                        pharetra ullamcorper a faucibus. Pharetra tristique consectetur sagittis cursus id pulvinar
-                        fusce.</td>
-                    <td>
-                        <!-- Disini untuk gambar yaaa -->
-                    </td>
-                    <td>Skripsi</td>
-                    <td>2004</td>
-                    <td>Andy Situmorang</td>
-                    <td class="file">Senyumankambing.pdf</td>
+                    <td>{{ $karya->abstrak }}</td>
+                    <td>{{ $karya->jenis }}</td>
+                    <td>{{ $karya->tahun }}</td>
+                    <td>{{ $karya->penulis }}</td>
+                    <td class="file">{{ $karya->url_file }}</td>
                     <td>
                         <a href="{{ route('edit.karya.tulis') }}"><i class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deletekaryatulis"><i class="fa-solid fa-trash icon-delete"></i></a>
@@ -57,6 +51,9 @@
                 @endforeach
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            {{$karyas->links()}}
+        </nav>
         <!-- Disini dibikin pagination kalo bingung tengo di figma. -->
     </div>
 </div>

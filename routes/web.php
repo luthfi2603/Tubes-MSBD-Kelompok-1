@@ -49,9 +49,8 @@ Route::get('/advanced-search', function () {
 });
 
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
-    Route::get('/admin-home', function () {
-        return view('admin.admin-home');
-    })->name('admin.home');
+    Route::get('/admin-home', [AdminController::class, 'index'])->name('admin.home');
+    Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])->name('kelola.karya.tulis');
     Route::get('/edit-karya-tulis', function () {
         return view('admin.edit-karya-tulis');
     })->name('edit.karya.tulis');
@@ -64,7 +63,6 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/input-kategori', function () {
         return view('admin.input-kategori');
     })->name('input.kategori');
-    Route::get('/kelola-karya-tulis', [AdminController::class, 'karyaTulis'])->name('kelola.karya.tulis');
     Route::get('/kelola-kategori', function () {
         return view('admin.kelola-kategori');
     })->name('kelola.kategori');

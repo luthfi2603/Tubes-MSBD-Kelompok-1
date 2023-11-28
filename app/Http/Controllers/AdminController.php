@@ -12,17 +12,19 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.admin-home');
     }
 
-    public function karyaTulis(){
-        $karyas = DB::table('list_karya')
+    public function showKaryaTulis(){
+        $karyas = DB::table('view_list_karya')
         ->select('*')
-        ->get();
+        ->paginate(10);
         // dd($karyas);
-        return view('admin/kelola-karya-tulis', compact('karyas'));
+        return view('admin.kelola-karya-tulis', compact('karyas'));
     }
-
+    public function createKaryaTulis(){
+        return view('admin.input-karya-tulis');
+    }
     /**
      * Show the form for creating a new resource.
      */

@@ -19,7 +19,7 @@ class MahasiswasTableSeeder extends Seeder
             'angkatan' => '2022',
             'jenis_kelamin' => 'L',
             'status' => 'aktif',
-            'user_id' => '1',
+            'user_id' => '4',
             'kode_prodi' => '02'
         ]);
         
