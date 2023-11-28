@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +15,7 @@ use App\Http\Controllers\ProfileController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    if(auth()->user()){
-        if(auth()->user()->email_verified_at == NULL){
-            return redirect('/verify-email');
-        }
-    }
-    return view('index');
-});
-
+Route::get('/', [ViewController::class, 'index']);
 Route::get('/search-page', function () {
     return view('search-page');
 });
