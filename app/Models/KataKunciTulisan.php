@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class KataKunciTulisan extends Model {
     use HasFactory;
+    public $timestamps = false;
 }

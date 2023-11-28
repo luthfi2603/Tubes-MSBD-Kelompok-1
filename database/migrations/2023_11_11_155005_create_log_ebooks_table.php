@@ -10,14 +10,13 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('log_ebooks', function (Blueprint $table) {
-            $table->unsignedInteger('id');
             $table->string('judul', 500);
             $table->string('penulis');
             $table->string('url_file');
             $table->char('tahun_terbit', 4);
             $table->string('diupload_oleh');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
-            $table->timestamp('waktu')->useCurrent()->nullable();
+            $table->timestamp('waktu');
         });
     }
 
