@@ -16,6 +16,6 @@ class ViewController extends Controller
         }
         $jenisTulisans = JenisTulisan::all();
         $prodis = Prodi::all();
-        return view('index', compact('jenisTulisan', 'prodis'));
+        return view('index', compact('jenisTulisans', 'prodis'));
     }
 }

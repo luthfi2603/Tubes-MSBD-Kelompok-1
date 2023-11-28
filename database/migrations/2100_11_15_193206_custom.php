@@ -117,7 +117,77 @@ return new class extends Migration
         ');
 
         DB::unprepared('
-            DROP VIEW IF EXISTS tampilan_karya_awal;
+            DROP FUNCTION IF EXISTS hitungAll;
+            CREATE FUNCTION hitungAll()
+            RETURNS INT 
+            BEGIN
+                DECLARE jlh_k INT;
+                DECLARE jlh_e INT;
+
+                SELECT COUNT(*) INTO jlh_k FROM karya_tulis;
+                SELECT COUNT(*) INTO jlh_e FROM ebooks;
+
+                RETURN jlh_k + jlh_e;
+            END
+        ');
+
+        DB::unprepared('
+            DROP FUNCTION IF EXISTS hitungJumlah;
+            CREATE FUNCTION hitungJumlah(jenisp VARCHAR(255))
+            RETURNS INT
+            BEGIN 
+                RETURN (SELECT COUNT(*) FROM karya_tulis WHERE jenis = jenisp COLLATE utf8mb4_unicode_ci); 
+            END
+        ');
+
+        DB::unprepared('
+            DROP VIEW IF EXISTS view_statistik;
+            CREATE VIEW view_statistik AS
+            SELECT
+                a.jenis_tulisan,
+                hitungJumlah(a.jenis_tulisan) AS jumlah_karya
+            FROM jenis_tulisans a
+        ');
+
+        DB::unprepared('
+            DROP FUNCTION IF EXISTS hitungLikeKarya;
+            CREATE FUNCTION hitungLikeKarya(karya_idp INT(10))
+            RETURNS INT
+            BEGIN
+                RETURN (SELECT COUNT(*) FROM likes WHERE karya_id = karya_idp);
+            END
+        ');
+
+        DB::unprepared('
+            DROP VIEW IF EXISTS view_mostLike;
+            CREATE VIEW view_mostLike AS
+            SELECT
+                a.judul,
+                hitungLike(a.id) AS jumlah_like
+            FROM karya_tulis a ORDER BY jumlah_like DESC
+        ');
+
+        DB::unprepared('
+            DROP FUNCTION IF EXISTS hitungLikeAuthor;
+            CREATE FUNCTION hitungLikeAuthor(Author_idp char(10))
+            RETURNS INT
+            BEGIN
+                RETURN (SELECT COUNT(*) FROM likes WHERE karya_id IN(SELECT id FROM karya_tulis WHERE id IN(SELECT DISTINCT karya_id FROM kontributor_mahasiswas WHERE nim = Author_idp COLLATE utf8mb4_unicode_ci)));
+            END
+        ');
+
+        DB::unprepared('
+            DROP VIEW IF EXISTS view_topAuthor;
+            CREATE VIEW view_topAuthor AS
+            SELECT
+                a.nama,
+                hitungLikeAuthor(a.nim) AS jumlah_like
+            FROM mahasiswas a
+            UNION
+            SELECT
+                a.nama,
+                hitungLikeAuthor(a.nidn) AS jumlah_like
+            FROM dosens a ORDER BY jumlah_like DESC
         ');
     }
 
