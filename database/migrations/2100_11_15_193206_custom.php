@@ -115,10 +115,6 @@ return new class extends Migration
             INNER JOIN dosens e ON d.nidn = e.nidn
             WHERE d.status = "penulis"
         ');
-
-        DB::unprepared('
-            DROP VIEW IF EXISTS tampilan_karya_awal;
-        ');
     }
 
     /**
