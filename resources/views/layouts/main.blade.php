@@ -24,7 +24,7 @@
     @include('layouts.navbar')
 
     <!-- Bagian Search -->
-    <div class="container-fluid" style="background-image: url(assets/img/Gedung-A.png)">
+    <div class="container-fluid" style="background-image: url({{ asset('assets/img/Gedung-A.png') }})">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-9">
                 <div class="cardbi p-4 mt-0">

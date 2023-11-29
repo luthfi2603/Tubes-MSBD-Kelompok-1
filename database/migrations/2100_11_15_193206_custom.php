@@ -92,6 +92,7 @@ return new class extends Migration
             DROP VIEW IF EXISTS view_list_karya;
             CREATE VIEW view_list_karya AS
             SELECT 
+                a.id,
                 a.judul, 
                 a.abstrak, 
                 a.jenis, 
@@ -104,6 +105,7 @@ return new class extends Migration
             WHERE b.status = "penulis"
             UNION
             SELECT
+                a.id,
 				a.judul, 
                 a.abstrak, 
                 a.jenis, 
@@ -159,11 +161,11 @@ return new class extends Migration
         ');
 
         DB::unprepared('
-            DROP VIEW IF EXISTS view_mostLike;
-            CREATE VIEW view_mostLike AS
+            DROP VIEW IF EXISTS view_most_like;
+            CREATE VIEW view_most_like AS
             SELECT
                 a.judul,
-                hitungLike(a.id) AS jumlah_like
+                hitungLikeKarya(a.id) AS jumlah_like
             FROM karya_tulis a ORDER BY jumlah_like DESC
         ');
 
@@ -184,8 +186,8 @@ return new class extends Migration
         ");
 
         DB::unprepared('
-            DROP VIEW IF EXISTS view_topAuthor;
-            CREATE VIEW view_topAuthor AS
+            DROP VIEW IF EXISTS view_top_author;
+            CREATE VIEW view_top_author AS
             SELECT
                 a.nama,
                 hitungLikeAuthor(a.nim, 1) AS jumlah_like
@@ -196,8 +198,43 @@ return new class extends Migration
                 hitungLikeAuthor(a.nidn, 2) AS jumlah_like
             FROM dosens a ORDER BY jumlah_like DESC
         ');
-
-    
+        
+        DB::unprepared('
+            DROP VIEW IF EXISTS view_detail_karya_tulis;
+            CREATE VIEW view_detail_karya_tulis AS
+            SELECT 
+                a.id,
+                a.judul, 
+                a.abstrak, 
+                a.url_file,
+                a.bidang_ilmu,
+                a.jenis, 
+                a.tahun, 
+                a.view,
+                d.kata_kunci,
+                c.nama AS kontributor
+            FROM karya_tulis a 
+            INNER JOIN kontributor_mahasiswas b ON a.id = b.karya_id 
+            INNER JOIN mahasiswas c ON b.nim = c.nim 
+            INNER JOIN kata_kunci_tulisans d ON a.id = d.karya_id
+            UNION
+            SELECT
+                a.id,
+                a.judul, 
+                a.abstrak, 
+                a.url_file,
+                a.bidang_ilmu,
+                a.jenis, 
+                a.tahun, 
+                a.view,
+                h.kata_kunci,
+                g.nama AS kontributor
+            FROM karya_tulis a 
+            INNER JOIN kontributor_dosens f ON a.id = f.karya_id 
+            INNER JOIN dosens g ON f.nidn = g.nidn
+            INNER JOIN kata_kunci_tulisans h ON a.id = h.karya_id
+            ORDER BY `id` ASC
+        ');
     }
 
     /**

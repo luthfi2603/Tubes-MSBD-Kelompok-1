@@ -21,7 +21,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Skripsi',
             'tahun' => '2020',
             'view' => '0',
-            'diupload_oleh' => 'skripsi', 
+            'diupload_oleh' => 'skripsi'
         ]);
         KaryaTulis::create([
             'judul' => 'disertasi',
@@ -31,7 +31,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Disertasi',
             'tahun' => '2022',
             'view' => '0',
-            'diupload_oleh' => 'disertasi', 
+            'diupload_oleh' => 'disertasi'
         ]);
         KaryaTulis::create([
             'judul' => 'tesis',
@@ -41,7 +41,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Tesis',
             'tahun' => '2020',
             'view' => '0',
-            'diupload_oleh' => 'tesis', 
+            'diupload_oleh' => 'tesis'
         ]);
 
         KaryaTulis::create([
@@ -52,7 +52,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Jurnal',
             'tahun' => '2023',
             'view' => '0',
-            'diupload_oleh' => 'jurnal', 
+            'diupload_oleh' => 'jurnal'
         ]);
         KaryaTulis::create([
             'judul' => 'karya ilmiah',
@@ -62,7 +62,17 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Karya Ilmiah',
             'tahun' => '2020',
             'view' => '0',
-            'diupload_oleh' => 'karya ilmiah', 
+            'diupload_oleh' => 'karya ilmiah'
+        ]);
+        KaryaTulis::create([
+            'judul' => 'Apakah kita dapat membuat sesuatu dari kehampaan?',
+            'abstrak' => 'Veniam incididunt nulla aliquip fugiat aliquip adipisicing Lorem elit officia dolore occaecat anim. Consectetur duis pariatur aliqua incididunt nisi. Sit in enim reprehenderit laboris culpa in. Sit culpa eiusmod et Lorem dolor ex aliquip id. Irure voluptate ex ea labore sunt. Labore incididunt reprehenderit quis aute sint id eu. Excepteur culpa proident esse do est excepteur irure culpa consequat nostrud minim velit laboris.',
+            'bidang_ilmu' => 'Data Science',
+            'url_file' => 'renkinjutsu.pdf',
+            'jenis' => 'Karya Ilmiah',
+            'tahun' => '2075',
+            'view' => '142031',
+            'diupload_oleh' => 'Maia Cibebe'
         ]);
     }
 }

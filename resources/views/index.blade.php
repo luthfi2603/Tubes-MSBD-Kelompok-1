@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title textit"><a href="{{ route('detail.search') }}">{{ $karya->judul }}</a></h5>
+                                        <h5 class="card-title textit"><a href="{{ route('detail.karya.tulis', $karya->id) }}">{{ $karya->judul }}</a></h5>
                                         <p class="text-muted">
                                             <small class="text-body-secondary">
                                                 {{ $karya->penulis }}

@@ -65,5 +65,9 @@ class KataKunciTulisansTableSeeder extends Seeder
             'karya_id' => '5',
             'kata_kunci' => 'Kucing'
         ]);
+        KataKunciTulisan::create([
+            'karya_id' => '6',
+            'kata_kunci' => 'Database'
+        ]);
     }
 }
