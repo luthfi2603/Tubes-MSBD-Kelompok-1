@@ -18,6 +18,9 @@ use App\Http\Controllers\ViewController;
 Route::get('/', [ViewController::class, 'index']);
 Route::get('/detail-karya-tulis/{id}', [ViewController::class, 'detailKaryaTulis'])
             ->name('detail.karya.tulis');
+Route::get('/single-ebook', [ViewController::class, 'showEBook'])
+            ->name('single.ebook');
+
 Route::get('/search-page', function () {
     return view('search-page');
 });
@@ -39,9 +42,6 @@ Route::get('/favorite', function () {
 Route::get('/advanced-search', function () {
     return view('advanced-search');
 });
-Route::get('/single-ebook', function () {
-    return view('single-ebook');
-})->name('single.ebook');
 Route::get('/detail-ebook', function () {
     return view('detail-ebook');
 })->name('detail.ebook');

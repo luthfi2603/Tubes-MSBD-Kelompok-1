@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ebook;
 use App\Models\Prodi;
 use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
@@ -49,5 +50,11 @@ class ViewController extends Controller
         $kataKunci = rtrim($kataKunci, ', ');
 
         return view('/detail-karya-tulis', compact('detail', 'kontributors', 'kataKunci'));
+    }
+
+    public function showEBook(){
+        $ebooks = Ebook::paginate(5);
+
+        return view('single-ebook', compact('ebooks'));
     }
 }

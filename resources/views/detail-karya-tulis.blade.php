@@ -5,7 +5,7 @@
     <div class="col-lg-12 pt-3">
         <h6>
             <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><a href="#"> Hasil Pencarian </a>
-            <i class="fa-solid fa-angle-right"></i><a href="#"> Detail</a>
+            <i class="fa-solid fa-angle-right"></i><span>Detail</span>
         </h6>
         <hr class="mt-0">
     </div>
