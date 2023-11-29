@@ -89,5 +89,10 @@ class LikesTableSeeder extends Seeder
             'karya_id' => '5',
             'waktu' => Carbon::now()
         ]);
+        Like::create([
+            'user_id' => '5',
+            'karya_id' => '6',
+            'waktu' => Carbon::now()
+        ]);
     }
 }

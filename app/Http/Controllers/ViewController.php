@@ -20,10 +20,34 @@ class ViewController extends Controller
         $karyas = DB::table('view_list_karya')
             ->select('*')
             ->paginate(5);
-        $penulis = DB::table('view_list_karya')
-            ->select('judul', 'penulis')
+
+        return view('index', compact('jenisTulisans', 'prodis', 'karyas'));
+    }
+
+    public function detailKaryaTulis($id){
+        $detail = DB::table('view_detail_karya_tulis')
+            ->select('*')
+            ->where('id', $id)
+            ->first();
+        
+        $kontributors = DB::table('view_detail_karya_tulis')
+            ->select('kontributor')
+            ->where('id', $id)
+            ->groupBy('kontributor')
             ->get();
 
-        return view('index', compact('jenisTulisans', 'prodis', 'karyas', 'penulis'));
+        $kataKuncis = DB::table('view_detail_karya_tulis')
+            ->select('kata_kunci')
+            ->where('id', $id)
+            ->groupBy('kata_kunci')
+            ->get();
+
+        $kataKunci = "";
+        foreach ($kataKuncis as $key) {
+            $kataKunci .= $key->kata_kunci . ', ';
+        }
+        $kataKunci = rtrim($kataKunci, ', ');
+
+        return view('/detail-karya-tulis', compact('detail', 'kontributors', 'kataKunci'));
     }
 }

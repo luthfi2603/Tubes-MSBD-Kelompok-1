@@ -16,6 +16,8 @@ use App\Http\Controllers\ViewController;
 |
 */
 Route::get('/', [ViewController::class, 'index']);
+Route::get('/detail-karya-tulis/{id}', [ViewController::class, 'detailKaryaTulis'])
+            ->name('detail.karya.tulis');
 Route::get('/search-page', function () {
     return view('search-page');
 });
@@ -31,9 +33,6 @@ Route::get('/single-prodi', function () {
 Route::get('/single-koleksi', function () {
     return view('single-koleksi');
 })->name('single.koleksi');
-Route::get('/detail-search', function () {
-    return view('detail-search');
-})->name('detail.search');
 Route::get('/favorite', function () {
     return view('favorite');
 });
