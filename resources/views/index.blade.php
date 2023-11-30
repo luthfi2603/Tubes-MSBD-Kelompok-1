@@ -32,7 +32,15 @@
                                         <h5 class="card-title textit"><a href="{{ route('detail.karya.tulis', $karya->id) }}">{{ $karya->judul }}</a></h5>
                                         <p class="text-muted">
                                             <small class="text-body-secondary">
-                                                {{ $karya->penulis }}
+                                                @php
+                                                    $penulis = "";
+                                                    $penulisTertentu = $penuliss->where('id', $karya->id);
+                                                    foreach ($penulisTertentu as $key) {
+                                                        $penulis .= $key->penulis . ', ';
+                                                    }
+                                                    $penulis = rtrim($penulis, ', ');
+                                                @endphp
+                                                {{ $penulis }}
                                                 ({{ $karya->tahun }})
                                             </small>
                                         </p>

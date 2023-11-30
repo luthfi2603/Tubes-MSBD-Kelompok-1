@@ -22,7 +22,11 @@ class ViewController extends Controller
             ->select('*')
             ->paginate(5);
 
-        return view('index', compact('jenisTulisans', 'prodis', 'karyas'));
+        $penuliss = DB::table('view_list_karya')
+            ->select('penulis', 'id')
+            ->get();
+
+        return view('index', compact('jenisTulisans', 'prodis', 'karyas', 'penuliss'));
     }
 
     public function detailKaryaTulis($id){
@@ -31,10 +35,25 @@ class ViewController extends Controller
             ->where('id', $id)
             ->first();
         
-        $kontributors = DB::table('view_detail_karya_tulis')
-            ->select('kontributor')
+        $penulis = DB::table('view_detail_karya_tulis')
+            ->select('kontributor', 'status')
             ->where('id', $id)
-            ->groupBy('kontributor')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'status')
+            ->get();
+        
+        $pembimbing = DB::table('view_detail_karya_tulis')
+            ->select('kontributor', 'status')
+            ->where('id', $id)
+            ->where('status', 'pembimbing')
+            ->groupBy('kontributor', 'status')
+            ->get();
+        
+        $kontributor = DB::table('view_detail_karya_tulis')
+            ->select('kontributor', 'status')
+            ->where('id', $id)
+            ->where('status', 'kontributor')
+            ->groupBy('kontributor', 'status')
             ->get();
 
         $kataKuncis = DB::table('view_detail_karya_tulis')
@@ -49,7 +68,7 @@ class ViewController extends Controller
         }
         $kataKunci = rtrim($kataKunci, ', ');
 
-        return view('/detail-karya-tulis', compact('detail', 'kontributors', 'kataKunci'));
+        return view('/detail-karya-tulis', compact('detail', 'kataKunci', 'penulis', 'pembimbing', 'kontributor'));
     }
 
     public function showEBook(){

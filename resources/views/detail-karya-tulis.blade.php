@@ -16,12 +16,30 @@
                     <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..."
                         style="object-fit: cover; width: 250px; height: 200px;">
                     <div class="mt-3">
-                        <h6 class="textit mb-0" style="font-weight: 600;">Author : </h6>
-                        @foreach ($kontributors as $kontributor)
-                            <a href="singleauthor.html">
-                                <h6 class="text m-0" style="font-weight: 500;">{{ $kontributor->kontributor }}</h6>
-                            </a>
-                        @endforeach
+                        @if(!($penulis->isEmpty()))
+                            <h6 class="textit mb-0" style="font-weight: 600;">Author : </h6>
+                            @foreach ($penulis as $item)
+                                <a href="singleauthor.html">
+                                    <h6 class="text m-0" style="font-weight: 500;">{{ $item->kontributor }}</h6>
+                                </a>
+                            @endforeach
+                        @endif
+                        @if(!($kontributor->isEmpty()))
+                            <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Kontributor : </h6>
+                            @foreach ($kontributor as $item)
+                                <a href="singleauthor.html">
+                                    <h6 class="text m-0" style="font-weight: 500;">{{ $item->kontributor }}</h6>
+                                </a>
+                            @endforeach
+                        @endif
+                        @if(!($pembimbing->isEmpty()))
+                            <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Pembimbing : </h6>
+                            @foreach ($pembimbing as $item)
+                                <a href="singleauthor.html">
+                                    <h6 class="text m-0" style="font-weight: 500;">{{ $item->kontributor }}</h6>
+                                </a>
+                            @endforeach
+                        @endif
                         <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Tahun : </h6>
                         <h6 class="text mb-3" style="font-weight: 500;">{{ $detail->tahun }}</h6>
                         <h6 class="textit mb-0" style="font-weight: 600;">File Digital : </h6>
