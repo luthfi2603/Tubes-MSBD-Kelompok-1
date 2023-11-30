@@ -13,12 +13,12 @@ class AdminsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::create([
+        Admin::create([ // 1
             'nama' => 'Maia Cibebe',
             'user_id' => '2'
         ]);
         
-        Admin::create([
+        Admin::create([ // 2
             'nama' => 'Pak Andri',
             'user_id' => '3'
         ]);

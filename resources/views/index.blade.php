@@ -71,7 +71,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 @foreach ($jenisTulisans as $jenisTulisan)
-                    <li class="list-group-item"><a href="{{ route('single.koleksi') }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $jenisTulisan->jenis_tulisan }}</a></li>
+                    <li class="list-group-item"><a href="{{ route('koleksi', $jenisTulisan->jenis_tulisan) }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $jenisTulisan->jenis_tulisan }}</a></li>
                 @endforeach
             </ul>
 
@@ -86,7 +86,7 @@
             </ul>
             <!-- E-Book -->
             <div class="d flex mt-3 mb-2">
-                <h6 class="sidebar-col"><a class="ebook" href="{{ route('single.ebook') }}"><span><i class="fa-solid fa-book-open-reader"></i> E-Book</span></a></h6>
+                <h6 class="sidebar-col"><a class="ebook" href="{{ route('ebook') }}"><span><i class="fa-solid fa-book-open-reader"></i> E-Book</span></a></h6>
             </div>
         </div>
 

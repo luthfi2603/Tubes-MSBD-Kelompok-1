@@ -5,7 +5,7 @@
     <div class="col-lg-12 pt-3">
         <h6>
             <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><a
-                href="{{ route('single.ebook') }}">E-Book</a>
+                href="{{ route('ebook') }}">E-Book</a>
         </h6>
         <hr class="mt-0">
     </div>
@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title textit"><a href="{{ route('detail.ebook') }}">{{ $ebook->judul }}</a></h5>
+                                    <h5 class="card-title textit"><a href="{{ route('detail.ebook', $ebook->id) }}">{{ $ebook->judul }}</a></h5>
                                     <p class="text-muted"><small class="text-body-secondary">{{ $ebook->penulis }} ({{ $ebook->tahun_terbit }})</small></p>
                                 </div>
                             </div>

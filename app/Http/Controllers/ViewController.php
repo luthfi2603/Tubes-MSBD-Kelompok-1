@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ebook;
 use App\Models\Prodi;
 use App\Models\JenisTulisan;
+use App\Models\KaryaTulis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,9 +19,7 @@ class ViewController extends Controller
         }
         $jenisTulisans = JenisTulisan::all();
         $prodis = Prodi::all();
-        $karyas = DB::table('view_list_karya')
-            ->select('*')
-            ->paginate(5);
+        $karyas = KaryaTulis::paginate(5);
 
         $penuliss = DB::table('view_list_karya')
             ->select('penulis', 'id')
@@ -73,7 +72,25 @@ class ViewController extends Controller
 
     public function showEBook(){
         $ebooks = Ebook::paginate(5);
-
+        
         return view('single-ebook', compact('ebooks'));
+    }
+
+    public function detailEBook($id){
+        $ebook = Ebook::where('id', $id)->get();
+
+        $ebook = $ebook[0];
+
+        return view('detail-ebook', compact('ebook'));
+    }
+
+    public function showKoleksi($jenisTulisan){
+        $karyas = KaryaTulis::where('jenis', $jenisTulisan)->paginate(5);
+
+        $penuliss = DB::table('view_list_karya')
+            ->select('penulis', 'id')
+            ->get();
+        
+        return view('koleksi', compact('karyas', 'penuliss', 'jenisTulisan'));
     }
 }

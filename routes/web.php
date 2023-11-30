@@ -18,33 +18,33 @@ use App\Http\Controllers\ViewController;
 Route::get('/', [ViewController::class, 'index']);
 Route::get('/detail-karya-tulis/{id}', [ViewController::class, 'detailKaryaTulis'])
             ->name('detail.karya.tulis');
-Route::get('/single-ebook', [ViewController::class, 'showEBook'])
-            ->name('single.ebook');
+Route::get('/e-book', [ViewController::class, 'showEBook'])
+            ->name('ebook');
+Route::get('/detail-ebook/{id}', [ViewController::class, 'detailEBook'])
+            ->name('detail.ebook');
+Route::get('/detail-ebook/{id}', [ViewController::class, 'detailEBook'])
+            ->name('detail.ebook');
+Route::get('/koleksi/{jenisTulisan}', [ViewController::class, 'showKoleksi'])
+            ->name('koleksi');
 
 Route::get('/search-page', function () {
     return view('search-page');
 });
-Route::get('/single-author', function () {
-    return view('single-author');
+Route::get('/author', function () {
+    return view('author');
 });
 Route::get('/statistik', function () {
     return view('statistik');
 });
-Route::get('/single-prodi', function () {
-    return view('single-prodi');
+Route::get('/prodi', function () {
+    return view('prodi');
 })->name('single.prodi');
-Route::get('/single-koleksi', function () {
-    return view('single-koleksi');
-})->name('single.koleksi');
 Route::get('/favorite', function () {
     return view('favorite');
 });
 Route::get('/advanced-search', function () {
     return view('advanced-search');
 });
-Route::get('/detail-ebook', function () {
-    return view('detail-ebook');
-})->name('detail.ebook');
 
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', [AdminController::class, 'index'])->name('admin.home');
