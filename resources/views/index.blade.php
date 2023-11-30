@@ -24,7 +24,7 @@
                     @foreach ($karyas as $karya)
                         <div class="card mt-3" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
-                                <div class="col-md-4">
+                                <div class="col-md-4 my-3">
                                     <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
                                 </div>
                                 <div class="col-md-8">
@@ -81,7 +81,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 @foreach ($prodis as $prodi)
-                    <li class="list-group-item"><a href="{{ route('single.prodi') }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</a></li>
+                    <li class="list-group-item"><a href="{{ route('prodi', 'setan') }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</a></li>
                 @endforeach
             </ul>
             <!-- E-Book -->

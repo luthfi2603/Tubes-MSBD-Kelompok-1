@@ -73,7 +73,7 @@ class ViewController extends Controller
     public function showEBook(){
         $ebooks = Ebook::paginate(5);
         
-        return view('single-ebook', compact('ebooks'));
+        return view('e-book', compact('ebooks'));
     }
 
     public function detailEBook($id){
@@ -81,10 +81,10 @@ class ViewController extends Controller
 
         $ebook = $ebook[0];
 
-        return view('detail-ebook', compact('ebook'));
+        return view('detail-e-book', compact('ebook'));
     }
 
-    public function showKoleksi($jenisTulisan){
+    public function showByKoleksi($jenisTulisan){
         $karyas = KaryaTulis::where('jenis', $jenisTulisan)->paginate(5);
 
         $penuliss = DB::table('view_list_karya')
@@ -92,5 +92,22 @@ class ViewController extends Controller
             ->get();
         
         return view('koleksi', compact('karyas', 'penuliss', 'jenisTulisan'));
+    }
+
+    public function showByProdi(){
+        return view('prodi');
+    }
+    
+    public function showByAuthor($author){
+        $karyas = DB::table('view_list_karya')
+            ->select('*')
+            ->where('penulis', $author)
+            ->paginate(5);
+
+        $penuliss = DB::table('view_list_karya')
+            ->select('penulis', 'id')
+            ->get();
+
+        return view('author', compact('karyas', 'author', 'penuliss'));
     }
 }

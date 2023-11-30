@@ -19,7 +19,7 @@
                         @if(!($penulis->isEmpty()))
                             <h6 class="textit mb-0" style="font-weight: 600;">Author : </h6>
                             @foreach ($penulis as $item)
-                                <a href="singleauthor.html">
+                                <a href="{{ route('author', $item->kontributor) }}">
                                     <h6 class="text m-0" style="font-weight: 500;">{{ $item->kontributor }}</h6>
                                 </a>
                             @endforeach
@@ -27,7 +27,7 @@
                         @if(!($kontributor->isEmpty()))
                             <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Kontributor : </h6>
                             @foreach ($kontributor as $item)
-                                <a href="singleauthor.html">
+                                <a href="{{ route('author', $item->kontributor) }}">
                                     <h6 class="text m-0" style="font-weight: 500;">{{ $item->kontributor }}</h6>
                                 </a>
                             @endforeach
@@ -35,7 +35,7 @@
                         @if(!($pembimbing->isEmpty()))
                             <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Pembimbing : </h6>
                             @foreach ($pembimbing as $item)
-                                <a href="singleauthor.html">
+                                <a href="{{ route('author', $item->kontributor) }}">
                                     <h6 class="text m-0" style="font-weight: 500;">{{ $item->kontributor }}</h6>
                                 </a>
                             @endforeach

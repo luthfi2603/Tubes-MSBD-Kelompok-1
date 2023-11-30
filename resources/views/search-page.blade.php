@@ -118,7 +118,7 @@
                         <div class="card mt-0" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
                                 <div class="col-md-4">
-                                    <img src="assets/img/fasilkom.jpg" class="img-fluid rounded-start" alt="..."
+                                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..."
                                         style="object-fit: cover; width: 250px; height: 200px;">
                                 </div>
                                 <div class="col-md-8">
@@ -138,7 +138,7 @@
                         <div class="card mt-3" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
                                 <div class="col-md-4">
-                                    <img src="assets/img/fasilkom.jpg" class="img-fluid rounded-start" alt="..."
+                                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..."
                                         style="object-fit: cover; width: 250px; height: 200px;">
                                 </div>
                                 <div class="col-md-8">
@@ -158,7 +158,7 @@
                         <div class="card mt-3" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
                                 <div class="col-md-4">
-                                    <img src="assets/img/fasilkom.jpg" class="img-fluid rounded-start" alt="..."
+                                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..."
                                         style="object-fit: cover; width: 250px; height: 200px;">
                                 </div>
                                 <div class="col-md-8">
@@ -178,7 +178,7 @@
                         <div class="card mt-3" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
                                 <div class="col-md-4">
-                                    <img src="assets/img/fasilkom.jpg" class="img-fluid rounded-start" alt="..."
+                                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..."
                                         style="object-fit: cover; width: 250px; height: 200px;">
                                 </div>
                                 <div class="col-md-8">
@@ -198,7 +198,7 @@
                         <div class="card mt-3" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
                                 <div class="col-md-4">
-                                    <img src="assets/img/fasilkom.jpg" class="img-fluid rounded-start" alt="..."
+                                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..."
                                         style="object-fit: cover; width: 250px; height: 200px;">
                                 </div>
                                 <div class="col-md-8">
