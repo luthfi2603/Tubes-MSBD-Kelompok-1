@@ -24,7 +24,7 @@
                     @foreach ($karyas as $karya)
                         <div class="card mt-3" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
-                                <div class="col-md-4">
+                                <div class="col-md-4 my-3">
                                     <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
                                 </div>
                                 <div class="col-md-8">
@@ -32,7 +32,15 @@
                                         <h5 class="card-title textit"><a href="{{ route('detail.karya.tulis', $karya->id) }}">{{ $karya->judul }}</a></h5>
                                         <p class="text-muted">
                                             <small class="text-body-secondary">
-                                                {{ $karya->penulis }}
+                                                @php
+                                                    $penulis = "";
+                                                    $penulisTertentu = $penuliss->where('id', $karya->id);
+                                                    foreach ($penulisTertentu as $key) {
+                                                        $penulis .= $key->penulis . ', ';
+                                                    }
+                                                    $penulis = rtrim($penulis, ', ');
+                                                @endphp
+                                                {{ $penulis }}
                                                 ({{ $karya->tahun }})
                                             </small>
                                         </p>
@@ -63,7 +71,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 @foreach ($jenisTulisans as $jenisTulisan)
-                    <li class="list-group-item"><a href="{{ route('single.koleksi') }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $jenisTulisan->jenis_tulisan }}</a></li>
+                    <li class="list-group-item"><a href="{{ route('koleksi', $jenisTulisan->jenis_tulisan) }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $jenisTulisan->jenis_tulisan }}</a></li>
                 @endforeach
             </ul>
 
@@ -73,12 +81,12 @@
             </div>
             <ul class="list-group list-group-flush">
                 @foreach ($prodis as $prodi)
-                    <li class="list-group-item"><a href="{{ route('single.prodi') }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</a></li>
+                    <li class="list-group-item"><a href="{{ route('prodi', 'setan') }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</a></li>
                 @endforeach
             </ul>
             <!-- E-Book -->
             <div class="d flex mt-3 mb-2">
-                <h6 class="sidebar-col"><a class="ebook" href="{{ route('single.ebook') }}"><span><i class="fa-solid fa-book-open-reader"></i> E-Book</span></a></h6>
+                <h6 class="sidebar-col"><a class="ebook" href="{{ route('ebook') }}"><span><i class="fa-solid fa-book-open-reader"></i> E-Book</span></a></h6>
             </div>
         </div>
 

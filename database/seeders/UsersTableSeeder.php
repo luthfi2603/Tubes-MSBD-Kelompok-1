@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        User::create([ // 1
             'username' => 'kelompok1',
             'status' => 'mahasiswa',
             'email' => 'kelompok1@gmail.com',
@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('1')
         ]);
 
-        User::create([
+        User::create([ // 2
             'username' => 'admin',
             'status' => 'admin',
             'email' => 'admin@gmail.com',
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('1')
         ]);
         
-        User::create([
+        User::create([ // 3
             'username' => 'super_admin',
             'status' => 'super_admin',
             'email' => 'superadmin@gmail.com',
@@ -38,7 +38,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('1')
         ]);
         
-        User::create([
+        User::create([ // 4
             'username' => 'ZeeroXc',
             'status' => 'mahasiswa',
             'email' => 'luthfim904@gmail.com',
@@ -46,7 +46,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('1')
         ]);
         
-        User::create([
+        User::create([ // 5
             'username' => 'IvanJaya',
             'status' => 'dosen',
             'email' => 'ivansanjaya@gmail.com',

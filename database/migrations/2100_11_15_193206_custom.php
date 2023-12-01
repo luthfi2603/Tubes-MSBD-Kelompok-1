@@ -212,7 +212,8 @@ return new class extends Migration
                 a.tahun, 
                 a.view,
                 d.kata_kunci,
-                c.nama AS kontributor
+                c.nama AS kontributor,
+                b.status
             FROM karya_tulis a 
             INNER JOIN kontributor_mahasiswas b ON a.id = b.karya_id 
             INNER JOIN mahasiswas c ON b.nim = c.nim 
@@ -227,12 +228,13 @@ return new class extends Migration
                 a.jenis, 
                 a.tahun, 
                 a.view,
-                h.kata_kunci,
-                g.nama AS kontributor
+                d.kata_kunci,
+                c.nama AS kontributor,
+                b.status
             FROM karya_tulis a 
-            INNER JOIN kontributor_dosens f ON a.id = f.karya_id 
-            INNER JOIN dosens g ON f.nidn = g.nidn
-            INNER JOIN kata_kunci_tulisans h ON a.id = h.karya_id
+            INNER JOIN kontributor_dosens b ON a.id = b.karya_id 
+            INNER JOIN dosens c ON b.nidn = c.nidn
+            INNER JOIN kata_kunci_tulisans d ON a.id = d.karya_id
             ORDER BY `id` ASC
         ');
     }

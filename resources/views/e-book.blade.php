@@ -4,8 +4,7 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-            <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><a
-                href="{{ route('single.ebook') }}">E-Book</a>
+            <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><span>E-Book</span>
         </h6>
         <hr class="mt-0">
     </div>
@@ -15,16 +14,16 @@
             <div class="d flex mb-5">
                 <h6 class="sidebar-col"><span><i class="fa-solid fa-ebook-open-reader"></i></span> E-Book</h6>
                 <!-- untuk iconnya bisa diambil di statistik ato mau beda pun bole ambil dari font awesome -->
-                <hr class="garis mb-3" style="width: 70%;">
+                <hr class="garis" style="width: 70%;">
                 @foreach($ebooks as $ebook)
-                    <div class="card mt-0" style="max-width: 100%;">
+                    <div class="card mt-3" style="max-width: 100%;">
                         <div class="row g-0 align-items-center">
                             <div class="col-md-4 my-3">
-                                <img src="assets/img/fasilkom.jpg" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
+                                <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title textit"><a href="{{ route('detail.ebook') }}">{{ $ebook->judul }}</a></h5>
+                                    <h5 class="card-title textit"><a href="{{ route('detail.ebook', $ebook->id) }}">{{ $ebook->judul }}</a></h5>
                                     <p class="text-muted"><small class="text-body-secondary">{{ $ebook->penulis }} ({{ $ebook->tahun_terbit }})</small></p>
                                 </div>
                             </div>

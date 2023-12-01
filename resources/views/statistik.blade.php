@@ -241,7 +241,7 @@
                                             <h6 class="bold">1</h6>
                                         </td>
                                         <td>
-                                            <h6 class="bold"><a href="singleauthor.html">Ruth Canti</a></h6>
+                                            <h6 class="bold"><a href="{{ route('author', 1) }}">Ruth Canti</a></h6>
                                         </td>
                                         <td>
                                             <h6 class="bold">1118</h6>
@@ -252,7 +252,7 @@
                                             <h6 class="bold">2</h6>
                                         </td>
                                         <td>
-                                            <h6 class="bold"><a href="singleauthor.html">Andie Pakpahan</a></h6>
+                                            <h6 class="bold"><a href="{{ route('author', 1) }}">Andie Pakpahan</a></h6>
                                         </td>
                                         <td>
                                             <h6 class="bold">1118</h6>
@@ -263,7 +263,7 @@
                                             <h6 class="bold">3</h6>
                                         </td>
                                         <td>
-                                            <h6 class="bold"><a href="singleauthor.html">Luthfi Jabrah</a></h6>
+                                            <h6 class="bold"><a href="{{ route('author', 1) }}">Luthfi Jabrah</a></h6>
                                         </td>
                                         <td>
                                             <h6 class="bold">1118</h6>
@@ -274,7 +274,7 @@
                                             <h6 class="bold">4</h6>
                                         </td>
                                         <td>
-                                            <h6 class="bold"><a href="singleauthor.html">Nancy Amanda</a></h6>
+                                            <h6 class="bold"><a href="{{ route('author', 1) }}">Nancy Amanda</a></h6>
                                         </td>
                                         <td>
                                             <h6 class="bold">1118</h6>
@@ -285,7 +285,7 @@
                                             <h6 class="bold">5</h6>
                                         </td>
                                         <td>
-                                            <h6 class="bold"><a href="singleauthor.html">Ivan Verquez</a></h6>
+                                            <h6 class="bold"><a href="{{ route('author', 1) }}">Ivan Verquez</a></h6>
                                         </td>
                                         <td>
                                             <h6 class="bold">1118</h6>

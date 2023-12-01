@@ -26,14 +26,14 @@ class ProfileController extends Controller
                 ->select('*')
                 ->where('email', Auth::user()->email)
                 ->get();
-            $profile = $profile[0];
         }else{
             $profile = DB::table('view_profile_dosen')
                 ->select('*')
                 ->where('email', Auth::user()->email)
                 ->get();
-            $profile = $profile[0];
         }
+        
+        $profile = $profile[0];
 
         $profile->jenis_kelamin == 'L' ? $profile->jenis_kelamin = 'Laki-laki' : $profile->jenis_kelamin = 'Perempuan';
 
