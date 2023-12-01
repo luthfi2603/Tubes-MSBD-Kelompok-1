@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\DB;
 class ViewController extends Controller
 {
     public function index(){
-        if(auth()->user()){
-            if(auth()->user()->email_verified_at == NULL){
+        if (auth()->user()) {
+            if (auth()->user()->email_verified_at == NULL) {
                 return redirect('/verify-email');
             }
         }
@@ -109,5 +109,27 @@ class ViewController extends Controller
             ->get();
 
         return view('author', compact('karyas', 'author', 'penuliss'));
+    }
+
+    public function viewAdvSearch(){
+        $prodis = Prodi::all();
+        $jenisTulisans = JenisTulisan::all();
+
+        return view('advanced-search', compact('prodis', 'jenisTulisans'));
+    }
+
+    public function search(Request $request){
+        $prodis = Prodi::all();
+        $jenisTulisans = JenisTulisan::all();
+
+        $search = $request->input('search');
+        $results = DB::table('view_detail_karya_tulis')
+            ->where('judul', 'like', '%' . $search . '%')
+            ->orWhere('kontributor', 'like', '%' . $search . '%')
+            ->orWhere('kata_kunci', 'like', '%' . $search . '%')
+            ->select('*')
+            ->paginate(5);
+
+        return view('search-page', compact('results', 'prodis', 'jenisTulisans'));
     }
 }
