@@ -15,15 +15,19 @@ use App\Http\Controllers\ViewController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', [ViewController::class, 'index']);
 Route::get('/detail-karya-tulis/{id}', [ViewController::class, 'detailKaryaTulis'])
-            ->name('detail.karya.tulis');
+    ->name('detail.karya.tulis');
 Route::get('/single-ebook', [ViewController::class, 'showEBook'])
-            ->name('single.ebook');
+    ->name('single.ebook');
 
-Route::get('/search-page', function () {
-    return view('search-page');
-});
+// Route::get('/search-page', function () {
+//     return view('search-page');
+// });
+
+Route::get('/search-page', [ViewController::class, 'search'])->name('search');
+
 Route::get('/single-author', function () {
     return view('single-author');
 });
@@ -39,9 +43,13 @@ Route::get('/single-koleksi', function () {
 Route::get('/favorite', function () {
     return view('favorite');
 });
-Route::get('/advanced-search', function () {
-    return view('advanced-search');
-});
+
+// Route::get('/advanced-search', function () {
+//     return view('advanced-search');
+// });
+
+Route::get('/advanced-search', [ViewController::class, 'viewAdvSearch']);
+
 Route::get('/detail-ebook', function () {
     return view('detail-ebook');
 })->name('detail.ebook');
@@ -50,7 +58,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/admin-home', [AdminController::class, 'index'])->name('admin.home');
     Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])->name('kelola.karya.tulis');
     Route::get('/kelola-kategori', [AdminController::class, 'showJenisTulisan'])->name('kelola.kategori');
-    Route::get('/edit-karya-tulis', function () {   
+    Route::get('/edit-karya-tulis', function () {
         return view('admin.edit-karya-tulis');
     })->name('edit.karya.tulis');
     Route::get('/edit-kategori', function () {
@@ -108,23 +116,23 @@ Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'showProfile'])
-                ->name('profile');
+        ->name('profile');
     Route::get('/edit-profile', [ProfileController::class, 'editProfile'])
-                ->name('profile.edit');
+        ->name('profile.edit');
     Route::put('/edit-profile', [ProfileController::class, 'updateProfile'])
-                ->name('profile.update2');
+        ->name('profile.update2');
     Route::patch('/profile', [ProfileController::class, 'update'])
-                ->name('profile.update');
+        ->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])
-                ->name('profile.destroy');
+        ->name('profile.destroy');
     Route::get('/edit-password', [ProfileController::class, 'editPassword'])
-                ->name('password.edit');
+        ->name('password.edit');
     Route::put('/edit-password', [ProfileController::class, 'updatePassword'])
-                ->name('password.update2');
+        ->name('password.update2');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

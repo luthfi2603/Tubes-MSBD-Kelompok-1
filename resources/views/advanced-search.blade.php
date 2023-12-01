@@ -66,16 +66,16 @@
     <div class="row mt-2 mb-4">
         <div class="col-lg-2">
             <select class="form-select custom-form" aria-label="">
-                <option value="1">AND</option>
-                <option value="2">OR</option>
-                <option value="3">AND NOT</option>
+                <option value="AND">AND</option>
+                <option value="OR">OR</option>
+                <option value="AND NOT">AND NOT</option>
             </select>
         </div>
         <div class="col-lg-3">
             <select class="form-select custom-form" aria-label="">
-                <option value="1">Judul</option>
-                <option value="2">Penulis</option>
-                <option value="3">Kata Kunci</option>
+                <option value="judul">Judul</option>
+                <option value="penulis">Penulis</option>
+                <option value="kata_kunci">Kata Kunci</option>
             </select>
         </div>
         <div class="col-lg-6">
@@ -94,11 +94,11 @@
         </div>
         <div class="col-lg-2">
             <input type="text" class="form-control custom-form" id="tahunawal" name="tahunawal" value="2019"
-                placeholder="Kosongkan">
+                placeholder="Tahun">
         </div>
         <div class="col-lg-2">
             <input type="text" class="form-control custom-form" id="tahunakhir" name="tahunakhir" value="2023"
-                placeholder="Kosongkan">
+                placeholder="Tahun">
         </div>
     </div>
 
@@ -109,10 +109,11 @@
             <h6 class="textit">Jenis Koleksi</h6>
         </div>
         <div class="col-lg-7">
-            <div class="input-group">
-                <input type="text" class="form-control custom-form" placeholder="" aria-label=""
-                    aria-describedby="basic-addon2">
-            </div>
+            <select class="form-select custom-form" aria-label="">
+                @foreach ($jenisTulisans as $jenisTulisan)
+                <option value="{{$jenisTulisan->jenis_tulisan}}">{{$jenisTulisan->jenis_tulisan}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 
@@ -121,10 +122,16 @@
             <h6 class="textit">Prodi</h6>
         </div>
         <div class="col-lg-7">
-            <div class="input-group">
-                <input type="text" class="form-control custom-form" placeholder="" aria-label="" aria-describedby="basic-addon2">
-            </div>
+            <select class="form-select custom-form" aria-label="">
+                @foreach ($prodis as $prodi)
+                <option value="{{$prodi->kode_prodi}}">{{$prodi->jenjang}} {{$prodi->nama_prodi}}</option>
+                @endforeach
+            </select>
         </div>
+    </div>
+
+    <div class="row mt-4 mb-5 align-items-center">
+        <a href="/search-page" class="btn btn-success w-15 mx-auto" style="font-weight: 600;">Cari</a>
     </div>
 </div>
 @endsection

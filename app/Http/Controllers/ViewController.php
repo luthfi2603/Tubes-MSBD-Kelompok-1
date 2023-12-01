@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class ViewController extends Controller
 {
-    public function index(){
-        if(auth()->user()){
-            if(auth()->user()->email_verified_at == NULL){
+    public function index()
+    {
+        if (auth()->user()) {
+            if (auth()->user()->email_verified_at == NULL) {
                 return redirect('/verify-email');
             }
         }
@@ -25,12 +26,13 @@ class ViewController extends Controller
         return view('index', compact('jenisTulisans', 'prodis', 'karyas'));
     }
 
-    public function detailKaryaTulis($id){
+    public function detailKaryaTulis($id)
+    {
         $detail = DB::table('view_detail_karya_tulis')
             ->select('*')
             ->where('id', $id)
             ->first();
-        
+
         $kontributors = DB::table('view_detail_karya_tulis')
             ->select('kontributor')
             ->where('id', $id)
@@ -52,9 +54,34 @@ class ViewController extends Controller
         return view('/detail-karya-tulis', compact('detail', 'kontributors', 'kataKunci'));
     }
 
-    public function showEBook(){
+    public function showEBook()
+    {
         $ebooks = Ebook::paginate(5);
 
         return view('single-ebook', compact('ebooks'));
+    }
+
+    public function viewAdvSearch()
+    {
+        $prodis = Prodi::all();
+        $jenisTulisans = JenisTulisan::all();
+
+        return view('advanced-search', compact('prodis', 'jenisTulisans'));
+    }
+
+    public function search(Request $request)
+    {
+        $prodis = Prodi::all();
+        $jenisTulisans = JenisTulisan::all();
+
+        $search = $request->input('search');
+        $results = DB::table('view_detail_karya_tulis')
+            ->where('judul', 'like', '%' . $search . '%')
+            ->orWhere('kontributor', 'like', '%' . $search . '%')
+            ->orWhere('kata_kunci', 'like', '%' . $search . '%')
+            ->select('*')
+            ->paginate(5);
+
+        return view('search-page', compact('results', 'prodis', 'jenisTulisans'));
     }
 }
