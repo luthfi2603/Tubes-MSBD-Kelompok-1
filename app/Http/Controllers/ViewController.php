@@ -95,24 +95,20 @@ class ViewController extends Controller
     }
 
     public function showByProdi($prodi){
-        $karyas = DB::table('view_list_karya')
+        $karyaIds = DB::table('view_list_karya')
             ->select('id')
             ->where('kode_prodi', $prodi)
             ->groupBy('id')
-            ->get();
-
-        $result = KaryaTulis::get();
-
-        $idsToFilter = $karyas->pluck('id')->toArray();
-        $karyas = $result->whereIn('id', $idsToFilter);
-
+            ->pluck('id');
+    
+        $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
+    
         $penuliss = DB::table('view_list_karya')
             ->select('penulis', 'id')
             ->get();
-
-        $prodi = Prodi::where('kode_prodi', $prodi)->get();
-        $prodi = $prodi[0]->nama_prodi;
-
+    
+        $prodi = Prodi::where('kode_prodi', $prodi)->first()->nama_prodi;
+    
         return view('prodi', compact('karyas', 'prodi', 'penuliss'));
     }
     
