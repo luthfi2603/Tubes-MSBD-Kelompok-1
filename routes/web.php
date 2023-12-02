@@ -37,9 +37,6 @@ Route::get('/advanced-search', [ViewController::class, 'viewAdvSearch'])
 Route::get('/statistik', function () {
     return view('statistik');
 });
-Route::get('/favorite', function () {
-    return view('favorite');
-});
 
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', [AdminController::class, 'index'])
@@ -119,6 +116,8 @@ Route::middleware('auth', 'verified')->group(function () {
         ->name('password.edit');
     Route::put('/edit-password', [ProfileController::class, 'updatePassword'])
         ->name('password.update2');
+    Route::get('/favorite', [ViewController::class, 'favorite'])
+        ->name('favorite');
 });
 
 Route::get('/dashboard', function () {

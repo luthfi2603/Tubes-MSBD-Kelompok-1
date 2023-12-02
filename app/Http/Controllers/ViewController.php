@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ebook;
+use App\Models\Favorite;
 use App\Models\Prodi;
 use App\Models\JenisTulisan;
 use App\Models\KaryaTulis;
@@ -145,5 +146,19 @@ class ViewController extends Controller
             ->paginate(5);
 
         return view('search-page', compact('results', 'prodis', 'jenisTulisans'));
+    }
+
+    public function favorite(){
+        $karyaIds = Favorite::select('karya_id')
+            ->where('user_id', auth()->user()->id)
+            ->pluck('karya_id');
+
+        $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
+
+        $penuliss = DB::table('view_list_karya')
+            ->select('penulis', 'id')
+            ->get();
+    
+        return view('favorite', compact('karyas', 'penuliss'));
     }
 }

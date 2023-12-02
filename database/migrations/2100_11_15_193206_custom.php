@@ -158,7 +158,7 @@ return new class extends Migration
             CREATE FUNCTION hitungLikeKarya(karya_idp INT(10))
             RETURNS INT
             BEGIN
-                RETURN (SELECT COUNT(*) FROM likes WHERE karya_id = karya_idp);
+                RETURN (SELECT COUNT(*) FROM favorites WHERE karya_id = karya_idp);
             END
         ');
 
@@ -178,10 +178,10 @@ return new class extends Migration
             BEGIN
                 DECLARE jlh_like INT;
                 IF (statusp = 1) THEN
-                    SELECT COUNT(*) into jlh_like FROM likes WHERE karya_id IN(SELECT DISTINCT karya_id FROM kontributor_mahasiswas WHERE status = CAST('penulis' AS CHAR) AND nim = Author_idp COLLATE utf8mb4_unicode_ci);
+                    SELECT COUNT(*) into jlh_like FROM favorites WHERE karya_id IN(SELECT DISTINCT karya_id FROM kontributor_mahasiswas WHERE status = CAST('penulis' AS CHAR) AND nim = Author_idp COLLATE utf8mb4_unicode_ci);
                     RETURN jlh_like;
                 ELSEIF (statusp = 2) THEN
-                    SELECT COUNT(*) into jlh_like FROM likes WHERE karya_id IN(SELECT DISTINCT karya_id FROM kontributor_dosens WHERE status = CAST('penulis' AS CHAR) AND nidn = Author_idp COLLATE utf8mb4_unicode_ci);
+                    SELECT COUNT(*) into jlh_like FROM favorites WHERE karya_id IN(SELECT DISTINCT karya_id FROM kontributor_dosens WHERE status = CAST('penulis' AS CHAR) AND nidn = Author_idp COLLATE utf8mb4_unicode_ci);
                     RETURN jlh_like;
                 END IF;
             END

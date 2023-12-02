@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder {
         $this->call(KaryaTulisTableSeeder::class);
         $this->call(KontributorMahasiswaTableSeeder::class);
         $this->call(KontributorDosenTableSeeder::class);
-        $this->call(LikesTableSeeder::class);
+        $this->call(FavoritesTableSeeder::class);
         $this->call(KataKuncisTableSeeder::class);
         $this->call(KataKunciTulisansTableSeeder::class);
         $this->call(EbooksTableSeeder::class);

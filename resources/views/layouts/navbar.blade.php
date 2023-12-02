@@ -37,6 +37,9 @@
                         <a class="nav-link" href="/statistik">Statistik</a>
                     </li>
                     @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('favorite') }}">Favorite</a>
+                        </li>
                         @if(auth()->user()->status != 'admin' && auth()->user()->status != 'super_admin')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('profile') }}">
@@ -49,7 +52,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             @auth
-                                <form action="{{ route('logout') }}" method="POST" id="form">
+                                <form action="{{ route('logout') }}" method="POST" id="form-logout">
                                     @csrf
                                     <button type="button" class="dropdown-item" id="logout">Logout</button>
                                 </form>
@@ -75,7 +78,7 @@
             confirmButtonText: "Logout"
         }).then((result) => {
             if(result.isConfirmed){
-                document.getElementById('form').submit()
+                document.getElementById('form-logout').submit()
             }else{
                 return false;
             }
