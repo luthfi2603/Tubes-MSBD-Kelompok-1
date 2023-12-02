@@ -48,9 +48,9 @@
                     </div>
                 @endforeach
                 <!-- Pagination -->
-                {{-- <nav aria-label="Page navigation example" class="pt-4">
+                <nav aria-label="Page navigation example" class="pt-4">
                     {{ $karyas->links() }}
-                </nav> --}}
+                </nav>
             </div>
         </div>
         <div class="col-lg-3 order-1 order-lg-last mb-5">
