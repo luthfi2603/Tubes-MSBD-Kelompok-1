@@ -98,7 +98,8 @@ return new class extends Migration
                 a.jenis, 
                 a.tahun, 
                 c.nama AS penulis, 
-                a.url_file
+                a.url_file,
+                c.kode_prodi
             FROM karya_tulis a 
             INNER JOIN kontributor_mahasiswas b ON a.id = b.karya_id 
             INNER JOIN mahasiswas c ON b.nim = c.nim 
@@ -110,12 +111,13 @@ return new class extends Migration
                 a.abstrak, 
                 a.jenis, 
                 a.tahun, 
-                e.nama AS penulis, 
-                a.url_file
+                c.nama AS penulis, 
+                a.url_file,
+                c.kode_prodi
             FROM karya_tulis a 
-            INNER JOIN kontributor_dosens d ON a.id = d.karya_id 
-            INNER JOIN dosens e ON d.nidn = e.nidn
-            WHERE d.status = "penulis"
+            INNER JOIN kontributor_dosens b ON a.id = b.karya_id 
+            INNER JOIN dosens c ON b.nidn = c.nidn
+            WHERE b.status = "penulis"
         ');
 
         DB::unprepared('
@@ -237,6 +239,13 @@ return new class extends Migration
             INNER JOIN kata_kunci_tulisans d ON a.id = d.karya_id
             ORDER BY `id` ASC
         ');
+
+        /* DB::unprepared('
+            DROP VIEW IF EXISTS view_list_karya_group_by_id;
+            CREATE VIEW view_list_karya_group_by_id AS
+            SELECT * FROM view_list_karya
+            GROUP BY id, judul, abstrak, jenis, tahun, penulis, url_file, kode_prodi
+        '); */
     }
 
     /**

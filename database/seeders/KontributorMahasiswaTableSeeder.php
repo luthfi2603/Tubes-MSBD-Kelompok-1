@@ -38,5 +38,10 @@ class KontributorMahasiswaTableSeeder extends Seeder
             'status' => 'penulis',
             'karya_id' => '4'
         ]);
+        KontributorMahasiswa::create([
+            'nim' => '221401001',
+            'status' => 'penulis',
+            'karya_id' => '7'
+        ]);
     }
 }
