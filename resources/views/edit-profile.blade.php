@@ -25,9 +25,9 @@
             @method('PUT')
             <div class="card overflow-hidden">
                 <div class="row no-gutters row-bordered row-border-light">
-                    <div class="col-md-3 pt-0">
+                    <div class="col-md-3 pt-2">
                         <div class="list-group list-group-flush account-settings-links">
-                            <a class="list-group-item list-group-item-action active" data-toggle="list" href="{{ route('profile') }}">General</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ route('profile') }}">General</a>
                             <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ route('password.edit') }}">Change password</a>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
         </form>
         <div class="text-right mt-3 mb-5">
             <button type="button" id="submitbutton" class="btn btn-success">Save changes</button>&nbsp;
-            <button type="button" id="cancelbutton" class="btn btn-default">Cancel</button>
+            {{-- <button type="button" id="cancelbutton" class="btn btn-default">Cancel</button> --}}
         </div>
     </div>
 </div>

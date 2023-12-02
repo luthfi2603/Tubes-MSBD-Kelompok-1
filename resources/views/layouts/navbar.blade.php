@@ -49,9 +49,9 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             @auth
-                                <form action="{{ route('logout') }}" method="POST">
+                                <form action="{{ route('logout') }}" method="POST" id="form">
                                     @csrf
-                                    <button onclick="return confirm('Apakah kamu yakin?')" type="submit" class="dropdown-item">Logout</button>
+                                    <button type="button" class="dropdown-item" id="logout">Logout</button>
                                 </form>
                             @else
                                 <li><a class="dropdown-item" href="/register">Register</a></li>
@@ -64,3 +64,21 @@
         </div>
     </div>
 </nav>
+<script>
+    document.getElementById('logout').addEventListener('click', () => {
+        Swal.fire({
+            icon: "question",
+            title: "Apakah kamu yakin untuk logout?",
+            showCancelButton: true,
+            confirmButtonColor: "#006633",
+            cancelButtonColor: "#6b6767",
+            confirmButtonText: "Logout"
+        }).then((result) => {
+            if(result.isConfirmed){
+                document.getElementById('form').submit()
+            }else{
+                return false;
+            }
+        });
+    });
+</script>

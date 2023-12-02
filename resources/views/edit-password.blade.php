@@ -81,7 +81,7 @@
         </form>
         <div class="text-right mt-3 mb-5">
             <button type="button" id="submitbutton" class="btn btn-success">Save changes</button>&nbsp;
-            <button type="button" id="cancelbutton" class="btn btn-default">Cancel</button>
+            {{-- <button type="button" id="cancelbutton" class="btn btn-default">Cancel</button> --}}
         </div>
     </div>
 </div>

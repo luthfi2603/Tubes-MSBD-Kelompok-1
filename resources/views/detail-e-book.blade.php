@@ -55,8 +55,19 @@
 </div>
 <script>
     document.getElementById('belum-login').addEventListener('click', () => {
-        alert('Anda belum login, silahkan login terlebih dahulu');
-        document.location.href = '/login';
+        let timerInterval;
+        timerInterval = setInterval(() => {
+            document.location.href = '/login';
+        }, 2000);
+        Swal.fire({
+            icon: "info",
+            title: "Anda belum login, silahkan login terlebih dahulu",
+            showConfirmButton: false,
+            timer: 2000,
+            willClose: () => {
+                clearInterval(timerInterval);
+            }
+        });
     });
 </script>
 @endsection

@@ -1,4 +1,4 @@
-const cancelButton = document.getElementById('cancelbutton');
+/* const cancelButton = document.getElementById('cancelbutton');
 cancelButton.addEventListener('click', function () {
     Swal.fire({
         title: "Perubahan tidak akan tersimpan",
@@ -18,7 +18,7 @@ cancelButton.addEventListener('click', function () {
             // document.location.href = '/profile';
         }
     });
-});
+}); */
 
 const submitButton = document.getElementById('submitbutton');
 submitButton.addEventListener('click', function () {

@@ -4,8 +4,9 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-            <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><a href="#"> Hasil Pencarian </a>
-            <i class="fa-solid fa-angle-right"></i><span>Detail</span>
+            <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i> 
+            <a href="#">Hasil Pencarian</a><i class="fa-solid fa-angle-right ms-2"></i>
+            <span>Detail</span>
         </h6>
         <hr class="mt-0">
     </div>
@@ -92,8 +93,19 @@
 </div>
 <script>
     document.getElementById('belum-login').addEventListener('click', () => {
-        alert('Anda belum login, silahkan login terlebih dahulu');
-        document.location.href = '/login';
+        let timerInterval;
+        timerInterval = setInterval(() => {
+            document.location.href = '/login';
+        }, 2000);
+        Swal.fire({
+            icon: "info",
+            title: "Anda belum login, silahkan login terlebih dahulu",
+            showConfirmButton: false,
+            timer: 2000,
+            willClose: () => {
+                clearInterval(timerInterval);
+            }
+        });
     });
 </script>
 @endsection

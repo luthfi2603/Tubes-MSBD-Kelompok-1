@@ -36,7 +36,6 @@
                 </nav>
             </div>
         </div>
-
         <div class="col-lg-3 order-1 order-lg-last mb-5 mt-2">
             <div class="cardfilter" style="border: 2px solid rgba(0, 0, 0, 0.185);">
                 <div class="card-body">
@@ -68,8 +67,6 @@
                 </div>
             </div>
         </div>
-
-        
     </div>
 </div>
 @endsection
