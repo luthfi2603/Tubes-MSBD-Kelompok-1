@@ -48,21 +48,29 @@ Route::get('/detail-ebook', function () {
 })->name('detail.ebook');
 
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
-    Route::get('/admin-home', [AdminController::class, 'index'])->name('admin.home');
-    Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])->name('kelola.karya.tulis');
-    Route::get('/kelola-kategori', [AdminController::class, 'showJenisTulisan'])->name('kelola.kategori');
+    Route::get('/admin-home', [AdminController::class, 'index'])
+                ->name('admin.home');
+    Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])
+                ->name('kelola.karya.tulis');
+    Route::get('/kelola-kategori', [AdminController::class, 'showJenisTulisan'])
+                ->name('kategori.kelola');
+    Route::get('/input-kategori', [AdminController::class, 'createJenisTulisan'])
+                ->name('kategori.input');
+    Route::post('/input-kategori', [AdminController::class, 'storeJenisTulisan']);
+    Route::get('/edit-kategori/{jenis}', [AdminController::class, 'editJenisTulisan'])
+                ->name('kategori.edit');
+    Route::put('/edit-kategori/{jenis}', [AdminController::class, 'updateJenisTulisan']);
+    Route::delete('/kategori-kelola/{jenis}', [AdminController::class, 'destroyJenisTulisan'])
+                ->name('kategori.delete');
+
+
+
     Route::get('/edit-karya-tulis', function () {   
         return view('admin.edit-karya-tulis');
     })->name('edit.karya.tulis');
-    Route::get('/edit-kategori', function () {
-        return view('admin.edit-kategori');
-    })->name('edit.kategori');
     Route::get('/input-karya-tulis', function () {
         return view('admin.input-karya-tulis');
     })->name('input.karya.tulis');
-    Route::get('/input-kategori', function () {
-        return view('admin.input-kategori');
-    })->name('input.kategori');
 });
 
 Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {

@@ -24,16 +24,62 @@ class AdminController extends Controller
         return view('admin.kelola-karya-tulis', compact('karyas'));
     }
     public function showJenisTulisan(){
-        $kategoris = JenisTulisan::paginate(5);
+        $kategoris = JenisTulisan::paginate(20);
         // dd($kategoris);
         return view('admin.kelola-kategori', compact('kategoris'));
     }
     public function createKaryaTulis(){
         return view('admin.input-karya-tulis');
     }
+    public function createJenisTulisan(){
+        return view('admin.input-kategori');
+    }
 
     public function storeKaryaTulis(Request $request){
         
+    }
+
+    public function storeJenisTulisan(Request $request){
+        $request->validate([
+            'kategori' => ['required']            
+        ]);
+
+        $jenis_tulisan = new JenisTulisan;
+        $jenis_tulisan->jenis_tulisan = $request->kategori;
+
+        $jenis_tulisan->save();
+
+        return back()->with('success', 'Jenis tulisan berhasil ditambahkan');
+
+    }
+
+    public function editJenisTulisan($jenis){
+
+        $tulisan = JenisTulisan::find($jenis, 'jenis_tulisan');
+        // $jenis_tulisan = $kategori_tulisan;
+        // dd($jenis_tulisan); 
+        return view('admin.edit-kategori', compact('tulisan'));
+    }
+
+    public function updateJenisTulisan(Request $request, $jenis){
+        $tulisan = JenisTulisan::find($jenis, 'jenis_tulisan');
+        
+        $request->validate([
+            'kategori' => ['required']
+        ]);
+
+        $tulisan->jenis_tulisan = $request->kategori;
+
+        $tulisan->save();
+
+        return redirect()->route('kategori.kelola')->with('success', 'kategori berhasil diedit');
+    }
+
+    public function destroyJenisTulisan($jenis){
+        $tulisan = JenisTulisan::find($jenis, 'jenis_tulisan');
+        $tulisan->delete();
+
+        return back()->with('success', 'kategori berhasil dihapus');
     }
 
 

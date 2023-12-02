@@ -6,7 +6,7 @@
         <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Kelola Kategori</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <a class="purple-button" href="{{ route('input.kategori') }}">Add +</a>
+            <a class="purple-button" href="{{ route('kategori.input') }}">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">
@@ -20,6 +20,18 @@
             </div>
         </div>
     </div>
+
+    @if(session()->has('failed'))
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+            {{ session('failed') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @elseif(session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
     <div class="row mt-2 mb-5 justify-content-center">
         <table class="table">
@@ -35,12 +47,23 @@
                 @foreach ($kategoris as $kategori)
                 <tr>
                     <td>{{ $kategori->jenis_tulisan }}</td>
-                    <td>01-01-2023,20:00</td>
-                    <td>.....</td>
-                    <td>
-                        <a href="{{ route('edit.kategori') }}" id="editkategori"><i
-                                class="fa-solid fa-pen icon-edit"></i></a>
-                        <a href="#" id="deletekategori"><i class="fa-solid fa-trash icon-delete"></i></a>
+                    <td>{{ $kategori->created_at }}</td>
+                    @if($kategori->created_at == $kategori->updated_at)
+                        <td>-</td>
+                    @else
+                        <td>{{ $kategori->updated_at }}</td>
+                    @endif
+                    <td class="d-flex">
+                        <a href="{{ route('kategori.edit', ['jenis' => $kategori->jenis_tulisan]) }}" id="editkategori">
+                            <i class="fa-solid fa-pen icon-edit"></i>
+                        </a>
+                        <form action="{{ route('kategori.delete', ['jenis' => $kategori->jenis_tulisan]) }}" method="POST" class="ml-2">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" id="submitbutton" onclick="return confirm('Yakin mau menghapus')">
+                                <i class="fa-solid fa-trash icon-delete"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

@@ -163,7 +163,7 @@ return new class extends Migration
             CREATE VIEW view_mostLike AS
             SELECT
                 a.judul,
-                hitungLike(a.id) AS jumlah_like
+                hitungLikeKarya(a.id) AS jumlah_like
             FROM karya_tulis a ORDER BY jumlah_like DESC
         ');
 
