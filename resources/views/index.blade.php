@@ -35,12 +35,14 @@
                                                 @php
                                                     $penulis = "";
                                                     $penulisTertentu = $penuliss->where('id', $karya->id);
+
                                                     foreach ($penulisTertentu as $key) {
-                                                        $penulis .= $key->penulis . ', ';
+                                                        $penulis .= '<a href="' . route('author', ['author' => $key->penulis]) . '">' . $key->penulis . '</a>, ';
                                                     }
+                                                    
                                                     $penulis = rtrim($penulis, ', ');
                                                 @endphp
-                                                {{ $penulis }}
+                                                {!! $penulis !!}
                                                 ({{ $karya->tahun }})
                                             </small>
                                         </p>

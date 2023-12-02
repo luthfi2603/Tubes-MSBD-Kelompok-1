@@ -4,7 +4,7 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-        <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><span>{{ $author }}</span></h6>
+        <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><span>Author</span><i class="fa-solid fa-angle-right ms-2"></i><span>{{ $author }}</span></h6>
         <hr class="mt-0">
     </div>
     <div class="row">
