@@ -35,12 +35,14 @@
                                                 @php
                                                     $penulis = "";
                                                     $penulisTertentu = $penuliss->where('id', $karya->id);
+
                                                     foreach ($penulisTertentu as $key) {
-                                                        $penulis .= $key->penulis . ', ';
+                                                        $penulis .= '<a href="' . route('author', ['author' => $key->penulis]) . '">' . $key->penulis . '</a>, ';
                                                     }
+
                                                     $penulis = rtrim($penulis, ', ');
                                                 @endphp
-                                                {{ $penulis }}
+                                                {!! $penulis !!}
                                                 ({{ $karya->tahun }})
                                             </small>
                                         </p>
@@ -81,7 +83,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 @foreach ($prodis as $prodi)
-                    <li class="list-group-item"><a href="{{ route('prodi', 'setan') }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</a></li>
+                    <li class="list-group-item"><a href="{{ route('prodi', $prodi->kode_prodi) }}"><span><i class="fa-solid fa-angle-right"></i></span>{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</a></li>
                 @endforeach
             </ul>
             <!-- E-Book -->

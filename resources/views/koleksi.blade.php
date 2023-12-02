@@ -4,7 +4,7 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-            <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><span>{{ $jenisTulisan }}</span>
+            <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i>Koleksi<i class="fa-solid fa-angle-right ms-2"></i><span>{{ $jenisTulisan }}</span>
         </h6>
         <hr class="mt-0">
     </div>
@@ -29,12 +29,14 @@
                                             @php
                                                 $penulis = "";
                                                 $penulisTertentu = $penuliss->where('id', $karya->id);
+
                                                 foreach ($penulisTertentu as $key) {
-                                                    $penulis .= $key->penulis . ', ';
+                                                    $penulis .= '<a href="' . route('author', ['author' => $key->penulis]) . '">' . $key->penulis . '</a>, ';
                                                 }
+                                                
                                                 $penulis = rtrim($penulis, ', ');
                                             @endphp
-                                            {{ $penulis }}
+                                            {!! $penulis !!}
                                             ({{ $karya->tahun }})
                                         </small>
                                     </p>

@@ -74,5 +74,15 @@ class KaryaTulisTableSeeder extends Seeder
             'view' => '142031',
             'diupload_oleh' => 'Maia Cibebe'
         ]);
+        KaryaTulis::create([ // 7
+            'judul' => '5 Fakta dari Rifqi Jabrah Rhae, No.3 Mencengangkan',
+            'abstrak' => 'Ipsum laborum magna ea culpa amet officia cillum laboris Lorem reprehenderit. Ullamco labore consectetur quis eiusmod sint ad officia eu. Ad adipisicing eiusmod nostrud occaecat id Lorem tempor Lorem incididunt Lorem minim. Excepteur laboris velit quis ipsum anim nisi proident reprehenderit pariatur. Dolor tempor ullamco magna eu exercitation. Ex dolor tempor dolore adipisicing aliquip adipisicing.',
+            'bidang_ilmu' => 'Data Science',
+            'url_file' => 'renkinjutsu.pdf',
+            'jenis' => 'Disertasi',
+            'tahun' => '2022',
+            'view' => '234532',
+            'diupload_oleh' => 'ZeeroXc'
+        ]);
     }
 }

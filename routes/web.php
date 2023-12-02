@@ -100,7 +100,7 @@ Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
         return view('super-admin.input-dosen');
     })->name('input.dosen');
     Route::get('/super-admin-home', function () {
-        return view('super-admin.super-admin-home2');
+        return view('super-admin.super-admin-home');
     })->name('super.admin.home');
 });
 

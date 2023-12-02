@@ -3,8 +3,7 @@
 @section('container')
 <div class="container">
     <div class="col-lg-12 pt-3">
-        <h6>
-        <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><span>{{ $author }}</span></h6>
+        <h6><a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><span>Author</span><i class="fa-solid fa-angle-right ms-2"></i><span>{{ $author }}</span></h6>
         <hr class="mt-0">
     </div>
     <div class="row">
@@ -27,12 +26,14 @@
                                             @php
                                                 $penulis = "";
                                                 $penulisTertentu = $penuliss->where('id', $karya->id);
+
                                                 foreach ($penulisTertentu as $key) {
-                                                    $penulis .= $key->penulis . ', ';
+                                                    $penulis .= '<a href="' . route('author', ['author' => $key->penulis]) . '">' . $key->penulis . '</a>, ';
                                                 }
+                                                
                                                 $penulis = rtrim($penulis, ', ');
                                             @endphp
-                                            {{ $penulis }}
+                                            {!! $penulis !!}
                                             ({{ $karya->tahun }})
                                         </small>
                                     </p>
@@ -51,7 +52,7 @@
                     {{ $karyas->links() }}
                 </nav>
             </div>
-        </div> 
+        </div>
         <div class="col-lg-3 order-1 order-lg-last mb-5">
             <div class="cardfilter" style="border: 2px solid rgba(0, 0, 0, 0.185);">
                 <div class="card-body">

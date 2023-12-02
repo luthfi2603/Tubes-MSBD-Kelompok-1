@@ -4,8 +4,8 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-            <a href="/">Home </a><i class="fa-solid fa-angle-right"></i><a href="{{ route('ebook') }}"> Hasil Pencarian </a>
-            <i class="fa-solid fa-angle-right"></i><a href="#"> Detail E-Book</a>
+            <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><a href="{{ route('ebook') }}">E-Book</a>
+            <i class="fa-solid fa-angle-right ms-2"></i><a href="#">{{ $ebook->judul }}</a>
         </h6>
         <hr class="mt-0">
     </div>

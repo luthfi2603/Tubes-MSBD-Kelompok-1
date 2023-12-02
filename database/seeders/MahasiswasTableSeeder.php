@@ -82,5 +82,15 @@ class MahasiswasTableSeeder extends Seeder
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
+        
+        Mahasiswa::create([
+            'nim' => '221401001',
+            'nama' => 'Unknown User 1',
+            'angkatan' => '2022',
+            'jenis_kelamin' => 'L',
+            'status' => 'aktif',
+            'user_id' => '1',
+            'kode_prodi' => '01'
+        ]);
     }
 }
