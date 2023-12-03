@@ -18,36 +18,52 @@ use App\Http\Controllers\ViewController;
 
 Route::get('/', [ViewController::class, 'index']);
 Route::get('/detail-karya-tulis/{id}', [ViewController::class, 'detailKaryaTulis'])
-            ->name('detail.karya.tulis');
+    ->name('detail.karya.tulis');
 Route::get('/e-book', [ViewController::class, 'showEBook'])
-            ->name('ebook');
+    ->name('ebook');
 Route::get('/detail-e-book/{id}', [ViewController::class, 'detailEBook'])
-            ->name('detail.ebook');
+    ->name('detail.ebook');
 Route::get('/koleksi/{jenisTulisan}', [ViewController::class, 'showByKoleksi'])
-            ->name('koleksi');
+    ->name('koleksi');
 Route::get('/prodi/{prodi}', [ViewController::class, 'showByProdi'])
-            ->name('prodi');
+    ->name('prodi');
 Route::get('/author/{author}', [ViewController::class, 'showByAuthor'])
-            ->name('author');
+    ->name('author');
 Route::get('/search-page', [ViewController::class, 'search'])
-            ->name('search');
-Route::get('/advanced-search', [ViewController::class, 'viewAdvSearch'])
-            ->name('advanced.search');
+    ->name('search');
+Route::get('/adv-search-page', [ViewController::class, 'viewAdvSearch'])
+    ->name('advanced.search');
+
 
 Route::get('/statistik', function () {
     return view('statistik');
 });
+Route::get('/single-prodi', function () {
+    return view('single-prodi');
+})->name('single.prodi');
+Route::get('/single-koleksi', function () {
+    return view('single-koleksi');
+})->name('single.koleksi');
 Route::get('/favorite', function () {
     return view('favorite');
 });
 
+Route::get('/advanced-search', function () {
+    return view('advanced-search');
+});
+
+
+Route::get('/detail-ebook', function () {
+    return view('detail-ebook');
+})->name('detail.ebook');
+
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', [AdminController::class, 'index'])
-                ->name('admin.home');
+        ->name('admin.home');
     Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])
-                ->name('kelola.karya.tulis');
+        ->name('kelola.karya.tulis');
     Route::get('/kelola-kategori', [AdminController::class, 'showJenisTulisan'])
-                ->name('kelola.kategori');
+        ->name('kelola.kategori');
     Route::get('/edit-karya-tulis', function () {
         return view('admin.edit-karya-tulis');
     })->name('edit.karya.tulis');

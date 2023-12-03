@@ -47,59 +47,40 @@
                             </div>
                             <div class="form-group mb-2">
                                 <label class="text-dec mb-1" style="font-weight: 600;">Jenis Koleksi</label>
+                                @foreach ($jenisTulisans as $jenisTulisan)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="jenis_skripsi" value="skripsi">
-                                    <label class="form-check-label" for="jenis_skripsi">Skripsi</label>
+                                    <input class="form-check-input" type="checkbox"
+                                        id="{{ $jenisTulisan->jenis_tulisan }}"
+                                        value="{{ $jenisTulisan->jenis_tulisan }}">
+                                    <label class="form-check-label" for="{{ $jenisTulisan->jenis_tulisan }}">{{
+                                        $jenisTulisan->jenis_tulisan }}</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="jenis_tesis" value="tesis">
-                                    <label class="form-check-label" for="jenis_tesis">Tesis</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="jenis_disertasi"
-                                        value="disertasi">
-                                    <label class="form-check-label" for="jenis_disertasi">Disertasi</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="jenis_jurnal" value="jurnal">
-                                    <label class="form-check-label" for="jenis_jurnal">Jurnal</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="jenis_karya_tulis_ilmiah"
-                                        value="karya_tulis_ilmiah">
-                                    <label class="form-check-label" for="jenis_karya_tulis_ilmiah">Karya Tulis
-                                        Ilmiah</label>
-                                </div>
+                                @endforeach
                             </div>
                             <div class="form-group mb-1">
                                 <label class="text-dec mb-1" style="font-weight: 600;">Program Studi</label>
+                                @foreach ($prodis as $prodi)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="prodi_ilmu_komputer" value="51">
-                                    <label class="form-check-label" for="s1_prodi_ilmu_komputer"> S1 Ilmu
-                                        Komputer</label>
+                                    <input class="form-check-input" type="checkbox"
+                                        id="{{ $prodi->jenjang }}_{{ $prodi->nama_prodi }}"
+                                        value="{{ $prodi->jenjang }} {{ $prodi->nama_prodi }}">
+                                    <label class="form-check-label"
+                                        for="{{ $prodi->jenjang }}_{{ $prodi->nama_prodi }}">{{ $prodi->jenjang }} {{
+                                        $prodi->nama_prodi }}</label>
                                 </div>
+                                @endforeach
+                            </div>
+                            <div class="form-group mb-1">
+                                <label class="text-dec mb-1" style="font-weight: 600;">Bidang Ilmu</label>
+                                @foreach ($bidIlmus as $bidIlmu)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="prodi_teknologi_informasi"
-                                        value="52">
-                                    <label class="form-check-label" for="s1_prodi_teknologi_informasi"> S1 Teknologi
-                                        Informasi</label>
+                                    <input class="form-check-input" type="checkbox"
+                                        id="{{ $bidIlmu->jenis_bidang_ilmu }}"
+                                        value="{{ $bidIlmu->jenis_bidang_ilmu }}">
+                                    <label class="form-check-label" for="{{ $bidIlmu->jenis_bidang_ilmu }}">{{
+                                        $bidIlmu->jenis_bidang_ilmu }}</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="prodi_ilmu_komputer" value="51">
-                                    <label class="form-check-label" for="s2_prodi_ilmu_komputer"> S2 Sains Data dan
-                                        Kecerdasan Buatan</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="prodi_teknologi_informasi"
-                                        value="52">
-                                    <label class="form-check-label" for="s2_prodi_teknologi_informasi"> S2 Teknik
-                                        Informatika</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="prodi_ilmu_komputer" value="51">
-                                    <label class="form-check-label" for="s3_prodi_ilmu_komputer"> S2 Ilmu
-                                        Komputer</label>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -121,7 +102,17 @@
                                                 href="{{ route('detail.karya.tulis', $result->id) }}">{{ $result->judul
                                                 }}</a>
                                         </h5>
-                                        <p class="text-muted"><small class="text-body-secondary">{{ $result->penulis }}
+                                        <p class="text-muted"><small class="text-body-secondary">
+                                                @php
+                                                $penulis = "";
+                                                $penulisTertentu = $penuliss->where('id', $result->id);
+                                                foreach ($penulisTertentu as $key) {
+                                                $penulis .= $key->penulis . ', ';
+                                                }
+                                                $penulis = rtrim($penulis, ', ');
+                                                @endphp
+                                                {{ $penulis }}
+                                                {{-- {{ $result->kontributor }} --}}
                                                 ({{ $result->tahun }})</small></p>
                                         <p class="card-text text">{{ $result->abstrak }}</p>
                                     </div>
@@ -131,9 +122,8 @@
                         @endforeach
 
                         <!-- Pagination -->
-                        <nav aria-label="Page navigation example">
-                            {{ $results->links() }}
-                        </nav>
+                        {{-- <nav aria-label="Page navigation example">
+                        </nav> --}}
 
                     </div>
                 </div>
