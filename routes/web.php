@@ -116,8 +116,10 @@ Route::middleware('auth', 'verified')->group(function () {
         ->name('password.edit');
     Route::put('/edit-password', [ProfileController::class, 'updatePassword'])
         ->name('password.update2');
-    Route::get('/favorite', [ViewController::class, 'favorite'])
+    Route::get('/favorite', [ViewController::class, 'showFavorite'])
         ->name('favorite');
+    Route::post('/favorite', [ViewController::class, 'storeFavorite']);
+    Route::delete('/favorite', [ViewController::class, 'destroyFavorite']);
 });
 
 Route::get('/dashboard', function () {

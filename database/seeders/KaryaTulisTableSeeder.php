@@ -21,7 +21,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Skripsi',
             'tahun' => '2020',
             'view' => '0',
-            'diupload_oleh' => '1'
+            'diupload_oleh' => 'Pak Andri'
         ]);
         KaryaTulis::create([ // 2
             'judul' => 'Disertasi',
@@ -31,7 +31,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Disertasi',
             'tahun' => '2022',
             'view' => '0',
-            'diupload_oleh' => '1'
+            'diupload_oleh' => 'Pak Andri'
         ]);
         KaryaTulis::create([ // 3
             'judul' => 'Tesis',
@@ -41,7 +41,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Tesis',
             'tahun' => '2020',
             'view' => '0',
-            'diupload_oleh' => '2'
+            'diupload_oleh' => 'Maia Cibebe'
         ]);
 
         KaryaTulis::create([ // 4
@@ -52,7 +52,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Jurnal',
             'tahun' => '2023',
             'view' => '0',
-            'diupload_oleh' => '1'
+            'diupload_oleh' => 'Pak Andri'
         ]);
         KaryaTulis::create([ // 5
             'judul' => 'Karya Ilmiah',
@@ -62,7 +62,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Karya Ilmiah',
             'tahun' => '2020',
             'view' => '0',
-            'diupload_oleh' => '2'
+            'diupload_oleh' => 'Maia Cibebe'
         ]);
         KaryaTulis::create([ // 6
             'judul' => 'Apakah kita dapat membuat sesuatu dari kehampaan?',
@@ -72,7 +72,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Karya Ilmiah',
             'tahun' => '2075',
             'view' => '142031',
-            'diupload_oleh' => '2'
+            'diupload_oleh' => 'Maia Cibebe'
         ]);
         KaryaTulis::create([ // 7
             'judul' => '5 Fakta dari Rifqi Jabrah Rhae, No.3 Mencengangkan',
@@ -82,7 +82,7 @@ class KaryaTulisTableSeeder extends Seeder
             'jenis' => 'Disertasi',
             'tahun' => '2022',
             'view' => '234532',
-            'diupload_oleh' => '1'
+            'diupload_oleh' => 'Pak Andri'
         ]);
     }
 }

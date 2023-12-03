@@ -12,7 +12,6 @@ return new class extends Migration {
         Schema::create('admins', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
-            // $table->enum('status', ['admin','super_admin']);
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
         });

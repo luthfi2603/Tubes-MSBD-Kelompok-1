@@ -21,8 +21,7 @@ return new class extends Migration {
             $table->foreign('jenis')->references('jenis_tulisan')->on('jenis_tulisans')->onDelete('restrict')->onUpdate('cascade');
             $table->char('tahun', 4);
             $table->integer('view');
-            $table->unsignedInteger('diupload_oleh');
-            $table->foreign('diupload_oleh')->references('id')->on('admins')->onDelete('restrict')->onUpdate('cascade');
+            $table->string('diupload_oleh');
         });
 
         DB::unprepared('

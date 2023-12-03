@@ -39,7 +39,7 @@
                     <h6 class="textit mb-3" style="font-weight: 600;">Tahun Terbit : <span>{{ $ebook->tahun_terbit }}</span></h6>
                     <h6 class="textit" style="font-weight: 600;">File Digital : </h6>
                     <!-- diklik langsung ke download -->
-                    @if(auth()->user())
+                    @auth
                         <a href="#">
                             <h6 class="text mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>{{ $ebook->url_file }}</h6>
                         </a>
@@ -47,27 +47,27 @@
                         <span style="cursor: pointer" id="belum-login">
                             <h6 class="text mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>{{ $ebook->url_file }}</h6>
                         </span>
-                    @endif
+                        <script>
+                            document.getElementById('belum-login').addEventListener('click', () => {
+                                let timerInterval;
+                                timerInterval = setInterval(() => {
+                                    document.location.href = '/login';
+                                }, 2000);
+                                Swal.fire({
+                                    icon: "info",
+                                    title: "Anda belum login, silahkan login terlebih dahulu",
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    willClose: () => {
+                                        clearInterval(timerInterval);
+                                    }
+                                });
+                            });
+                        </script>
+                    @endauth
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    document.getElementById('belum-login').addEventListener('click', () => {
-        let timerInterval;
-        timerInterval = setInterval(() => {
-            document.location.href = '/login';
-        }, 2000);
-        Swal.fire({
-            icon: "info",
-            title: "Anda belum login, silahkan login terlebih dahulu",
-            showConfirmButton: false,
-            timer: 2000,
-            willClose: () => {
-                clearInterval(timerInterval);
-            }
-        });
-    });
-</script>
 @endsection
