@@ -22,7 +22,7 @@
         </div>
         <div class="col-lg-9">
             <div class="d flex mb-5">
-                <div class="eye-bar">
+                <div class="eye-bar" style="cursor: text">
                     <i class="fa-solid fa-eye eye-icon"></i>
                     <span class="eye-text">{{ $ebook->view }}</span>
                 </div>
@@ -35,10 +35,10 @@
                     </button>
                 </div>
                 <div class="mt-3">
-                    <h6 class="textit mb-3" style="font-weight: 600;">Author : <span><a href="">{{ $ebook->penulis }}</a></span></h6>
-                    <h6 class="textit mb-3" style="font-weight: 600;">Tahun Terbit : <span><a href="">{{ $ebook->tahun_terbit }}</a></span></h6>
+                    <h6 class="textit mb-3" style="font-weight: 600;">Author : <span>{{ $ebook->penulis }}</span></h6>
+                    <h6 class="textit mb-3" style="font-weight: 600;">Tahun Terbit : <span>{{ $ebook->tahun_terbit }}</span></h6>
                     <h6 class="textit" style="font-weight: 600;">File Digital : </h6>
-                    <!-- (dikliklangsungkedownload) -->
+                    <!-- diklik langsung ke download -->
                     @if(auth()->user())
                         <a href="#">
                             <h6 class="text mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>{{ $ebook->url_file }}</h6>

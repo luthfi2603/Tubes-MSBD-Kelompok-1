@@ -58,7 +58,7 @@
                     @endforeach
 
                     <!-- Pagination -->
-                    <nav aria-label="Page navigation example" class="pt-4">
+                    <nav aria-label="Page navigation example" class="pt-3">
                         {{ $karyas->links() }}
                     </nav>
 
