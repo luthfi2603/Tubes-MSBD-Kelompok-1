@@ -30,6 +30,13 @@ class ViewController extends Controller
     }
 
     public function detailKaryaTulis($id){
+        $view = KaryaTulis::select('view')
+            ->where('id', $id)
+            ->first()
+            ->view;
+        $view += 1;
+        KaryaTulis::where('id', $id)->update(['view' => $view]);
+
         $detail = DB::table('view_detail_karya_tulis')
             ->select('*')
             ->where('id', $id)
