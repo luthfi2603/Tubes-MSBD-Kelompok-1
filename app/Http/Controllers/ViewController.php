@@ -37,10 +37,14 @@ class ViewController extends Controller
         $view += 1;
         KaryaTulis::where('id', $id)->update(['view' => $view]);
 
-        $isLiked = Favorite::where('user_id', auth()->user()->id)
-            ->where('karya_id', $id)
-            ->get()
-            ->isEmpty();
+        if(auth()->user()){
+            $isLiked = Favorite::where('user_id', auth()->user()->id)
+                ->where('karya_id', $id)
+                ->get()
+                ->isEmpty();
+        }else{
+            $isLiked = true;
+        }
 
         $detail = DB::table('view_detail_karya_tulis')
             ->select('*')
@@ -90,9 +94,14 @@ class ViewController extends Controller
     }
 
     public function detailEBook($id){
-        $ebook = Ebook::where('id', $id)->get();
+        $view = Ebook::select('view')
+            ->where('id', $id)
+            ->first()
+            ->view;
+        $view += 1;
+        Ebook::where('id', $id)->update(['view' => $view]);
 
-        $ebook = $ebook[0];
+        $ebook = Ebook::where('id', $id)->first();
 
         return view('detail-e-book', compact('ebook'));
     }
