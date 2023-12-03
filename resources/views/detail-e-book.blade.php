@@ -30,7 +30,7 @@
                 <div class="heart-btn">
                     <button class="btn btn-light like-button" onclick="toggleLike()">
                         <i class="fa-solid fa-heart heart-icon"></i>
-                        <span class="like-text">Tambahkan ke Favorit</span>
+                        <span class="like-text">Tambahkan ke Favorite</span>
                         <!-- masuk ke favorite -->
                     </button>
                 </div>
