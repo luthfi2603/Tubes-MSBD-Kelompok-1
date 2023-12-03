@@ -142,8 +142,8 @@ class ViewController extends Controller
         $tahunawal = $request->input('tahunawal');
         $tahunakhir = $request->input('tahunakhir');
 
-        $results = DB::table('view_karya_tulis')
-            ->select('id', 'judul', 'kontributor', 'tahun', 'abstrak')
+        $resultIds = DB::table('view_karya_tulis')
+            ->select('id')
             ->where(function ($query) use ($select1, $search1, $select2, $search2, $select3, $search3, $query1, $query2) {
                 $query->where($select1, 'LIKE', '%' . $search1 . '%')
                     ->where('status', '=', 'penulis');
@@ -168,20 +168,11 @@ class ViewController extends Controller
                     }
                 }
             })
-            ->distinct()
             ->orWhereBetween('tahun', [$tahunawal, $tahunakhir])
-            ->get();
+            ->groupBy('id')
+            ->pluck('id');
 
-
-        $uniqueResults = [];
-
-        foreach ($results as $result) {
-            if (!isset($uniqueResults[$result->id])) {
-                $uniqueResults[$result->id] = $result;
-            }
-        }
-
-        $results = array_values($uniqueResults);
+        $results = KaryaTulis::whereIn('id', $resultIds)->paginate(5);
 
         return view('search-page', compact('prodis', 'jenisTulisans',  'penuliss', 'results', 'bidIlmus'));
     }
@@ -196,26 +187,19 @@ class ViewController extends Controller
             ->get();
 
         $search = $request->input('search');
-        $results = DB::table('view_karya_tulis')
-            ->select('id', 'judul', 'kontributor', 'tahun', 'abstrak')
+
+        $resultIds = DB::table('view_karya_tulis')
+            ->select('id')
             ->orWhere(function ($query) use ($search) {
                 $query->where('judul', 'LIKE', '%' . $search . '%')
                     ->orWhere('kontributor', 'LIKE', '%' . $search . '%')
                     ->orWhere('kata_kunci', 'LIKE', '%' . $search . '%');
             })
             ->where('status', '=', 'penulis')
-            ->distinct()
-            ->get();
+            ->groupBy('id')
+            ->pluck('id');
 
-        $uniqueResults = [];
-
-        foreach ($results as $result) {
-            if (!isset($uniqueResults[$result->id])) {
-                $uniqueResults[$result->id] = $result;
-            }
-        }
-
-        $results = array_values($uniqueResults);
+        $results = KaryaTulis::whereIn('id', $resultIds)->paginate(5);
 
         return view('search-page', compact('results', 'prodis', 'jenisTulisans', 'penuliss', 'bidIlmus'));
     }

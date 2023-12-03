@@ -122,8 +122,9 @@
                         @endforeach
 
                         <!-- Pagination -->
-                        {{-- <nav aria-label="Page navigation example">
-                        </nav> --}}
+                        <nav aria-label="Page navigation example">
+                            {{ $results->links() }}
+                        </nav>
 
                     </div>
                 </div>
