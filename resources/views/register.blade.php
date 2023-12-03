@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="{{ asset('assets/css/loginregister.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -61,7 +62,7 @@
                                         <input type="radio" id="mahasiswa" name="status" value="mahasiswa">
                                         <label class="label" for="mahasiswa">Mahasiswa</label>
                                         @error('status')
-                                            <div style="color: #dc3545; font-size: medium;">
+                                            <div style="color: #dc3545; font-size: 90%">
                                                 {{ $message }}
                                             </div>
                                         @enderror
@@ -97,18 +98,32 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="password">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
+                                        </div>
+                                        <div class="col-1 p-0" style="padding-top: 12px !important">
+                                            <i class="fa-regular fa-eye fa-xl" id="eye-password"></i>
+                                        </div>
+                                    </div>
                                     @error('password')
-                                        <div class="invalid-feedback">
+                                        <div style="color: #dc3545; font-size: 87%; margin-top: 5px">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="konfirmasi_password">Konfirmasi Password</label>
-                                    <input type="password" name="konfirmasi_password" id="konfirmasi_password" class="form-control @error('konfirmasi_password') is-invalid @enderror" placeholder="Konfirmasi Password">
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <input type="password" name="konfirmasi_password" id="konfirmasi_password" class="form-control @error('konfirmasi_password') is-invalid @enderror" placeholder="Konfirmasi Password">
+                                        </div>
+                                        <div class="col-1 p-0" style="padding-top: 12px !important">
+                                            <i class="fa-regular fa-eye fa-xl" id="eye-konfirmasi-password"></i>
+                                        </div>
+                                    </div>
                                     @error('konfirmasi_password')
-                                        <div class="invalid-feedback">
+                                        <div style="color: #dc3545; font-size: 87%; margin-top: 5px">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -124,11 +139,48 @@
             </div>
         </div>
     </section>
+    <script>
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-password');
 
+        eyeIcon.addEventListener('click', () => {
+            const passwordInputType = passwordInput.getAttribute('type');
+
+            if (passwordInputType === 'password') {
+                passwordInput.setAttribute('type', 'text');
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.setAttribute('type', 'password');
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+
+            eyeIcon.style.right = `${passwordInput.offsetWidth - 20}px`;
+        });
+        
+        const passwordInput2 = document.getElementById('konfirmasi_password');
+        const eyeIcon2 = document.getElementById('eye-konfirmasi-password');
+
+        eyeIcon2.addEventListener('click', () => {
+            const passwordInputType2 = passwordInput2.getAttribute('type');
+
+            if (passwordInputType2 === 'password') {
+                passwordInput2.setAttribute('type', 'text');
+                eyeIcon2.classList.remove('fa-eye');
+                eyeIcon2.classList.add('fa-eye-slash');
+            } else {
+                passwordInput2.setAttribute('type', 'password');
+                eyeIcon2.classList.remove('fa-eye-slash');
+                eyeIcon2.classList.add('fa-eye');
+            }
+
+            eyeIcon2.style.right = `${passwordInput2.offsetWidth - 20}px`;
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 
 </html>

@@ -56,6 +56,24 @@
                                     @csrf
                                     <button type="button" class="dropdown-item" id="logout">Logout</button>
                                 </form>
+                                <script>
+                                    document.getElementById('logout').addEventListener('click', () => {
+                                        Swal.fire({
+                                            icon: "question",
+                                            title: "Apakah kamu yakin untuk logout?",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#006633",
+                                            cancelButtonColor: "#6b6767",
+                                            confirmButtonText: "Logout"
+                                        }).then((result) => {
+                                            if(result.isConfirmed){
+                                                document.getElementById('form-logout').submit()
+                                            }else{
+                                                return false;
+                                            }
+                                        });
+                                    });
+                                </script>
                             @else
                                 <li><a class="dropdown-item" href="/register">Register</a></li>
                                 <li><a class="dropdown-item" href="/login">Login</a></li>
@@ -67,21 +85,3 @@
         </div>
     </div>
 </nav>
-<script>
-    document.getElementById('logout').addEventListener('click', () => {
-        Swal.fire({
-            icon: "question",
-            title: "Apakah kamu yakin untuk logout?",
-            showCancelButton: true,
-            confirmButtonColor: "#006633",
-            cancelButtonColor: "#6b6767",
-            confirmButtonText: "Logout"
-        }).then((result) => {
-            if(result.isConfirmed){
-                document.getElementById('form-logout').submit()
-            }else{
-                return false;
-            }
-        });
-    });
-</script>

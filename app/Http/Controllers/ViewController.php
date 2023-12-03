@@ -30,6 +30,22 @@ class ViewController extends Controller
     }
 
     public function detailKaryaTulis($id){
+        $view = KaryaTulis::select('view')
+            ->where('id', $id)
+            ->first()
+            ->view;
+        $view += 1;
+        KaryaTulis::where('id', $id)->update(['view' => $view]);
+
+        if(auth()->user()){
+            $isLiked = Favorite::where('user_id', auth()->user()->id)
+                ->where('karya_id', $id)
+                ->get()
+                ->isEmpty();
+        }else{
+            $isLiked = true;
+        }
+
         $detail = DB::table('view_detail_karya_tulis')
             ->select('*')
             ->where('id', $id)
@@ -68,7 +84,7 @@ class ViewController extends Controller
         }
         $kataKunci = rtrim($kataKunci, ', ');
 
-        return view('/detail-karya-tulis', compact('detail', 'kataKunci', 'penulis', 'pembimbing', 'kontributor'));
+        return view('detail-karya-tulis', compact('detail', 'kataKunci', 'penulis', 'pembimbing', 'kontributor', 'isLiked'));
     }
 
     public function showEBook(){
@@ -78,9 +94,14 @@ class ViewController extends Controller
     }
 
     public function detailEBook($id){
-        $ebook = Ebook::where('id', $id)->get();
+        $view = Ebook::select('view')
+            ->where('id', $id)
+            ->first()
+            ->view;
+        $view += 1;
+        Ebook::where('id', $id)->update(['view' => $view]);
 
-        $ebook = $ebook[0];
+        $ebook = Ebook::where('id', $id)->first();
 
         return view('detail-e-book', compact('ebook'));
     }
@@ -148,7 +169,7 @@ class ViewController extends Controller
         return view('search-page', compact('results', 'prodis', 'jenisTulisans'));
     }
 
-    public function favorite(){
+    public function showFavorite(){
         $karyaIds = Favorite::select('karya_id')
             ->where('user_id', auth()->user()->id)
             ->pluck('karya_id');
@@ -160,5 +181,22 @@ class ViewController extends Controller
             ->get();
     
         return view('favorite', compact('karyas', 'penuliss'));
+    }
+
+    public function storeFavorite(Request $request){
+        Favorite::create([
+            'user_id' => auth()->user()->id,
+            'karya_id' => $request->karya_id
+        ]);
+
+        return back()->with('success', 'Berhasil ditambahkan ke favorite');
+    }
+
+    public function destroyFavorite(Request $request){
+        Favorite::where('user_id', auth()->user()->id)
+            ->where('karya_id', $request->karya_id)
+            ->delete();
+        
+        return back()->with('success', 'Berhasil dihapus dari favorite');
     }
 }
