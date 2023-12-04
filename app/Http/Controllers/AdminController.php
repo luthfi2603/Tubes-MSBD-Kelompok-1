@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BidangIlmu;
+use App\Models\KataKunci;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Prodi;
@@ -45,11 +46,11 @@ class AdminController extends Controller
     }
     public function storeJenisTulisan(Request $request){
         $request->validate([
-            'kategori' => ['required', 'unique:jenis_tulisans']            
+            'jenis_tulisan' => ['required', 'unique:jenis_tulisans']            
         ]);
 
         $jenis_tulisan = new JenisTulisan;
-        $jenis_tulisan->jenis_tulisan = $request->kategori;
+        $jenis_tulisan->jenis_tulisan = $request->jenis_tulisan;
 
         $jenis_tulisan->save();
 
@@ -60,17 +61,22 @@ class AdminController extends Controller
         return view('admin.edit-kategori', compact('tulisan'));
     }
     public function updateJenisTulisan(Request $request, $jenis){
-        $tulisan = JenisTulisan::find($jenis, 'jenis_tulisan');
-        
-        $request->validate([
-            'kategori' => ['required']
-        ]);
+        $tulisan = JenisTulisan::find($jenis);
 
-        $tulisan->jenis_tulisan = $request->kategori;
+        if($tulisan->jenis_tulisan == $request->jenis_tulisan){
+            // dd($tulisan);
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }else{
+            $request->validate([
+                'jenis_tulisan' => ['required', 'unique:jenis_tulisans']
+            ]);
+        }
+        
+        $tulisan->jenis_tulisan = $request->jenis_tulisan;
 
         $tulisan->save();
 
-        return redirect()->route('kategori.kelola')->with('success', 'kategori berhasil diedit');
+        return redirect()->route('kategori.kelola')->with('success', 'Jenis tulisan berhasil diedit');
     }
 
     public function showMahasiswa(){
@@ -368,6 +374,54 @@ class AdminController extends Controller
         $bidang_ilmu->save();
 
         return redirect()->route('bidang.ilmu.kelola')->with('success', 'bidang ilmu berhasil diedit');
+    }
+
+    public function showKataKunci(){
+        $kuncis = KataKunci::paginate(10);
+        return view('admin.kelola-kata-kunci', compact('kuncis'));
+    }
+    public function createKataKunci(){
+        return view('admin.input-kata-kunci');
+    }
+    public function storeKataKunci(Request $request){
+        $request->validate([
+            'kata_kunci' => ['required', 'unique:kata_kuncis']            
+        ]);
+
+        $kata_kunci = new KataKunci;
+        $kata_kunci->kata_kunci = $request->kata_kunci;
+
+        $kata_kunci->save();
+
+        return back()->with('success', 'Kata Kunci berhasil ditambahkan');
+    
+    }
+    public function editKataKunci($kunci){
+        $kata_kunci = KataKunci::find($kunci);
+        return view('admin.edit-kata-kunci', compact('kata_kunci'));
+    }
+    public function updateKataKunci(Request $request, $kunci){
+        $kata_kunci = KataKunci::find($kunci);
+
+        if($kata_kunci->kata_kunci == $request->kata_kunci){
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }else{
+            $request->validate([
+                'kata_kunci' => ['required', 'unique:kata_kuncis']
+            ]);
+        }
+
+        $kata_kunci->kata_kunci = $request->kata_kunci;
+
+        $kata_kunci->save();
+
+        return redirect()->route('kata.kunci.kelola')->with('success', 'kata kunci berhasil diedit');
+    }
+    public function destroyKataKunci($kunci){
+        $kata_kunci = KataKunci::find($kunci);
+
+        $kata_kunci->delete();
+        return back()->with('success', 'Kata kunci berhasil di hapus');
     }
     
 

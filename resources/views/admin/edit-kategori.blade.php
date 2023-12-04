@@ -23,8 +23,13 @@
             <div class="col-lg-12">
                 <div class="inputan-form" style="width: 90%;">
                     <div class="mb-3">
-                        <label for="kategori" class="form-label">Kategori</label>
-                        <input type="text" class="form-control custom-form" id="kategori" name="kategori" value="{{ $tulisan->jenis_tulisan }}" >
+                        <label for="jenis_tulisan" class="form-label">Kategori</label>
+                        <input type="text" class="form-control custom-form @error('jenis_tulisan') is-invalid @enderror" id="jenis_tulisan" name="jenis_tulisan" value="{{ $tulisan->jenis_tulisan }}" >
+                        @error('jenis_tulisan')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>

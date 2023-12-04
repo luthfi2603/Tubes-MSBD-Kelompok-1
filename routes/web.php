@@ -101,6 +101,17 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
                 ->name('bidang.ilmu.edit');
     Route::put('/edit-bidang-ilmu/{bidang}', [AdminController::class, 'updateBidangIlmu']);
     
+    Route::get('/kelola-kata-kunci', [AdminController::class, 'showKataKunci'])
+                ->name('kata.kunci.kelola');
+    Route::get('/input-kata-kunci', [AdminController::class, 'createKataKunci'])
+                ->name('kata.kunci.input');
+    Route::post('/input-kata-kunci', [AdminController::class, 'storeKataKunci']);
+    Route::get('/edit-kata-kunci/{kunci}', [AdminController::class, 'editKataKunci'])
+                ->name('kata.kunci.edit');
+    Route::put('/edit-kata-kunci/{kunci}', [AdminController::class, 'updateKataKunci']);
+    Route::delete('/kelola-kata-kunci/{kunci}', [AdminController::class, 'destroyKataKunci'])
+                ->name('kata.kunci.delete');
+
 
     Route::get('/edit-karya-tulis', function () {   
         return view('admin.edit-karya-tulis');
