@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BidangIlmu;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Prodi;
@@ -44,7 +45,7 @@ class AdminController extends Controller
     }
     public function storeJenisTulisan(Request $request){
         $request->validate([
-            'kategori' => ['required']            
+            'kategori' => ['required', 'unique:jenis_tulisans']            
         ]);
 
         $jenis_tulisan = new JenisTulisan;
@@ -325,13 +326,60 @@ class AdminController extends Controller
         return redirect()->route('user.kelola')->with('success', 'data user berhasil di edit');
     }
     public function destroyUser(Request $request, $id){
-        // dd($id);
         if($request->status == 'mahasiswa'){
             DB::select('call deleteUser(?, ?, ?)', array($request->nim_nidn, 1, $id));
         }else{
             DB::select('call deleteUser(?, ?, ?)', array($request->nim_nidn, 2, $id));
         }
         return back()->with('success', 'data user berhasil di hapus');
+    }
+
+    public function showBidangIlmu(){
+        $bidangs = BidangIlmu::paginate(10);
+        return view('admin.kelola-bidang-ilmu', compact('bidangs'));
+    }
+    public function createBidangIlmu(){
+        return view('admin.input-bidang-ilmu');
+    }
+    public function storeBidangIlmu(Request $request){
+
+        $request->validate([
+            'jenis_bidang_ilmu' => ['required', 'unique:bidang_ilmus']            
+        ]);
+
+        $bidang_ilmu = new BidangIlmu;
+        $bidang_ilmu->jenis_bidang_ilmu = $request->jenis_bidang_ilmu;
+
+        $bidang_ilmu->save();
+
+        return back()->with('success', 'Bidang ilmu berhasil ditambahkan');
+    }
+    public function editBidangIlmu($bidang){
+        $bidang_ilmu = BidangIlmu::find($bidang);
+        return view('admin.edit-bidang-ilmu', compact('bidang_ilmu'));
+    }
+    public function updateBidangIlmu(Request $request, $bidang){
+        $bidang_ilmu = BidangIlmu::find($bidang);
+
+        if($bidang_ilmu->jenis_bidang_ilmu == $request->jenis_bidang_ilmu){
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }else{
+            $request->validate([
+                'jenis_bidang_ilmu' => ['required', 'unique:bidang_ilmus']
+            ]);
+        }
+
+        $bidang_ilmu->jenis_bidang_ilmu = $request->jenis_bidang_ilmu;
+
+        $bidang_ilmu->save();
+
+        return redirect()->route('bidang.ilmu.kelola')->with('success', 'bidang ilmu berhasil diedit');
+    }
+    public function destroyBidangIlmu($bidang){
+        $bidang_ilmu = BidangIlmu::find($bidang);
+        $bidang_ilmu->delete();
+
+        return back()->with('success', 'bidang ilmu berhasil dihapus');
     }
     
 

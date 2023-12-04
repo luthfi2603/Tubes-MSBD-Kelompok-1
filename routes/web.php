@@ -53,6 +53,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
                 ->name('admin.home');
     Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])
                 ->name('kelola.karya.tulis');
+
     Route::get('/kelola-kategori', [AdminController::class, 'showJenisTulisan'])
                 ->name('kategori.kelola');
     Route::get('/input-kategori', [AdminController::class, 'createJenisTulisan'])
@@ -63,6 +64,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::put('/edit-kategori/{jenis}', [AdminController::class, 'updateJenisTulisan']);
     Route::delete('/kategori-kelola/{jenis}', [AdminController::class, 'destroyJenisTulisan'])
                 ->name('kategori.delete');
+
     Route::get('/kelola-mahasiswa', [AdminController::class, 'showMahasiswa'])
                 ->name('mahasiswa.kelola');
     Route::get('/input-mahasiswa', [AdminController::class, 'createMahasiswa'])
@@ -71,6 +73,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-mahasiswa/{nim}', [AdminController::class, 'editMahasiswa'])
                 ->name('mahasiswa.edit');
     Route::put('/edit-mahasiswa/{nim}', [AdminController::class, 'updateMahasiswa']);
+
     Route::get('/kelola-dosen', [AdminController::class, 'showDosen'])
                 ->name('dosen.kelola');
     Route::get('/input-dosen', [AdminController::class, 'createDosen'])
@@ -79,6 +82,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-dosen/{nidn}', [AdminController::class, 'editDosen'])
                 ->name('dosen.edit');
     Route::put('/edit-dosen/{nidn}', [AdminController::class, 'updateDosen']);
+
     Route::get('/kelola-user', [AdminController::class, 'showUser'])
                 ->name('user.kelola');
     Route::get('/input-user', [AdminController::class, 'createUser'])
@@ -88,12 +92,19 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
                 ->name('user.edit');
     Route::put('/edit-user/{id}', [AdminController::class, 'updateUser']);
     Route::delete('/kelola-user/{id}', [AdminController::class, 'destroyUser'])
-                ->name('user.delete');    
-
+                ->name('user.delete');
     
+    Route::get('/kelola-bidang-ilmu', [AdminController::class, 'showBidangIlmu'])
+                ->name('bidang.ilmu.kelola');
+    Route::get('/input-bidang-ilmu', [AdminController::class, 'createBidangIlmu'])
+                ->name('bidang.ilmu.input');
+    Route::post('/input-bidang-ilmu', [AdminController::class, 'storeBidangIlmu']);
+    Route::get('/edit-bidang-ilmu/{bidang}', [AdminController::class, 'editBidangIlmu'])
+                ->name('bidang.ilmu.edit');
+    Route::put('/edit-bidang-ilmu/{bidang}', [AdminController::class, 'updateBidangIlmu']);
+    Route::delete('/kelola-bidang-ilmu/{bidang}', [AdminController::class, 'destroyBidangIlmu'])
+                ->name('bidang.ilmu.delete');
     
-
-
 
     Route::get('/edit-karya-tulis', function () {   
         return view('admin.edit-karya-tulis');
