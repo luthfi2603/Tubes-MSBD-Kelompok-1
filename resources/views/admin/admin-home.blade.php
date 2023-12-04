@@ -93,7 +93,7 @@
 
         <div class="col-lg-6 mb-3">
             <!-- Konten di sini -->
-            <a href="{{ route('kelola.dosen') }}">
+            <a href="{{ route('dosen.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 

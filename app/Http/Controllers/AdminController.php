@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
 use App\Models\Prodi;
 use App\Models\Mahasiswa;
 use App\Models\JenisTulisan;
@@ -142,6 +143,44 @@ class AdminController extends Controller
         return redirect()->route('mahasiswa.kelola')->with('success', 'data mahasiswa berhasil di edit');
     }
 
+    public function showDosen(){
+        $dosens = Dosen::paginate(10);
+        $prodis = Prodi::all();
+        return view('admin.kelola-dosen', compact('dosens', 'prodis'));
+    }
+
+    public function createDosen(){
+        $prodis = Prodi::all();
+        return view('admin.input-dosen', compact('prodis'));
+    }
+
+    public function storeDosen(Request $request){
+        $request->validate([
+            'nidn' => ['required','numeric', 'digits:10', 'unique:dosens'],
+            'nip' => ['required','numeric', 'digits:18', 'unique:dosens'],
+            'nama' => ['required','regex:/^[^*\/]+$/'],
+            'kode_dosen' => ['required', 'digits:3'],
+            'jenis_kelamin' => ['required'],
+            'prodi' => ['required'],
+        ]);
+        
+        $dosen = new Dosen;
+
+        $dosen->nidn = $request->nidn;
+        $dosen->nip = $request->nip;
+        $dosen->nama = $request->nama;
+        $dosen->kode_dosen = $request->kode_dosen;
+        $dosen->jenis_kelamin = $request->jenis_kelamin;
+        $dosen->status = $request->status;
+        $dosen->user_id = 1;
+        $dosen->kode_prodi = $request->prodi;
+
+        $dosen->save();
+    }
+
+    public function editDosen(){
+        return view('admin.edit-dosen');
+    }
     
 
     

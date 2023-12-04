@@ -70,28 +70,26 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-mahasiswa/{nim}', [AdminController::class, 'editMahasiswa'])
                 ->name('mahasiswa.edit');
     Route::put('/edit-mahasiswa/{nim}', [AdminController::class, 'updateMahasiswa']);
-    
+    Route::get('/kelola-dosen', [AdminController::class, 'showDosen'])
+                ->name('dosen.kelola');
+    Route::get('/input-dosen', [AdminController::class, 'createDosen'])
+                ->name('dosen.input');
+    Route::post('/input-dosen', [AdminController::class, 'storeDosen']);
+    Route::get('/edit-dosen', [AdminController::class, 'editDosen'])
+                ->name('dosen.edit');
+    Route::get('/edit-dosen/{nidn}', [AdminController::class, 'updateDosen']);
 
     Route::get('/edit-user', function () {
         return view('super-admin.edit-user');
     })->name('edit.user');
     
-    Route::get('/edit-dosen', function () {
-        return view('super-admin.edit-dosen');
-    })->name('edit.dosen');
     Route::get('/kelola-user', function () {
         return view('super-admin.kelola-user');
     })->name('kelola.user');
-    Route::get('/kelola-dosen', function () {
-        return view('super-admin.kelola-dosen');
-    })->name('kelola.dosen');
     Route::get('/input-user', function () {
         return view('super-admin.input-user');
     })->name('input.user');
     
-    Route::get('/input-dosen', function () {
-        return view('super-admin.input-dosen');
-    })->name('input.dosen');
 
 
 
