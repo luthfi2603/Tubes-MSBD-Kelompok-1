@@ -96,7 +96,7 @@
                                                             $penulisTertentu = $penuliss->where('id', $result->id);
         
                                                             foreach ($penulisTertentu as $key) {
-                                                                $penulis .= '<a href="' . route('author', ['author' => $key->penulis]) . '">' . $key->penulis . '</a>, ';
+                                                                $penulis .= '<a href="' . route('author', ['author' => $key->kontributor]) . '">' . $key->kontributor . '</a>, ';
                                                             }
         
                                                             $penulis = rtrim($penulis, ', ');
@@ -141,7 +141,7 @@
             <ul class="list-group list-group-flush">
                 @foreach ($prodis as $prodi)
                     <li class="list-group-item">
-                        <a href="{{ route('prodi', $prodi->kode_prodi) }}">
+                        <a href="{{ route('prodi', $prodi->nama_prodi) }}">
                             <span><i class="fa-solid fa-angle-right"></i></span>
                             {{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}
                         </a>

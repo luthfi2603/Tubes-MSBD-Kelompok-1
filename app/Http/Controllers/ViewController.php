@@ -22,8 +22,10 @@ class ViewController extends Controller {
         $prodis = Prodi::all();
         $karyas = KaryaTulis::paginate(5);
 
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         return view('index', compact('jenisTulisans', 'prodis', 'karyas', 'penuliss'));
@@ -46,33 +48,33 @@ class ViewController extends Controller {
             $isLiked = true;
         }
 
-        $detail = DB::table('view_detail_karya_tulis')
+        $detail = DB::table('view_karya_tulis')
             ->select('*')
             ->where('id', $id)
             ->first();
 
-        $penulis = DB::table('view_detail_karya_tulis')
+        $penulis = DB::table('view_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
             ->where('status', 'penulis')
             ->groupBy('kontributor', 'status')
             ->get();
 
-        $pembimbing = DB::table('view_detail_karya_tulis')
+        $pembimbing = DB::table('view_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
             ->where('status', 'pembimbing')
             ->groupBy('kontributor', 'status')
             ->get();
 
-        $kontributor = DB::table('view_detail_karya_tulis')
+        $kontributor = DB::table('view_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
             ->where('status', 'kontributor')
             ->groupBy('kontributor', 'status')
             ->get();
 
-        $kataKuncis = DB::table('view_detail_karya_tulis')
+        $kataKuncis = DB::table('view_karya_tulis')
             ->select('kata_kunci')
             ->where('id', $id)
             ->groupBy('kata_kunci')
@@ -109,15 +111,17 @@ class ViewController extends Controller {
     public function showByKoleksi($jenisTulisan){
         $karyas = KaryaTulis::where('jenis', $jenisTulisan)->paginate(5);
 
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         return view('koleksi', compact('karyas', 'penuliss', 'jenisTulisan'));
     }
 
     public function showByProdi($prodi){
-        $karyaIds = DB::table('view_list_karya')
+        $karyaIds = DB::table('view_karya_tulis')
             ->select('id')
             ->where('kode_prodi', $prodi)
             ->groupBy('id')
@@ -125,8 +129,10 @@ class ViewController extends Controller {
     
         $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
     
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
     
         $prodi = Prodi::where('kode_prodi', $prodi)->first()->nama_prodi;
@@ -135,13 +141,19 @@ class ViewController extends Controller {
     }
 
     public function showByAuthor($author){
-        $karyas = DB::table('view_list_karya')
-            ->select('*')
-            ->where('penulis', $author)
-            ->paginate(5);
+        $karyaIds = DB::table('view_karya_tulis')
+            ->select('id')
+            ->where('kontributor', $author)
+            ->where('status', 'penulis')
+            ->groupBy('id')
+            ->pluck('id');
 
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
+
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         return view('author', compact('karyas', 'author', 'penuliss'));
@@ -151,8 +163,10 @@ class ViewController extends Controller {
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
         $bidIlmus = BidangIlmu::all();
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         $search1 = $request->input('search1');
@@ -212,8 +226,10 @@ class ViewController extends Controller {
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
         $bidIlmus = BidangIlmu::all();
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         $search = $request->input('search');
@@ -241,8 +257,10 @@ class ViewController extends Controller {
 
         $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
 
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
     
         return view('favorite', compact('karyas', 'penuliss'));

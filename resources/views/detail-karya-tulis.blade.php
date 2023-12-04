@@ -43,6 +43,8 @@
                         @endif
                         <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Tahun : </h6>
                         <h6 class="text mb-3" style="font-weight: 500;">{{ $detail->tahun }}</h6>
+                        <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Bidang Ilmu : </h6>
+                        <h6 class="text mb-3" style="font-weight: 500;">{{ $detail->bidang_ilmu }}</h6>
                         <h6 class="textit mb-0" style="font-weight: 600;">File Digital : </h6>
                         <!-- (dikliklangsungkedownload) -->
                         @auth
@@ -84,7 +86,7 @@
             @endif
             <div class="col-lg-12">
                 <div class="d flex mb-5">
-                    <h6 class="textit" style="font-weight: 600;">{{ $detail->jenis }}</h6>
+                    <h6 class="textit" style="font-weight: 600;"><a href="{{ route('koleksi', $detail->jenis) }}">{{ $detail->jenis }}</a></h6>
                     <hr class="mt-0">
                     <h3 class="textit mb-3" style="font-weight: 600;">{{ $detail->judul }}</h3>
                     <div class="eye-bar" style="cursor: text">

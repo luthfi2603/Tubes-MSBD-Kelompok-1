@@ -255,7 +255,7 @@ return new class extends Migration
                 d.kata_kunci,
                 c.nama AS kontributor,
                 b.status,
-                e.nama_prodi
+                e.kode_prodi
             FROM karya_tulis a 
             INNER JOIN kontributor_mahasiswas b ON a.id = b.karya_id 
             INNER JOIN mahasiswas c ON b.nim = c.nim 
@@ -274,7 +274,7 @@ return new class extends Migration
                 d.kata_kunci,
                 c.nama AS kontributor,
                 b.status,
-                e.nama_prodi
+                e.kode_prodi
             FROM karya_tulis a 
             INNER JOIN kontributor_dosens b ON a.id = b.karya_id 
             INNER JOIN dosens c ON b.nidn = c.nidn

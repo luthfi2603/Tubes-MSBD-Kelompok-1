@@ -33,7 +33,7 @@
                                                     $penulisTertentu = $penuliss->where('id', $karya->id);
 
                                                     foreach ($penulisTertentu as $key) {
-                                                        $penulis .= '<a href="' . route('author', ['author' => $key->penulis]) . '">' . $key->penulis . '</a>, ';
+                                                        $penulis .= '<a href="' . route('author', ['author' => $key->kontributor]) . '">' . $key->kontributor . '</a>, ';
                                                     }
 
                                                     $penulis = rtrim($penulis, ', ');
