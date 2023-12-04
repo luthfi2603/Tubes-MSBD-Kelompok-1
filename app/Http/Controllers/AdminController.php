@@ -159,9 +159,10 @@ class AdminController extends Controller
             'nidn' => ['required','numeric', 'digits:10', 'unique:dosens'],
             'nip' => ['required','numeric', 'digits:18', 'unique:dosens'],
             'nama' => ['required','regex:/^[^*\/]+$/'],
-            'kode_dosen' => ['required', 'digits:3'],
+            'kode_dosen' => ['required', 'alpha', 'uppercase', 'size:3'],
             'jenis_kelamin' => ['required'],
             'prodi' => ['required'],
+            'status' => ['required']
         ]);
         
         $dosen = new Dosen;
@@ -176,10 +177,41 @@ class AdminController extends Controller
         $dosen->kode_prodi = $request->prodi;
 
         $dosen->save();
+
+        return back()->with('success', 'Data Dosen berhasil ditambahkan');
     }
 
-    public function editDosen(){
-        return view('admin.edit-dosen');
+    public function editDosen($nidn){
+        $dosen = Dosen::find($nidn);
+        $prodis = Prodi::all();
+        return view('admin.edit-dosen', compact('dosen','prodis'));
+    }
+
+    public function updateDosen(Request $request, $nidn){
+        $dosen = Dosen::find($nidn);
+
+        $request->validate([
+            'nidn' => ['required','numeric', 'digits:10'],
+            'nip' => ['required','numeric', 'digits:18'],
+            'nama' => ['required','regex:/^[^*\/]+$/'],
+            'kode_dosen' => ['required', 'alpha', 'uppercase', 'size:3'],
+            'jenis_kelamin' => ['required'],
+            'prodi' => ['required'],
+            'status' => ['required']
+        ]);
+        
+
+        $dosen->nidn = $request->nidn;
+        $dosen->nip = $request->nip;
+        $dosen->nama = $request->nama;
+        $dosen->kode_dosen = $request->kode_dosen;
+        $dosen->jenis_kelamin = $request->jenis_kelamin;
+        $dosen->status = $request->status;
+        $dosen->kode_prodi = $request->prodi;
+
+        $dosen->save();
+
+        return redirect()->route('dosen.kelola')->with('success', 'data dosen berhasil di edit');
     }
     
 

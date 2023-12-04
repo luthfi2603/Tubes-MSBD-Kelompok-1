@@ -75,9 +75,9 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/input-dosen', [AdminController::class, 'createDosen'])
                 ->name('dosen.input');
     Route::post('/input-dosen', [AdminController::class, 'storeDosen']);
-    Route::get('/edit-dosen', [AdminController::class, 'editDosen'])
+    Route::get('/edit-dosen/{nidn}', [AdminController::class, 'editDosen'])
                 ->name('dosen.edit');
-    Route::get('/edit-dosen/{nidn}', [AdminController::class, 'updateDosen']);
+    Route::put('/edit-dosen/{nidn}', [AdminController::class, 'updateDosen']);
 
     Route::get('/edit-user', function () {
         return view('super-admin.edit-user');

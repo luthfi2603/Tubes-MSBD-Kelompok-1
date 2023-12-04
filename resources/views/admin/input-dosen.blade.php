@@ -44,10 +44,21 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="kode" class="form-label">Kode dosen</label>
-                        <input type="text" class="form-control custom-form @error('kode') is-invalid @enderror" id="kode" name="kode"
-                            placeholder="Input Kode Dosen" value="{{ old('kode') }}">
-                            @error('kode')
+                        <label for="nama" class="form-label">Nama dosen</label>
+                        <input type="text" class="form-control custom-form @error('nama') is-invalid @enderror" id="nama" name="nama"
+                            placeholder="Input Nama Dosen" value="{{ old('nama') }}">
+                        @error('nama')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="kode_dosen" class="form-label">Kode dosen</label>
+                        <input type="text" class="form-control custom-form @error('kode_dosen') is-invalid @enderror" id="kode_dosen" name="kode_dosen"
+                            placeholder="Input Kode Dosen" value="{{ old('kode_dosen') }}">
+                            @error('kode_dosen')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -61,10 +72,12 @@
                 <div class="inputan-form">
 
                     <div class="mb-3">
-                        <label for="nama" class="form-label">Nama dosen</label>
-                        <input type="text" class="form-control custom-form @error('nama') is-invalid @enderror" id="nama" name="nama"
-                            placeholder="Input Nama Dosen" value="{{ old('nama') }}">
-                        @error('nama')
+                        <label for="status" class="form-label">Status Dosen</label>
+                        <select class="form-select custom-form @error('status') is-invalid @enderror" aria-label="Default select example" id="status" name="status">
+                            <option selected value="aktif">Aktif</option>
+                            <option value="tidak_aktif">Tidak Aktif</option>
+                        </select>
+                        @error('status')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -106,8 +119,8 @@
 
             
             <div class="inputan-form mb-5 mt-3">
-                <button type="button" id="cancelbutton" class="btn btn-danger tombol">Cancel</button>
-                <button type="button" id="submitbutton" class="btn btn-success tombol">Submit</button>
+                <button type="submit" class="btn btn-success tombol">Submit</button>
+                <a href="{{ route('dosen.kelola') }}" class="btn btn-warning tombol">Kembali</a>
             </div>
 
         </div>

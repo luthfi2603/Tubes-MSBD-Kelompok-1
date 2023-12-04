@@ -21,6 +21,18 @@
         </div>
     </div>
 
+    @if(session()->has('failed'))
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+            {{ session('failed') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @elseif(session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="row mt-2 mb-5 justify-content-center">
         <table class="table">
             <thead class="table-dark">
@@ -59,15 +71,16 @@
                             {{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}
                         </td>
                         <td>
-                            <a href="{{ route('dosen.edit') }}" id="editdosen"><i class="fa-solid fa-pen icon-edit"></i></a>
-                            <a href="#" id="deletedosen"><i class="fa-solid fa-trash icon-delete"></i></a>
+                            <a href="{{ route('dosen.edit', ['nidn' => $dosen->nidn]) }}" id="editdosen"><i class="fa-solid fa-pen icon-edit"></i></a>
                         </td>
                     </tr>
                 @endforeach
                 
             </tbody>
         </table>
-        <!-- Disini dibikin pagination kalo bingung tengo di figma. -->
+        <nav aria-label="Page navigation example">
+            {{$dosens->links()}}
+        </nav>
     </div>
 </div>
 @endsection
