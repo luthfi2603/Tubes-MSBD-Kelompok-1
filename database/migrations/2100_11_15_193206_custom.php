@@ -197,7 +197,46 @@ return new class extends Migration
             FROM dosens a ORDER BY jumlah_like DESC
         ');
 
-    
+        DB::unprepared('
+            DROP VIEW IF EXISTS view_all_user;
+            CREATE VIEW view_all_user AS
+            SELECT
+                a.id,
+                a.username,
+                a.email,
+                b.nama,
+                b.nim AS nim_nidn,
+                "mahasiswa" AS status,
+                b.kode_prodi
+            FROM users a
+            INNER JOIN mahasiswas b ON a.id = b.user_id
+            WHERE a.id <> 1
+            UNION
+            SELECT
+                a.id,
+                a.username,
+                a.email,
+                b.nama,
+                b.nidn AS nim_nidn,
+                "dosen" AS status,
+                b.kode_prodi
+            FROM users a
+            INNER JOIN dosens b ON a.id = b.user_id
+            WHERE a.id <> 1 
+        ');
+
+        DB::unprepared('
+            DROP PROCEDURE IF EXISTS deleteUser;
+            CREATE PROCEDURE deleteUser(IN kode char(10), IN status int(1), IN user_id int(10))
+            BEGIN
+                IF(status = 1) THEN
+                    UPDATE mahasiswas SET user_id = 1 WHERE nim = kode COLLATE utf8mb4_unicode_ci;
+                ELSE
+                    UPDATE dosens SET user_id = 1 WHERE nidn = kode COLLATE utf8mb4_unicode_ci;
+                END IF;
+                DELETE FROM users WHERE id = user_id; 
+            END
+        ');
     }
 
     /**

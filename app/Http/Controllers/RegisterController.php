@@ -15,7 +15,7 @@ class RegisterController extends Controller
         $request->validate([
             'username' => ['required', 'min:1', 'max:30', 'unique:users'],
             'status' => ['required'],
-            'nim_nidn' => ['required'],
+            'nim_nidn' => ['required', 'numeric'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'same:konfirmasi_password', 'min:1'],
             'konfirmasi_password' => ['required', 'same:password', 'min:1']

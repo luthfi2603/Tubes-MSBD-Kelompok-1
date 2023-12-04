@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewController;
@@ -78,17 +79,18 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-dosen/{nidn}', [AdminController::class, 'editDosen'])
                 ->name('dosen.edit');
     Route::put('/edit-dosen/{nidn}', [AdminController::class, 'updateDosen']);
+    Route::get('/kelola-user', [AdminController::class, 'showUser'])
+                ->name('user.kelola');
+    Route::get('/input-user', [AdminController::class, 'createUser'])
+                ->name('user.input');
+    Route::post('/input-user', [AdminController::class, 'storeUser']);
+    Route::get('/edit-user/{id}', [AdminController::class, 'editUser'])
+                ->name('user.edit');
+    Route::put('/edit-user/{id}', [AdminController::class, 'updateUser']);
+    Route::delete('/kelola-user/{id}', [AdminController::class, 'destroyUser'])
+                ->name('user.delete');    
 
-    Route::get('/edit-user', function () {
-        return view('super-admin.edit-user');
-    })->name('edit.user');
     
-    Route::get('/kelola-user', function () {
-        return view('super-admin.kelola-user');
-    })->name('kelola.user');
-    Route::get('/input-user', function () {
-        return view('super-admin.input-user');
-    })->name('input.user');
     
 
 

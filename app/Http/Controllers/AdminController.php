@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Prodi;
 use App\Models\Mahasiswa;
 use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -122,8 +124,24 @@ class AdminController extends Controller
         
         $mahasiswa = Mahasiswa::find($nim);
 
+        if(
+            $mahasiswa->nim == $request->nim &&
+            $mahasiswa->nama == $request->nama &&
+            $mahasiswa->angkatan == $request->angkatan &&
+            $mahasiswa->jenis_kelamin == $request->jenis_kelamin &&
+            $mahasiswa->status == $request->status &&
+            $mahasiswa->kode_prodi == $request->prodi
+        ){
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }
+
+
+        if($mahasiswa->nim != $request->nim){
+            $request->validate([
+                'nim' => ['required','numeric', 'digits:9', 'unique:mahasiswas'],
+            ]);
+        }
         $request->validate([
-            'nim' => ['required','numeric', 'digits:9'],
             'nama' => ['required','regex:/^[^*\/]+$/'],
             'jenis_kelamin' => ['required'],
             'angkatan' => ['required', 'numeric', 'digits:4'],
@@ -190,9 +208,30 @@ class AdminController extends Controller
     public function updateDosen(Request $request, $nidn){
         $dosen = Dosen::find($nidn);
 
+        if(
+            $dosen->nidn == $request->nidn &&
+            $dosen->nip == $request->nip &&
+            $dosen->nama == $request->nama &&
+            $dosen->kode_dosen == $request->kode_dosen &&
+            $dosen->jenis_kelamin == $request->jenis_kelamin &&
+            $dosen->status == $request->status &&
+            $dosen->kode_prodi == $request->prodi
+        ){
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }
+
+        if($request->nidn != $dosen->nidn){
+            $request->validate([
+                'nidn' => ['required','numeric', 'digits:10', 'unique:dosens'],
+            ]);
+        };
+        if($request->nip != $dosen->nip){
+            $request->validate([
+                'nip' => ['required','numeric', 'digits:18', 'unique:dosens'],
+            ]);
+        };
+
         $request->validate([
-            'nidn' => ['required','numeric', 'digits:10'],
-            'nip' => ['required','numeric', 'digits:18'],
             'nama' => ['required','regex:/^[^*\/]+$/'],
             'kode_dosen' => ['required', 'alpha', 'uppercase', 'size:3'],
             'jenis_kelamin' => ['required'],
@@ -212,6 +251,87 @@ class AdminController extends Controller
         $dosen->save();
 
         return redirect()->route('dosen.kelola')->with('success', 'data dosen berhasil di edit');
+    }
+
+    public function showUser(){
+        $users = DB::table('view_all_user')->paginate(10);
+        $prodis = Prodi::all();
+        return view('admin.kelola-user', compact('users', 'prodis'));
+    }
+    public function createUser(){
+        $prodis = Prodi::all();
+        return view('admin.input-user', compact('prodis'));
+    }
+    public function storeUser(Request $request){
+        $request->validate([
+            'username' => ['required', 'min:1', 'max:30', 'unique:users'],
+            'status' => ['required'],
+            'nim_nidn' => ['required', 'numeric'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'same:konfirmasi_password', 'min:1'],
+            'konfirmasi_password' => ['required', 'same:password', 'min:1']
+        ]);
+
+        $password = Hash::make($request->password);
+
+        if($request->status == 'mahasiswa'){
+            try {
+                DB::select('call createUser(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nidn, 1));
+            }catch(\Throwable $th){
+                return back()->with('failed', 'NIM/NIDN tidak terdaftar atau anda telah memiliki akun');
+            }
+        }else{
+            try {
+                DB::select('call createUser(?, ?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nim_nidn, 2));
+            } catch (\Throwable $th) {
+                return back()->with('failed', 'NIM/NIDN tidak terdaftar atau anda telah memiliki akun');
+            }
+        }
+
+        return back()->with('success', 'Data user berhasil ditambahkan');
+    }
+    public function editUser($id){
+        $user = User::find($id);
+        return view('admin.edit-user', compact('user'));
+    }
+
+    public function updateUser(Request $request, $id){
+        $user = User::find($id);
+        if(
+            $request->username == $user->username &&
+            $request->email == $user->email
+        ){
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }
+
+        $rules = [];
+
+        if($request->username != $user->username){
+            $rules['username'] = ['required', 'string', 'max:255', 'unique:users'];
+        }
+
+        if($request->email != $user->email){
+            $rules['email'] = 'required|string|lowercase|email|max:255|unique:'.User::class.'';
+        }
+
+        $validatedData = $request->validate($rules);
+        
+        if($request->email != $user->email){
+            $validatedData['email_verified_at'] = NULL;
+        }
+
+        User::where('id', $user->id)->update($validatedData);
+
+        return redirect()->route('user.kelola')->with('success', 'data user berhasil di edit');
+    }
+    public function destroyUser(Request $request, $id){
+        // dd($id);
+        if($request->status == 'mahasiswa'){
+            DB::select('call deleteUser(?, ?, ?)', array($request->nim_nidn, 1, $id));
+        }else{
+            DB::select('call deleteUser(?, ?, ?)', array($request->nim_nidn, 2, $id));
+        }
+        return back()->with('success', 'data user berhasil di hapus');
     }
     
 
