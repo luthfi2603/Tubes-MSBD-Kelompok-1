@@ -72,12 +72,6 @@ class AdminController extends Controller
 
         return redirect()->route('kategori.kelola')->with('success', 'kategori berhasil diedit');
     }
-    public function destroyJenisTulisan($jenis){
-        $tulisan = JenisTulisan::find($jenis, 'jenis_tulisan');
-        $tulisan->delete();
-
-        return back()->with('success', 'kategori berhasil dihapus');
-    }
 
     public function showMahasiswa(){
         $mahasiswas = Mahasiswa::paginate(10);
@@ -374,12 +368,6 @@ class AdminController extends Controller
         $bidang_ilmu->save();
 
         return redirect()->route('bidang.ilmu.kelola')->with('success', 'bidang ilmu berhasil diedit');
-    }
-    public function destroyBidangIlmu($bidang){
-        $bidang_ilmu = BidangIlmu::find($bidang);
-        $bidang_ilmu->delete();
-
-        return back()->with('success', 'bidang ilmu berhasil dihapus');
     }
     
 

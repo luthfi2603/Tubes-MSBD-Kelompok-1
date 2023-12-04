@@ -62,8 +62,6 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-kategori/{jenis}', [AdminController::class, 'editJenisTulisan'])
                 ->name('kategori.edit');
     Route::put('/edit-kategori/{jenis}', [AdminController::class, 'updateJenisTulisan']);
-    Route::delete('/kategori-kelola/{jenis}', [AdminController::class, 'destroyJenisTulisan'])
-                ->name('kategori.delete');
 
     Route::get('/kelola-mahasiswa', [AdminController::class, 'showMahasiswa'])
                 ->name('mahasiswa.kelola');
@@ -102,8 +100,6 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-bidang-ilmu/{bidang}', [AdminController::class, 'editBidangIlmu'])
                 ->name('bidang.ilmu.edit');
     Route::put('/edit-bidang-ilmu/{bidang}', [AdminController::class, 'updateBidangIlmu']);
-    Route::delete('/kelola-bidang-ilmu/{bidang}', [AdminController::class, 'destroyBidangIlmu'])
-                ->name('bidang.ilmu.delete');
     
 
     Route::get('/edit-karya-tulis', function () {   

@@ -57,13 +57,6 @@
                         <a href="{{ route('kategori.edit', ['jenis' => $kategori->jenis_tulisan]) }}" id="editkategori">
                             <i class="fa-solid fa-pen icon-edit"></i>
                         </a>
-                        <form action="{{ route('kategori.delete', ['jenis' => $kategori->jenis_tulisan]) }}" method="POST" class="ml-2">
-                            @csrf
-                            @method('DELETE')
-                            <button style="border:none; background:none; !important"  type="submit" id="submitbutton" onclick="return confirm('Yakin mau menghapus')">
-                                <i class="fa-solid fa-trash icon-delete"></i>
-                            </button>
-                        </form>
                     </td>
                 </tr>
                 @endforeach

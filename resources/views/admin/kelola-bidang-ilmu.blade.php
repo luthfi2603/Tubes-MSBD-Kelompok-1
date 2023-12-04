@@ -57,13 +57,6 @@
                         <a href="{{ route('bidang.ilmu.edit', ['bidang' => $bidang->jenis_bidang_ilmu]) }}" id="editBidangIlmu">
                             <i class="fa-solid fa-pen icon-edit"></i>
                         </a>
-                        <form action="{{ route('bidang.ilmu.delete', ['bidang' => $bidang->jenis_bidang_ilmu]) }}" method="POST" class="ml-2">
-                            @csrf
-                            @method('DELETE')
-                            <button style="border:none; background:none; !important"  type="submit" id="submitbutton" onclick="return confirm('Yakin mau menghapus')">
-                                <i class="fa-solid fa-trash icon-delete"></i>
-                            </button>
-                        </form>
                     </td>
                 </tr>
                 @endforeach
