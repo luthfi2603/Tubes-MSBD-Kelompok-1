@@ -60,7 +60,7 @@
                         <form action="{{ route('kategori.delete', ['jenis' => $kategori->jenis_tulisan]) }}" method="POST" class="ml-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" id="submitbutton" onclick="return confirm('Yakin mau menghapus')">
+                            <button style="border:none; background:none; !important"  type="submit" id="submitbutton" onclick="return confirm('Yakin mau menghapus')">
                                 <i class="fa-solid fa-trash icon-delete"></i>
                             </button>
                         </form>

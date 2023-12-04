@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prodi;
+use App\Models\Mahasiswa;
 use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,25 +22,23 @@ class AdminController extends Controller
         $karyas = DB::table('view_list_karya')
         ->select('*')
         ->paginate(10);
-        // dd($karyas);
         return view('admin.kelola-karya-tulis', compact('karyas'));
     }
-    public function showJenisTulisan(){
-        $kategoris = JenisTulisan::paginate(20);
-        // dd($kategoris);
-        return view('admin.kelola-kategori', compact('kategoris'));
-    }
+    
     public function createKaryaTulis(){
         return view('admin.input-karya-tulis');
     }
-    public function createJenisTulisan(){
-        return view('admin.input-kategori');
-    }
-
     public function storeKaryaTulis(Request $request){
         
     }
 
+    public function showJenisTulisan(){
+        $kategoris = JenisTulisan::paginate(20);
+        return view('admin.kelola-kategori', compact('kategoris'));
+    }
+    public function createJenisTulisan(){
+        return view('admin.input-kategori');
+    }
     public function storeJenisTulisan(Request $request){
         $request->validate([
             'kategori' => ['required']            
@@ -50,17 +50,11 @@ class AdminController extends Controller
         $jenis_tulisan->save();
 
         return back()->with('success', 'Jenis tulisan berhasil ditambahkan');
-
     }
-
     public function editJenisTulisan($jenis){
-
-        $tulisan = JenisTulisan::find($jenis, 'jenis_tulisan');
-        // $jenis_tulisan = $kategori_tulisan;
-        // dd($jenis_tulisan); 
+        $tulisan = JenisTulisan::find($jenis);
         return view('admin.edit-kategori', compact('tulisan'));
     }
-
     public function updateJenisTulisan(Request $request, $jenis){
         $tulisan = JenisTulisan::find($jenis, 'jenis_tulisan');
         
@@ -74,13 +68,90 @@ class AdminController extends Controller
 
         return redirect()->route('kategori.kelola')->with('success', 'kategori berhasil diedit');
     }
-
     public function destroyJenisTulisan($jenis){
         $tulisan = JenisTulisan::find($jenis, 'jenis_tulisan');
         $tulisan->delete();
 
         return back()->with('success', 'kategori berhasil dihapus');
     }
+
+    public function showMahasiswa(){
+        $mahasiswas = Mahasiswa::paginate(10);
+        $prodis = Prodi::all();
+
+        return view('admin.kelola-mahasiswa', compact('mahasiswas', 'prodis'));
+    }
+    public function createMahasiswa(){
+        $prodis = Prodi::all();
+        return view('admin.input-mahasiswa', compact('prodis'));
+    }
+
+    public function storeMahasiswa(Request $request){
+        $request->validate([
+            'nim' => ['required','numeric', 'digits:9', 'unique:mahasiswas'],
+            'nama' => ['required','regex:/^[^*\/]+$/'],
+            'jenis_kelamin' => ['required'],
+            'angkatan' => ['required', 'numeric', 'digits:4'],
+            'status' => ['required'],
+            'prodi' => ['required'],
+        ]);
+        
+        $mahasiswa = new Mahasiswa;
+
+        $mahasiswa->nim = $request->nim;
+        $mahasiswa->nama = $request->nama;
+        $mahasiswa->angkatan = $request->angkatan;
+        $mahasiswa->jenis_kelamin = $request->jenis_kelamin;
+        $mahasiswa->status = $request->status;
+        $mahasiswa->user_id = 1;
+        $mahasiswa->kode_prodi = $request->prodi;
+
+        $mahasiswa->save();
+
+        return back()->with('success', 'Data mahasiswa berhasil ditambahkan');
+    }
+
+    public function editMahasiswa($nim){
+        $mahasiswa = Mahasiswa::find($nim);
+        $prodis = Prodi::all();
+        return view('admin.edit-mahasiswa', compact('mahasiswa', 'prodis'));
+    }
+
+    public function updateMahasiswa(Request $request, $nim){
+        
+        $mahasiswa = Mahasiswa::find($nim);
+
+        $request->validate([
+            'nim' => ['required','numeric', 'digits:9'],
+            'nama' => ['required','regex:/^[^*\/]+$/'],
+            'jenis_kelamin' => ['required'],
+            'angkatan' => ['required', 'numeric', 'digits:4'],
+            'status' => ['required'],
+            'prodi' => ['required'],
+        ]);
+        
+        $mahasiswa->nim = $request->nim;
+        $mahasiswa->nama = $request->nama;
+        $mahasiswa->angkatan = $request->angkatan;
+        $mahasiswa->jenis_kelamin = $request->jenis_kelamin;
+        $mahasiswa->status = $request->status;
+        $mahasiswa->kode_prodi = $request->prodi;
+
+        $mahasiswa->save();
+
+        return redirect()->route('mahasiswa.kelola')->with('success', 'data mahasiswa berhasil di edit');
+    }
+
+    
+
+    
+
+
+    
+
+    
+
+    
 
 
     /**
