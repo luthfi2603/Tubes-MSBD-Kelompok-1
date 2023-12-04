@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BidangIlmu;
 use App\Models\Ebook;
 use App\Models\Favorite;
 use App\Models\Prodi;
@@ -10,8 +11,7 @@ use App\Models\KaryaTulis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ViewController extends Controller
-{
+class ViewController extends Controller {
     public function index(){
         if (auth()->user()) {
             if (auth()->user()->email_verified_at == NULL) {
@@ -50,21 +50,21 @@ class ViewController extends Controller
             ->select('*')
             ->where('id', $id)
             ->first();
-        
+
         $penulis = DB::table('view_detail_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
             ->where('status', 'penulis')
             ->groupBy('kontributor', 'status')
             ->get();
-        
+
         $pembimbing = DB::table('view_detail_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
             ->where('status', 'pembimbing')
             ->groupBy('kontributor', 'status')
             ->get();
-        
+
         $kontributor = DB::table('view_detail_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
@@ -89,7 +89,7 @@ class ViewController extends Controller
 
     public function showEBook(){
         $ebooks = Ebook::paginate(5);
-        
+
         return view('e-book', compact('ebooks'));
     }
 
@@ -112,7 +112,7 @@ class ViewController extends Controller
         $penuliss = DB::table('view_list_karya')
             ->select('penulis', 'id')
             ->get();
-        
+
         return view('koleksi', compact('karyas', 'penuliss', 'jenisTulisan'));
     }
 
@@ -133,7 +133,7 @@ class ViewController extends Controller
     
         return view('prodi', compact('karyas', 'prodi', 'penuliss'));
     }
-    
+
     public function showByAuthor($author){
         $karyas = DB::table('view_list_karya')
             ->select('*')
@@ -147,26 +147,91 @@ class ViewController extends Controller
         return view('author', compact('karyas', 'author', 'penuliss'));
     }
 
-    public function viewAdvSearch(){
+    public function viewAdvSearch(Request $request){
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
+        $bidIlmus = BidangIlmu::all();
+        $penuliss = DB::table('view_list_karya')
+            ->select('penulis', 'id')
+            ->get();
 
-        return view('advanced-search', compact('prodis', 'jenisTulisans'));
+        $search1 = $request->input('search1');
+        $search2 = $request->input('search2');
+        $search3 = $request->input('search3');
+
+        $select1 = $request->input('select1');
+        $select2 = $request->input('select2');
+        $select3 = $request->input('select3');
+
+        $query1 = $request->input('query1');
+        $query2 = $request->input('query2');
+
+        $tahunawal = $request->input('tahunawal');
+        $tahunakhir = $request->input('tahunakhir');
+
+        $resultIds = DB::table('view_karya_tulis')
+            ->select('id')
+            ->where(function ($query) use ($select1, $search1, $select2, $search2, $select3, $search3, $query1, $query2) {
+                $query->where($select1, 'LIKE', '%' . $search1 . '%')
+                    ->where('status', '=', 'penulis');
+
+                // Menggunakan $query1
+                if ($query1 === 'OR') {
+                    if (!empty($select2) || !empty($search2) || !empty($select3) || !empty($search3) || !empty($query2)) {
+                        $query->orWhere(function ($subquery) use ($select2, $search2, $select3, $search3, $query2) {
+                            $subquery->where($select2, 'LIKE', '%' . $search2 . '%')
+                                ->orWhere($select3, 'LIKE', '%' . $search3 . '%', $query2);
+                        });
+                    }
+                } elseif ($query1 === 'AND') {
+                    if (!empty($select2) || !empty($search2) || !empty($select3) || !empty($search3) || !empty($query2)) {
+                        $query->where($select2, 'LIKE', '%' . $search2 . '%')
+                            ->where($select3, 'LIKE', '%' . $search3 . '%', $query2);
+                    }
+                } elseif ($query1 === 'AND NOT') {
+                    if (!empty($select2) || !empty($search2) || !empty($select3) || !empty($search3) || !empty($query2)) {
+                        $query->where($select2, 'LIKE', '%' . $search2 . '%', $query1)
+                            ->where($select3, 'LIKE', '%' . $search3 . '%', $query2);
+                    }
+                }
+            })
+            ->orWhereBetween('tahun', [$tahunawal, $tahunakhir])
+            ->groupBy('id')
+            ->pluck('id');
+
+        $results = KaryaTulis::whereIn('id', $resultIds)->paginate(5);
+
+        return view('search-page', compact('prodis', 'jenisTulisans',  'penuliss', 'results', 'bidIlmus'));
+    }
+
+    public function showAdvSearch(){
+        return view('advanced-search');
     }
 
     public function search(Request $request){
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
+        $bidIlmus = BidangIlmu::all();
+        $penuliss = DB::table('view_list_karya')
+            ->select('penulis', 'id')
+            ->get();
 
         $search = $request->input('search');
-        $results = DB::table('view_detail_karya_tulis')
-            ->where('judul', 'like', '%' . $search . '%')
-            ->orWhere('kontributor', 'like', '%' . $search . '%')
-            ->orWhere('kata_kunci', 'like', '%' . $search . '%')
-            ->select('*')
-            ->paginate(5);
 
-        return view('search-page', compact('results', 'prodis', 'jenisTulisans'));
+        $resultIds = DB::table('view_karya_tulis')
+            ->select('id')
+            ->orWhere(function ($query) use ($search) {
+                $query->where('judul', 'LIKE', '%' . $search . '%')
+                    ->orWhere('kontributor', 'LIKE', '%' . $search . '%')
+                    ->orWhere('kata_kunci', 'LIKE', '%' . $search . '%');
+            })
+            ->where('status', '=', 'penulis')
+            ->groupBy('id')
+            ->pluck('id');
+
+        $results = KaryaTulis::whereIn('id', $resultIds)->paginate(5);
+
+        return view('search-page', compact('results', 'prodis', 'jenisTulisans', 'penuliss', 'bidIlmus'));
     }
 
     public function showFavorite(){

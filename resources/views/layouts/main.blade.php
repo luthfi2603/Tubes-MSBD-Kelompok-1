@@ -9,11 +9,9 @@
     <title>Fakultas Ilmu Komputer dan Teknologi Informasi</title>
     <link rel="shortcut icon" href="{{asset('assets/img/usu.png')}}" type="image/x-icon">
     <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"
-        type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
-        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
@@ -35,8 +33,7 @@
                     <div class="d-flex justify-content-center px-5">
                         <div class="search">
                             <form action="{{ route('search') }}" method="get">
-                                <input type="text" class="search-input" style="font-weight: 500; color: #130D19;"
-                                    placeholder="Search..." name="search">
+                                <input type="text" class="search-input" style="font-weight: 500; color: #130D19;" placeholder="Search..." name="search">
                                 <button href="#" type="submit" class="search-icon">
                                     <i class="fa fa-search"></i>
                                 </button>
@@ -44,8 +41,7 @@
                         </div>
                     </div>
                     <div class="search-advanced text-center mt-3">
-                        <a href="/advanced-search" class="btn btn-success" style="font-weight: 600;">Pencarian
-                            lanjutan</a>
+                        <a href="{{ route('advanced.search.page') }}" class="btn btn-success" style="font-weight: 600;">Pencarian lanjutan</a>
                     </div>
                 </div>
             </div>
@@ -64,10 +60,8 @@
                         <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">About</a></li>
                         <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Contact</a>
                         </li>
-                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Terms of
-                                Use</a></li>
-                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Privacy
-                                Policy</a></li>
+                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Terms of Use</a></li>
+                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Privacy Policy</a></li>
                     </ul>
                     <p class="text-muted small mb-4 mb-lg-0">&copy; Fasilkom-TI, 2023. All Rights Reserved.</p>
                 </div>
