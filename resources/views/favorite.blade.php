@@ -25,7 +25,31 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title textit"><a href="{{ route('detail.karya.tulis', $karya->id) }}">{{ $karya->judul }}</a></h5>
+                                        @php
+                                            $waktuTangkap = $waktu->where('karya_id', $karya->id)->first()->waktu;
+                                            $konversiWaktu = strtotime($waktuTangkap);
+                                            $namaHariMap = [
+                                                'Monday'    => 'Senin',
+                                                'Tuesday'   => 'Selasa',
+                                                'Wednesday' => 'Rabu',
+                                                'Thursday'  => 'Kamis',
+                                                'Friday'    => 'Jumat',
+                                                'Saturday'  => 'Sabtu',
+                                                'Sunday'    => 'Minggu',
+                                            ];
+
+                                            // Mengambil nama hari Inggris dari tanggal yang dihasilkan
+                                            $namaHariInggris = date('l', $konversiWaktu);
+
+                                            // Mengganti nama hari Inggris dengan nama hari Indonesia
+                                            $namaHariIndonesia = $namaHariMap[$namaHariInggris];
+
+                                            // Format tanggal dan waktu dengan nama hari dalam bahasa Indonesia
+                                            $formattedDateTime = date('d F Y - H:i', $konversiWaktu);
+                                            $formattedDateTime = $namaHariIndonesia . ', ' . $formattedDateTime;
+                                        @endphp
+                                        <span class="text-muted" style="font-size: 13px">Ditambahkan pada : {{ $formattedDateTime }}</span>
+                                        <h5 class="card-title textit mt-2"><a href="{{ route('detail.karya.tulis', $karya->id) }}">{{ $karya->judul }}</a></h5>
                                         <p class="text-muted">
                                             <small class="text-body-secondary">
                                                 @php

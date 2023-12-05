@@ -284,6 +284,10 @@ class ViewController extends Controller {
         $karyaIds = Favorite::select('karya_id')
             ->where('user_id', auth()->user()->id)
             ->pluck('karya_id');
+        
+        $waktu = Favorite::select('karya_id', 'waktu')
+            ->where('user_id', auth()->user()->id)
+            ->get();
 
         $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
 
@@ -293,7 +297,7 @@ class ViewController extends Controller {
             ->groupBy('kontributor', 'id')
             ->get();
     
-        return view('favorite', compact('karyas', 'penuliss'));
+        return view('favorite', compact('karyas', 'penuliss', 'waktu'));
     }
 
     public function storeFavorite(Request $request){
