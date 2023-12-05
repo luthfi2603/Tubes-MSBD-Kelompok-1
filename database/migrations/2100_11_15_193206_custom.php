@@ -281,7 +281,6 @@ return new class extends Migration
             INNER JOIN kata_kunci_tulisans d ON a.id = d.karya_id            
             INNER JOIN prodis e ON c.kode_prodi = e.kode_prodi
             ORDER BY `id` ASC
-            
         ');
     }
 
