@@ -45,15 +45,15 @@
                         <h6 class="text mb-3" style="font-weight: 500;">{{ $detail->tahun }}</h6>
                         <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Bidang Ilmu : </h6>
                         <h6 class="text mb-3" style="font-weight: 500;">{{ $detail->bidang_ilmu }}</h6>
-                        <h6 class="textit mb-0" style="font-weight: 600;">File Digital : </h6>
+                        <h6 class="textit mb-2" style="font-weight: 600;">File Digital : </h6>
                         <!-- (dikliklangsungkedownload) -->
                         @auth
-                            <a href="#">
-                                <h6 class="text mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>{{ $detail->url_file }}</h6>
+                            <a href="{{ asset('file/' . $detail->url_file . '') }}">
+                                <h6 class="mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>Tampilkan file</h6>
                             </a>
                         @else
                             <span style="cursor: pointer" id="belum-login">
-                                <h6 class="text mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>{{ $detail->url_file }}</h6>
+                                <h6 class="mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>{{ $detail->judul }}.pdf</h6>
                             </span>
                             <script>
                                 document.getElementById('belum-login').addEventListener('click', () => {
