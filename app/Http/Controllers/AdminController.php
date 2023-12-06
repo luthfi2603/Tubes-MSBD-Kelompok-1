@@ -24,9 +24,9 @@ class AdminController extends Controller
     }
 
     public function showKaryaTulis(){
-        $karyas = DB::table('view_list_karya')
-        ->select('*')
+        $karyas = DB::table('view_karya_tulis')
         ->paginate(10);
+        
         return view('admin.kelola-karya-tulis', compact('karyas'));
     }
     

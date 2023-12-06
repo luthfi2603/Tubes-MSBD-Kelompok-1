@@ -41,7 +41,7 @@
                     <td>{{ $karya->abstrak }}</td>
                     <td>{{ $karya->jenis }}</td>
                     <td>{{ $karya->tahun }}</td>
-                    <td>{{ $karya->penulis }}</td>
+                    <td>{{ $karya->kontributor }}</td>
                     <td class="file">{{ $karya->url_file }}</td>
                     <td>
                         <a href="{{ route('edit.karya.tulis') }}"><i class="fa-solid fa-pen icon-edit"></i></a>
