@@ -53,7 +53,7 @@
                             </a>
                         @else
                             <span style="cursor: pointer" id="belum-login">
-                                <h6 class="mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>{{ $detail->judul }}.pdf</h6>
+                                <h6 class="mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>Tampilkan file</h6>
                             </span>
                             <script>
                                 document.getElementById('belum-login').addEventListener('click', () => {
