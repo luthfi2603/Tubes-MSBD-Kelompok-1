@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mahasiswa extends Model {
     use HasFactory;
+
+    protected $primaryKey = 'nim';
+    protected $keyType = 'string';
     public $timestamps = false;
 }

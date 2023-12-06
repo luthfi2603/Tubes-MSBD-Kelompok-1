@@ -17,15 +17,15 @@
         <h5 class="textit mb-4" style="font-weight: 600;">
             <i class="fa-solid fa-book"></i> Edit Kategori
         </h5>
-        <form method="POST" action="{{ route('kategori.edit', ['jenis' => $tulisan->jenis_tulisan]) }}">
+        <form method="POST" action="{{ route('bidang.ilmu.edit', ['bidang' => $bidang_ilmu->jenis_bidang_ilmu]) }}">
             @csrf
             @method('PUT')  
             <div class="col-lg-12">
                 <div class="inputan-form" style="width: 90%;">
                     <div class="mb-3">
-                        <label for="jenis_tulisan" class="form-label">Kategori</label>
-                        <input type="text" class="form-control custom-form @error('jenis_tulisan') is-invalid @enderror" id="jenis_tulisan" name="jenis_tulisan" value="{{ $tulisan->jenis_tulisan }}" >
-                        @error('jenis_tulisan')
+                        <label for="jenis_bidang_ilmu" class="form-label">Kategori</label>
+                        <input type="text" class="form-control custom-form @error('jenis_bidang_ilmu') is-invalid @enderror" id="jenis_bidang_ilmu" name="jenis_bidang_ilmu" value="{{ $bidang_ilmu->jenis_bidang_ilmu }}" >
+                        @error('jenis_bidang_ilmu')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -36,7 +36,7 @@
             
             <div class="inputan-form mb-5 mt-3">
                 <button type="submit" class="btn btn-success tombol">Edit</button>
-                <a href="{{ route('kategori.kelola') }}" class="btn btn-warning tombol">Kembali</a>
+                <a href="{{ route('bidang.ilmu.kelola') }}" class="btn btn-warning tombol">Kembali</a>
             </div>
         </form>
 

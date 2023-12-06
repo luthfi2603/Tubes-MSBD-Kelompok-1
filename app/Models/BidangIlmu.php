@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BidangIlmu extends Model {
     use HasFactory;
-    public $timestamps = false;
+    protected $primaryKey = 'jenis_bidang_ilmu';
+    protected $keyType = 'string';
 }

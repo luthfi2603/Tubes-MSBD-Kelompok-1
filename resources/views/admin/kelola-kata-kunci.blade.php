@@ -3,10 +3,10 @@
 @section('container')
 <div class="container">
     <div class="row mt-4 mb-4">
-        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Kelola Kategori</h5>
+        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Kelola Kata Kunci</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <a class="purple-button" href="{{ route('kategori.input') }}">Add +</a>
+            <a class="purple-button" href="{{ route('kata.kunci.input') }}">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">
@@ -37,26 +37,33 @@
         <table class="table">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Kategori</th>
+                    <th scope="col">Kata Kunci</th>
                     <th scope="col">Tanggal Pembuatan</th>
                     <th scope="col">Tanggal Perubahan</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($kategoris as $kategori)
+                @foreach ($kuncis as $kunci)
                 <tr>
-                    <td>{{ $kategori->jenis_tulisan }}</td>
-                    <td>{{ $kategori->created_at }}</td>
-                    @if($kategori->created_at == $kategori->updated_at)
+                    <td>{{ $kunci->kata_kunci }}</td>
+                    <td>{{ $kunci->created_at }}</td>
+                    @if($kunci->created_at == $kunci->updated_at)
                         <td>-</td>
                     @else
-                        <td>{{ $kategori->updated_at }}</td>
+                        <td>{{ $kunci->updated_at }}</td>
                     @endif
                     <td class="d-flex">
-                        <a href="{{ route('kategori.edit', ['jenis' => $kategori->jenis_tulisan]) }}" id="editkategori">
+                        <a href="{{ route('kata.kunci.edit', ['kunci' => $kunci->kata_kunci]) }}">
                             <i class="fa-solid fa-pen icon-edit"></i>
                         </a>
+                        <form action="{{ route('kata.kunci.delete', ['kunci' => $kunci->kata_kunci]) }}" method="POST" class="ml-2">
+                            @csrf
+                            @method('DELETE')
+                            <button style="border:none; background:none; !important"  type="submit" id="submitbutton" onclick="return confirm('Yakin mau menghapus')">
+                                <i class="fa-solid fa-trash icon-delete"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
@@ -64,7 +71,7 @@
             </tbody>
         </table>
         <nav aria-label="Page navigation example">
-            {{$kategoris->links()}}
+            {{$kuncis->links()}}
         </nav>
     </div>
 </div>

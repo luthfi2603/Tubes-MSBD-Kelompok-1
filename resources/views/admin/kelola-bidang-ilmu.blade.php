@@ -3,10 +3,10 @@
 @section('container')
 <div class="container">
     <div class="row mt-4 mb-4">
-        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Kelola Kategori</h5>
+        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Kelola Bidang ilmu</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <a class="purple-button" href="{{ route('kategori.input') }}">Add +</a>
+            <a class="purple-button" href="{{ route('bidang.ilmu.input') }}">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">
@@ -37,24 +37,24 @@
         <table class="table">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Kategori</th>
+                    <th scope="col">Bidang Ilmu</th>
                     <th scope="col">Tanggal Pembuatan</th>
                     <th scope="col">Tanggal Perubahan</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($kategoris as $kategori)
+                @foreach ($bidangs as $bidang)
                 <tr>
-                    <td>{{ $kategori->jenis_tulisan }}</td>
-                    <td>{{ $kategori->created_at }}</td>
-                    @if($kategori->created_at == $kategori->updated_at)
+                    <td>{{ $bidang->jenis_bidang_ilmu }}</td>
+                    <td>{{ $bidang->created_at }}</td>
+                    @if($bidang->created_at == $bidang->updated_at)
                         <td>-</td>
                     @else
-                        <td>{{ $kategori->updated_at }}</td>
+                        <td>{{ $bidang->updated_at }}</td>
                     @endif
                     <td class="d-flex">
-                        <a href="{{ route('kategori.edit', ['jenis' => $kategori->jenis_tulisan]) }}" id="editkategori">
+                        <a href="{{ route('bidang.ilmu.edit', ['bidang' => $bidang->jenis_bidang_ilmu]) }}" id="editBidangIlmu">
                             <i class="fa-solid fa-pen icon-edit"></i>
                         </a>
                     </td>
@@ -63,9 +63,7 @@
 
             </tbody>
         </table>
-        <nav aria-label="Page navigation example">
-            {{$kategoris->links()}}
-        </nav>
+        <!-- Disini dibikin pagination kalo bingung tengo di figma. -->
     </div>
 </div>
 @endsection

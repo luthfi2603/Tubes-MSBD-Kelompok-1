@@ -15,28 +15,28 @@
             </div>
         @endif
         <h5 class="textit mb-4" style="font-weight: 600;">
-            <i class="fa-solid fa-book"></i> Edit Kategori
+            <i class="fa-solid fa-book"></i> Input Bidang Ilmu
         </h5>
-        <form method="POST" action="{{ route('kategori.edit', ['jenis' => $tulisan->jenis_tulisan]) }}">
+        <form method="POST" action="{{ route('bidang.ilmu.input') }}">
             @csrf
-            @method('PUT')  
             <div class="col-lg-12">
                 <div class="inputan-form" style="width: 90%;">
                     <div class="mb-3">
-                        <label for="jenis_tulisan" class="form-label">Kategori</label>
-                        <input type="text" class="form-control custom-form @error('jenis_tulisan') is-invalid @enderror" id="jenis_tulisan" name="jenis_tulisan" value="{{ $tulisan->jenis_tulisan }}" >
-                        @error('jenis_tulisan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <label for="jenis_bidang_ilmu" class="form-label">Bidang Ilmu</label>
+                        <input type="text" class="form-control custom-form @error('jenis_bidang_ilmu') is-invalid @enderror" id="jenis_bidang_ilmu" name="jenis_bidang_ilmu"
+                            placeholder="Input Bidang Ilmu">
+                            @error('jenis_bidang_ilmu')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                     </div>
                 </div>
             </div>
             
             <div class="inputan-form mb-5 mt-3">
-                <button type="submit" class="btn btn-success tombol">Edit</button>
-                <a href="{{ route('kategori.kelola') }}" class="btn btn-warning tombol">Kembali</a>
+                <button type="submit" class="btn btn-success tombol">Submit</button>
+                <a href="{{ route('bidang.ilmu.kelola') }}" class="btn btn-warning tombol">Kembali</a>
             </div>
         </form>
 

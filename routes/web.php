@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewController;
@@ -40,65 +42,88 @@ Route::get('/statistik', [ViewController::class, 'statistik'])
 
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', [AdminController::class, 'index'])
-        ->name('admin.home');
+                ->name('admin.home');
     Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])
-        ->name('kelola.karya.tulis');
+                ->name('kelola.karya.tulis');
     Route::get('/kelola-kategori', [AdminController::class, 'showJenisTulisan'])
-        ->name('kelola.kategori');
-    Route::get('/edit-karya-tulis', function () {
+                ->name('kategori.kelola');
+    Route::get('/input-kategori', [AdminController::class, 'createJenisTulisan'])
+                ->name('kategori.input');
+    Route::post('/input-kategori', [AdminController::class, 'storeJenisTulisan']);
+    Route::get('/edit-kategori/{jenis}', [AdminController::class, 'editJenisTulisan'])
+                ->name('kategori.edit');
+    Route::put('/edit-kategori/{jenis}', [AdminController::class, 'updateJenisTulisan']);
+
+    Route::get('/kelola-mahasiswa', [AdminController::class, 'showMahasiswa'])
+                ->name('mahasiswa.kelola');
+    Route::get('/input-mahasiswa', [AdminController::class, 'createMahasiswa'])
+                ->name('mahasiswa.input');
+    Route::post('/input-mahasiswa', [AdminController::class, 'storeMahasiswa']);
+    Route::get('/edit-mahasiswa/{nim}', [AdminController::class, 'editMahasiswa'])
+                ->name('mahasiswa.edit');
+    Route::put('/edit-mahasiswa/{nim}', [AdminController::class, 'updateMahasiswa']);
+
+    Route::get('/kelola-dosen', [AdminController::class, 'showDosen'])
+                ->name('dosen.kelola');
+    Route::get('/input-dosen', [AdminController::class, 'createDosen'])
+                ->name('dosen.input');
+    Route::post('/input-dosen', [AdminController::class, 'storeDosen']);
+    Route::get('/edit-dosen/{nidn}', [AdminController::class, 'editDosen'])
+                ->name('dosen.edit');
+    Route::put('/edit-dosen/{nidn}', [AdminController::class, 'updateDosen']);
+
+    Route::get('/kelola-user', [AdminController::class, 'showUser'])
+                ->name('user.kelola');
+    Route::get('/input-user', [AdminController::class, 'createUser'])
+                ->name('user.input');
+    Route::post('/input-user', [AdminController::class, 'storeUser']);
+    Route::get('/edit-user/{id}', [AdminController::class, 'editUser'])
+                ->name('user.edit');
+    Route::put('/edit-user/{id}', [AdminController::class, 'updateUser']);
+    Route::delete('/kelola-user/{id}', [AdminController::class, 'destroyUser'])
+                ->name('user.delete');
+    
+    Route::get('/kelola-bidang-ilmu', [AdminController::class, 'showBidangIlmu'])
+                ->name('bidang.ilmu.kelola');
+    Route::get('/input-bidang-ilmu', [AdminController::class, 'createBidangIlmu'])
+                ->name('bidang.ilmu.input');
+    Route::post('/input-bidang-ilmu', [AdminController::class, 'storeBidangIlmu']);
+    Route::get('/edit-bidang-ilmu/{bidang}', [AdminController::class, 'editBidangIlmu'])
+                ->name('bidang.ilmu.edit');
+    Route::put('/edit-bidang-ilmu/{bidang}', [AdminController::class, 'updateBidangIlmu']);
+    
+    Route::get('/kelola-kata-kunci', [AdminController::class, 'showKataKunci'])
+                ->name('kata.kunci.kelola');
+    Route::get('/input-kata-kunci', [AdminController::class, 'createKataKunci'])
+                ->name('kata.kunci.input');
+    Route::post('/input-kata-kunci', [AdminController::class, 'storeKataKunci']);
+    Route::get('/edit-kata-kunci/{kunci}', [AdminController::class, 'editKataKunci'])
+                ->name('kata.kunci.edit');
+    Route::put('/edit-kata-kunci/{kunci}', [AdminController::class, 'updateKataKunci']);
+    Route::delete('/kelola-kata-kunci/{kunci}', [AdminController::class, 'destroyKataKunci'])
+                ->name('kata.kunci.delete');
+
+    Route::get('/edit-karya-tulis', function () {   
         return view('admin.edit-karya-tulis');
     })->name('edit.karya.tulis');
-    Route::get('/edit-kategori', function () {
-        return view('admin.edit-kategori');
-    })->name('edit.kategori');
     Route::get('/input-karya-tulis', function () {
         return view('admin.input-karya-tulis');
     })->name('input.karya.tulis');
-    Route::get('/input-kategori', function () {
-        return view('admin.input-kategori');
-    })->name('input.kategori');
 });
 
 Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
-    Route::get('/edit-pegawai', function () {
-        return view('super-admin.edit-pegawai');
-    })->name('edit.pegawai');
-    Route::get('/edit-user', function () {
-        return view('super-admin.edit-user');
-    })->name('edit.user');
-    Route::get('/edit-mahasiswa', function () {
-        return view('super-admin.edit-mahasiswa');
-    })->name('edit.mahasiswa');
-    Route::get('/edit-dosen', function () {
-        return view('super-admin.edit-dosen');
-    })->name('edit.dosen');
-    Route::get('/kelola-pegawai', function () {
-        return view('super-admin.kelola-pegawai');
-    })->name('kelola.pegawai');
-    Route::get('/kelola-user', function () {
-        return view('super-admin.kelola-user');
-    })->name('kelola.user');
-    Route::get('/kelola-mahasiswa', function () {
-        return view('super-admin.kelola-mahasiswa');
-    })->name('kelola.mahasiswa');
-    Route::get('/kelola-dosen', function () {
-        return view('super-admin.kelola-dosen');
-    })->name('kelola.dosen');
-    Route::get('/input-pegawai', function () {
-        return view('super-admin.input-pegawai');
-    })->name('input.pegawai');
-    Route::get('/input-user', function () {
-        return view('super-admin.input-user');
-    })->name('input.user');
-    Route::get('/input-mahasiswa', function () {
-        return view('super-admin.input-mahasiswa');
-    })->name('input.mahasiswa');
-    Route::get('/input-dosen', function () {
-        return view('super-admin.input-dosen');
-    })->name('input.dosen');
-    Route::get('/super-admin-home', function () {
-        return view('super-admin.super-admin-home');
-    })->name('super.admin.home');
+    Route::get('/super-admin-home', [SuperAdminController::class, 'index'])
+                ->name('super.admin.home');
+    Route::get('/kelola-pegawai', [SuperAdminController::class, 'showPegawai'])
+                ->name('pegawai.kelola');
+    Route::get('/input-pegawai', [SuperAdminController::class, 'createPegawai'])
+                ->name('pegawai.input');
+    Route::post('/input-pegawai', [SuperAdminController::class, 'storePegawai']);
+    Route::get('/edit-pegawai/{idp}/{idu}', [SuperAdminController::class, 'editPegawai'])
+                ->name('pegawai.edit');
+    Route::put('/edit-pegawai/{idp}/{idu}', [SuperAdminController::class, 'updatePegawai']);
+    Route::delete('/kelola-pegawai', [SuperAdminController::class, 'destroyPegawai'])
+                ->name('pegawai.delete');
 });
 
 Route::middleware('auth', 'verified')->group(function () {

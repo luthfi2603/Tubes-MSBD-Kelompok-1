@@ -3,10 +3,10 @@
 @section('container')
 <div class="container">
     <div class="row mt-4 mb-4">
-        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-circle-user"></i> Kelola Pegawai</h5>
+        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-user-tie"></i> Kelola Dosen</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <a class="purple-button" href="{{ route('pegawai.input') }}">Add +</a>
+            <a class="purple-button" href="{{ route('dosen.input') }}">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">
@@ -38,9 +38,12 @@
             <thead class="table-dark">
                 <tr>
                     <th scope="col">No</th>
+                    <th scope="col">NIDN</th>
+                    <th scope="col">NIP</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Kode Dosen</th>
+                    <th scope="col">Jenis Kelamin</th>
+                    <th scope="col">Program Studi</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -53,30 +56,31 @@
                 @else
                     <?php $i = ($t * 10) - 9; ?>
                 @endif
-                @foreach ($pegawais as $pegawai)                    
+                @foreach ($dosens as $dosen)
                     <tr>
                         <td>{{ $i++ }}</td>
-                        <td>{{ $pegawai->nama }}</td>
-                        <td>{{ $pegawai->username }}</td>
-                        <td>{{ $pegawai->email }}</td>
-                        <td class="d-flex">
-                            <a href="{{ route('pegawai.edit', ['idu' => $pegawai->id, 'idp' => $pegawai->pegawai_id]) }}" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
-                            <form action="{{ route('pegawai.delete') }}" method="POST" class="ml-2">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="id_user" value="{{ $pegawai->id }}">
-                                <input type="hidden" name="id_pegawai" value="{{ $pegawai->pegawai_id }}">
-                                <button style="border:none; background:none; !important"  type="submit" id="submitbutton" onclick="return confirm('Yakin mau menghapus')">
-                                    <i class="fa-solid fa-trash icon-delete"></i>
-                                </button>
-                            </form>
+                        <td>{{ $dosen->nidn }}</td>
+                        <td>{{ $dosen->nip }}</td>
+                        <td>{{ $dosen->nama }}</td>
+                        <td>{{ $dosen->kode_dosen }}</td>
+                        <td>{{ $dosen->jenis_kelamin === 'L' ? 'Laki-Laki' : 'Perempuan' }}</td>
+                        <td>
+                            @php
+                                $prodi = $prodis->where('kode_prodi', $dosen->kode_prodi)->first();
+                            @endphp
+                            {{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}
+                        </td>
+                        <td>
+                            <a href="{{ route('dosen.edit', ['nidn' => $dosen->nidn]) }}" id="editdosen"><i class="fa-solid fa-pen icon-edit"></i></a>
                         </td>
                     </tr>
                 @endforeach
-
+                
             </tbody>
         </table>
-        <!-- Disini dibikin pagination kalo bingung tengo di figma. -->
+        <nav aria-label="Page navigation example">
+            {{$dosens->links()}}
+        </nav>
     </div>
 </div>
 @endsection
