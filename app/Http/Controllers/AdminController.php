@@ -32,9 +32,6 @@ class AdminController extends Controller
             ->where('status', 'penulis')
             ->groupBy('kontributor', 'id')
             ->get();
-        // $karyas = DB::table('view_list_karya')
-        // ->select('*')
-        // ->paginate(10);
         return view('admin.kelola-karya-tulis', compact('karyas', 'penuliss'));
     }
     

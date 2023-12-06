@@ -48,7 +48,7 @@
                         <h6 class="textit mb-2" style="font-weight: 600;">File Digital : </h6>
                         <!-- (dikliklangsungkedownload) -->
                         @auth
-                            <a href="{{ asset('file/' . $detail->url_file . '') }}">
+                            <a href="{{ asset('file/' . $detail->url_file . '') }}" target="_blank">
                                 <h6 class="mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>Tampilkan file</h6>
                             </a>
                         @else
