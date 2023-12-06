@@ -51,6 +51,11 @@ class KontributorDosenTableSeeder extends Seeder
             'karya_id' => '4'
         ]);
         KontributorDosen::create([
+            'nidn' => '0107078404',
+            'status' => 'pembimbing',
+            'karya_id' => '6'
+        ]);
+        KontributorDosen::create([
             'nidn' => '0031087905',
             'status' => 'penulis',
             'karya_id' => '5'

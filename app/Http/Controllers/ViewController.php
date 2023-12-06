@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BidangIlmu;
 use App\Models\Ebook;
-use App\Models\Favorite;
 use App\Models\Prodi;
-use App\Models\JenisTulisan;
+use App\Models\Favorite;
+use App\Models\BidangIlmu;
 use App\Models\KaryaTulis;
+use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ViewController extends Controller {
     public function index(){
+        session()->forget('wasRefreshed');
         if (auth()->user()) {
             if (auth()->user()->email_verified_at == NULL) {
                 return redirect('/verify-email');
@@ -22,20 +24,32 @@ class ViewController extends Controller {
         $prodis = Prodi::all();
         $karyas = KaryaTulis::paginate(5);
 
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         return view('index', compact('jenisTulisans', 'prodis', 'karyas', 'penuliss'));
     }
 
-    public function detailKaryaTulis($id){
-        $view = KaryaTulis::select('view')
-            ->where('id', $id)
-            ->first()
-            ->view;
-        $view += 1;
-        KaryaTulis::where('id', $id)->update(['view' => $view]);
+    public function detailKaryaTulis(Request $request, $id){
+        $targetPage = '/detail-karya-tulis/' . $id;
+
+        $wasRefreshed = Session::get('wasRefreshed', []);
+
+        // kalo gaada dijalankan
+        if (!in_array($targetPage, $wasRefreshed)) {
+            $view = KaryaTulis::select('view')
+                ->where('id', $id)
+                ->first()
+                ->view;
+            $view += 1;
+            KaryaTulis::where('id', $id)->update(['view' => $view]);
+            
+            $wasRefreshed[] = $targetPage;
+            Session::put('wasRefreshed', $wasRefreshed);
+        }
 
         if(auth()->user()){
             $isLiked = Favorite::where('user_id', auth()->user()->id)
@@ -46,33 +60,33 @@ class ViewController extends Controller {
             $isLiked = true;
         }
 
-        $detail = DB::table('view_detail_karya_tulis')
+        $detail = DB::table('view_karya_tulis')
             ->select('*')
             ->where('id', $id)
             ->first();
 
-        $penulis = DB::table('view_detail_karya_tulis')
+        $penulis = DB::table('view_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
             ->where('status', 'penulis')
             ->groupBy('kontributor', 'status')
             ->get();
 
-        $pembimbing = DB::table('view_detail_karya_tulis')
+        $pembimbing = DB::table('view_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
             ->where('status', 'pembimbing')
             ->groupBy('kontributor', 'status')
             ->get();
 
-        $kontributor = DB::table('view_detail_karya_tulis')
+        $kontributor = DB::table('view_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
             ->where('status', 'kontributor')
             ->groupBy('kontributor', 'status')
             ->get();
 
-        $kataKuncis = DB::table('view_detail_karya_tulis')
+        $kataKuncis = DB::table('view_karya_tulis')
             ->select('kata_kunci')
             ->where('id', $id)
             ->groupBy('kata_kunci')
@@ -88,18 +102,29 @@ class ViewController extends Controller {
     }
 
     public function showEBook(){
+        session()->forget('wasRefreshed');
         $ebooks = Ebook::paginate(5);
 
         return view('e-book', compact('ebooks'));
     }
 
     public function detailEBook($id){
-        $view = Ebook::select('view')
-            ->where('id', $id)
-            ->first()
-            ->view;
-        $view += 1;
-        Ebook::where('id', $id)->update(['view' => $view]);
+        $targetPage = '/detail-e-book/' . $id;
+
+        $wasRefreshed = Session::get('wasRefreshed', []);
+
+        // kalo gaada dijalankan
+        if (!in_array($targetPage, $wasRefreshed)) {
+            $view = Ebook::select('view')
+                ->where('id', $id)
+                ->first()
+                ->view;
+            $view += 1;
+            Ebook::where('id', $id)->update(['view' => $view]);
+
+            $wasRefreshed[] = $targetPage;
+            Session::put('wasRefreshed', $wasRefreshed);
+        }
 
         $ebook = Ebook::where('id', $id)->first();
 
@@ -107,17 +132,21 @@ class ViewController extends Controller {
     }
 
     public function showByKoleksi($jenisTulisan){
+        session()->forget('wasRefreshed');
         $karyas = KaryaTulis::where('jenis', $jenisTulisan)->paginate(5);
 
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         return view('koleksi', compact('karyas', 'penuliss', 'jenisTulisan'));
     }
 
     public function showByProdi($prodi){
-        $karyaIds = DB::table('view_list_karya')
+        session()->forget('wasRefreshed');
+        $karyaIds = DB::table('view_karya_tulis')
             ->select('id')
             ->where('kode_prodi', $prodi)
             ->groupBy('id')
@@ -125,8 +154,10 @@ class ViewController extends Controller {
     
         $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
     
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
     
         $prodi = Prodi::where('kode_prodi', $prodi)->first()->nama_prodi;
@@ -135,24 +166,34 @@ class ViewController extends Controller {
     }
 
     public function showByAuthor($author){
-        $karyas = DB::table('view_list_karya')
-            ->select('*')
-            ->where('penulis', $author)
-            ->paginate(5);
+        session()->forget('wasRefreshed');
+        $karyaIds = DB::table('view_karya_tulis')
+            ->select('id')
+            ->where('kontributor', $author)
+            ->where('status', 'penulis')
+            ->groupBy('id')
+            ->pluck('id');
 
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
+
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         return view('author', compact('karyas', 'author', 'penuliss'));
     }
 
     public function viewAdvSearch(Request $request){
+        session()->forget('wasRefreshed');
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
         $bidIlmus = BidangIlmu::all();
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         $search1 = $request->input('search1');
@@ -205,15 +246,19 @@ class ViewController extends Controller {
     }
 
     public function showAdvSearch(){
+        session()->forget('wasRefreshed');
         return view('advanced-search');
     }
 
     public function search(Request $request){
+        session()->forget('wasRefreshed');
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
         $bidIlmus = BidangIlmu::all();
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
 
         $search = $request->input('search');
@@ -235,20 +280,28 @@ class ViewController extends Controller {
     }
 
     public function showFavorite(){
+        session()->forget('wasRefreshed');
         $karyaIds = Favorite::select('karya_id')
             ->where('user_id', auth()->user()->id)
             ->pluck('karya_id');
+        
+        $waktu = Favorite::select('karya_id', 'waktu')
+            ->where('user_id', auth()->user()->id)
+            ->get();
 
         $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
 
-        $penuliss = DB::table('view_list_karya')
-            ->select('penulis', 'id')
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
             ->get();
     
-        return view('favorite', compact('karyas', 'penuliss'));
+        return view('favorite', compact('karyas', 'penuliss', 'waktu'));
     }
 
     public function storeFavorite(Request $request){
+        session()->forget('wasRefreshed');
         Favorite::create([
             'user_id' => auth()->user()->id,
             'karya_id' => $request->karya_id
@@ -258,10 +311,27 @@ class ViewController extends Controller {
     }
 
     public function destroyFavorite(Request $request){
+        session()->forget('wasRefreshed');
         Favorite::where('user_id', auth()->user()->id)
             ->where('karya_id', $request->karya_id)
             ->delete();
         
         return back()->with('success', 'Berhasil dihapus dari favorite');
+    }
+
+    public function statistik(){
+        $mostLikes = DB::table('view_most_like')->paginate(5);
+
+        $datas = DB::table('view_statistik')->get();
+        $jumlah = 0;
+        foreach ($datas as $key) {
+            $jumlah += $key->jumlah_karya;
+        }
+
+        $jumlahEbook = Ebook::all()->count();
+
+        $topAuthors = DB::table('view_top_author')->paginate(5);
+
+        return view('statistik', compact('mostLikes', 'datas', 'jumlah', 'jumlahEbook', 'topAuthors'));
     }
 }

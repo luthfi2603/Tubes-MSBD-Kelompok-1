@@ -34,16 +34,17 @@
                         @endauth
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/statistik">Statistik</a>
+                        <a class="nav-link" href="{{ route('statistik') }}">Statistik</a>
                     </li>
                     @auth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('favorite') }}">Favorite</a>
                         </li>
                         @if(auth()->user()->status != 'admin' && auth()->user()->status != 'super_admin')
-                            <li class="nav-item">
+                            <li class="nav-item d-flex ps-2">
+                                <i class="fa-solid fa-user m-0" style="color: #ffff; padding-top: 12px"></i>
                                 <a class="nav-link" href="{{ route('profile') }}">
-                                    <i class="fa-solid fa-user" style="color: #ffff;"></i>
+                                    {{ auth()->user()->username }}
                                 </a>
                             </li>
                         @endif

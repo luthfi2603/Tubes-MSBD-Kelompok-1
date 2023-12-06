@@ -43,6 +43,10 @@ class KataKunciTulisansTableSeeder extends Seeder
             'karya_id' => '3',
             'kata_kunci' => 'Kambing'
         ]);
+        KataKunciTulisan::create([
+            'karya_id' => '3',
+            'kata_kunci' => 'Ular'
+        ]);
         
         KataKunciTulisan::create([
             'karya_id' => '4',
@@ -64,6 +68,10 @@ class KataKunciTulisansTableSeeder extends Seeder
         KataKunciTulisan::create([
             'karya_id' => '5',
             'kata_kunci' => 'Kucing'
+        ]);
+        KataKunciTulisan::create([
+            'karya_id' => '6',
+            'kata_kunci' => 'Sihir'
         ]);
         KataKunciTulisan::create([
             'karya_id' => '6',

@@ -13,12 +13,12 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => ['required', 'min:1', 'max:30', 'unique:users'],
+            'username' => ['required', 'min:5', 'max:15', 'unique:users'],
             'status' => ['required'],
-            'nim_nidn' => ['required'],
+            'nim_nidn' => ['required', 'min:9', 'max:10'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'same:konfirmasi_password', 'min:1'],
-            'konfirmasi_password' => ['required', 'same:password', 'min:1']
+            'password' => ['required', 'same:konfirmasi_password', 'min:8', 'max:255'],
+            'konfirmasi_password' => ['required', 'same:password', 'min:8', 'max:255']
         ]);
 
         $password = Hash::make($request->password);
