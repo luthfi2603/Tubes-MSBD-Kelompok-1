@@ -38,10 +38,30 @@
                 @foreach ($karyas as $karya)
                 <tr>
                     <td>{{ $karya->judul }}</td>
-                    <td>{{ $karya->abstrak }}</td>
+                    <td>
+                        @php
+                            $words = explode(' ', $karya->abstrak);
+                            $limit = 30;
+                            $abstrak = implode(' ', array_slice($words, 0, $limit));
+                            echo count($words) > $limit ? $abstrak . '...' : $karya->abstrak;
+                        @endphp
+                        {{-- {{ $karya->abstrak }} --}}
+                    </td>
                     <td>{{ $karya->jenis }}</td>
                     <td>{{ $karya->tahun }}</td>
-                    <td>{{ $karya->penulis }}</td>
+                    <td>
+                        @php
+                            $penulis = "";
+                            $penulisTertentu = $penuliss->where('id', $karya->id);
+
+                            foreach ($penulisTertentu as $key) {
+                                $penulis .= $key->kontributor . ', ';
+                            }
+
+                            $penulis = rtrim($penulis, ', ');
+                        @endphp
+                        {{  $penulis  }}
+                    </td>
                     <td class="file">{{ $karya->url_file }}</td>
                     <td>
                         <a href="{{ route('edit.karya.tulis') }}"><i class="fa-solid fa-pen icon-edit"></i></a>
