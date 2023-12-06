@@ -301,7 +301,7 @@ class ViewController extends Controller {
     }
 
     public function storeFavorite(Request $request){
-        session()->forget('wasRefreshed');
+        // session()->forget('wasRefreshed');
         Favorite::create([
             'user_id' => auth()->user()->id,
             'karya_id' => $request->karya_id
@@ -311,7 +311,7 @@ class ViewController extends Controller {
     }
 
     public function destroyFavorite(Request $request){
-        session()->forget('wasRefreshed');
+        // session()->forget('wasRefreshed');
         Favorite::where('user_id', auth()->user()->id)
             ->where('karya_id', $request->karya_id)
             ->delete();

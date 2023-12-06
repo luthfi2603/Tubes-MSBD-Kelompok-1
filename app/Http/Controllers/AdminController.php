@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BidangIlmu;
-use App\Models\KataKunci;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Prodi;
+use App\Models\KataKunci;
 use App\Models\Mahasiswa;
+use App\Models\BidangIlmu;
+use App\Models\KaryaTulis;
 use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,10 +25,17 @@ class AdminController extends Controller
     }
 
     public function showKaryaTulis(){
-        $karyas = DB::table('view_list_karya')
-        ->select('*')
-        ->paginate(10);
-        return view('admin.kelola-karya-tulis', compact('karyas'));
+        $karyas = KaryaTulis::paginate(10);
+
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
+            ->get();
+        // $karyas = DB::table('view_list_karya')
+        // ->select('*')
+        // ->paginate(10);
+        return view('admin.kelola-karya-tulis', compact('karyas', 'penuliss'));
     }
     
     public function createKaryaTulis(){
