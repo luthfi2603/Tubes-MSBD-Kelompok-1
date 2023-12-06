@@ -31,5 +31,8 @@ class KataKuncisTableSeeder extends Seeder
         KataKunci::create([
             'kata_kunci' => 'Ayam'
         ]);
+        KataKunci::create([
+            'kata_kunci' => 'Sihir'
+        ]);
     }
 }

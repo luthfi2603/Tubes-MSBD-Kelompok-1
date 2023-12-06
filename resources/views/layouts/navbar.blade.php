@@ -34,7 +34,7 @@
                         @endauth
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/statistik">Statistik</a>
+                        <a class="nav-link" href="{{ route('statistik') }}">Statistik</a>
                     </li>
                     @auth
                         <li class="nav-item">

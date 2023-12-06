@@ -318,4 +318,20 @@ class ViewController extends Controller {
         
         return back()->with('success', 'Berhasil dihapus dari favorite');
     }
+
+    public function statistik(){
+        $mostLikes = DB::table('view_most_like')->paginate(5);
+
+        $datas = DB::table('view_statistik')->get();
+        $jumlah = 0;
+        foreach ($datas as $key) {
+            $jumlah += $key->jumlah_karya;
+        }
+
+        $jumlahEbook = Ebook::all()->count();
+
+        $topAuthors = DB::table('view_top_author')->paginate(5);
+
+        return view('statistik', compact('mostLikes', 'datas', 'jumlah', 'jumlahEbook', 'topAuthors'));
+    }
 }

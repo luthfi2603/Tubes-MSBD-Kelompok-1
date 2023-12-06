@@ -35,10 +35,8 @@ Route::get('/adv-search-page', [ViewController::class, 'viewAdvSearch'])
     ->name('advanced.search');
 Route::get('/advanced-search', [ViewController::class, 'showAdvSearch'])
     ->name('advanced.search.page');
-
-Route::get('/statistik', function () {
-    return view('statistik');
-});
+Route::get('/statistik', [ViewController::class, 'statistik'])
+    ->name('statistik');
 
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', [AdminController::class, 'index'])

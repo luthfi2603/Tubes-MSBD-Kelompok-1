@@ -88,7 +88,7 @@ return new class extends Migration
             INNER JOIN prodis c ON b.kode_prodi = c.kode_prodi;
         ');
 
-        DB::unprepared('
+        /* DB::unprepared('
             DROP VIEW IF EXISTS view_list_karya;
             CREATE VIEW view_list_karya AS
             SELECT 
@@ -118,7 +118,7 @@ return new class extends Migration
             INNER JOIN kontributor_dosens b ON a.id = b.karya_id 
             INNER JOIN dosens c ON b.nidn = c.nidn
             WHERE b.status = "penulis"
-        ');
+        '); */
 
         DB::unprepared('
             DROP FUNCTION IF EXISTS hitungAll;
@@ -201,7 +201,7 @@ return new class extends Migration
             FROM dosens a ORDER BY jumlah_like DESC
         ');
 
-        DB::unprepared('
+        /* DB::unprepared('
             DROP VIEW IF EXISTS view_detail_karya_tulis;
             CREATE VIEW view_detail_karya_tulis AS
             SELECT 
@@ -238,7 +238,7 @@ return new class extends Migration
             INNER JOIN dosens c ON b.nidn = c.nidn
             INNER JOIN kata_kunci_tulisans d ON a.id = d.karya_id
             ORDER BY `id` ASC
-        ');
+        '); */
 
         DB::unprepared('
             DROP VIEW IF EXISTS view_karya_tulis;

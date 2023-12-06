@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'status' => 'mahasiswa',
             'email' => 'kelompok1@gmail.com',
             'email_verified_at' => Carbon::now(),
-            'password' => bcrypt('1')
+            'password' => bcrypt('password')
         ]);
 
         User::create([ // 2
@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
             'status' => 'admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => Carbon::now(),
-            'password' => bcrypt('1')
+            'password' => bcrypt('admin')
         ]);
         
         User::create([ // 3
@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
             'status' => 'super_admin',
             'email' => 'superadmin@gmail.com',
             'email_verified_at' => Carbon::now(),
-            'password' => bcrypt('1')
+            'password' => bcrypt('superadmin')
         ]);
         
         User::create([ // 4
@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
             'status' => 'mahasiswa',
             'email' => 'luthfim904@gmail.com',
             'email_verified_at' => Carbon::now(),
-            'password' => bcrypt('1')
+            'password' => bcrypt('password')
         ]);
         
         User::create([ // 5
@@ -51,7 +51,7 @@ class UsersTableSeeder extends Seeder
             'status' => 'dosen',
             'email' => 'ivansanjaya@gmail.com',
             'email_verified_at' => Carbon::now(),
-            'password' => bcrypt('1')
+            'password' => bcrypt('password')
         ]);
     }
 }
