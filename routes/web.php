@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewController;
@@ -122,19 +123,18 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
 });
 
 Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
-    Route::get('/edit-pegawai', function () {
-        return view('super-admin.edit-pegawai');
-    })->name('edit.pegawai');
-    Route::get('/kelola-pegawai', function () {
-        return view('super-admin.kelola-pegawai');
-    })->name('kelola.pegawai');
-    Route::get('/input-pegawai', function () {
-        return view('super-admin.input-pegawai');
-    })->name('input.pegawai');
-    
-    Route::get('/super-admin-home', function () {
-        return view('super-admin.super-admin-home2');
-    })->name('super.admin.home');
+    Route::get('/super-admin-home', [SuperAdminController::class, 'index'])
+                ->name('super.admin.home');
+    Route::get('/kelola-pegawai', [SuperAdminController::class, 'showPegawai'])
+                ->name('pegawai.kelola');
+    Route::get('/input-pegawai', [SuperAdminController::class, 'createPegawai'])
+                ->name('pegawai.input');
+    Route::post('/input-pegawai', [SuperAdminController::class, 'storePegawai']);
+    Route::get('/edit-pegawai/{idp}/{idu}', [SuperAdminController::class, 'editPegawai'])
+                ->name('pegawai.edit');
+    Route::put('/edit-pegawai/{idp}/{idu}', [SuperAdminController::class, 'updatePegawai']);
+    Route::delete('/kelola-pegawai', [SuperAdminController::class, 'destroyPegawai'])
+                ->name('pegawai.delete');
 });
 
 Route::middleware('auth', 'verified')->group(function () {

@@ -50,7 +50,7 @@
 
         <div class="col-lg-6 mb-3">
             <!-- Konten di sini -->
-            <a href="{{ route('kelola.pegawai') }}">
+            <a href="{{ route('pegawai.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
@@ -71,7 +71,7 @@
 
         <div class="col-lg-6 mb-3">
             <!-- Konten di sini -->
-            <a href="{{ route('kelola.user') }}">
+            <a href="{{ route('user.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
@@ -92,7 +92,7 @@
 
         <div class="col-lg-6 mb-3">
             <!-- Konten di sini -->
-            <a href="{{ route('kelola.mahasiswa') }}">
+            <a href="{{ route('mahasiswa.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
@@ -113,13 +113,55 @@
 
         <div class="col-lg-6 mb-3">
             <!-- Konten di sini -->
-            <a href="{{ route('kelola.dosen') }}">
+            <a href="{{ route('dosen.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
                         <div class="col-md-8 d-flex align-items-center">
                             <div class="card-body">
                                 <h5 class="card-title karyatul textit" style="font-weight: 600;">Kelola Dosen</h5>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <img src="../assets/img/keloladosen.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-6 mb-3">
+            <!-- Konten di sini -->
+            <a href="{{ route('bidang.ilmu.kelola') }}">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+
+                        <div class="col-md-8 d-flex align-items-center">
+                            <div class="card-body">
+                                <h5 class="card-title karyatul textit" style="font-weight: 600;">Kelola Bidang ilmu</h5>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <img src="../assets/img/keloladosen.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-6 mb-3">
+            <!-- Konten di sini -->
+            <a href="{{ route('kata.kunci.kelola') }}">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+
+                        <div class="col-md-8 d-flex align-items-center">
+                            <div class="card-body">
+                                <h5 class="card-title karyatul textit" style="font-weight: 600;">Kelola Kata Kunci</h5>
                             </div>
                         </div>
 
