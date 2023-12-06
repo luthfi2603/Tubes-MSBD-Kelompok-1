@@ -56,6 +56,39 @@ return new class extends Migration
         ');
 
         DB::unprepared('
+            DROP PROCEDURE IF EXISTS createAdmin;
+            CREATE PROCEDURE createAdmin(IN usernamep VARCHAR(255), IN emailp VARCHAR(255), IN passwordp VARCHAR(255), IN namap varchar(255))
+            BEGIN
+                DECLARE id_temp INT;
+                INSERT INTO users (username, status, email, password, created_at, updated_at) VALUES (usernamep, "admin", emailp, passwordp, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+                SELECT id INTO id_temp from users ORDER BY id DESC LIMIT 1;
+                INSERT INTO admins (nama, user_id) VALUES (namap, id_temp);
+            END
+        ');
+        DB::unprepared('
+            DROP PROCEDURE IF EXISTS updateAdmin;
+            CREATE PROCEDURE updateAdmin(IN usernamep VARCHAR(255), IN emailp VARCHAR(255), IN verif int(1), IN namap varchar(255), IN idp int(10), IN idu int(10))
+            BEGIN
+                IF(verif = 1) THEN
+                    UPDATE users SET username = usernamep, email = emailp, email_verified_at = NULL WHERE id = idu; 
+                    UPDATE admins SET nama = namap WHERE id = idp;
+                ELSE
+                    UPDATE users SET username = usernamep WHERE id = idu; 
+                    UPDATE admins SET nama = namap WHERE id = idp;
+                END IF;
+            END
+        ');
+
+        DB::unprepared('
+            DROP PROCEDURE IF EXISTS deleteAdmin;
+            CREATE PROCEDURE deleteAdmin(IN idp int(10), IN idu int(10))
+            BEGIN
+                DELETE FROM admins WHERE id = idp;
+                DELETE FROM users WHERE id = idu;
+            END
+        ');
+
+        DB::unprepared('
             DROP VIEW IF EXISTS view_profile_mahasiswa;
             CREATE VIEW view_profile_mahasiswa AS
             SELECT
@@ -282,6 +315,61 @@ return new class extends Migration
             INNER JOIN prodis e ON c.kode_prodi = e.kode_prodi
             ORDER BY `id` ASC
         ');
+
+        DB::unprepared('
+            DROP VIEW IF EXISTS view_all_user;
+            CREATE VIEW view_all_user AS
+            SELECT
+                a.id,
+                a.username,
+                a.email,
+                b.nama,
+                b.nim AS nim_nidn,
+                "mahasiswa" AS status,
+                b.kode_prodi
+            FROM users a
+            INNER JOIN mahasiswas b ON a.id = b.user_id
+            WHERE a.id <> 1
+            UNION
+            SELECT
+                a.id,
+                a.username,
+                a.email,
+                b.nama,
+                b.nidn AS nim_nidn,
+                "dosen" AS status,
+                b.kode_prodi
+            FROM users a
+            INNER JOIN dosens b ON a.id = b.user_id
+            WHERE a.id <> 1 
+        ');
+
+        DB::unprepared('
+            DROP PROCEDURE IF EXISTS deleteUser;
+            CREATE PROCEDURE deleteUser(IN kode char(10), IN status int(1), IN user_id int(10))
+            BEGIN
+                IF(status = 1) THEN
+                    UPDATE mahasiswas SET user_id = 1 WHERE nim = kode COLLATE utf8mb4_unicode_ci;
+                ELSE
+                    UPDATE dosens SET user_id = 1 WHERE nidn = kode COLLATE utf8mb4_unicode_ci;
+                END IF;
+                DELETE FROM users WHERE id = user_id; 
+            END
+        ');
+
+        DB::unprepared('
+            DROP VIEW IF EXISTS view_pegawai_user;
+            CREATE VIEW view_pegawai_user AS
+            SELECT
+                a.id,
+                a.username,
+                a.email,
+                b.nama,
+                b.id AS pegawai_id
+            FROM users a
+            INNER JOIN admins b ON a.id = b.user_id
+            WHERE a.status <> "super_admin"
+        ');
     }
 
     /**
@@ -289,6 +377,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+
         //
     }
 };

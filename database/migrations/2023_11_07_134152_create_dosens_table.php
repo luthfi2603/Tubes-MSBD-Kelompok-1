@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('nama');
             $table->char('kode_dosen', 3);
             $table->enum('jenis_kelamin', ['P','L']);
+            $table->enum('status', ['aktif','tidak_aktif']);
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->char('kode_prodi', 2);

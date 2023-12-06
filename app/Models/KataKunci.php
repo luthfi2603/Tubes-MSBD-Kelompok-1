@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class KataKunci extends Model {
     use HasFactory;
-    public $timestamps = false;
+
+    protected $primaryKey = 'kata_kunci';
+    protected $keyType = 'string';
 }

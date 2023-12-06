@@ -11,6 +11,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('kata_kuncis', function (Blueprint $table) {
             $table->string('kata_kunci', 20)->primary();
+            $table->timestamps();
         });
     }
 
