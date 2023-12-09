@@ -290,16 +290,16 @@
                         @else
                             @php $i = ($t * 5) - 4; @endphp
                         @endif
-                        @foreach($mostLikes as $mostLike)
+                        @foreach($mostViews as $mostView)
                             <tr class="align-top">
                                 <td width="40px" class="pt-3">
                                     <h6 class="bold m-0">{{ $i }}</h6>
                                 </td>
                                 <td width="700px" class="text-start pt-3">
-                                    <h6 class="bold m-0"><a href="detailsearch.html">{{ $mostLike->judul }}</a></h6>
+                                    <h6 class="bold m-0"><a href="detailsearch.html">{{ $mostView->judul }}</a></h6>
                                 </td>
                                 <td class="pt-3">
-                                    <h6 class="bold m-0">{{ $mostLike->jumlah_like }}</h6>
+                                    <h6 class="bold m-0">{{ $mostView->view }}</h6>
                                 </td>
                             </tr>
                             @php $i++; @endphp
@@ -307,7 +307,7 @@
                     </tbody>
                 </table>
                 <nav aria-label="Page navigation example" class="pt-3 ps-4">
-                    {{ $mostLikes->links() }}
+                    {{ $mostViews->links() }}
                 </nav>
             </div>
             {{-- <div class="justify-content-center flex-grow-1">

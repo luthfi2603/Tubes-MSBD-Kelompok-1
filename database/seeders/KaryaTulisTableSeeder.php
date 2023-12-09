@@ -78,11 +78,21 @@ class KaryaTulisTableSeeder extends Seeder
             'judul' => 'Dinamika Perkembangan AI: Tantangan dan Peluang di Era Digital',
             'abstrak' => 'Ipsum laborum magna ea culpa amet officia cillum laboris Lorem reprehenderit. Ullamco labore consectetur quis eiusmod sint ad officia eu. Ad adipisicing eiusmod nostrud occaecat id Lorem tempor Lorem incididunt Lorem minim. Excepteur laboris velit quis ipsum anim nisi proident reprehenderit pariatur. Dolor tempor ullamco magna eu exercitation. Ex dolor tempor dolore adipisicing aliquip adipisicing.',
             'bidang_ilmu' => 'AI',
-            'url_file' => 'tantangan-data-dummy-karya-tulis.pdf',
+            'url_file' => 'data-dummy-karya-tulis.pdf',
             'jenis' => 'Disertasi',
             'tahun' => '2022',
             'view' => '135',
             'diupload_oleh' => 'Pak Andri'
+        ]);
+        KaryaTulis::create([ // 8
+            'judul' => 'PEMEROLEHAN BAHASA ANAK BERSUKU  MELAYU USIA EMPAT TAHUN DI DESA SECANGGANG KABUPATEN LANGKAT : KAJIAN PSIKOLINGUISTIK',
+            'abstrak' => 'Nostrud labore ad sunt in eiusmod anim. Reprehenderit et nostrud ullamco esse. Fugiat non non deserunt sit sit ex anim. Est magna tempor cupidatat culpa deserunt sit. Proident et tempor cillum dolore. Consectetur commodo aute irure cupidatat veniam eiusmod cupidatat nostrud. Id nisi ipsum incididunt consequat voluptate.',
+            'bidang_ilmu' => 'Machine Learning',
+            'url_file' => 'data-dummy-karya-tulis.pdf',
+            'jenis' => 'Skripsi',
+            'tahun' => '2023',
+            'view' => '345',
+            'diupload_oleh' => 'Maia Cibebe'
         ]);
     }
 }

@@ -60,6 +60,11 @@ class KontributorDosenTableSeeder extends Seeder
             'status' => 'penulis',
             'karya_id' => '5'
         ]);
+        KontributorDosen::create([
+            'nidn' => '0031087905',
+            'status' => 'pembimbing',
+            'karya_id' => '8'
+        ]);
         
     }
 }
