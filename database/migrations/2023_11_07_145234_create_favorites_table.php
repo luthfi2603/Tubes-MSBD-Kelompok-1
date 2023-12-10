@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('favorites', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('karya_id');
             $table->foreign('karya_id')->references('id')->on('karya_tulis')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamp('waktu')->useCurrent();

@@ -3,20 +3,18 @@
 @section('container')
 <div class="container">
     <div class="row mt-4">
+        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-book"></i> Input Bidang Ilmu</h5>
         @if(session()->has('failed'))
-            <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
                 {{ session('failed') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @elseif(session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+            <div class="alert alert-success alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
                 {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <h5 class="textit mb-4" style="font-weight: 600;">
-            <i class="fa-solid fa-book"></i> Input Bidang Ilmu
-        </h5>
         <form method="POST" action="{{ route('bidang.ilmu.input') }}">
             @csrf
             <div class="col-lg-12">

@@ -20,8 +20,7 @@ cancelButton.addEventListener('click', function () {
     });
 }); */
 
-const submitButton = document.getElementById('submitbutton');
-submitButton.addEventListener('click', function () {
+function submit(){
     Swal.fire({
         title: "Perubahan akan tersimpan!",
         text: "Tekan Submit untuk menyimpan atau Cancel untuk mengedit kembali",
@@ -40,4 +39,60 @@ submitButton.addEventListener('click', function () {
             document.getElementById('form').submit();
         }
     });
-});
+}
+
+function deleteUser($id){
+    Swal.fire({
+        title: "Hapus User",
+        text: "Apakah anda yakin untuk menghapus user ini?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Hapus User",
+                text: "Jika anda benar-benar ingin menhapus user ini, maka user tersebut tidak dapat dikembalikan jika sudah dihapus!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#D80032",
+                cancelButtonColor: "#006633",
+                confirmButtonText: "Delete"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Hapus User",
+                        text: "Apakah anda benar-benar yakin?!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#D80032",
+                        cancelButtonColor: "#006633",
+                        confirmButtonText: "Delete"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById(`form-delete-${$id}`).submit();
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
+function deleteKataKunci($kataKunci){
+    Swal.fire({
+        title: "Hapus Kata Kunci",
+        text: "Apakah anda yakin untuk menghapus kata kunci ini?!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`form-delete-${$kataKunci}`).submit();
+        }
+    });
+}

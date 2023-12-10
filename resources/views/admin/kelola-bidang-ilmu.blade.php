@@ -45,25 +45,26 @@
             </thead>
             <tbody>
                 @foreach ($bidangs as $bidang)
-                <tr>
-                    <td>{{ $bidang->jenis_bidang_ilmu }}</td>
-                    <td>{{ $bidang->created_at }}</td>
-                    @if($bidang->created_at == $bidang->updated_at)
-                        <td>-</td>
-                    @else
-                        <td>{{ $bidang->updated_at }}</td>
-                    @endif
-                    <td class="d-flex">
-                        <a href="{{ route('bidang.ilmu.edit', ['bidang' => $bidang->jenis_bidang_ilmu]) }}" id="editBidangIlmu">
-                            <i class="fa-solid fa-pen icon-edit"></i>
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $bidang->jenis_bidang_ilmu }}</td>
+                        <td>{{ $bidang->created_at }}</td>
+                        @if($bidang->created_at == $bidang->updated_at)
+                            <td>-</td>
+                        @else
+                            <td>{{ $bidang->updated_at }}</td>
+                        @endif
+                        <td class="d-flex">
+                            <a href="{{ route('bidang.ilmu.edit', ['bidang' => $bidang->jenis_bidang_ilmu]) }}" id="editBidangIlmu">
+                                <i class="fa-solid fa-pen icon-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
                 @endforeach
-
             </tbody>
         </table>
-        <!-- Disini dibikin pagination kalo bingung tengo di figma. -->
+        <nav aria-label="Page navigation example">
+            {{ $bidangs->links() }}
+        </nav>
     </div>
 </div>
 @endsection

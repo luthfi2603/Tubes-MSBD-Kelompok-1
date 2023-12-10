@@ -61,12 +61,12 @@
                         <td>{{ $pegawai->email }}</td>
                         <td class="d-flex">
                             <a href="{{ route('pegawai.edit', ['idu' => $pegawai->id, 'idp' => $pegawai->pegawai_id]) }}" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
-                            <form action="{{ route('pegawai.delete') }}" method="POST" class="ml-2">
+                            <form action="{{ route('pegawai.delete') }}" method="POST" id="form-delete-{{ $pegawai->pegawai_id }}" class="ml-2">
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="id_user" value="{{ $pegawai->id }}">
                                 <input type="hidden" name="id_pegawai" value="{{ $pegawai->pegawai_id }}">
-                                <button style="border:none; background:none; !important"  type="submit" id="submitbutton" onclick="return confirm('Yakin mau menghapus')">
+                                <button type="button" onclick="deleteUser({{ $pegawai->pegawai_id }})" style="border:none; background:none; !important">
                                     <i class="fa-solid fa-trash icon-delete"></i>
                                 </button>
                             </form>
@@ -76,7 +76,9 @@
 
             </tbody>
         </table>
-        <!-- Disini dibikin pagination kalo bingung tengo di figma. -->
+        <nav aria-label="Page navigation example">
+            {{ $pegawais->links() }}
+        </nav>
     </div>
 </div>
 @endsection

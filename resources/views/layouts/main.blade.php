@@ -58,8 +58,7 @@
                 <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                     <ul class="list-inline mb-3">
                         <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">About</a></li>
-                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Contact</a>
-                        </li>
+                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Contact</a></li>
                         <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Terms of Use</a></li>
                         <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Privacy Policy</a></li>
                     </ul>

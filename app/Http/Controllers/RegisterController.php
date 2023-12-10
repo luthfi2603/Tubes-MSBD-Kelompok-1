@@ -13,13 +13,13 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => ['required', 'min:5', 'max:15', 'unique:users'],
+            'username' => ['required', 'min:5', 'max:15', 'unique:users', 'regex:/^[^\s]+$/'],
             'status' => ['required'],
             'nim_nidn' => ['required', 'min_digits:9', 'max_digits:10', 'numeric'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'same:konfirmasi_password', 'min:8', 'max:255'],
             'konfirmasi_password' => ['required', 'same:password', 'min:8', 'max:255']
-        ]);
+        ], ['username.regex' => 'Username tidak boleh mengandung spasi.']);
 
         $password = Hash::make($request->password);
 

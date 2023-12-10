@@ -11,7 +11,7 @@
 
         <div class="col-lg-3 justify-content-end">
             <div class="input-group input-search">
-                <input type="text" class="form-control" placeholder="Search this blog">
+                <input type="text" class="form-control" placeholder="Cari User">
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="button">
                         <i class="fa fa-search"></i>
@@ -21,12 +21,7 @@
         </div>
     </div>
 
-    @if(session()->has('failed'))
-        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-            {{ session('failed') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @elseif(session()->has('success'))
+    @if(session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -49,7 +44,7 @@
             </thead>
             {{-- @dd($users) --}}
             <tbody>
-                @foreach ($users as $user) 
+                @foreach ($users as $user)
                     <tr>
                         <td>{{ $user->nim_nidn }}</td>
                         <td>{{ $user->nama }}</td>
@@ -64,12 +59,12 @@
                         </td>
                         <td class="d-flex">
                             <a href="{{ route('user.edit', ['id' => $user->id]) }}" id="edituser"><i class="fa-solid fa-pen icon-edit"></i></a>
-                            <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST" class="ml-2">
+                            <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST" id="form-delete-{{ $user->nim_nidn }}" class="ml-2">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" value="{{ $user->status }}" name="status">
-                                <input type="hidden" value="{{ $user->nim_nidn }}" name="nim_nidn">
-                                <button style="border:none; background:none; !important"  type="submit" id="submitbutton" onclick="return confirm('Yakin mau menghapus')">
+                                <input type="text" value="{{ $user->status }}" name="status" hidden>
+                                <input type="text" value="{{ $user->nim_nidn }}" name="nim_nidn" hidden>
+                                <button type="button" onclick="deleteUser('{{ $user->nim_nidn }}')" style="border:none; background:none; !important">
                                     <i class="fa-solid fa-trash icon-delete"></i>
                                 </button>
                             </form>

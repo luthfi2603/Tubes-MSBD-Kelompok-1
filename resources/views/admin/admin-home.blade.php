@@ -3,7 +3,7 @@
 @section('container')
 <div class="container">
     <div class="row mt-4 d-flex align-items-center homepage">
-        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-circle-user"></i> Selamat Datang Admin,</h5>
+        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-circle-user"></i> Selamat Datang Admin {{ auth()->user()->username }}</h5>
 
         <div class="col-lg-6">
             <!-- Konten di sini -->
@@ -29,7 +29,7 @@
 
         <div class="col-lg-6 ">
             <!-- Konten di sini -->
-            <a href="{{ route('kategori.kelola') }}">
+            <a href="{{ route('jenis.tulisan.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 

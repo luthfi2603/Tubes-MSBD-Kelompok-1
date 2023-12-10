@@ -2,23 +2,17 @@
 
 @section('container')
 <div class="container">
-    @if(session()->has('failed'))
-        <div class="alert alert-danger alert-dismissible fade show mt-3 mb-4" role="alert">
-            {{ session('failed') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @elseif(session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show mt-3 mb-4" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    <form action="{{ route('dosen.edit', ['nidn' => $dosen->nidn]) }}" method="post">
+    <form id="form" action="{{ route('dosen.edit', ['nidn' => $dosen->nidn]) }}" method="post">
     @csrf
     @method('PUT')
         <div class="row mt-4">
             <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-user-tie"></i> Edit Dosen</h5>
-
+            @if(session()->has('failed'))
+                <div class="alert alert-danger alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
+                    {{ session('failed') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="col-lg-6">
                 <div class="inputan-form">
 
@@ -116,17 +110,13 @@
                             </div>
                         @enderror
                     </div>
-
                 </div>
             </div>
-
-            
-            <div class="inputan-form mb-5 mt-3">
-                <button type="submit" class="btn btn-success tombol">Submit</button>
-                <a href="{{ route('dosen.kelola') }}" class="btn btn-warning tombol">Kembali</a>
-            </div>
-
         </div>
     </form>
+    <div class="inputan-form mb-5">
+        <button type="submit" onclick="submit()" class="btn btn-success tombol">Submit</button>
+        <a href="{{ route('dosen.kelola') }}" class="btn btn-warning tombol">Kembali</a>
+    </div>
 </div>
 @endsection
