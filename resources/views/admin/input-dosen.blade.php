@@ -83,7 +83,7 @@
                         <select class="form-select custom-form @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin" aria-label="Default select example">
                             <option value="" selected>Pilih Jenis Kelamin</option>
                             <option value="L" {{ old('jenis_kelamin') === 'L' ? 'selected' : '' }}>Laki-Laki</option>
-                            <option value="L" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>Perempuan</option>
+                            <option value="P" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                         @error('jenis_kelamin')
                             <div class="invalid-feedback">
@@ -94,11 +94,12 @@
 
                     <div class="mb-3">
                         <label for="prodi" class="form-label">Program Studi</label>
-                        <select class="form-select custom-form @error('prodi') is-invalid @enderror" aria-label="Default select example"
-                            id="prodi" name="prodi">
+                        <select class="form-select custom-form @error('prodi') is-invalid @enderror" aria-label="Default select example" id="prodi" name="prodi">
                             <option value="" selected>Pilih Program Studi</option>
                             @foreach ($prodis as $prodi)
-                                <option value="{{ $prodi->kode_prodi }}">{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</option>
+                                <option value="{{ $prodi->kode_prodi }}" {{ old('prodi') === $prodi->kode_prodi ? 'selected' : '' }}>
+                                    {{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}
+                                </option>
                             @endforeach
                         </select>
                         @error('prodi')
@@ -112,7 +113,7 @@
             </div>
 
             
-            <div class="inputan-form mb-5 mt-3">
+            <div class="inputan-form mb-5 mt-1">
                 <button type="submit" class="btn btn-success tombol">Submit</button>
                 <a href="{{ route('dosen.kelola') }}" class="btn btn-warning tombol">Kembali</a>
             </div>

@@ -34,7 +34,7 @@
                 </div>
             </div>
             
-            <div class="inputan-form mb-5 mt-3">
+            <div class="inputan-form mb-5 mt-4">
                 <button type="submit" class="btn btn-success tombol">Submit</button>
                 <a href="{{ route('kata.kunci.kelola') }}" class="btn btn-warning tombol">Kembali</a>
             </div>

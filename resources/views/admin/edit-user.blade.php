@@ -1,7 +1,7 @@
 @extends('layouts.main-admin')
 
 @section('container')
-<div class="container mb-5">
+<div class="container" style="margin-bottom: 10.4%">
     <form action="{{ route('user.edit', ['id' => $user->id]) }}" method="POST" id="form">
         @csrf
         @method('PUT')   
@@ -42,7 +42,7 @@
             </div>
         </div>
     </form>
-    <div class="inputan-form mb-5 mt-3">
+    <div class="inputan-form mb-5 mt-1">
         <button type="button" onclick="submit()" class="btn btn-success tombol">Submit</button>
         <a href="{{ route('user.kelola') }}" class="btn btn-warning tombol">Kembali</a>
     </div>

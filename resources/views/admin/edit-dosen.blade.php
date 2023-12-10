@@ -49,7 +49,7 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label for="kode_dosen" class="form-label">Kode dosen</label>
                         <input type="text" class="form-control custom-form @error('kode_dosen') is-invalid @enderror" id="kode_dosen" name="kode_dosen"
                             placeholder="Input Kode Dosen" value="{{ $dosen->kode_dosen }}">
