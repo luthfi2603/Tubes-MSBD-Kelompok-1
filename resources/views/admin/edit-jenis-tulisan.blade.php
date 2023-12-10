@@ -17,7 +17,7 @@
             @method('PUT')  
             <div class="col-lg-12">
                 <div class="inputan-form" style="width: 90%;">
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label for="jenis_tulisan" class="form-label">Jenis Tulisan</label>
                         <input type="text" class="form-control custom-form @error('jenis_tulisan') is-invalid @enderror" id="jenis_tulisan" name="jenis_tulisan" value="{{ $tulisan->jenis_tulisan }}" >
                         @error('jenis_tulisan')
