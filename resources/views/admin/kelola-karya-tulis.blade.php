@@ -6,7 +6,7 @@
         <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-book"></i> Kelola Karya Tulis</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <a class="purple-button" href="{{ route('input.karya.tulis') }}">Add +</a>
+            <a class="purple-button" href="{{ route('karya.tulis.input') }}">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">

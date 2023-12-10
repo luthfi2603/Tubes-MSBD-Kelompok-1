@@ -53,6 +53,9 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-jenis-tulisan/{jenis}', [AdminController::class, 'editJenisTulisan'])
                 ->name('jenis.tulisan.edit');
     Route::put('/edit-jenis-tulisan/{jenis}', [AdminController::class, 'updateJenisTulisan']);
+    Route::get('/input-karya-tulis', [AdminController::class, 'createKaryaTulis'])
+                ->name('karya.tulis.input');
+    Route::post('/input-karya-tulis', [AdminController::class, 'storeKaryaTulis']);
 
     Route::get('/kelola-mahasiswa', [AdminController::class, 'showMahasiswa'])
                 ->name('mahasiswa.kelola');
@@ -106,9 +109,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-karya-tulis', function () {   
         return view('admin.edit-karya-tulis');
     })->name('edit.karya.tulis');
-    Route::get('/input-karya-tulis', function () {
-        return view('admin.input-karya-tulis');
-    })->name('input.karya.tulis');
+    
 });
 
 Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
