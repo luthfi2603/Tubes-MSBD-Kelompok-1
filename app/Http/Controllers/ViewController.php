@@ -332,6 +332,9 @@ class ViewController extends Controller {
 
         $topAuthors = DB::table('view_top_author')->paginate(5);
 
-        return view('statistik', compact('mostLikes', 'datas', 'jumlah', 'jumlahEbook', 'topAuthors'));
+        $mostViews = KaryaTulis::orderByDesc('view')
+            ->paginate(5);
+
+        return view('statistik', compact('mostLikes', 'datas', 'jumlah', 'jumlahEbook', 'topAuthors', 'mostViews'));
     }
 }

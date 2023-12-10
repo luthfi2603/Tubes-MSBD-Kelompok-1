@@ -73,7 +73,7 @@ return new class extends Migration
                     UPDATE users SET username = usernamep, email = emailp, email_verified_at = NULL WHERE id = idu; 
                     UPDATE admins SET nama = namap WHERE id = idp;
                 ELSE
-                    UPDATE users SET username = usernamep WHERE id = idu; 
+                    UPDATE users SET username = usernamep WHERE id = idu;
                     UPDATE admins SET nama = namap WHERE id = idp;
                 END IF;
             END

@@ -2,22 +2,17 @@
 
 @section('container')
     <div class="container">
-        @if (session()->has('failed'))
-            <div class="alert alert-danger alert-dismissible fade show mt-3 mb-4" role="alert">
-                {{ session('failed') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @elseif(session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-3 mb-4" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        <form method="POST" action="{{ route('mahasiswa.edit', ['nim' => $mahasiswa->nim]) }}">
+        <form id="form" method="POST" action="{{ route('mahasiswa.edit', ['nim' => $mahasiswa->nim]) }}">
             @csrf
             @method('PUT')
             <div class="row mt-4">
                 <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-regular fa-id-card"></i> Edit Mahasiswa</h5>
+                @if(session()->has('failed'))
+                    <div class="alert alert-danger alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
+                        {{ session('failed') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="col-lg-6">
                     <div class="inputan-form">
                         <div class="mb-3">
@@ -44,8 +39,7 @@
 
                         <div class="mb-3">
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select custom-form @error('jenis_kelamin') is-invalid @enderror"
-                                aria-label="Default select example" id="jenis_kelamin" name="jenis_kelamin">
+                            <select class="form-select custom-form @error('jenis_kelamin') is-invalid @enderror" aria-label="Default select example" id="jenis_kelamin" name="jenis_kelamin">
                                 <option value="">Pilih Jenis Kelamin</option>
                                 <option value="L" {{ $mahasiswa->jenis_kelamin === 'L' ? 'selected' : '' }}>Laki-Laki</option>
                                 <option value="P" {{ $mahasiswa->jenis_kelamin === 'P' ? 'selected' : '' }}>Perempuan</option>
@@ -76,9 +70,7 @@
 
                         <div class="mb-3">
                             <label for="status" class="form-label">Status Mahasiswa</label>
-                            <select class="form-select custom-form @error('status') is-invalid @enderror"
-                                aria-label="Default select example" id="status" name="status">
-
+                            <select class="form-select custom-form @error('status') is-invalid @enderror" aria-label="Default select example" id="status" name="status">
                                 <option value="aktif" {{ $mahasiswa->status === 'aktif' ? 'selected' : '' }}>Aktif</option>
                                 <option value="tidak_aktif" {{ $mahasiswa->status === 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                                 <option value="lulus" {{ $mahasiswa->status === 'lulus' ? 'selected' : '' }}>Lulus</option>
@@ -92,11 +84,10 @@
 
                         <div class="mb-3">
                             <label for="prodi" class="form-label">Program Studi</label>
-                            <select class="form-select custom-form @error('prodi') is-invalid @enderror"
-                                aria-label="Default select example" id="prodi" name="prodi">
+                            <select class="form-select custom-form @error('prodi') is-invalid @enderror" aria-label="Default select example" id="prodi" name="prodi">
                                 <option value="" selected>Pilih Program Studi</option>
                                 @foreach ($prodis as $prodi)
-                                    <option value="{{ $prodi->kode_prodi }}" {{ $mahasiswa->kode_prodi === $prodi->kode_prodi ? 'selected' : '' }}> 
+                                    <option value="{{ $prodi->kode_prodi }}" {{ $mahasiswa->kode_prodi === $prodi->kode_prodi ? 'selected' : '' }}>
                                         {{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}
                                     </option>
                                 @endforeach
@@ -107,16 +98,13 @@
                                 </div>
                             @enderror
                         </div>
-
                     </div>
                 </div>
-
-                <div class="inputan-form mb-5 mt-3">
-                    <button type="submit" class="btn btn-success tombol">Submit</button>
-                    <a href="{{ route('mahasiswa.kelola') }}" class="btn btn-warning tombol">Kembali</a>
-                </div>
-
             </div>
         </form>
+        <div class="inputan-form mb-5 mt-3">
+            <button type="button" onclick="submit()" class="btn btn-success tombol">Submit</button>
+            <a href="{{ route('mahasiswa.kelola') }}" class="btn btn-warning tombol">Kembali</a>
+        </div>
     </div>
 @endsection

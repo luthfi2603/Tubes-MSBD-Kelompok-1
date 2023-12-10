@@ -3,21 +3,16 @@
 @section('container')
 <div class="container">
     <div class="row mt-4">
-        @if(session()->has('failed'))
-            <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-                {{ session('failed') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @elseif(session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
         <h5 class="textit mb-4" style="font-weight: 600;">
             <i class="fa-solid fa-book"></i> Edit Kata Kunci
         </h5>
-        <form method="POST" action="{{ route('kata.kunci.edit', ['kunci' => $kata_kunci->kata_kunci]) }}">
+        @if(session()->has('failed'))
+            <div class="alert alert-danger alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
+                {{ session('failed') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        <form id="form" method="POST" action="{{ route('kata.kunci.edit', ['kunci' => $kata_kunci->kata_kunci]) }}" onsubmit="return false;">
             @csrf
             @method('PUT')  
             <div class="col-lg-12">
@@ -33,13 +28,11 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="inputan-form mb-5 mt-3">
-                <button type="submit" class="btn btn-success tombol">Edit</button>
-                <a href="{{ route('kata.kunci.kelola') }}" class="btn btn-warning tombol">Kembali</a>
-            </div>
         </form>
-
+        <div class="inputan-form mb-5">
+            <button type="button" onclick="submit()" class="btn btn-success tombol">Edit</button>
+            <a href="{{ route('kata.kunci.kelola') }}" class="btn btn-warning tombol">Kembali</a>
+        </div>
     </div>
 </div>
 @endsection

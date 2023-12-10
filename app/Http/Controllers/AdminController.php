@@ -13,6 +13,7 @@ use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class AdminController extends Controller
 {
@@ -43,11 +44,12 @@ class AdminController extends Controller
     }
 
     public function showJenisTulisan(){
-        $kategoris = JenisTulisan::paginate(20);
-        return view('admin.kelola-kategori', compact('kategoris'));
+        $kategoris = JenisTulisan::oldest()->paginate(20);
+
+        return view('admin.kelola-jenis-tulisan', compact('kategoris'));
     }
     public function createJenisTulisan(){
-        return view('admin.input-kategori');
+        return view('admin.input-jenis-tulisan');
     }
     public function storeJenisTulisan(Request $request){
         $request->validate([
@@ -63,13 +65,13 @@ class AdminController extends Controller
     }
     public function editJenisTulisan($jenis){
         $tulisan = JenisTulisan::find($jenis);
-        return view('admin.edit-kategori', compact('tulisan'));
+
+        return view('admin.edit-jenis-tulisan', compact('tulisan'));
     }
     public function updateJenisTulisan(Request $request, $jenis){
         $tulisan = JenisTulisan::find($jenis);
 
         if($tulisan->jenis_tulisan == $request->jenis_tulisan){
-            // dd($tulisan);
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }else{
             $request->validate([
@@ -81,24 +83,24 @@ class AdminController extends Controller
 
         $tulisan->save();
 
-        return redirect()->route('kategori.kelola')->with('success', 'Jenis tulisan berhasil diedit');
+        return redirect()->route('jenis.tulisan.kelola')->with('success', 'Jenis tulisan berhasil diubah');
     }
 
     public function showMahasiswa(){
-        $mahasiswas = Mahasiswa::paginate(10);
+        $mahasiswas = Mahasiswa::orderBy('nama')->paginate(10);
         $prodis = Prodi::all();
 
         return view('admin.kelola-mahasiswa', compact('mahasiswas', 'prodis'));
     }
     public function createMahasiswa(){
         $prodis = Prodi::all();
+
         return view('admin.input-mahasiswa', compact('prodis'));
     }
-
     public function storeMahasiswa(Request $request){
         $request->validate([
             'nim' => ['required','numeric', 'digits:9', 'unique:mahasiswas'],
-            'nama' => ['required','regex:/^[^*\/]+$/'],
+            'nama' => ['required','regex:/^[^\*\'\"\-]+$/'],
             'jenis_kelamin' => ['required'],
             'angkatan' => ['required', 'numeric', 'digits:4'],
             'status' => ['required'],
@@ -123,11 +125,11 @@ class AdminController extends Controller
     public function editMahasiswa($nim){
         $mahasiswa = Mahasiswa::find($nim);
         $prodis = Prodi::all();
+
         return view('admin.edit-mahasiswa', compact('mahasiswa', 'prodis'));
     }
 
     public function updateMahasiswa(Request $request, $nim){
-        
         $mahasiswa = Mahasiswa::find($nim);
 
         if(
@@ -141,14 +143,13 @@ class AdminController extends Controller
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }
 
-
         if($mahasiswa->nim != $request->nim){
             $request->validate([
-                'nim' => ['required','numeric', 'digits:9', 'unique:mahasiswas'],
+                'nim' => ['required','numeric', 'digits:9', 'unique:mahasiswas']
             ]);
         }
         $request->validate([
-            'nama' => ['required','regex:/^[^*\/]+$/'],
+            'nama' => ['required','regex:/^[^\*\'\"\-]+$/'],
             'jenis_kelamin' => ['required'],
             'angkatan' => ['required', 'numeric', 'digits:4'],
             'status' => ['required'],
@@ -164,17 +165,19 @@ class AdminController extends Controller
 
         $mahasiswa->save();
 
-        return redirect()->route('mahasiswa.kelola')->with('success', 'data mahasiswa berhasil di edit');
+        return redirect()->route('mahasiswa.kelola')->with('success', 'Data mahasiswa berhasil diubah');
     }
 
     public function showDosen(){
-        $dosens = Dosen::paginate(10);
+        $dosens = Dosen::orderBy('nama')->paginate(10);
         $prodis = Prodi::all();
+
         return view('admin.kelola-dosen', compact('dosens', 'prodis'));
     }
 
     public function createDosen(){
         $prodis = Prodi::all();
+
         return view('admin.input-dosen', compact('prodis'));
     }
 
@@ -208,6 +211,7 @@ class AdminController extends Controller
     public function editDosen($nidn){
         $dosen = Dosen::find($nidn);
         $prodis = Prodi::all();
+
         return view('admin.edit-dosen', compact('dosen','prodis'));
     }
 
@@ -256,27 +260,29 @@ class AdminController extends Controller
 
         $dosen->save();
 
-        return redirect()->route('dosen.kelola')->with('success', 'data dosen berhasil di edit');
+        return redirect()->route('dosen.kelola')->with('success', 'Data dosen berhasil diubah');
     }
 
     public function showUser(){
         $users = DB::table('view_all_user')->paginate(10);
         $prodis = Prodi::all();
+        
         return view('admin.kelola-user', compact('users', 'prodis'));
     }
     public function createUser(){
         $prodis = Prodi::all();
+
         return view('admin.input-user', compact('prodis'));
     }
     public function storeUser(Request $request){
         $request->validate([
-            'username' => ['required', 'min:1', 'max:30', 'unique:users'],
+            'username' => ['required', 'min:5', 'max:15', 'unique:users', 'regex:/^[^\s]+$/'],
             'status' => ['required'],
-            'nim_nidn' => ['required', 'numeric'],
+            'nim_nidn' => ['required', 'min_digits:9', 'max_digits:10', 'numeric'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'same:konfirmasi_password', 'min:1'],
-            'konfirmasi_password' => ['required', 'same:password', 'min:1']
-        ]);
+            'password' => ['required', 'same:konfirmasi_password', 'min:8', 'max:255'],
+            'konfirmasi_password' => ['required', 'same:password', 'min:8', 'max:255']
+        ], ['username.regex' => 'Username tidak boleh mengandung spasi.']);
 
         $password = Hash::make($request->password);
 
@@ -294,13 +300,15 @@ class AdminController extends Controller
             }
         }
 
+        event(new Registered(User::latest()->first()));
+
         return back()->with('success', 'Data user berhasil ditambahkan');
     }
     public function editUser($id){
         $user = User::find($id);
+
         return view('admin.edit-user', compact('user'));
     }
-
     public function updateUser(Request $request, $id){
         $user = User::find($id);
         if(
@@ -313,14 +321,14 @@ class AdminController extends Controller
         $rules = [];
 
         if($request->username != $user->username){
-            $rules['username'] = ['required', 'string', 'max:255', 'unique:users'];
+            $rules['username'] = ['required', 'min:5', 'max:15', 'unique:users', 'regex:/^[^\s]+$/'];
         }
 
         if($request->email != $user->email){
             $rules['email'] = 'required|string|lowercase|email|max:255|unique:'.User::class.'';
         }
 
-        $validatedData = $request->validate($rules);
+        $validatedData = $request->validate($rules, ['username.regex' => 'Username tidak boleh mengandung spasi.']);
         
         if($request->email != $user->email){
             $validatedData['email_verified_at'] = NULL;
@@ -328,7 +336,9 @@ class AdminController extends Controller
 
         User::where('id', $user->id)->update($validatedData);
 
-        return redirect()->route('user.kelola')->with('success', 'data user berhasil di edit');
+        event(new Registered(User::find($user->id)));
+
+        return redirect()->route('user.kelola')->with('success', 'Data user berhasil diubah');
     }
     public function destroyUser(Request $request, $id){
         if($request->status == 'mahasiswa'){
@@ -336,18 +346,19 @@ class AdminController extends Controller
         }else{
             DB::select('call deleteUser(?, ?, ?)', array($request->nim_nidn, 2, $id));
         }
-        return back()->with('success', 'data user berhasil di hapus');
+        
+        return back()->with('success', 'Data user berhasil dihapus');
     }
 
     public function showBidangIlmu(){
-        $bidangs = BidangIlmu::paginate(10);
+        $bidangs = BidangIlmu::oldest()->paginate(10);
+
         return view('admin.kelola-bidang-ilmu', compact('bidangs'));
     }
     public function createBidangIlmu(){
         return view('admin.input-bidang-ilmu');
     }
     public function storeBidangIlmu(Request $request){
-
         $request->validate([
             'jenis_bidang_ilmu' => ['required', 'unique:bidang_ilmus']            
         ]);
@@ -361,6 +372,7 @@ class AdminController extends Controller
     }
     public function editBidangIlmu($bidang){
         $bidang_ilmu = BidangIlmu::find($bidang);
+
         return view('admin.edit-bidang-ilmu', compact('bidang_ilmu'));
     }
     public function updateBidangIlmu(Request $request, $bidang){
@@ -378,11 +390,12 @@ class AdminController extends Controller
 
         $bidang_ilmu->save();
 
-        return redirect()->route('bidang.ilmu.kelola')->with('success', 'bidang ilmu berhasil diedit');
+        return redirect()->route('bidang.ilmu.kelola')->with('success', 'Bidang ilmu berhasil diubah');
     }
 
     public function showKataKunci(){
-        $kuncis = KataKunci::paginate(10);
+        $kuncis = KataKunci::oldest()->paginate(10);
+
         return view('admin.kelola-kata-kunci', compact('kuncis'));
     }
     public function createKataKunci(){
@@ -403,6 +416,7 @@ class AdminController extends Controller
     }
     public function editKataKunci($kunci){
         $kata_kunci = KataKunci::find($kunci);
+
         return view('admin.edit-kata-kunci', compact('kata_kunci'));
     }
     public function updateKataKunci(Request $request, $kunci){
@@ -420,13 +434,14 @@ class AdminController extends Controller
 
         $kata_kunci->save();
 
-        return redirect()->route('kata.kunci.kelola')->with('success', 'kata kunci berhasil diedit');
+        return redirect()->route('kata.kunci.kelola')->with('success', 'Kata kunci berhasil diubah');
     }
     public function destroyKataKunci($kunci){
         $kata_kunci = KataKunci::find($kunci);
 
         $kata_kunci->delete();
-        return back()->with('success', 'Kata kunci berhasil di hapus');
+
+        return back()->with('success', 'Kata kunci berhasil dihapus');
     }
     
 

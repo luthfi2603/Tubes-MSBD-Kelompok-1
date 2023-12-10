@@ -55,7 +55,7 @@
                             @auth
                                 <form action="{{ route('logout') }}" method="POST" id="form-logout">
                                     @csrf
-                                    <button type="button" class="dropdown-item" id="logout">Logout</button>
+                                    <button type="button" class="dropdown-item" id="logout"><i class="bi bi-box-arrow-right"></i> Logout</button>
                                 </form>
                                 <script>
                                     document.getElementById('logout').addEventListener('click', () => {
@@ -76,8 +76,8 @@
                                     });
                                 </script>
                             @else
-                                <li><a class="dropdown-item" href="/register">Register</a></li>
-                                <li><a class="dropdown-item" href="/login">Login</a></li>
+                                <li><a class="dropdown-item" href="/register"><i class="fa-solid fa-user-plus"></i>Register</a></li>
+                                <li><a class="dropdown-item" href="/login"><i class="bi bi-box-arrow-in-right" style="margin-right: 12px"></i>Login</a></li>
                             @endauth
                         </ul>
                     </li>

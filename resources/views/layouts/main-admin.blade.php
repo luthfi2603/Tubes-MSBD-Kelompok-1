@@ -26,7 +26,7 @@
             <div class="navbarbrand justify-content-start">
                 <div class="d-flex items-center">
                     <div class="brand me-3">
-                        <img src="../assets/img/usu.png" alt="" width="50">
+                        <img src="{{ asset('assets/img/usu.png') }}" alt="" width="50">
                     </div>
                     <div class="py-2">
                         <h6 class="d-none d-md-block" style="font-weight: 600;">REPOSITORI UNIVERSITAS SUMATERA UTARA</h6>
@@ -54,7 +54,7 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <form action="{{ route('logout') }}" method="POST" id="form-logout">
                                     @csrf
-                                    <button type="button" class="dropdown-item" id="logout">Logout</button>
+                                    <button type="button" class="dropdown-item" id="logout"><i class="bi bi-box-arrow-right"></i> Logout</button>
                                 </form>
                                 <script>
                                     document.getElementById('logout').addEventListener('click', () => {

@@ -45,14 +45,14 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
                 ->name('admin.home');
     Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])
                 ->name('kelola.karya.tulis');
-    Route::get('/kelola-kategori', [AdminController::class, 'showJenisTulisan'])
-                ->name('kategori.kelola');
-    Route::get('/input-kategori', [AdminController::class, 'createJenisTulisan'])
-                ->name('kategori.input');
-    Route::post('/input-kategori', [AdminController::class, 'storeJenisTulisan']);
-    Route::get('/edit-kategori/{jenis}', [AdminController::class, 'editJenisTulisan'])
-                ->name('kategori.edit');
-    Route::put('/edit-kategori/{jenis}', [AdminController::class, 'updateJenisTulisan']);
+    Route::get('/kelola-jenis-tulisan', [AdminController::class, 'showJenisTulisan'])
+                ->name('jenis.tulisan.kelola');
+    Route::get('/input-jenis-tulisan', [AdminController::class, 'createJenisTulisan'])
+                ->name('jenis.tulisan.input');
+    Route::post('/input-jenis-tulisan', [AdminController::class, 'storeJenisTulisan']);
+    Route::get('/edit-jenis-tulisan/{jenis}', [AdminController::class, 'editJenisTulisan'])
+                ->name('jenis.tulisan.edit');
+    Route::put('/edit-jenis-tulisan/{jenis}', [AdminController::class, 'updateJenisTulisan']);
 
     Route::get('/kelola-mahasiswa', [AdminController::class, 'showMahasiswa'])
                 ->name('mahasiswa.kelola');

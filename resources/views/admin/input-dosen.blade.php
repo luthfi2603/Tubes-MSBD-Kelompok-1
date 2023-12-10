@@ -2,22 +2,16 @@
 
 @section('container')
 <div class="container">
-    @if(session()->has('failed'))
-        <div class="alert alert-danger alert-dismissible fade show mt-3 mb-4" role="alert">
-            {{ session('failed') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @elseif(session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show mt-3 mb-4" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
     <form action="{{ route('dosen.input') }}" method="post">
     @csrf
         <div class="row mt-4">
             <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-user-tie"></i> Input Dosen</h5>
-
+            @if(session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="col-lg-6">
                 <div class="inputan-form">
 
@@ -74,8 +68,8 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">Status Dosen</label>
                         <select class="form-select custom-form @error('status') is-invalid @enderror" aria-label="Default select example" id="status" name="status">
-                            <option selected value="aktif">Aktif</option>
-                            <option value="tidak_aktif">Tidak Aktif</option>
+                            <option value="aktif" {{ old('status') === 'aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="tidak_aktif" {{ old('status') === 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                         </select>
                         @error('status')
                             <div class="invalid-feedback">
@@ -88,8 +82,8 @@
                         <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                         <select class="form-select custom-form @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin" aria-label="Default select example">
                             <option value="" selected>Pilih Jenis Kelamin</option>
-                            <option value="L">Laki-Laki</option>
-                            <option value="P">Perempuan</option>
+                            <option value="L" {{ old('jenis_kelamin') === 'L' ? 'selected' : '' }}>Laki-Laki</option>
+                            <option value="L" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                         @error('jenis_kelamin')
                             <div class="invalid-feedback">

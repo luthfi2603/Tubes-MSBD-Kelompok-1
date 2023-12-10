@@ -3,8 +3,7 @@
 @section('container')
 <div class="container">
     <div class="row mt-4 d-flex align-items-center">
-        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-shield-halved"></i> Selamat Datang
-            SuperAdmin,</h5>
+        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-shield-halved"></i> Selamat Datang SuperAdmin {{ auth()->user()->username }}</h5>
 
         <div class="col-lg-6 mb-3">
             <!-- Konten di sini -->
@@ -29,13 +28,13 @@
 
         <div class="col-lg-6 mb-3 ">
             <!-- Konten di sini -->
-            <a href="{{ route('kategori.kelola') }}">
+            <a href="{{ route('jenis.tulisan.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
                         <div class="col-md-8 d-flex align-items-center">
                             <div class="card-body">
-                                <h5 class="card-title karyatul textit" style="font-weight: 600;">Kelola Kategori</h5>
+                                <h5 class="card-title karyatul textit" style="font-weight: 600;">Kelola Jenis Tulisan</h5>
                             </div>
                         </div>
 

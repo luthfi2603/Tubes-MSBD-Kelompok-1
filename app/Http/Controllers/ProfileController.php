@@ -59,14 +59,14 @@ class ProfileController extends Controller
         $rules = [];
 
         if($request->username != $user->username){
-            $rules['username'] = ['required', 'string', 'max:255', 'unique:users'];
+            $rules['username'] = ['required', 'min:5', 'max:15', 'unique:users', 'regex:/^[^\s]+$/'];
         }
 
         if($request->email != $user->email){
             $rules['email'] = 'required|string|lowercase|email|max:255|unique:'.User::class.'';
         }
 
-        $validatedData = $request->validate($rules);
+        $validatedData = $request->validate($rules, ['username.regex' => 'Username tidak boleh mengandung spasi.']);
         
         if($request->email != $user->email){
             $validatedData['email_verified_at'] = NULL;

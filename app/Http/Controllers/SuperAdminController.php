@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class SuperAdminController extends Controller
 {
@@ -16,30 +17,33 @@ class SuperAdminController extends Controller
 
     public function showPegawai(){
         $pegawais = DB::table('view_pegawai_user')->paginate(10);
+
         return view('super-admin.kelola-pegawai', compact('pegawais'));
     }
     public function createPegawai(){
         return view('super-admin.input-pegawai');
     }
     public function storePegawai(Request $request){
-    
         $request->validate([
-            'username' => ['required', 'min:1', 'max:30', 'unique:users'],
-            'nama' => ['required'],
+            'username' => ['required', 'min:5', 'max:15', 'unique:users', 'regex:/^[^\s]+$/'],
+            'nama' => ['required', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'same:konfirmasi_password', 'min:1'],
-            'konfirmasi_password' => ['required', 'same:password', 'min:1']
-        ]);
+            'password' => ['required', 'same:konfirmasi_password', 'min:8'],
+            'konfirmasi_password' => ['required', 'same:password', 'min:8']
+        ], ['username.regex' => 'Username tidak boleh mengandung spasi.']);
 
         $password = Hash::make($request->password);
 
         DB::select('call createAdmin(?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nama));
         
+        event(new Registered(User::latest()->first()));
+
         return back()->with('success', 'Data admin berhasil ditambahkan');
     }
     public function editPegawai($idp, $idu){
         $pegawai = Admin::find($idp);
         $akun = User::find($idu);
+
         return view('super-admin.edit-pegawai', compact('pegawai', 'akun'));
     }
     public function updatePegawai(Request $request, $idp, $idu){
@@ -52,12 +56,11 @@ class SuperAdminController extends Controller
         ){
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }
-        $rules = [];
 
         if($request->username != $user->username){
             $request->validate([
-                'username' => ['required', 'string', 'max:255', 'unique:users']
-            ]);
+                'username' => ['required', 'min:5', 'max:15', 'unique:users', 'regex:/^[^\s]+$/']
+            ], ['username.regex' => 'Username tidak boleh mengandung spasi.']);
         }
         if($request->email != $user->email){
             $request->validate([
@@ -69,8 +72,10 @@ class SuperAdminController extends Controller
         }
 
         DB::select('call updateAdmin(?, ?, ?, ?, ?, ?)', array($request->username, $request->email, $verifikasi, $request->nama, $idp, $idu));
+
+        event(new Registered(User::find($idu)));
         
-        return redirect()->route('pegawai.kelola')->with('success', 'Data admin berhasil diedit');
+        return redirect()->route('pegawai.kelola')->with('success', 'Data admin berhasil diubah');
     }
     public function destroyPegawai(Request $request){
         DB::select('call deleteAdmin(?, ?)', array($request->id_pegawai, $request->id_user));

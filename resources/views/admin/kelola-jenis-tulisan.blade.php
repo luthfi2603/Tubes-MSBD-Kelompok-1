@@ -3,10 +3,10 @@
 @section('container')
 <div class="container">
     <div class="row mt-4 mb-4">
-        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Kelola Kategori</h5>
+        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Kelola Jenis Tulisan</h5>
 
         <div class="col-lg-9 justify-content-start">
-            <a class="purple-button" href="{{ route('kategori.input') }}">Add +</a>
+            <a class="purple-button" href="{{ route('jenis.tulisan.input') }}">Add +</a>
         </div>
 
         <div class="col-lg-3 justify-content-end">
@@ -37,7 +37,7 @@
         <table class="table">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Kategori</th>
+                    <th scope="col">Jenis Tulisan</th>
                     <th scope="col">Tanggal Pembuatan</th>
                     <th scope="col">Tanggal Perubahan</th>
                     <th scope="col">Action</th>
@@ -54,7 +54,7 @@
                         <td>{{ $kategori->updated_at }}</td>
                     @endif
                     <td class="d-flex">
-                        <a href="{{ route('kategori.edit', ['jenis' => $kategori->jenis_tulisan]) }}" id="editkategori">
+                        <a href="{{ route('jenis.tulisan.edit', ['jenis' => $kategori->jenis_tulisan]) }}" id="editkategori">
                             <i class="fa-solid fa-pen icon-edit"></i>
                         </a>
                     </td>
