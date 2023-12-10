@@ -43,8 +43,8 @@
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-select custom-form @error('jenis_kelamin') is-invalid @enderror" aria-label="Default select example" id="jenis_kelamin" name="jenis_kelamin">
                                 <option value="" selected>Pilih Jenis Kelamin</option>
-                                <option value="L">Laki-Laki</option>
-                                <option value="P">Perempuan</option>
+                                <option value="L" {{ old('jenis_kelamin') === 'L' ? 'selected' : '' }}>Laki-Laki</option>
+                                <option value="P" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                             @error('jenis_kelamin')
                                 <div class="invalid-feedback">
@@ -88,7 +88,7 @@
                             <select class="form-select custom-form @error('prodi') is-invalid @enderror" aria-label="Default select example" id="prodi" name="prodi">
                                 <option value="" selected>Pilih Program Studi</option>
                                 @foreach ($prodis as $prodi)
-                                    <option value="{{ $prodi->kode_prodi }}">{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</option>
+                                    <option value="{{ $prodi->kode_prodi }}" >{{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}</option>
                                 @endforeach
                             </select>
                             @error('prodi')

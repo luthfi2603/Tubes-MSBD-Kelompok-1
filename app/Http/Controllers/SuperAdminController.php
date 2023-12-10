@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class SuperAdminController extends Controller
 {
@@ -34,6 +35,7 @@ class SuperAdminController extends Controller
         $password = Hash::make($request->password);
 
         DB::select('call createAdmin(?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nama));
+        event(new Registered(User::latest()->first()));
         
         return back()->with('success', 'Data admin berhasil ditambahkan');
     }

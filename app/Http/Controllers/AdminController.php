@@ -36,10 +36,15 @@ class AdminController extends Controller
     }
     
     public function createKaryaTulis(){
-        return view('admin.input-karya-tulis');
+        $bidangs = BidangIlmu::all();
+        $kuncis = KataKunci::all();
+        $jeniss = JenisTulisan::all();
+        // dd($jeniss);
+
+        return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss'));
     }
     public function storeKaryaTulis(Request $request){
-        
+        dd($request);
     }
 
     public function showJenisTulisan(){
@@ -378,7 +383,8 @@ class AdminController extends Controller
 
         $bidang_ilmu->save();
 
-        return redirect()->route('bidang.ilmu.kelola')->with('success', 'bidang ilmu berhasil diedit');
+        return redirect()->
+        route('bidang.ilmu.kelola')->with('success', 'bidang ilmu berhasil diedit');
     }
 
     public function showKataKunci(){

@@ -89,6 +89,24 @@ return new class extends Migration
         ');
 
         DB::unprepared('
+            DROP PROCEDURE IF EXISTS createKaryaTulis;
+            CREATE PROCEDURE createKaryaTulis(
+                IN judulp varchar(500),
+                IN abstrakp text,
+                bidang_ilmup varchar(255),
+                url_filep varchar(255),
+                jenisp varchar(255),
+                tahunp varchar(255),
+                diupload_olehp varchar(255),
+                kunci JSON,
+                nim_nip JSON
+            )
+            BEGIN
+                
+            END 
+        ');
+
+        DB::unprepared('
             DROP VIEW IF EXISTS view_profile_mahasiswa;
             CREATE VIEW view_profile_mahasiswa AS
             SELECT
@@ -370,6 +388,8 @@ return new class extends Migration
             INNER JOIN admins b ON a.id = b.user_id
             WHERE a.status <> "super_admin"
         ');
+
+        
     }
 
     /**
