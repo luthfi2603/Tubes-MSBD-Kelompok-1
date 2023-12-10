@@ -43,8 +43,16 @@ Route::get('/statistik', [ViewController::class, 'statistik'])
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', [AdminController::class, 'index'])
                 ->name('admin.home');
+
     Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])
                 ->name('kelola.karya.tulis');
+    Route::get('/input-karya-tulis', [AdminController::class, 'createKaryaTulis'])
+                ->name('karya.tulis.input');
+    Route::post('/input-karya-tulis', [AdminController::class, 'storeKaryaTulis']);
+    Route::get('/edit-karya-tulis', function () {   
+        return view('admin.edit-karya-tulis');
+    })->name('edit.karya.tulis');
+
     Route::get('/kelola-jenis-tulisan', [AdminController::class, 'showJenisTulisan'])
                 ->name('jenis.tulisan.kelola');
     Route::get('/input-jenis-tulisan', [AdminController::class, 'createJenisTulisan'])
@@ -53,9 +61,6 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-jenis-tulisan/{jenis}', [AdminController::class, 'editJenisTulisan'])
                 ->name('jenis.tulisan.edit');
     Route::put('/edit-jenis-tulisan/{jenis}', [AdminController::class, 'updateJenisTulisan']);
-    Route::get('/input-karya-tulis', [AdminController::class, 'createKaryaTulis'])
-                ->name('karya.tulis.input');
-    Route::post('/input-karya-tulis', [AdminController::class, 'storeKaryaTulis']);
 
     Route::get('/kelola-mahasiswa', [AdminController::class, 'showMahasiswa'])
                 ->name('mahasiswa.kelola');
@@ -105,11 +110,6 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::put('/edit-kata-kunci/{kunci}', [AdminController::class, 'updateKataKunci']);
     Route::delete('/kelola-kata-kunci/{kunci}', [AdminController::class, 'destroyKataKunci'])
                 ->name('kata.kunci.delete');
-
-    Route::get('/edit-karya-tulis', function () {   
-        return view('admin.edit-karya-tulis');
-    })->name('edit.karya.tulis');
-    
 });
 
 Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
