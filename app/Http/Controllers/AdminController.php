@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller {
     /**
@@ -34,6 +35,7 @@ class AdminController extends Controller {
             ->where('status', 'penulis')
             ->groupBy('kontributor', 'id')
             ->get();
+
         return view('admin.kelola-karya-tulis', compact('karyas', 'penuliss'));
     }
     public function createKaryaTulis(){
@@ -46,31 +48,12 @@ class AdminController extends Controller {
         return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'mahasiswas', 'dosens'));
     }
     public function storeKaryaTulis(Request $request){
-        if($request->nim_nidn == NULL){
+        /* if($request->nim_nidn == NULL){
             return back()->with('failed', 'pilih paling tidak satu kolaborator');
-        }
-        // dd($request->request);
-        $kolaboratorp = [];
-        $kuncip = [];
+        } */
 
-        for ($i = 0; $i < count($request->kunci); $i++) {
-            $kuncip[] = [
-                'kunci' => $request->kunci[$i],
-            ];
-        }
-        for ($i = 0; $i < count($request->nim_nidn); $i++) {
-            $kolaboratorp[] = [
-                'nim_nidn' => $request->nim_nidn[$i],
-                'tingkatan' => $request->tingkatan[$i],
-                'status' => $request->status[$i],
-            ];
-        }
-        $kolab = json_encode($kolaboratorp);
-        $kunci = json_encode($kuncip);
-        $admin = Auth::user()->username;
-
-        // dd($kolab);
         $request->validate([
+            'nim_nidn' => ['required'],
             'judul' => ['required'],
             'tahun' => ['required', 'numeric', 'digits:4'],
             'jenis' => ['required'],
@@ -79,32 +62,42 @@ class AdminController extends Controller {
             'abstrak' => ['required'],
             'file' => ['required','file', 'mimes:pdf']
         ],[
-            'kunci.required' => 'Pilih paling tidak satu kata kunci.',
+            'kunci.required' => 'Pilih paling tidak satu kata kunci.'
         ]);
 
-        if ($request->hasFile('file')) {
-            $location = public_path('/file');
+        $kolaboratorp = [];
+        $kuncip = [];
 
-            $namaFile = $request->file('file')->getClientOriginalName();
-            $namaFileBaru = substr(uniqid(), 5, 5);
-            $namaFileBaru .= '_';
-            $namaFileBaru .= $namaFile;
-
-            $request->file('file')->move($location, $namaFileBaru);
-
-            $url_file = $namaFileBaru;
+        for ($i = 0; $i < count($request->kunci); $i++) {
+            $kuncip[] = [
+                'kunci' => $request->kunci[$i],
+            ];
         }
+        
+        for ($i = 0; $i < count($request->nim_nidn); $i++) {
+            $kolaboratorp[] = [
+                'nim_nidn' => $request->nim_nidn[$i],
+                'tingkatan' => $request->tingkatan[$i],
+                'status' => $request->status[$i],
+            ];
+        }
+
+        $kolab = json_encode($kolaboratorp);
+        $kunci = json_encode($kuncip);
+        $admin = Auth::user()->username;
+
+        if ($request->hasFile('file')) {
+            $namaFile = $request->file('file')->store('document');
+        }
+
         try {
-            DB::select('call createKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $url_file, $request->jenis, $request->tahun, $admin, $kolab, $kunci));
+            DB::select('call createKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $namaFile, $request->jenis, $request->tahun, $admin, $kolab, $kunci));
         } catch (QueryException $th) {
-            $errorMessage = $th->getMessage();
-            return back()->with('failed', 'Terjadi kesalahan karya tulis gagal ditambahkan ');
+            return back()->with('failed', 'Terjadi kesalahan karya tulis gagal ditambahkan');
         }
         
         return back()->with('success', 'Data karya tulis berhasil ditambahkan');
-
     }
-
     public function editKaryaTulis($id){
         $karya = KaryaTulis::find($id);
         $karya_kunci = KataKunciTulisan::where('karya_id', $id)->get();
@@ -117,6 +110,12 @@ class AdminController extends Controller {
         // dd($karya_kunci);
 
         return view('admin.edit-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'mahasiswas', 'dosens', 'karya', 'karya_kunci'));
+    }
+    public function destroyKaryaTulis(KaryaTulis $karya){
+        Storage::delete($karya->url_file);
+        $karya->delete();
+
+        return back()->with('success', 'Karya Tulis berhasil dihapus');
     }
 
 

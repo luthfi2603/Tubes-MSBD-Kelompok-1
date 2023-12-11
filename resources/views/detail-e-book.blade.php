@@ -40,12 +40,12 @@
                     <h6 class="textit" style="font-weight: 600;">File Digital : </h6>
                     <!-- diklik langsung ke download -->
                     @auth
-                        <a href="#">
-                            <h6 class="text mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>{{ $ebook->url_file }}</h6>
+                        <a href="{{ asset('storage/' . $ebook->url_file) }}" target="_blank">
+                            <h6 class="text mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i> Tampilkan File</h6>
                         </a>
                     @else
                         <span style="cursor: pointer" id="belum-login">
-                            <h6 class="text mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>{{ $ebook->url_file }}</h6>
+                            <h6 class="text mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i> Tampilkan File</h6>
                         </span>
                         <script>
                             document.getElementById('belum-login').addEventListener('click', () => {

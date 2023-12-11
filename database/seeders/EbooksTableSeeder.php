@@ -18,7 +18,7 @@ class EbooksTableSeeder extends Seeder
             'penulis' => 'Oracle',
             'tahun_terbit' => '2050',
             'view' => '0',
-            'url_file' => 'bukuhijau.pdf',
+            'url_file' => 'document/data-dummy-karya-tulis.pdf',
             'diupload_oleh' => 'admin'
         ]);
         
@@ -27,7 +27,7 @@ class EbooksTableSeeder extends Seeder
             'penulis' => 'Word',
             'tahun_terbit' => '2055',
             'view' => '0',
-            'url_file' => 'bukubiru.pdf',
+            'url_file' => 'document/data-dummy-karya-tulis.pdf',
             'diupload_oleh' => 'admin'
         ]);
     }

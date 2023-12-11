@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('karya_id');
-            $table->foreign('karya_id')->references('id')->on('karya_tulis')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('karya_id')->references('id')->on('karya_tulis')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamp('waktu')->useCurrent();
         });
     }

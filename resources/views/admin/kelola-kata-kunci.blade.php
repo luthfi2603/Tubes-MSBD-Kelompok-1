@@ -53,7 +53,7 @@
                             <a href="{{ route('kata.kunci.edit', ['kunci' => $kunci->kata_kunci]) }}">
                                 <i class="fa-solid fa-pen icon-edit"></i>
                             </a>
-                            <form id="form-delete-{{ $kunci->kata_kunci }}" action="{{ route('kata.kunci.delete', ['kunci' => $kunci->kata_kunci]) }}" method="POST" class="ml-2">
+                            <form id="form-delete-{{ $kunci->kata_kunci }}" action="{{ route('kata.kunci.delete', ['kunci' => $kunci->kata_kunci]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" onclick="deleteKataKunci('{{ $kunci->kata_kunci }}')" style="border:none; background:none; !important">
