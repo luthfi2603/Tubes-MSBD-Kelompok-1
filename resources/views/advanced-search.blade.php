@@ -15,7 +15,7 @@
 </div>
 
 <div class="container">
-    <form action="{{ route('advanced.search') }}" method="get">
+    <form action="{{ route('advanced.search') }}" method="get" id="filter">
         <div class="col-lg-12 pt-3">
             <h6>
                 <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><span>Pencarian Lanjutan</span>
@@ -94,11 +94,11 @@
                 <h6 class="textit">Tahun</h6>
             </div>
             <div class="col-lg-2">
-                <input type="number" class="form-control custom-form" id="tahunawal" name="tahunawal" min="1000"
+                <input type="number" class="form-control custom-form" id="tahun_awal" name="tahunawal" min="1000"
                     placeholder="Tahun">
             </div>
             <div class="col-lg-2">
-                <input type="number" class="form-control custom-form" id="tahunakhir" name="tahunakhir" min="1000"
+                <input type="number" class="form-control custom-form" id="tahun_akhir" name="tahunakhir" min="1000"
                     placeholder="Tahun">
             </div>
         </div>
@@ -135,5 +135,31 @@
             <button type="submit" class="btn btn-success w-15 mx-auto" style="font-weight: 600;">Cari</button>
         </div>
     </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.getElementById("filter");
+    
+            form.addEventListener("submit", function (event) {
+                var tahunAwalInput = document.getElementById("tahun_awal");
+                var tahunAkhirInput = document.getElementById("tahun_akhir");
+    
+                var tahunAwal = parseInt(tahunAwalInput.value, 10);
+                var tahunAkhir = parseInt(tahunAkhirInput.value, 10);
+    
+                if (tahunAwal >= tahunAkhir) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Tahun Akhir harus lebih besar dari Tahun Awal',
+                    });
+    
+                    tahunAwalInput.value = "";
+                    tahunAkhirInput.value = "";
+    
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
 </div>
 @endsection
