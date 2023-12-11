@@ -66,7 +66,7 @@
             <div class="cardfilter" style="border: 2px solid rgba(0, 0, 0, 0.185);">
                 {{-- start filter --}}
                 <div class="card-body">
-                    <form action="{{ route('koleksi', $jenisTulisan) }}" method="get">
+                    <form action="{{ route('koleksi', $jenisTulisan) }}" method="get" id="filter">
                         @php
                             $program_studi = $program_studi ?? [];
                             $bidang_ilmu = $bidang_ilmu ?? [];
@@ -86,13 +86,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-dec mb-1" style="font-weight: 600;">Dari Tahun</label>
-                                    <input type="number" name="tahunawal" class="form-control" id="tahun_awal" placeholder="Tahun" value="{{ $tahunawal }}">
+                                    <input type="number" name="tahunawal" min="0" class="form-control" id="tahun_awal" placeholder="Tahun" value="{{ $tahunawal }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="text-dec mb-1" style="font-weight: 600;">Hingga</label>
-                                    <input type="number" name="tahunakhir" class="form-control" id="tahun_akhir" placeholder="Tahun" value="{{ $tahunakhir }}">
+                                    <input type="number" name="tahunakhir" min="0" class="form-control" id="tahun_akhir" placeholder="Tahun" value="{{ $tahunakhir }}">
                                 </div>
                             </div>
                         </div>
@@ -119,6 +119,32 @@
                             <button type="submit" class="btn btn-primary">Filter</button>
                         </div>
                     </form>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var form = document.getElementById("filter");
+                    
+                            form.addEventListener("submit", function (event) {
+                                var tahunAwalInput = document.getElementById("tahun_awal");
+                                var tahunAkhirInput = document.getElementById("tahun_akhir");
+                    
+                                var tahunAwal = parseInt(tahunAwalInput.value, 10);
+                                var tahunAkhir = parseInt(tahunAkhirInput.value, 10);
+                    
+                                if (tahunAwal >= tahunAkhir) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Tahun Akhir harus lebih besar dari Tahun Awal',
+                                    });
+                    
+                                    tahunAwalInput.value = "";
+                                    tahunAkhirInput.value = "";
+                    
+                                    event.preventDefault();
+                                }
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>
