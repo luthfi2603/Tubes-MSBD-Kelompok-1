@@ -167,7 +167,9 @@ async function buatKolaborator() {
 }
 
 function deleteKolaborator($id){
-    document.getElementById(`penulis-${$id}`).setAttribute('hidden', true);
+    const tempatTambahKolaborator = document.getElementById(`penulis-${$id}`);
+    tempatTambahKolaborator.setAttribute('hidden', true);
+    tempatTambahKolaborator.innerHTML = '';
 }
 
 $(document).ready(function() {
