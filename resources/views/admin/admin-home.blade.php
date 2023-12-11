@@ -35,8 +35,7 @@
 
                         <div class="col-md-8 d-flex align-items-center">
                             <div class="card-body">
-                                <h5 class="card-title karyatul textit" style="font-weight: 600;">Kelola Kategori
-                                </h5>
+                                <h5 class="card-title karyatul textit" style="font-weight: 600;">Kelola Jenis Tulisan</h5>
                             </div>
                         </div>
 

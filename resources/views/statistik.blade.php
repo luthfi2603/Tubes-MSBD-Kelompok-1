@@ -13,7 +13,7 @@
             <h6 class="bolds" style="color: #f5f5f5; font-size: 25px;">STATISTIK</h6>
         </div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-lg-2 koleksi">
             <div class="dropdown" id="select-menu">
                 <button class="btn dropdown-toggle" type="button" id="select-btn" data-bs-toggle="dropdown" aria-expanded="false"> Semua Koleksi</button>
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <br>
+    <br> --}}
 
     <div class="row">
         <div class="col-lg-3 mb-4 d-flex">
@@ -112,7 +112,7 @@
                                     <h6 class="bold m-0">{{ $i }}</h6>
                                 </td>
                                 <td width="700px" class="text-start pt-3">
-                                    <h6 class="bold m-0"><a href="#">{{ $mostLike->judul }}</a></h6>
+                                    <h6 class="bold m-0"><a href="{{ route('detail.karya.tulis', $mostLike->id) }}">{{ $mostLike->judul }}</a></h6>
                                 </td>
                                 <td class="pt-3">
                                     <h6 class="bold m-0">{{ $mostLike->jumlah_like }}</h6>
@@ -296,7 +296,7 @@
                                     <h6 class="bold m-0">{{ $i }}</h6>
                                 </td>
                                 <td width="700px" class="text-start pt-3">
-                                    <h6 class="bold m-0"><a href="detailsearch.html">{{ $mostView->judul }}</a></h6>
+                                    <h6 class="bold m-0"><a href="{{ route('detail.karya.tulis', $mostView->id) }}">{{ $mostView->judul }}</a></h6>
                                 </td>
                                 <td class="pt-3">
                                     <h6 class="bold m-0">{{ $mostView->view }}</h6>

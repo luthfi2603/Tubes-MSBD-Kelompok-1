@@ -4,7 +4,7 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-            <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><span>E-Book</span>
+            <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><a href="{{ route('ebook') }}">E-Book</a>
         </h6>
         <hr class="mt-0">
     </div>
@@ -15,21 +15,27 @@
                 <h6 class="sidebar-col"><span><i class="fa-solid fa-ebook-open-reader"></i></span> E-Book</h6>
                 <!-- untuk iconnya bisa diambil di statistik ato mau beda pun bole ambil dari font awesome -->
                 <hr class="garis" style="width: 70%;">
-                @foreach($ebooks as $ebook)
-                    <div class="card mt-3" style="max-width: 100%;">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4 my-3">
-                                <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title textit"><a href="{{ route('detail.ebook', $ebook->id) }}">{{ $ebook->judul }}</a></h5>
-                                    <p class="text-muted"><small class="text-body-secondary">{{ $ebook->penulis }} ({{ $ebook->tahun_terbit }})</small></p>
+                @if($ebooks->isEmpty())
+                    <div style="text-align: center" class="mt-4">
+                        <h3>Hasil tidak ditemukan</h3>
+                    </div>
+                @else
+                    @foreach($ebooks as $ebook)
+                        <div class="card mt-3" style="max-width: 100%;">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-md-4 my-3">
+                                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title textit"><a href="{{ route('detail.ebook', $ebook->id) }}">{{ $ebook->judul }}</a></h5>
+                                        <p class="text-muted"><small class="text-body-secondary">{{ $ebook->penulis }} ({{ $ebook->tahun_terbit }})</small></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
                 <!-- Pagination -->
                 <nav aria-label="Page navigation example" class="pt-3">
                     {{ $ebooks->links() }}

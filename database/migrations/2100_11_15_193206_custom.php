@@ -5,13 +5,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         DB::unprepared('
             DROP FUNCTION IF EXISTS cekAkun;
             CREATE FUNCTION cekAkun(status INT(1), kode CHAR(10))
@@ -217,6 +215,7 @@ return new class extends Migration
             DROP VIEW IF EXISTS view_most_like;
             CREATE VIEW view_most_like AS
             SELECT
+                a.id,
                 a.judul,
                 hitungLikeKarya(a.id) AS jumlah_like
             FROM karya_tulis a ORDER BY jumlah_like DESC
@@ -388,15 +387,12 @@ return new class extends Migration
             INNER JOIN admins b ON a.id = b.user_id
             WHERE a.status <> "super_admin"
         ');
-
-        
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
 
         //
     }
