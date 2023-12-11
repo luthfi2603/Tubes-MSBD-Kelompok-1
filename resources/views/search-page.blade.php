@@ -11,9 +11,9 @@
     </div>
     <div class="row">
         <div class="col-lg-9">
-            <div class="text-muted info">
+            {{-- <div class="text-muted info">
                 <p>Sekarang menampilkan 1 sampai 10 dari 100 data</p>
-            </div>
+            </div> --}}
             <div class="row grid">
                 <div class="col-lg-4 mb-5">
                     <div class="cardfilter" style="border: 2px solid rgba(0, 0, 0, 0.187);">
@@ -202,7 +202,7 @@
             <ul class="list-group list-group-flush">
                 @foreach ($prodis as $prodi)
                 <li class="list-group-item">
-                    <a href="{{ route('prodi', $prodi->nama_prodi) }}">
+                    <a href="{{ route('prodi', $prodi->kode_prodi) }}">
                         <span><i class="fa-solid fa-angle-right"></i></span>
                         {{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}
                     </a>

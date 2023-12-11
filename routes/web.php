@@ -52,6 +52,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-karya-tulis', function () {   
         return view('admin.edit-karya-tulis');
     })->name('edit.karya.tulis');
+    Route::get('/get-mahasiswa-dan-dosen', [AdminController::class, 'getMahasiswaDanDosen']);
 
     Route::get('/kelola-jenis-tulisan', [AdminController::class, 'showJenisTulisan'])
                 ->name('jenis.tulisan.kelola');

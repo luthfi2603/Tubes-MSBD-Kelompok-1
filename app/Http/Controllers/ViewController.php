@@ -10,19 +10,18 @@ use App\Models\KaryaTulis;
 use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
-class ViewController extends Controller
-{
-    public function index()
-    {
+class ViewController extends Controller {
+    public function index(){
         session()->forget('wasRefreshed');
+
         if (auth()->user()) {
             if (auth()->user()->email_verified_at == NULL) {
                 return redirect('/verify-email');
             }
         }
+
         $jenisTulisans = JenisTulisan::all();
         $prodis = Prodi::all();
         $karyas = KaryaTulis::paginate(5);
@@ -36,8 +35,7 @@ class ViewController extends Controller
         return view('index', compact('jenisTulisans', 'prodis', 'karyas', 'penuliss'));
     }
 
-    public function detailKaryaTulis(Request $request, $id)
-    {
+    public function detailKaryaTulis(Request $request, $id){
         $targetPage = '/detail-karya-tulis/' . $id;
 
         $wasRefreshed = Session::get('wasRefreshed', []);
@@ -105,16 +103,14 @@ class ViewController extends Controller
         return view('detail-karya-tulis', compact('detail', 'kataKunci', 'penulis', 'pembimbing', 'kontributor', 'isLiked'));
     }
 
-    public function showEBook()
-    {
+    public function showEBook(){
         session()->forget('wasRefreshed');
         $ebooks = Ebook::paginate(5);
 
         return view('e-book', compact('ebooks'));
     }
 
-    public function detailEBook($id)
-    {
+    public function detailEBook($id){
         $targetPage = '/detail-e-book/' . $id;
 
         $wasRefreshed = Session::get('wasRefreshed', []);
@@ -137,8 +133,7 @@ class ViewController extends Controller
         return view('detail-e-book', compact('ebook'));
     }
 
-    public function showByKoleksi($jenisTulisan)
-    {
+    public function showByKoleksi($jenisTulisan){
         session()->forget('wasRefreshed');
         $karyas = KaryaTulis::where('jenis', $jenisTulisan)->paginate(5);
 
@@ -151,8 +146,7 @@ class ViewController extends Controller
         return view('koleksi', compact('karyas', 'penuliss', 'jenisTulisan'));
     }
 
-    public function showByProdi($prodi)
-    {
+    public function showByProdi($prodi){
         session()->forget('wasRefreshed');
         $karyaIds = DB::table('view_karya_tulis')
             ->select('id')
@@ -173,8 +167,7 @@ class ViewController extends Controller
         return view('prodi', compact('karyas', 'prodi', 'penuliss'));
     }
 
-    public function showByAuthor($author)
-    {
+    public function showByAuthor($author){
         session()->forget('wasRefreshed');
         $karyaIds = DB::table('view_karya_tulis')
             ->select('id')
@@ -194,8 +187,7 @@ class ViewController extends Controller
         return view('author', compact('karyas', 'author', 'penuliss'));
     }
 
-    public function viewAdvSearch(Request $request)
-    {
+    public function viewAdvSearch(Request $request){
         session()->forget('wasRefreshed');
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
@@ -283,14 +275,13 @@ class ViewController extends Controller
         return view('search-page', compact('prodis', 'jenisTulisans',  'penuliss', 'results', 'bidIlmus', 'tahunawal', 'tahunakhir', 'search1', 'search2', 'search3', 'select1', 'select2', 'select3', 'query1', 'query2', 'sort', 'jenis_tulisan', 'program_studi', 'bidang_ilmu'));
     }
 
-    public function showAdvSearch()
-    {
+    public function showAdvSearch(){
         session()->forget('wasRefreshed');
+
         return view('advanced-search');
     }
 
-    public function search(Request $request)
-    {
+    public function search(Request $request){
         session()->forget('wasRefreshed');
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
@@ -342,8 +333,6 @@ class ViewController extends Controller
             ->groupBy('id')
             ->pluck('id');
 
-        // dd($resultIds);
-
         $results = KaryaTulis::whereIn('id', $resultIds)
             ->when($sort, function ($query) use ($sort) {
                 return $query->orderBy('tahun', $sort);
@@ -353,8 +342,7 @@ class ViewController extends Controller
         return view('search-page', compact('results', 'prodis', 'jenisTulisans', 'penuliss', 'bidIlmus', 'search', 'sort', 'jenis_tulisan', 'program_studi', 'bidang_ilmu'));
     }
 
-    public function showFavorite()
-    {
+    public function showFavorite(){
         session()->forget('wasRefreshed');
         $karyaIds = Favorite::select('karya_id')
             ->where('user_id', auth()->user()->id)
@@ -375,9 +363,7 @@ class ViewController extends Controller
         return view('favorite', compact('karyas', 'penuliss', 'waktu'));
     }
 
-    public function storeFavorite(Request $request)
-    {
-        // session()->forget('wasRefreshed');
+    public function storeFavorite(Request $request){
         Favorite::create([
             'user_id' => auth()->user()->id,
             'karya_id' => $request->karya_id
@@ -386,9 +372,7 @@ class ViewController extends Controller
         return back()->with('success', 'Berhasil ditambahkan ke favorite');
     }
 
-    public function destroyFavorite(Request $request)
-    {
-        // session()->forget('wasRefreshed');
+    public function destroyFavorite(Request $request){
         Favorite::where('user_id', auth()->user()->id)
             ->where('karya_id', $request->karya_id)
             ->delete();
@@ -396,8 +380,7 @@ class ViewController extends Controller
         return back()->with('success', 'Berhasil dihapus dari favorite');
     }
 
-    public function statistik()
-    {
+    public function statistik(){
         $mostLikes = DB::table('view_most_like')->paginate(5);
 
         $datas = DB::table('view_statistik')->get();
