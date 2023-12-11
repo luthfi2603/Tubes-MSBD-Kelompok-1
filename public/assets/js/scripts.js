@@ -1,25 +1,3 @@
-/* const cancelButton = document.getElementById('cancelbutton');
-cancelButton.addEventListener('click', function () {
-    Swal.fire({
-        title: "Perubahan tidak akan tersimpan",
-        text: "Tekan OK untuk kembali ke halaman sebelumnya atau Cancel untuk mengedit kembali",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#daa520",
-        cancelButtonColor: "#6b6767",
-        confirmButtonText: "OK"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: "Cancelled!",
-                text: "Perubahan tidak akan disimpan",
-                icon: "error"
-            });
-            // document.location.href = '/profile';
-        }
-    });
-}); */
-
 function submit(){
     Swal.fire({
         title: "Perubahan akan tersimpan!",
@@ -31,11 +9,6 @@ function submit(){
         confirmButtonText: "Submit"
     }).then((result) => {
         if (result.isConfirmed) {
-            /* Swal.fire({
-                title: "Succesed!",
-                text: "Perubahan berhasil disimpan",
-                icon: "success"
-            }); */
             document.getElementById('form').submit();
         }
     });
@@ -95,41 +68,6 @@ function deleteKataKunci($kataKunci){
             document.getElementById(`form-delete-${$kataKunci}`).submit();
         }
     });
-}
-
-function buatKolaborator0(){
-    const divId = document.createElement('div');
-    divId.classList.add('col-lg-4');
-    divId.setAttribute('id', `penulis-${i}`);
-    divId.innerHTML = '<fieldset class="border border-dark rounded p-1 mb-4"><legend style="margin-left: 15px !important">Kolaborator</legend><div class="inputan-form"><div class="mb-3"><label for="kategori" class="form-label">Masukkan Nama</label><select class="form-select custom-form" aria-label="Default select example" id="nim_nidn" name="nim_nidn[]"><option value="" selected>Pilih Nama</option></select></div><div class="mb-3"><label for="kategori" class="form-label">Tingkatan</label><select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="tingkatan[]"><option value="" selected>Pilih Tingkatan</option><option value="1">Mahasiswa</option><option value="2">Dosen</option></select></div><div class="mb-3"><label for="kategori" class="form-label">Status</label><select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="status[]"><option value="" selected>Pilih Status</option><option value="1">Penulis</option><option value="2">Pembimbing</option><option value="3">Kontributor</option></select></div></div></fieldset>';
-
-    /* const fieldset = document.createElement('fieldset');
-    fieldset.classList.add('border', 'border-dark', 'rounded', 'p-1', 'mb-4');
-    
-    const legend = document.createElement('legend');
-    legend.setAttribute('style', 'margin-left: 15px !important');
-    legend.innerHTML = 'Kolaborator';
-
-    const inputanForm = document.createElement('div');
-    inputanForm.classList.add('inputan-form');
-
-    const mb31 = document.createElement('div');
-    mb31.classList.add('mb-3');
-
-    const label = document.createElement('label');
-    label.setAttribute('for', 'kategori');
-    label.classList.add('form-label');
-    label.innerHTML = 'NIM/NIP';
-
-    mb31.append(label);
-    inputanForm.append(mb31);
-    fieldset.append(legend);
-    fieldset.append(inputanForm);
-    divId.append(fieldset); */
-
-    document.getElementById('tambah-kolaborator').append(divId);
-
-    i++;
 }
 
 let i = 1;
