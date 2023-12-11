@@ -1,7 +1,6 @@
-
 const cancelbutton = document.getElementById('cancelbutton');
-cancelbutton.addEventListener('click', function(){
-      Swal.fire({
+cancelbutton.addEventListener('click', function () {
+    Swal.fire({
         title: "Perubahan tidak akan tersimpan",
         text: "Tekan OK untuk kembali ke halaman sebelumnya atau Cancel untuk mengedit kembali",
         icon: "warning",
@@ -9,20 +8,20 @@ cancelbutton.addEventListener('click', function(){
         confirmButtonColor: "#daa520",
         cancelButtonColor: "#6b6767",
         confirmButtonText: "OK"
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire({
-            title: "Cancelled!",
-            text: "Perubahan tidak akan disimpan",
-            icon: "error"
-          });
+            Swal.fire({
+                title: "Cancelled!",
+                text: "Perubahan tidak akan disimpan",
+                icon: "error"
+            });
         }
-      });
+    });
 });
 
 const submitbutton = document.getElementById('submitbutton');
-submitbutton.addEventListener('click', function(){
-      Swal.fire({
+submitbutton.addEventListener('click', function () {
+    Swal.fire({
         title: "Perubahan akan tersimpan!",
         text: "Tekan Submit untuk menyimpan atau Cancel untuk mengedit kembali",
         icon: "warning",
@@ -30,13 +29,13 @@ submitbutton.addEventListener('click', function(){
         confirmButtonColor: "#006633",
         cancelButtonColor: "#6b6767",
         confirmButtonText: "Submit"
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire({
-            title: "Succesed!",
-            text: "Perubahan berhasil disimpan",
-            icon: "success"
-          });
+            Swal.fire({
+                title: "Succesed!",
+                text: "Perubahan berhasil disimpan",
+                icon: "success"
+            });
         }
-      });
+    });
 });
