@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KataKunciTulisan;
 use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Prodi;
@@ -10,8 +11,10 @@ use App\Models\Mahasiswa;
 use App\Models\BidangIlmu;
 use App\Models\KaryaTulis;
 use App\Models\JenisTulisan;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
@@ -43,8 +46,79 @@ class AdminController extends Controller {
         return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'mahasiswas', 'dosens'));
     }
     public function storeKaryaTulis(Request $request){
-        dd($request->request);
+        if($request->nim_nidn == NULL){
+            return back()->with('failed', 'pilih paling tidak satu kolaborator');
+        }
+        // dd($request->request);
+        $kolaboratorp = [];
+        $kuncip = [];
+
+        for ($i = 0; $i < count($request->kunci); $i++) {
+            $kuncip[] = [
+                'kunci' => $request->kunci[$i],
+            ];
+        }
+        for ($i = 0; $i < count($request->nim_nidn); $i++) {
+            $kolaboratorp[] = [
+                'nim_nidn' => $request->nim_nidn[$i],
+                'tingkatan' => $request->tingkatan[$i],
+                'status' => $request->status[$i],
+            ];
+        }
+        $kolab = json_encode($kolaboratorp);
+        $kunci = json_encode($kuncip);
+        $admin = Auth::user()->username;
+
+        // dd($kolab);
+        $request->validate([
+            'judul' => ['required'],
+            'tahun' => ['required', 'numeric', 'digits:4'],
+            'jenis' => ['required'],
+            'bidang' => ['required'],
+            'kunci' => ['required'],
+            'abstrak' => ['required'],
+            'file' => ['required','file', 'mimes:pdf']
+        ],[
+            'kunci.required' => 'Pilih paling tidak satu kata kunci.',
+        ]);
+
+        if ($request->hasFile('file')) {
+            $location = public_path('/file');
+
+            $namaFile = $request->file('file')->getClientOriginalName();
+            $namaFileBaru = substr(uniqid(), 5, 5);
+            $namaFileBaru .= '_';
+            $namaFileBaru .= $namaFile;
+
+            $request->file('file')->move($location, $namaFileBaru);
+
+            $url_file = $namaFileBaru;
+        }
+        try {
+            DB::select('call createKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $url_file, $request->jenis, $request->tahun, $admin, $kolab, $kunci));
+        } catch (QueryException $th) {
+            $errorMessage = $th->getMessage();
+            return back()->with('failed', 'Terjadi kesalahan karya tulis gagal ditambahkan ');
+        }
+        
+        return back()->with('success', 'Data karya tulis berhasil ditambahkan');
+
     }
+
+    public function editKaryaTulis($id){
+        $karya = KaryaTulis::find($id);
+        $karya_kunci = KataKunciTulisan::where('karya_id', $id)->get();
+
+        $bidangs = BidangIlmu::all();
+        $kuncis = KataKunci::all();
+        $jeniss = JenisTulisan::all();
+        $mahasiswas = Mahasiswa::all();
+        $dosens = Dosen::all();
+        // dd($karya_kunci);
+
+        return view('admin.edit-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'mahasiswas', 'dosens', 'karya', 'karya_kunci'));
+    }
+
 
     public function showJenisTulisan(){
         $kategoris = JenisTulisan::oldest()->paginate(20);
@@ -89,6 +163,7 @@ class AdminController extends Controller {
         return redirect()->route('jenis.tulisan.kelola')->with('success', 'Jenis tulisan berhasil diubah');
     }
 
+ 
     public function showMahasiswa(){
         $mahasiswas = Mahasiswa::orderBy('nama')->paginate(10);
         $prodis = Prodi::all();

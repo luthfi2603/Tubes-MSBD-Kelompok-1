@@ -48,9 +48,9 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/input-karya-tulis', [AdminController::class, 'createKaryaTulis'])
         ->name('karya.tulis.input');
     Route::post('/input-karya-tulis', [AdminController::class, 'storeKaryaTulis']);
-    Route::get('/edit-karya-tulis', function () {   
-        return view('admin.edit-karya-tulis');
-    })->name('edit.karya.tulis');
+    Route::get('/edit-karya-tulis/{id}', [AdminController::class, 'editKaryaTulis'])
+                ->name('edit.karya.tulis');
+
     Route::get('/get-mahasiswa-dan-dosen', [AdminController::class, 'getMahasiswaDanDosen']);
 
     Route::get('/kelola-jenis-tulisan', [AdminController::class, 'showJenisTulisan'])

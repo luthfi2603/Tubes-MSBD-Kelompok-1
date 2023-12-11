@@ -64,7 +64,7 @@
                     </td>
                     <td class="file">{{ $karya->url_file }}</td>
                     <td>
-                        <a href="{{ route('edit.karya.tulis') }}"><i class="fa-solid fa-pen icon-edit"></i></a>
+                        <a href="{{ route('edit.karya.tulis', ['id' => $karya->id]) }}"><i class="fa-solid fa-pen icon-edit"></i></a>
                         <a href="#" id="deletekaryatulis"><i class="fa-solid fa-trash icon-delete"></i></a>
                     </td>
                 </tr>
