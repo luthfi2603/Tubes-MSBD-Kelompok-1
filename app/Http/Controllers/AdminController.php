@@ -448,8 +448,8 @@ class AdminController extends Controller {
     }
     
     public function getMahasiswaDanDosen(){
-        $mahasiswas = Mahasiswa::all();
-        $dosens = Dosen::all();
+        $mahasiswas = Mahasiswa::orderBy('nama')->get();
+        $dosens = Dosen::orderBy('nama')->get();
 
         return response()->json(['mahasiswas' => $mahasiswas, 'dosens' => $dosens]);
     }
