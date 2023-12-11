@@ -47,8 +47,8 @@
             <div class="col-lg-10 mb-4">
                 <button onclick="buatKolaborator()" type="button" class="btn btn-success" style="margin-left: 30px !important"> + Kolaborator</button>
             </div>
-            <div class="row" id="tambah-kolaborator">
-            </div>
+            <!-- tempat menambahkan kolaborator -->
+            <div class="row" id="tambah-kolaborator"></div>
             <div class="inputan mb-3">
                 <label for="kategori" class="form-label">Kata Kunci</label>
                 <select class="form-select custom-form" aria-label="Default select example" id="kunci" name="kunci[]" multiple="multiple">

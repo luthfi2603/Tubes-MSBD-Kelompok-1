@@ -97,8 +97,6 @@ function deleteKataKunci($kataKunci){
     });
 }
 
-let i = 1;
-
 function buatKolaborator0(){
     const divId = document.createElement('div');
     divId.classList.add('col-lg-4');
@@ -134,6 +132,8 @@ function buatKolaborator0(){
     i++;
 }
 
+let i = 1;
+
 async function buatKolaborator() {
     const response = await fetch('/get-mahasiswa-dan-dosen');
     const data = await response.json();
@@ -143,7 +143,7 @@ async function buatKolaborator() {
     const divId = document.createElement('div');
     divId.classList.add('col-lg-4');
     divId.setAttribute('id', `penulis-${i}`);
-    divId.innerHTML = `<fieldset class="border border-dark rounded p-1 mb-4"><legend style="margin-left: 15px !important">Kolaborator &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fa-solid fa-xmark" style="cursor: pointer" onclick="deleteKolaborator(${i})"></i></legend><div class="inputan-form"><div class="mb-3"><label for="kategori" class="form-label">Masukkan Nama</label><select class="form-select custom-form" aria-label="Default select example" id="nim_nidn" name="nim_nidn[]"><option value="" selected>Pilih Nama</option></select></div><div class="mb-3"><label for="kategori" class="form-label">Tingkatan</label><select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="tingkatan[]"><option value="" selected>Pilih Tingkatan</option><option value="1">Mahasiswa</option><option value="2">Dosen</option></select></div><div class="mb-3"><label for="kategori" class="form-label">Status</label><select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="status[]"><option value="" selected>Pilih Status</option><option value="1">Penulis</option><option value="2">Pembimbing</option><option value="3">Kontributor</option></select></div></div></fieldset>`;
+    divId.innerHTML = `<fieldset class="border border-dark rounded p-1 mb-4"><legend style="margin-left: 15px !important">Kolaborator<i class="fa-solid fa-xmark" style="cursor: pointer; position: relative; left: 45.4%" onclick="deleteKolaborator(${i})"></i></legend><div class="inputan-form"><div class="mb-3"><label for="kategori" class="form-label">Masukkan Nama</label><select class="form-select custom-form" aria-label="Default select example" id="nim_nidn" name="nim_nidn[]"><option value="" selected>Pilih Nama</option></select></div><div class="mb-3"><label for="kategori" class="form-label">Tingkatan</label><select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="tingkatan[]"><option value="" selected>Pilih Tingkatan</option><option value="1">Mahasiswa</option><option value="2">Dosen</option></select></div><div class="mb-3"><label for="kategori" class="form-label">Status</label><select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="status[]"><option value="" selected>Pilih Status</option><option value="1">Penulis</option><option value="2">Pembimbing</option><option value="3">Kontributor</option></select></div></div></fieldset>`;
 
     const selectNimNidn = divId.querySelector('#nim_nidn');
 
