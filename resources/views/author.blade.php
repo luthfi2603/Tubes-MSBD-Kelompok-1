@@ -56,77 +56,69 @@
         <div class="col-lg-3 order-1 order-lg-last mb-5">
             <div class="cardfilter" style="border: 2px solid rgba(0, 0, 0, 0.185);">
                 <div class="card-body">
-                    <div class="row mb-2 d-flex align-items-center">
-                        <div class="col-lg-2">
-                        <label class="text-dec" style="font-weight: 600;">Sort</label>
-                        </div>
-                        <div class="col-lg-10">
-                        <select class="form-control" style="border-radius: 6px;" id="sort">
-                            <option value="" style="font-weight: 500;">Yang Terbaru</option>
-                            <option value="" style="font-weight: 500;">Yang Terlama</option>
-                        </select>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-dec mb-1" style="font-weight: 600;">Dari Tahun</label>
-                                <input type="number" class="form-control" id="tahun_awal" placeholder="Tahun">
+                    <form action="{{ route('author', $author )}}" method="get">
+                        @php
+                            $jenis_tulisan = $jenis_tulisan ?? [];
+                            $program_studi = $program_studi ?? [];
+                            $bidang_ilmu = $bidang_ilmu ?? [];
+                        @endphp
+                        <div class="row mb-2 d-flex align-items-center">
+                            <div class="col-lg-2">
+                                <label class="text-dec" style="font-weight: 600;">Sort</label>
+                            </div>
+                            <div class="col-lg-10">
+                                <select class="form-control" name="sort" style="border-radius: 6px;" id="sort">
+                                    <option value="DESC" style="font-weight: 500;" {{ $sort==='DESC' ? 'selected' : '' }}>Yang Terbaru</option>
+                                    <option value="ASC" style="font-weight: 500;" {{ $sort==='ASC' ? 'selected' : '' }}>Yang Terlama</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-dec mb-1" style="font-weight: 600;">Hingga</label>
-                                <input type="number" class="form-control" id="tahun_akhir" placeholder="Tahun">
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-dec mb-1" style="font-weight: 600;">Dari Tahun</label>
+                                    <input type="number" name="tahunawal" class="form-control" id="tahun_awal" placeholder="Tahun" value="{{ request()->is('adv-search-page') ? $tahunawal : '' }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-dec mb-1" style="font-weight: 600;">Hingga</label>
+                                    <input type="number" name="tahunakhir" class="form-control" id="tahun_akhir" placeholder="Tahun" value="{{ request()->is('adv-search-page') ? $tahunakhir : '' }}">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group mb-2">
-                        <label class="text-dec mb-1" style="font-weight: 600;">Jenis Koleksi</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="jenis_skripsi" value="skripsi">
-                            <label class="form-check-label" for="jenis_skripsi">Skripsi</label>
+                        <div class="form-group mb-2">
+                            <label class="text-dec mb-1" style="font-weight: 600;">Jenis Koleksi</label>
+                            @foreach ($jenisTulisans as $jenisTulisan)
+                            <div class="form-check">
+                                <input class="form-check-input" name="jenis_tulisan[]" type="checkbox" id="{{ $jenisTulisan->jenis_tulisan }}" value="{{ $jenisTulisan->jenis_tulisan }}" {{ in_array($jenisTulisan->jenis_tulisan, $jenis_tulisan) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="{{ $jenisTulisan->jenis_tulisan }}">{{ $jenisTulisan->jenis_tulisan }}</label>
+                            </div>
+                            @endforeach
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="jenis_tesis" value="tesis">
-                            <label class="form-check-label" for="jenis_tesis">Tesis</label>
+                        <div class="form-group mb-1">
+                            <label class="text-dec mb-1" style="font-weight: 600;">Program Studi</label>
+                            @foreach ($prodis as $prodi)
+                            <div class="form-check">
+                                <input class="form-check-input" name="prodi[]" type="checkbox" id="{{ $prodi->jenjang }}_{{ $prodi->nama_prodi }}" value="{{ $prodi->kode_prodi }}" {{ in_array($prodi->kode_prodi, $program_studi) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="{{ $prodi->jenjang }}_{{ $prodi->nama_prodi }}">{{ $prodi->jenjang }} {{ $prodi->nama_prodi }}</label>
+                            </div>
+                            @endforeach
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="jenis_disertasi" value="disertasi">
-                            <label class="form-check-label" for="jenis_disertasi">Disertasi</label>
+                        <div class="form-group mb-1">
+                            <label class="text-dec mb-1" style="font-weight: 600;">Bidang Ilmu</label>
+                            @foreach ($bidIlmus as $bidIlmu)
+                            <div class="form-check">
+                                <input class="form-check-input" name="bidang_ilmu[]" type="checkbox" id="{{ $bidIlmu->jenis_bidang_ilmu }}" value="{{ $bidIlmu->jenis_bidang_ilmu }}" {{in_array($bidIlmu->jenis_bidang_ilmu, $bidang_ilmu) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="{{ $bidIlmu->jenis_bidang_ilmu }}">{{ $bidIlmu->jenis_bidang_ilmu }}</label>
+                            </div>
+                            @endforeach
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="jenis_jurnal" value="jurnal">
-                            <label class="form-check-label" for="jenis_jurnal">Jurnal</label>
+                        <hr>
+                        <div class="form-group mb-1 d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Filter</button>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="jenis_karya_tulis_ilmiah" value="karya_tulis_ilmiah">
-                            <label class="form-check-label" for="jenis_karya_tulis_ilmiah">Karya Tulis Ilmiah</label>
-                        </div>
-                    </div>
-                    <div class="form-group mb-1">
-                        <label class="text-dec mb-1" style="font-weight: 600;">Program Studi</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="prodi_ilmu_komputer" value="51">
-                            <label class="form-check-label" for="s1_prodi_ilmu_komputer"> S1 Ilmu Komputer</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="prodi_teknologi_informasi" value="52">
-                            <label class="form-check-label" for="s1_prodi_teknologi_informasi"> S1 Teknologi Informasi</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="prodi_ilmu_komputer" value="51">
-                            <label class="form-check-label" for="s2_prodi_ilmu_komputer"> S2 Sains Data dan Kecerdasan Buatan</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="prodi_teknologi_informasi" value="52">
-                            <label class="form-check-label" for="s2_prodi_teknologi_informasi"> S2 Teknik Informatika</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="prodi_ilmu_komputer" value="51">
-                            <label class="form-check-label" for="s3_prodi_ilmu_komputer"> S2 Ilmu Komputer</label>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
