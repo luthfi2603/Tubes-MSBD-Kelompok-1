@@ -49,7 +49,9 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
         ->name('karya.tulis.input');
     Route::post('/input-karya-tulis', [AdminController::class, 'storeKaryaTulis']);
     Route::get('/edit-karya-tulis/{id}', [AdminController::class, 'editKaryaTulis'])
-                ->name('edit.karya.tulis');
+        ->name('karya.tulis.edit');
+    Route::delete('/kelola-karya-tulis/{karya}', [AdminController::class, 'destroyKaryaTulis'])
+        ->name('karya.tulis.delete');
 
     Route::get('/get-mahasiswa-dan-dosen', [AdminController::class, 'getMahasiswaDanDosen']);
 

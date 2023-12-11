@@ -82,15 +82,33 @@
             </div>
             <div class="col-lg-10 mb-4">
                 <button onclick="buatKolaborator()" type="button" class="btn btn-success" style="margin-left: 30px !important"> + Kolaborator</button>
+                @error('nim_nidn')
+                    <div style="color: #dc3545; font-size: 87%; margin-top: 5px; margin-left: 30px">
+                        Pilih minimal satu kolaborator
+                    </div>
+                @enderror
             </div>
             <!-- tempat menambahkan kolaborator -->
             <div class="row" id="tambah-kolaborator"></div>
             <div class="inputan mb-3">
                 <label for="kategori" class="form-label">Kata Kunci</label>
                 <select class="form-select custom-form @error('kunci') is-invalid @enderror" aria-label="Default select example" id="kunci" name="kunci[]" multiple="multiple">
-                    @foreach ($kuncis as $kunci)
-                        <option value="{{ $kunci->kata_kunci }}" {{ old('kunci') === $kunci->kata_kunci ? 'selected' : '' }}>{{ $kunci->kata_kunci }}</option>
-                    @endforeach
+                    @if(old('kunci') !== NULL)
+                        @foreach ($kuncis as $kunci)
+                            <option value="{{ $kunci->kata_kunci }}" 
+                                @foreach (old('kunci') as $kakun)
+                                    {{ $kakun === $kunci->kata_kunci ? 'selected' : '' }}
+                                @endforeach>
+                                {{ $kunci->kata_kunci }}
+                            </option>
+                        @endforeach
+                    @else
+                        @foreach ($kuncis as $kunci)
+                            <option value="{{ $kunci->kata_kunci }}">
+                                {{ $kunci->kata_kunci }}
+                            </option>
+                        @endforeach
+                    @endif
                 </select>
                 @error('kunci')
                     <div class="invalid-feedback">

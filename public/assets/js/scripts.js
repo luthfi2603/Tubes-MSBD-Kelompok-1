@@ -54,6 +54,46 @@ function deleteUser($id){
     });
 }
 
+function deleteKaryaTulis($id){
+    Swal.fire({
+        title: "Hapus Karya Tulis",
+        text: "Apakah anda yakin untuk menghapus karya tulis ini?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Hapus Karya Tulis",
+                text: "Jika anda benar-benar ingin menhapus karya tulis ini, maka karya tulis tersebut tidak dapat dikembalikan jika sudah dihapus!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#D80032",
+                cancelButtonColor: "#006633",
+                confirmButtonText: "Delete"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Hapus Karya Tulis",
+                        text: "Apakah anda benar-benar yakin?!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#D80032",
+                        cancelButtonColor: "#006633",
+                        confirmButtonText: "Delete"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById(`form-delete-${$id}`).submit();
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
 function deleteKataKunci($kataKunci){
     Swal.fire({
         title: "Hapus Kata Kunci",
@@ -72,7 +112,7 @@ function deleteKataKunci($kataKunci){
 
 let i = 1;
 
-async function buatKolaborator() {
+async function buatKolaborator(){
     const response = await fetch('/get-mahasiswa-dan-dosen');
     const data = await response.json();
     const mahasiswas = data.mahasiswas;
