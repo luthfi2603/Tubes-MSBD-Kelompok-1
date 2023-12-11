@@ -4,8 +4,7 @@
 <div class="container">
     <div class="col-lg-12 pt-3">
         <h6>
-            <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><a href="{{ route('search') }}">Hasil
-                Pencarian</a>
+            <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><a href="{{ route('search') }}">Hasil Pencarian</a>
         </h6>
         <hr class="mt-0">
     </div>
@@ -18,33 +17,23 @@
                 <div class="col-lg-4 mb-5">
                     <div class="cardfilter" style="border: 2px solid rgba(0, 0, 0, 0.187);">
                         <div class="card-body">
-                            <form
-                                action="{{ request()->is('adv-search-page') ? route('advanced.search') : route('search') }}"
-                                method="get">
+                            <form action="{{ request()->is('adv-search-page') ? route('advanced.search') : route('search') }}" method="get" id="filter">
                                 @if(request()->is('search-page'))
-                                <input type="hidden" name="search" value="{{ $search }}">
+                                    <input type="hidden" name="search" value="{{ $search }}">
                                 @elseif(request()->is('adv-search-page'))
-                                <input type="hidden" name="search1"
-                                    value="{{ request()->is('adv-search-page') ? $search1 : '' }}">
-                                <input type="hidden" name="search2"
-                                    value="{{ request()->is('adv-search-page') ? $search2 : '' }}">
-                                <input type="hidden" name="search3"
-                                    value="{{ request()->is('adv-search-page') ? $search3 : '' }}">
-                                <input type="hidden" name="select1"
-                                    value="{{ request()->is('adv-search-page') ? $select1 : '' }}">
-                                <input type="hidden" name="select2"
-                                    value="{{ request()->is('adv-search-page') ? $select2 : '' }}">
-                                <input type="hidden" name="select3"
-                                    value="{{ request()->is('adv-search-page') ? $select3 : '' }}">
-                                <input type="hidden" name="query1"
-                                    value="{{ request()->is('adv-search-page') ? $query1 : '' }}">
-                                <input type="hidden" name="query2"
-                                    value="{{ request()->is('adv-search-page') ? $query2 : '' }}">
+                                    <input type="hidden" name="search1" value="{{ request()->is('adv-search-page') ? $search1 : '' }}">
+                                    <input type="hidden" name="search2" value="{{ request()->is('adv-search-page') ? $search2 : '' }}">
+                                    <input type="hidden" name="search3" value="{{ request()->is('adv-search-page') ? $search3 : '' }}">
+                                    <input type="hidden" name="select1" value="{{ request()->is('adv-search-page') ? $select1 : '' }}">
+                                    <input type="hidden" name="select2" value="{{ request()->is('adv-search-page') ? $select2 : '' }}">
+                                    <input type="hidden" name="select3" value="{{ request()->is('adv-search-page') ? $select3 : '' }}">
+                                    <input type="hidden" name="query1" value="{{ request()->is('adv-search-page') ? $query1 : '' }}">
+                                    <input type="hidden" name="query2" value="{{ request()->is('adv-search-page') ? $query2 : '' }}">
                                 @endif
                                 @php
-                                $jenis_tulisan = $jenis_tulisan ?? [];
-                                $program_studi = $program_studi ?? [];
-                                $bidang_ilmu = $bidang_ilmu ?? [];
+                                    $jenis_tulisan = $jenis_tulisan ?? [];
+                                    $program_studi = $program_studi ?? [];
+                                    $bidang_ilmu = $bidang_ilmu ?? [];
                                 @endphp
                                 <div class="row mb-2 d-flex align-items-center">
                                     <div class="col-lg-2">
@@ -52,10 +41,8 @@
                                     </div>
                                     <div class="col-lg-10">
                                         <select class="form-control" name="sort" style="border-radius: 6px;" id="sort">
-                                            <option value="DESC" style="font-weight: 500;" {{ $sort==='DESC'
-                                                ? 'selected' : '' }}>Yang Terbaru</option>
-                                            <option value="ASC" style="font-weight: 500;" {{ $sort==='ASC' ? 'selected'
-                                                : '' }}>Yang Terlama</option>
+                                            <option value="DESC" style="font-weight: 500;" {{ $sort==='DESC' ? 'selected' : '' }}>Yang Terbaru</option>
+                                            <option value="ASC" style="font-weight: 500;" {{ $sort==='ASC' ? 'selected' : '' }}>Yang Terlama</option>
                                         </select>
                                     </div>
                                 </div>
@@ -63,17 +50,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="text-dec mb-1" style="font-weight: 600;">Dari Tahun</label>
-                                            <input type="number" name="tahunawal" class="form-control" id="tahun_awal"
-                                                placeholder="Tahun"
-                                                value="{{ request()->is('adv-search-page') ? $tahunawal : '' }}">
+                                            <input type="number" name="tahunawal" min="0" class="form-control" id="tahun_awal" placeholder="Tahun" value="{{ $tahunawal }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="text-dec mb-1" style="font-weight: 600;">Hingga</label>
-                                            <input type="number" name="tahunakhir" class="form-control" id="tahun_akhir"
-                                                placeholder="Tahun"
-                                                value="{{ request()->is('adv-search-page') ? $tahunakhir : '' }}">
+                                            <input type="number" name="tahunakhir" min="0" class="form-control" id="tahun_akhir" placeholder="Tahun" value="{{ $tahunakhir }}">
                                         </div>
                                     </div>
                                 </div>
@@ -81,12 +64,8 @@
                                     <label class="text-dec mb-1" style="font-weight: 600;">Jenis Koleksi</label>
                                     @foreach ($jenisTulisans as $jenisTulisan)
                                     <div class="form-check">
-                                        <input class="form-check-input" name="jenis_tulisan[]" type="checkbox"
-                                            id="{{ $jenisTulisan->jenis_tulisan }}"
-                                            value="{{ $jenisTulisan->jenis_tulisan }}" {{
-                                            in_array($jenisTulisan->jenis_tulisan, $jenis_tulisan) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="{{ $jenisTulisan->jenis_tulisan }}">{{
-                                            $jenisTulisan->jenis_tulisan }}</label>
+                                        <input class="form-check-input" name="jenis_tulisan[]" type="checkbox" id="{{ $jenisTulisan->jenis_tulisan }}" value="{{ $jenisTulisan->jenis_tulisan }}" {{ in_array($jenisTulisan->jenis_tulisan, $jenis_tulisan) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="{{ $jenisTulisan->jenis_tulisan }}">{{ $jenisTulisan->jenis_tulisan }}</label>
                                     </div>
                                     @endforeach
                                 </div>
@@ -94,15 +73,8 @@
                                     <label class="text-dec mb-1" style="font-weight: 600;">Program Studi</label>
                                     @foreach ($prodis as $prodi)
                                     <div class="form-check">
-                                        <input class="form-check-input" name="prodi[]" type="checkbox"
-                                            id="{{ $prodi->jenjang }}_{{ $prodi->nama_prodi }}"
-                                            value="{{ $prodi->kode_prodi }}" {{ in_array($prodi->kode_prodi,
-                                        $program_studi) ?
-                                        'checked' : '' }}>
-                                        <label class="form-check-label"
-                                            for="{{ $prodi->jenjang }}_{{ $prodi->nama_prodi }}">{{ $prodi->jenjang }}
-                                            {{
-                                            $prodi->nama_prodi }}</label>
+                                        <input class="form-check-input" name="prodi[]" type="checkbox" id="{{ $prodi->jenjang }}_{{ $prodi->nama_prodi }}" value="{{ $prodi->kode_prodi }}" {{ in_array($prodi->kode_prodi, $program_studi) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="{{ $prodi->jenjang }}_{{ $prodi->nama_prodi }}">{{ $prodi->jenjang }} {{ $prodi->nama_prodi }}</label>
                                     </div>
                                     @endforeach
                                 </div>
@@ -110,12 +82,8 @@
                                     <label class="text-dec mb-1" style="font-weight: 600;">Bidang Ilmu</label>
                                     @foreach ($bidIlmus as $bidIlmu)
                                     <div class="form-check">
-                                        <input class="form-check-input" name="bidang_ilmu[]" type="checkbox"
-                                            id="{{ $bidIlmu->jenis_bidang_ilmu }}"
-                                            value="{{ $bidIlmu->jenis_bidang_ilmu }}" {{
-                                            in_array($bidIlmu->jenis_bidang_ilmu, $bidang_ilmu) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="{{ $bidIlmu->jenis_bidang_ilmu }}">{{
-                                            $bidIlmu->jenis_bidang_ilmu }}</label>
+                                        <input class="form-check-input" name="bidang_ilmu[]" type="checkbox" id="{{ $bidIlmu->jenis_bidang_ilmu }}" value="{{ $bidIlmu->jenis_bidang_ilmu }}" {{ in_array($bidIlmu->jenis_bidang_ilmu, $bidang_ilmu) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="{{ $bidIlmu->jenis_bidang_ilmu }}">{{ $bidIlmu->jenis_bidang_ilmu }}</label>
                                     </div>
                                     @endforeach
                                 </div>
@@ -124,6 +92,32 @@
                                     <button type="submit" class="btn btn-primary">Filter</button>
                                 </div>
                             </form>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    var form = document.getElementById("filter");
+                            
+                                    form.addEventListener("submit", function (event) {
+                                        var tahunAwalInput = document.getElementById("tahun_awal");
+                                        var tahunAkhirInput = document.getElementById("tahun_akhir");
+                            
+                                        var tahunAwal = parseInt(tahunAwalInput.value, 10);
+                                        var tahunAkhir = parseInt(tahunAkhirInput.value, 10);
+                            
+                                        if (tahunAwal >= tahunAkhir) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Oops...',
+                                                text: 'Tahun Akhir harus lebih besar dari Tahun Awal',
+                                            });
+                            
+                                            tahunAwalInput.value = "";
+                                            tahunAkhirInput.value = "";
+                            
+                                            event.preventDefault();
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -144,9 +138,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title textit"><a
-                                                href="{{ route('detail.karya.tulis', $result->id) }}">{{ $result->judul
-                                                }}</a></h5>
+                                        <h5 class="card-title textit"><a href="{{ route('detail.karya.tulis', $result->id) }}">{{ $result->judul }}</a></h5>
                                         <p class="text-muted">
                                             <small class="text-body-secondary">
                                                 @php
