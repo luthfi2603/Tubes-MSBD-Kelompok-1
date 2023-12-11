@@ -88,7 +88,7 @@ return new class extends Migration
             END
         ');
 
-        DB::unprepared('
+        DB::unprepared("
             DROP PROCEDURE IF EXISTS createKaryaTulis;
             CREATE PROCEDURE createKaryaTulis(
                 IN judulp varchar(500),
@@ -97,14 +97,68 @@ return new class extends Migration
                 url_filep varchar(255),
                 jenisp varchar(255),
                 tahunp varchar(255),
-                diupload_olehp varchar(255),
-                kunci JSON,
-                nim_nip JSON
+                uploadp varchar(255),
+                kolabp JSON,
+                kuncip JSON
             )
             BEGIN
-                
+                DECLARE i INT DEFAULT 0;
+                DECLARE j INT DEFAULT 0;
+                DECLARE kuncit VARCHAR(255);
+                DECLARE karya_idt INT;
+                DECLARE nim_nidnt char(10);
+                DECLARE tingkatant INT;
+                DECLARE statust VARCHAR(50);
+                DECLARE id_temp INT;
+
+                DECLARE EXIT HANDLER FOR SQLEXCEPTION
+                BEGIN
+                    ROLLBACK;
+                    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'error';
+                END;
+
+                START TRANSACTION;
+            
+                CREATE TEMPORARY TABLE temp_kunci (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    karya_id INT,
+                    kunci VARCHAR(255)
+                );
+                CREATE TEMPORARY TABLE temp_kolab (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    nim_nidn char(10),
+                    status VARCHAR(50),
+                    karya_id INT,
+                    tingkat INT
+                );
+            
+                INSERT INTO karya_tulis (judul, abstrak, bidang_ilmu, url_file, jenis, tahun, view, diupload_oleh, created_at, updated_at) VALUES(judulp, abstrakp, bidang_ilmup, url_filep, jenisp, tahunp, 0, uploadp, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+                SELECT LAST_INSERT_ID() INTO id_temp;
+            
+                WHILE i < JSON_LENGTH(kuncip) DO
+                    SET kuncit = JSON_UNQUOTE(JSON_EXTRACT(kuncip, CONCAT('$[', i, '].kunci')));
+            
+                    INSERT INTO temp_kunci (karya_id, kunci) VALUES (id_temp, kuncit);
+                    SET i = i + 1;
+                END WHILE;
+                INSERT INTO kata_kunci_tulisans (karya_id, kata_kunci) SELECT karya_id, kunci FROM temp_kunci;
+                DROP TEMPORARY TABLE IF EXISTS temp_kunci;
+  
+                WHILE j < JSON_LENGTH(kolabp) DO
+                    SET nim_nidnt = JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].nim_nidn')));
+                    SET tingkatant = CAST(JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].tingkatan'))) AS SIGNED);
+                    SET statust = JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].status')));
+            
+                    INSERT INTO temp_kolab (nim_nidn, status ,karya_id, tingkat) VALUES (nim_nidnt, statust ,id_temp, tingkatant);
+                    SET j = j + 1;
+                END WHILE;
+                INSERT INTO kontributor_mahasiswas (nim, status, karya_id) SELECT nim_nidn, status, karya_id FROM temp_kolab WHERE tingkat = 1;
+                INSERT INTO kontributor_dosens (nidn, status, karya_id) SELECT nim_nidn, status, karya_id FROM temp_kolab WHERE tingkat = 2;
+                DROP TEMPORARY TABLE IF EXISTS temp_kolab;
+
+                COMMIT;
             END 
-        ');
+        ");
 
         DB::unprepared('
             DROP VIEW IF EXISTS view_profile_mahasiswa;
