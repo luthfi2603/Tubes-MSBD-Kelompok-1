@@ -36,7 +36,7 @@ class AdminController extends Controller {
     public function createKaryaTulis(){
         $bidangs = BidangIlmu::all();
         $kuncis = KataKunci::all();
-        $jeniss = JenisTulisan::all();
+        $jeniss = JenisTulisan::orderBy('jenis_tulisan')->get();
         $mahasiswas = Mahasiswa::all();
         $dosens = Dosen::all();
 

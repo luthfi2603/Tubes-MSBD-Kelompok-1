@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
