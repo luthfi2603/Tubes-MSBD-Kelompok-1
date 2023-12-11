@@ -10,10 +10,13 @@ use App\Models\KaryaTulis;
 use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
-class ViewController extends Controller {
-    public function index(){
+class ViewController extends Controller
+{
+    public function index()
+    {
         session()->forget('wasRefreshed');
         if (auth()->user()) {
             if (auth()->user()->email_verified_at == NULL) {
@@ -33,7 +36,8 @@ class ViewController extends Controller {
         return view('index', compact('jenisTulisans', 'prodis', 'karyas', 'penuliss'));
     }
 
-    public function detailKaryaTulis(Request $request, $id){
+    public function detailKaryaTulis(Request $request, $id)
+    {
         $targetPage = '/detail-karya-tulis/' . $id;
 
         $wasRefreshed = Session::get('wasRefreshed', []);
@@ -46,17 +50,17 @@ class ViewController extends Controller {
                 ->view;
             $view += 1;
             KaryaTulis::where('id', $id)->update(['view' => $view]);
-            
+
             $wasRefreshed[] = $targetPage;
             Session::put('wasRefreshed', $wasRefreshed);
         }
 
-        if(auth()->user()){
+        if (auth()->user()) {
             $isLiked = Favorite::where('user_id', auth()->user()->id)
                 ->where('karya_id', $id)
                 ->get()
                 ->isEmpty();
-        }else{
+        } else {
             $isLiked = true;
         }
 
@@ -101,14 +105,16 @@ class ViewController extends Controller {
         return view('detail-karya-tulis', compact('detail', 'kataKunci', 'penulis', 'pembimbing', 'kontributor', 'isLiked'));
     }
 
-    public function showEBook(){
+    public function showEBook()
+    {
         session()->forget('wasRefreshed');
         $ebooks = Ebook::paginate(5);
 
         return view('e-book', compact('ebooks'));
     }
 
-    public function detailEBook($id){
+    public function detailEBook($id)
+    {
         $targetPage = '/detail-e-book/' . $id;
 
         $wasRefreshed = Session::get('wasRefreshed', []);
@@ -131,7 +137,8 @@ class ViewController extends Controller {
         return view('detail-e-book', compact('ebook'));
     }
 
-    public function showByKoleksi($jenisTulisan){
+    public function showByKoleksi($jenisTulisan)
+    {
         session()->forget('wasRefreshed');
         $karyas = KaryaTulis::where('jenis', $jenisTulisan)->paginate(5);
 
@@ -144,28 +151,30 @@ class ViewController extends Controller {
         return view('koleksi', compact('karyas', 'penuliss', 'jenisTulisan'));
     }
 
-    public function showByProdi($prodi){
+    public function showByProdi($prodi)
+    {
         session()->forget('wasRefreshed');
         $karyaIds = DB::table('view_karya_tulis')
             ->select('id')
             ->where('kode_prodi', $prodi)
             ->groupBy('id')
             ->pluck('id');
-    
+
         $karyas = KaryaTulis::whereIn('id', $karyaIds)->paginate(5);
-    
+
         $penuliss = DB::table('view_karya_tulis')
             ->select('kontributor', 'id')
             ->where('status', 'penulis')
             ->groupBy('kontributor', 'id')
             ->get();
-    
+
         $prodi = Prodi::where('kode_prodi', $prodi)->first()->nama_prodi;
-    
+
         return view('prodi', compact('karyas', 'prodi', 'penuliss'));
     }
 
-    public function showByAuthor($author){
+    public function showByAuthor($author)
+    {
         session()->forget('wasRefreshed');
         $karyaIds = DB::table('view_karya_tulis')
             ->select('id')
@@ -185,7 +194,8 @@ class ViewController extends Controller {
         return view('author', compact('karyas', 'author', 'penuliss'));
     }
 
-    public function viewAdvSearch(Request $request){
+    public function viewAdvSearch(Request $request)
+    {
         session()->forget('wasRefreshed');
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
@@ -210,13 +220,19 @@ class ViewController extends Controller {
         $tahunawal = $request->input('tahunawal');
         $tahunakhir = $request->input('tahunakhir');
 
+        $sort = $request->input('sort');
+
+        $jenis_tulisan = $request->input('jenis_tulisan');
+        $program_studi = $request->input('prodi');
+        $bidang_ilmu = $request->input('bidang_ilmu');
+
         $resultIds = DB::table('view_karya_tulis')
             ->select('id')
-            ->where(function ($query) use ($select1, $search1, $select2, $search2, $select3, $search3, $query1, $query2) {
+            ->where(function ($query) use ($select1, $search1, $select2, $search2, $select3, $search3, $query1, $query2, $tahunawal, $tahunakhir, $jenis_tulisan, $program_studi, $bidang_ilmu) {
+                // Kondisi pencarian utama
                 $query->where($select1, 'LIKE', '%' . $search1 . '%')
                     ->where('status', '=', 'penulis');
 
-                // Menggunakan $query1
                 if ($query1 === 'OR') {
                     if (!empty($select2) || !empty($search2) || !empty($select3) || !empty($search3) || !empty($query2)) {
                         $query->orWhere(function ($subquery) use ($select2, $search2, $select3, $search3, $query2) {
@@ -235,22 +251,46 @@ class ViewController extends Controller {
                             ->where($select3, 'LIKE', '%' . $search3 . '%', $query2);
                     }
                 }
+
+                // Kondisi untuk tahun
+                if (!empty($tahunawal) && !empty($tahunakhir)) {
+                    $query->whereBetween('tahun', [$tahunawal, $tahunakhir]);
+                }
+
+                // Kondisi untuk jenis tulisan, prodi, dan bidang ilmu
+                if (!empty($jenis_tulisan)) {
+                    $query->whereIn('jenis', $jenis_tulisan);
+                }
+
+                if (!empty($program_studi)) {
+                    $query->whereIn('kode_prodi', $program_studi);
+                }
+
+                if (!empty($bidang_ilmu)) {
+                    $query->whereIn('bidang_ilmu', $bidang_ilmu);
+                }
             })
-            ->orWhereBetween('tahun', [$tahunawal, $tahunakhir])
             ->groupBy('id')
             ->pluck('id');
 
-        $results = KaryaTulis::whereIn('id', $resultIds)->paginate(5);
 
-        return view('search-page', compact('prodis', 'jenisTulisans',  'penuliss', 'results', 'bidIlmus'));
+        $results = KaryaTulis::whereIn('id', $resultIds)
+            ->when($sort, function ($query) use ($sort) {
+                return $query->orderBy('tahun', $sort);
+            })
+            ->paginate();
+
+        return view('search-page', compact('prodis', 'jenisTulisans',  'penuliss', 'results', 'bidIlmus', 'tahunawal', 'tahunakhir', 'search1', 'search2', 'search3', 'select1', 'select2', 'select3', 'query1', 'query2', 'sort', 'jenis_tulisan', 'program_studi', 'bidang_ilmu'));
     }
 
-    public function showAdvSearch(){
+    public function showAdvSearch()
+    {
         session()->forget('wasRefreshed');
         return view('advanced-search');
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         session()->forget('wasRefreshed');
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::all();
@@ -263,28 +303,63 @@ class ViewController extends Controller {
 
         $search = $request->input('search');
 
+        $sort = $request->input('sort');
+
+        $tahunawal = $request->input('tahunawal');
+        $tahunakhir = $request->input('tahunakhir');
+
+        $jenis_tulisan = $request->input('jenis_tulisan') ?? [];
+        $program_studi = $request->input('prodi') ?? [];
+        $bidang_ilmu = $request->input('bidang_ilmu') ?? [];
+
         $resultIds = DB::table('view_karya_tulis')
             ->select('id')
-            ->orWhere(function ($query) use ($search) {
+            ->where(function ($query) use ($search) {
                 $query->where('judul', 'LIKE', '%' . $search . '%')
                     ->orWhere('kontributor', 'LIKE', '%' . $search . '%')
                     ->orWhere('kata_kunci', 'LIKE', '%' . $search . '%');
+            })
+            ->where(function ($query) use ($jenis_tulisan, $program_studi, $bidang_ilmu, $tahunawal, $tahunakhir) {
+                // Kondisi untuk tahun
+                if (!empty($tahunawal) && !empty($tahunakhir)) {
+                    $query->whereBetween('tahun', [$tahunawal, $tahunakhir]);
+                }
+
+                // Kondisi untuk jenis tulisan, prodi, dan bidang ilmu
+                if (!empty($jenis_tulisan)) {
+                    $query->whereIn('jenis', $jenis_tulisan);
+                }
+
+                if (!empty($program_studi)) {
+                    $query->whereIn('kode_prodi', $program_studi);
+                }
+
+                if (!empty($bidang_ilmu)) {
+                    $query->whereIn('bidang_ilmu', $bidang_ilmu);
+                }
             })
             ->where('status', '=', 'penulis')
             ->groupBy('id')
             ->pluck('id');
 
-        $results = KaryaTulis::whereIn('id', $resultIds)->paginate(5);
+        // dd($resultIds);
 
-        return view('search-page', compact('results', 'prodis', 'jenisTulisans', 'penuliss', 'bidIlmus'));
+        $results = KaryaTulis::whereIn('id', $resultIds)
+            ->when($sort, function ($query) use ($sort) {
+                return $query->orderBy('tahun', $sort);
+            })
+            ->paginate();
+
+        return view('search-page', compact('results', 'prodis', 'jenisTulisans', 'penuliss', 'bidIlmus', 'search', 'sort', 'jenis_tulisan', 'program_studi', 'bidang_ilmu'));
     }
 
-    public function showFavorite(){
+    public function showFavorite()
+    {
         session()->forget('wasRefreshed');
         $karyaIds = Favorite::select('karya_id')
             ->where('user_id', auth()->user()->id)
             ->pluck('karya_id');
-        
+
         $waktu = Favorite::select('karya_id', 'waktu')
             ->where('user_id', auth()->user()->id)
             ->get();
@@ -296,11 +371,12 @@ class ViewController extends Controller {
             ->where('status', 'penulis')
             ->groupBy('kontributor', 'id')
             ->get();
-    
+
         return view('favorite', compact('karyas', 'penuliss', 'waktu'));
     }
 
-    public function storeFavorite(Request $request){
+    public function storeFavorite(Request $request)
+    {
         // session()->forget('wasRefreshed');
         Favorite::create([
             'user_id' => auth()->user()->id,
@@ -310,16 +386,18 @@ class ViewController extends Controller {
         return back()->with('success', 'Berhasil ditambahkan ke favorite');
     }
 
-    public function destroyFavorite(Request $request){
+    public function destroyFavorite(Request $request)
+    {
         // session()->forget('wasRefreshed');
         Favorite::where('user_id', auth()->user()->id)
             ->where('karya_id', $request->karya_id)
             ->delete();
-        
+
         return back()->with('success', 'Berhasil dihapus dari favorite');
     }
 
-    public function statistik(){
+    public function statistik()
+    {
         $mostLikes = DB::table('view_most_like')->paginate(5);
 
         $datas = DB::table('view_statistik')->get();
