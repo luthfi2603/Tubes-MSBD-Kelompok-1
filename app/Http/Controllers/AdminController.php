@@ -15,13 +15,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
-class AdminController extends Controller
-{
+class AdminController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(){
         return view('admin.admin-home');
     }
 
@@ -35,17 +33,17 @@ class AdminController extends Controller
             ->get();
         return view('admin.kelola-karya-tulis', compact('karyas', 'penuliss'));
     }
-    
     public function createKaryaTulis(){
         $bidangs = BidangIlmu::all();
         $kuncis = KataKunci::all();
         $jeniss = JenisTulisan::all();
-        // dd($jeniss);
+        $mahasiswas = Mahasiswa::all();
+        $dosens = Dosen::all();
 
-        return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss'));
+        return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'mahasiswas', 'dosens'));
     }
     public function storeKaryaTulis(Request $request){
-        dd($request);
+        dd($request->request);
     }
 
     public function showJenisTulisan(){
@@ -449,62 +447,10 @@ class AdminController extends Controller
         return back()->with('success', 'Kata kunci berhasil dihapus');
     }
     
+    public function getMahasiswaDanDosen(){
+        $mahasiswas = Mahasiswa::all();
+        $dosens = Dosen::all();
 
-    
-
-
-    
-
-    
-
-    
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json(['mahasiswas' => $mahasiswas, 'dosens' => $dosens]);
     }
 }
