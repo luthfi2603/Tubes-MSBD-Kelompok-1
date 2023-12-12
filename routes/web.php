@@ -50,6 +50,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::post('/input-karya-tulis', [AdminController::class, 'storeKaryaTulis']);
     Route::get('/edit-karya-tulis/{id}', [AdminController::class, 'editKaryaTulis'])
         ->name('karya.tulis.edit');
+    Route::put('/edit-karya-tulis/{id}', [AdminController::class, 'updateKaryaTulis']);
     Route::delete('/kelola-karya-tulis/{karya}', [AdminController::class, 'destroyKaryaTulis'])
         ->name('karya.tulis.delete');
 
