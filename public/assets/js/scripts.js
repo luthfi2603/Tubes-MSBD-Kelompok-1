@@ -128,14 +128,14 @@ async function buatKolaborator(){
     mahasiswas.forEach(mahasiswa => {
         const option = document.createElement('option');
         option.value = mahasiswa.nim;
-        option.textContent = mahasiswa.nama;
+        option.textContent = mahasiswa.nama + ' - ' + mahasiswa.nim;
         selectNimNidn.appendChild(option);
     });
 
     dosens.forEach(dosen => {
         const option = document.createElement('option');
         option.value = dosen.nidn;
-        option.textContent = dosen.nama;
+        option.textContent = dosen.nama + ' - ' + dosen.nidn;
         selectNimNidn.appendChild(option);
     });
 

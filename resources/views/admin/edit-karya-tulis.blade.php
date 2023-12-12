@@ -2,8 +2,10 @@
 
 @section('container')
 <div class="container">
-    <form action="{{ route('karya.tulis.input') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('karya.tulis.edit', $karya->id) }}" method="post" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
+        <input type="text" name="oldFile" value="{{ $karya->url_file }}" hidden>
         <div class="row mt-4">
             <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-book"></i> Input Karya Tulis</h5>
             @if(session()->has('failed'))
@@ -39,7 +41,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="file" class="form-label">Upload File</label>
-                        <a href="{{ asset('file/' . $karya->url_file . '') }}" target="_blank">
+                        <a href="{{ asset('storage/' . $karya->url_file . '') }}" target="_blank">
                             <h6 class="mb-3" style="font-weight: 500;"><i class="fa-regular fa-file-pdf"></i>Tampilkan file</h6>
                         </a>
                         <input class="form-control @error('file') is-invalid @enderror" type="file" name="file" id="file-karyatulis">
@@ -87,7 +89,47 @@
                 <button onclick="buatKolaborator()" type="button" class="btn btn-success" style="margin-left: 30px !important"> + Kolaborator</button>
             </div>
             <!-- tempat menambahkan kolaborator -->
-            <div class="row" id="tambah-kolaborator"></div>
+            <div class="row" id="tambah-kolaborator">
+                @php $i = 1; @endphp
+                @foreach($kontributors as $kontributor)
+                    <div class="col-lg-4" id="penulis-{{ $i }}">
+                        <fieldset class="border border-dark rounded p-1 mb-4">
+                            <legend style="margin-left: 15px !important">
+                                Kolaborator<i class="fa-solid fa-xmark" style="cursor: pointer; position: relative; left: 45.4%" onclick="deleteKolaborator({{ $i }})"></i>
+                            </legend>
+                            <div class="inputan-form">
+                                <div class="mb-3">
+                                    <label for="kategori" class="form-label">Masukkan Nama</label>
+                                    <select class="form-select custom-form" aria-label="Default select example" id="nim_nidn" name="nim_nidn[]">
+                                        <option value="" selected>Pilih Nama</option>
+                                        @foreach($kontrib as $data)
+                                            <option value="{{ $data['nim_nidn'] }}" {{ $kontributor['nim_nidn'] === $data['nim_nidn'] ? 'selected' : ''}}>{{ $data['nama'] }} - {{ $data['nim_nidn'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="kategori" class="form-label">Tingkatan</label>
+                                    <select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="tingkatan[]">
+                                        <option value="" selected>Pilih Tingkatan</option>
+                                        <option value="1" {{ $kontributor['tingkatan'] === 'mahasiswa' ? 'selected' : ''}}>Mahasiswa</option>
+                                        <option value="2" {{ $kontributor['tingkatan'] === 'dosen' ? 'selected' : ''}}>Dosen</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="kategori" class="form-label">Status</label>
+                                    <select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="status[]">
+                                        <option value="" selected>Pilih Status</option>
+                                        <option value="penulis" {{ $kontributor['status'] === 'penulis' ? 'selected' : ''}}>Penulis</option>
+                                        <option value="pembimbing" {{ $kontributor['status'] === 'pembimbing' ? 'selected' : ''}}>Pembimbing</option>
+                                        <option value="kontributor" {{ $kontributor['status'] === 'kontributor' ? 'selected' : ''}}>Kontributor</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    @php $i++ @endphp
+                @endforeach
+            </div>
             <div class="inputan mb-3">
                 <label for="kategori" class="form-label">Kata Kunci</label>
                 <select class="form-select custom-form @error('kunci') is-invalid @enderror" aria-label="Default select example" id="kunci" name="kunci[]" multiple="multiple">
