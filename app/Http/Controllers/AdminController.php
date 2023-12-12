@@ -11,6 +11,8 @@ use App\Models\Mahasiswa;
 use App\Models\BidangIlmu;
 use App\Models\KaryaTulis;
 use App\Models\JenisTulisan;
+use App\Models\KontributorDosen;
+use App\Models\KontributorMahasiswa;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,10 +50,6 @@ class AdminController extends Controller {
         return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'mahasiswas', 'dosens'));
     }
     public function storeKaryaTulis(Request $request){
-        /* if($request->nim_nidn == NULL){
-            return back()->with('failed', 'pilih paling tidak satu kolaborator');
-        } */
-
         $request->validate([
             'nim_nidn' => ['required'],
             'judul' => ['required'],
@@ -87,11 +85,16 @@ class AdminController extends Controller {
         $admin = Auth::user()->username;
 
         if ($request->hasFile('file')) {
-            $namaFile = $request->file('file')->store('document');
+            $namaFile = $request->file('file')->getClientOriginalName();
+            $namaFile = hash('sha1', $namaFile);
+            $namaFile2 = $namaFile . '.pdf';
+            $namaFile = 'document/' . $namaFile . '.pdf';
         }
 
         try {
             DB::select('call createKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $namaFile, $request->jenis, $request->tahun, $admin, $kolab, $kunci));
+
+            $request->file('file')->move(storage_path('app\\public\\document'), $namaFile2);
         } catch (QueryException $th) {
             return back()->with('failed', 'Terjadi kesalahan karya tulis gagal ditambahkan');
         }
@@ -101,15 +104,52 @@ class AdminController extends Controller {
     public function editKaryaTulis($id){
         $karya = KaryaTulis::find($id);
         $karya_kunci = KataKunciTulisan::where('karya_id', $id)->get();
-
         $bidangs = BidangIlmu::all();
         $kuncis = KataKunci::all();
         $jeniss = JenisTulisan::all();
-        $mahasiswas = Mahasiswa::all();
-        $dosens = Dosen::all();
-        // dd($karya_kunci);
+        $mahasiswas = KontributorMahasiswa::where('karya_id', $id)->get();
+        $dosens = KontributorDosen::where('karya_id', $id)->get();
 
-        return view('admin.edit-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'mahasiswas', 'dosens', 'karya', 'karya_kunci'));
+        $kontributors = [];
+
+        foreach ($mahasiswas as $key) {
+            $kontributors[] = [
+                'nim_nidn' => $key->nim,
+                'status' => $key->status,
+                'tingkatan' => 'mahasiswa'
+            ];
+        }
+        
+        foreach ($dosens as $key) {
+            $kontributors[] = [
+                'nim_nidn' => $key->nidn,
+                'status' => $key->status,
+                'tingkatan' => 'dosen'
+            ];
+        }
+        
+        $mahasiswas = Mahasiswa::select('nim', 'nama')->orderBy('nama')->get();
+        $dosens = Dosen::select('nidn', 'nama')->orderBy('nama')->get();
+        $kontrib = [];
+
+        foreach ($mahasiswas as $key) {
+            $kontrib[] = [
+                'nim_nidn' => $key->nim,
+                'nama' => $key->nama
+            ];
+        }
+        
+        foreach ($dosens as $key) {
+            $kontrib[] = [
+                'nim_nidn' => $key->nidn,
+                'nama' => $key->nama
+            ];
+        }
+
+        return view('admin.edit-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'karya', 'karya_kunci', 'kontributors', 'kontrib'));
+    }
+    public function updateKaryaTulis(Request $request){
+        dd($request->request);
     }
     public function destroyKaryaTulis(KaryaTulis $karya){
         Storage::delete($karya->url_file);
