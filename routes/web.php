@@ -113,6 +113,17 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::put('/edit-kata-kunci/{kunci}', [AdminController::class, 'updateKataKunci']);
     Route::delete('/kelola-kata-kunci/{kunci}', [AdminController::class, 'destroyKataKunci'])
         ->name('kata.kunci.delete');
+
+    Route::get('/kelola-e-book', [AdminController::class, 'showEBook'])
+        ->name('ebook.kelola');
+    Route::get('/input-e-book', [AdminController::class, 'createEBook'])
+        ->name('ebook.input');
+    Route::post('/input-e-book', [AdminController::class, 'storeEBook']);
+    Route::get('/edit-e-book/{ebook}', [AdminController::class, 'editEBook'])
+        ->name('ebook.edit');
+    Route::put('/edit-e-book/{ebook}', [AdminController::class, 'updateEBook']);
+    Route::delete('/delete-e-book/{ebook}', [AdminController::class, 'destroyEBook'])
+        ->name('ebook.delete');
 });
 
 Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {

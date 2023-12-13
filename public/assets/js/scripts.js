@@ -94,6 +94,46 @@ function deleteKaryaTulis($id){
     });
 }
 
+function deleteEBook($id){
+    Swal.fire({
+        title: "Hapus E-Book",
+        text: "Apakah anda yakin untuk menghapus e-book ini?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Hapus E-Book",
+                text: "Jika anda benar-benar ingin menhapus e-book ini, maka e-book tersebut tidak dapat dikembalikan jika sudah dihapus!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#D80032",
+                cancelButtonColor: "#006633",
+                confirmButtonText: "Delete"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Hapus E-Book",
+                        text: "Apakah anda benar-benar yakin?!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#D80032",
+                        cancelButtonColor: "#006633",
+                        confirmButtonText: "Delete"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById(`form-delete-${$id}`).submit();
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
 function deleteKataKunci($kataKunci){
     Swal.fire({
         title: "Hapus Kata Kunci",
