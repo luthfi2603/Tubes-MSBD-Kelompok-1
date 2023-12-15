@@ -9,6 +9,7 @@ use App\Models\Prodi;
 use App\Models\KataKunci;
 use App\Models\Mahasiswa;
 use App\Models\BidangIlmu;
+use App\Models\Ebook;
 use App\Models\KaryaTulis;
 use App\Models\JenisTulisan;
 use App\Models\KontributorDosen;
@@ -68,7 +69,7 @@ class AdminController extends Controller {
 
         for ($i = 0; $i < count($request->kunci); $i++) {
             $kuncip[] = [
-                'kunci' => $request->kunci[$i],
+                'kunci' => $request->kunci[$i]
             ];
         }
         
@@ -76,7 +77,7 @@ class AdminController extends Controller {
             $kolaboratorp[] = [
                 'nim_nidn' => $request->nim_nidn[$i],
                 'tingkatan' => $request->tingkatan[$i],
-                'status' => $request->status[$i],
+                'status' => $request->status[$i]
             ];
         }
 
@@ -559,6 +560,87 @@ class AdminController extends Controller {
         $kata_kunci->delete();
 
         return back()->with('success', 'Kata kunci berhasil dihapus');
+    }
+
+    public function showEBook(){
+        $ebooks = Ebook::orderBy('judul')->paginate(10);
+
+        return view('admin.kelola-e-book', compact('ebooks'));
+    }
+    public function createEBook(){
+        return view('admin.input-e-book');
+    }
+    public function storeEBook(Request $request){
+        $request->validate([
+            'judul' => ['required', 'max:500'],
+            'penulis' => ['required', 'max:255'],
+            'tahun' => ['required', 'min_digits:4', 'max_digits:4'],
+            'file' => ['required','file', 'mimes:pdf']
+        ]);
+
+        $namaFile = $request->file('file')->store('document');
+
+        $validatedData = [
+            'judul' => $request->judul,
+            'penulis' => $request->penulis,
+            'url_file' => $namaFile,
+            'tahun_terbit' => $request->tahun,
+            'view' => 0,
+            'diupload_oleh' => Auth::user()->username
+        ];
+
+        Ebook::create($validatedData);
+
+        return back()->with('success', 'E-Book berhasil ditambahkan');
+    }
+    public function editEBook(Ebook $ebook){
+        return view('admin.edit-e-book', compact('ebook'));
+    }
+    public function updateEBook(Ebook $ebook, Request $request){
+        if(
+            $request->judul == $ebook->judul &&
+            $request->tahun == $ebook->tahun_terbit &&
+            $request->penulis == $ebook->penulis &&
+            !$request->hasFile('file')
+        ){
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }
+
+        $request->validate([
+            'judul' => ['required', 'max:500'],
+            'penulis' => ['required', 'max:255'],
+            'tahun' => ['required', 'min_digits:4', 'max_digits:4'],
+            'file' => ['file', 'mimes:pdf']
+        ]);
+
+        if($request->hasFile('file')){
+            Storage::delete($ebook->url_file);
+            
+            $namaFile = $request->file('file')->store('document');
+            
+            $validatedData = [
+                'judul' => $request->judul,
+                'penulis' => $request->penulis,
+                'url_file' => $namaFile,
+                'tahun_terbit' => $request->tahun
+            ];
+        }else{
+            $validatedData = [
+                'judul' => $request->judul,
+                'penulis' => $request->penulis,
+                'tahun_terbit' => $request->tahun
+            ];
+        }
+
+        $ebook->update($validatedData);
+        
+        return redirect()->route('ebook.kelola')->with('success', 'E-Book berhasil diubah');
+    }
+    public function destroyEBook(Ebook $ebook){
+        Storage::delete($ebook->url_file);
+        $ebook->delete();
+
+        return back()->with('success', 'E-Book berhasil dihapus');
     }
     
     public function getMahasiswaDanDosen(){

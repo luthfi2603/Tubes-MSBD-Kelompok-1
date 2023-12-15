@@ -7,7 +7,7 @@
         @method('PUT')
         <input type="text" name="oldFile" value="{{ $karya->url_file }}" hidden>
         <div class="row mt-4">
-            <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-book"></i> Input Karya Tulis</h5>
+            <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-book"></i> Edit Karya Tulis</h5>
             @if(session()->has('failed'))
                 <div class="alert alert-danger alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
                     {{ session('failed') }}
@@ -23,7 +23,7 @@
                 <div class="inputan-form">
                     <div class="mb-3">
                         <label for="judul" class="form-label">Judul Karya Tulis</label>
-                        <input type="text" class="form-control custom-form @error('judul') is-invalid @enderror" id="judul" name="judul" placeholder="Input Judul Karya Tulis" value="{{ $karya->judul }}">
+                        <textarea class="form-control custom-form @error('judul') is-invalid @enderror" placeholder="Input Judul Karya Tulis" id="judul" name="judul" style="height: 6rem">{{ $karya->judul }}</textarea>
                         @error('judul')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -86,7 +86,11 @@
                 </div>
             </div>
             <div class="col-lg-10 mb-4">
-                <button onclick="buatKolaborator()" type="button" class="btn btn-success" style="margin-left: 30px !important"> + Kolaborator</button>
+                @php $j = count($kontributors) + 1; @endphp
+                <script>
+                    let j = {{ $j }};
+                </script>
+                <button onclick="buatKolaborator2()" type="button" class="btn btn-success" style="margin-left: 30px !important"> + Kolaborator</button>
             </div>
             <!-- tempat menambahkan kolaborator -->
             <div class="row" id="tambah-kolaborator">
@@ -151,14 +155,14 @@
             </div>
             <div class="inputan mb-4">
                 <label for="abstrak" class="form-label">Abstrak</label>
-                <textarea class="form-control custom-form @error('abstrak') is-invalid @enderror" placeholder="Input Abstrak" id="abstrak" name="abstrak" style="height: 100px">{{ $karya->abstrak }}</textarea>
+                <textarea class="form-control custom-form @error('abstrak') is-invalid @enderror" placeholder="Input Abstrak" id="abstrak" name="abstrak" style="height: 15rem">{{ $karya->abstrak }}</textarea>
                 @error('abstrak')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
-            <div class="inputan-form mb-5 mt-3">
+            <div class="inputan-form mb-5">
                 <button type="submit" class="btn btn-success tombol">Submit</button>
                 <a href="{{ route('kelola.karya.tulis') }}" class="btn btn-warning tombol">Kembali</a>
             </div>

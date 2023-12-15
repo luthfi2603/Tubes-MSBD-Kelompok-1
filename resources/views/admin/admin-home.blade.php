@@ -139,7 +139,7 @@
             </a>
         </div>
         <div class="col-lg-6 mb-3">
-            <a href="{{ route('kata.kunci.kelola') }}">
+            <a href="{{ route('ebook.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 

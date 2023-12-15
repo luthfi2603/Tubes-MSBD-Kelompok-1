@@ -21,7 +21,7 @@
                 <div class="inputan-form">
                     <div class="mb-3">
                         <label for="judul" class="form-label">Judul Karya Tulis</label>
-                        <input type="text" class="form-control custom-form @error('judul') is-invalid @enderror" id="judul" name="judul" placeholder="Input Judul Karya Tulis" value="{{ old('judul') }}">
+                        <textarea class="form-control custom-form @error('judul') is-invalid @enderror" placeholder="Input Judul Karya Tulis" id="judul" name="judul" style="height: 6rem">{{ old('judul') }}</textarea>
                         @error('judul')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -118,14 +118,14 @@
             </div>
             <div class="inputan mb-4">
                 <label for="abstrak" class="form-label">Abstrak</label>
-                <textarea class="form-control custom-form @error('abstrak') is-invalid @enderror" placeholder="Input Abstrak" id="abstrak" name="abstrak" style="height: 100px">{{ old('abstrak') }}</textarea>
+                <textarea class="form-control custom-form @error('abstrak') is-invalid @enderror" placeholder="Input Abstrak" id="abstrak" name="abstrak" style="height: 15rem">{{ old('abstrak') }}</textarea>
                 @error('abstrak')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
-            <div class="inputan-form mb-5 mt-3">
+            <div class="inputan-form mb-5">
                 <button type="submit" class="btn btn-success tombol">Submit</button>
                 <a href="{{ route('kelola.karya.tulis') }}" class="btn btn-warning tombol">Kembali</a>
             </div>
