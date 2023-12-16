@@ -45,10 +45,25 @@ class AdminController extends Controller {
         $bidangs = BidangIlmu::all();
         $kuncis = KataKunci::all();
         $jeniss = JenisTulisan::orderBy('jenis_tulisan')->get();
-        $mahasiswas = Mahasiswa::all();
-        $dosens = Dosen::all();
+        $mahasiswas = Mahasiswa::select('nim', 'nama')->orderBy('nama')->get();
+        $dosens = Dosen::select('nidn', 'nama')->orderBy('nama')->get();
+        $kontrib = [];
 
-        return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'mahasiswas', 'dosens'));
+        foreach ($mahasiswas as $key) {
+            $kontrib[] = [
+                'nim_nidn' => $key->nim,
+                'nama' => $key->nama
+            ];
+        }
+        
+        foreach ($dosens as $key) {
+            $kontrib[] = [
+                'nim_nidn' => $key->nidn,
+                'nama' => $key->nama
+            ];
+        }
+
+        return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'kontrib'));
     }
     public function storeKaryaTulis(Request $request){
         $request->validate([
@@ -85,22 +100,20 @@ class AdminController extends Controller {
         $kunci = json_encode($kuncip);
         $admin = Auth::user()->username;
 
-        if ($request->hasFile('file')) {
-            $namaFile = $request->file('file')->getClientOriginalName();
-            $namaFile = hash('sha1', $namaFile);
-            $namaFile2 = $namaFile . '.pdf';
-            $namaFile = 'document/' . $namaFile . '.pdf';
-        }
+        $namaFile = $request->file('file')->getClientOriginalName();
+        $namaFile = hash('sha1', $namaFile);
+        $namaFile2 = $namaFile . '.pdf';
+        $namaFile = 'document/' . $namaFile . '.pdf';
 
         try {
             DB::select('call createKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $namaFile, $request->jenis, $request->tahun, $admin, $kolab, $kunci));
 
             $request->file('file')->move(storage_path('app\\public\\document'), $namaFile2);
         } catch (QueryException $th) {
-            return back()->with('failed', 'Terjadi kesalahan karya tulis gagal ditambahkan');
+            return back()->with('failed', 'Terjadi kesalahan, karya tulis gagal ditambahkan');
         }
         
-        return back()->with('success', 'Data karya tulis berhasil ditambahkan');
+        return back()->with('success', 'Karya tulis berhasil ditambahkan');
     }
     public function editKaryaTulis($id){
         $karya = KaryaTulis::find($id);
