@@ -395,7 +395,7 @@ class AdminController extends Controller {
     }
 
     public function showUser(){
-        $users = DB::table('view_all_user')->paginate(10);
+        $users = DB::table('view_all_user')->orderBy('nama')->paginate(10);
         $prodis = Prodi::all();
         
         return view('admin.kelola-user', compact('users', 'prodis'));
