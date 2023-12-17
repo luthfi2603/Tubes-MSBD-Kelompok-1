@@ -450,6 +450,16 @@ class AdminController extends Controller {
         return redirect()->route('mahasiswa.kelola')->with('success', 'Data mahasiswa berhasil diubah');
     }
 
+    public function destroyMahasiswa(Mahasiswa $mahasiswa){
+        try {
+            $mahasiswa->delete();
+    
+            return back()->with('success', 'Data Mahasiswa berhasil dihapus');
+        } catch (\Throwable $th) {
+            return back()->with('failed', 'Data Mahasiswa ini memiliki keterkaitan dengan data lain, penghapusan tidak dapat dilakukan');
+        }
+    }
+
     public function showDosen(){
         $dosens = Dosen::orderBy('nama')->paginate(10);
         $prodis = Prodi::all();
@@ -543,6 +553,16 @@ class AdminController extends Controller {
         $dosen->save();
 
         return redirect()->route('dosen.kelola')->with('success', 'Data dosen berhasil diubah');
+    }
+
+    public function destroyDosen(Dosen $dosen){
+        try {
+            $dosen->delete();
+    
+            return back()->with('success', 'Data Dosen berhasil dihapus');
+        } catch (\Throwable $th) {
+            return back()->with('failed', 'Data Dosen ini memiliki keterkaitan dengan data lain, penghapusan tidak dapat dilakukan');
+        }
     }
 
     public function showUser(){
@@ -673,6 +693,16 @@ class AdminController extends Controller {
         $bidang_ilmu->save();
 
         return redirect()->route('bidang.ilmu.kelola')->with('success', 'Bidang ilmu berhasil diubah');
+    }
+
+    public function destroyBidangIlmu(BidangIlmu $bidangIlmu){
+        try {
+            $bidangIlmu->delete();
+    
+            return back()->with('success', 'BIdang Ilmu berhasil dihapus');
+        } catch (\Throwable $th) {
+            return back()->with('failed', 'BIdang Ilmu ini digunakan, penghapusan tidak dapat dilakukan');
+        }
     }
 
     public function showKataKunci(){

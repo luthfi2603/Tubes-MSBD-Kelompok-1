@@ -165,6 +165,51 @@ function deleteJenisTulisan($jenisTulisan){
         }
     });
 }
+function deleteBidangIlmu($jenisTulisan){
+    Swal.fire({
+        title: "Hapus Kata Bidang Ilmu",
+        text: "Apakah anda yakin untuk menghapus Bidang Ilmu ini?!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`form-delete-${$jenisTulisan}`).submit();
+        }
+    });
+}
+function deleteMahasiswa($mahasiswa){
+    Swal.fire({
+        title: "Hapus Data Mahasiswa",
+        text: "Apakah anda yakin untuk menghapus Data Mahasiswa ini?!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`form-delete-${$mahasiswa}`).submit();
+        }
+    });
+}
+function deleteDosen($dosen){
+    Swal.fire({
+        title: "Hapus Data Dosen",
+        text: "Apakah anda yakin untuk menghapus Data Dosen ini?!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`form-delete-${$dosen}`).submit();
+        }
+    });
+}
 
 let i = 1;
 
