@@ -165,6 +165,21 @@ function deleteJenisTulisan($jenisTulisan){
         }
     });
 }
+function deleteBidangIlmu($jenisTulisan){
+    Swal.fire({
+        title: "Hapus Kata Bidang Ilmu",
+        text: "Apakah anda yakin untuk menghapus Bidang Ilmu ini?!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`form-delete-${$jenisTulisan}`).submit();
+        }
+    });
+}
 
 let i = 1;
 

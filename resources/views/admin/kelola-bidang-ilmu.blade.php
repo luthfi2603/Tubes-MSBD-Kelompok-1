@@ -61,7 +61,7 @@
                                 <form id="form-delete-{{ $bidang->jenis_bidang_ilmu }}" action="{{ route('bidang.ilmu.delete', $bidang->jenis_bidang_ilmu) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="deleteJenisTulisan('{{ $kategori->jenis_tulisan }}')" style="border:none; background:none; !important">
+                                    <button type="button" onclick="deleteBidangIlmu('{{ $bidang->jenis_bidang_ilmu }}')" style="border:none; background:none; !important">
                                         <i class="fa-solid fa-trash icon-delete"></i>
                                     </button>
                                 </form>

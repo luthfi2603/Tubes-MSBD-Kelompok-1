@@ -104,6 +104,8 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-bidang-ilmu/{bidang}', [AdminController::class, 'editBidangIlmu'])
         ->name('bidang.ilmu.edit');
     Route::put('/edit-bidang-ilmu/{bidang}', [AdminController::class, 'updateBidangIlmu']);
+    Route::delete('/delete-bidang-ilmu/{bidangIlmu}', [AdminController::class, 'destroyBidangIlmu'])
+        ->name('bidang.ilmu.delete');
     
     Route::get('/kelola-kata-kunci', [AdminController::class, 'showKataKunci'])
         ->name('kata.kunci.kelola');

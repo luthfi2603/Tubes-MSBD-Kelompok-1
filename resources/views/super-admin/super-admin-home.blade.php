@@ -169,7 +169,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <img src="../assets/img/keloladosen.png" class="img-fluid rounded-start" alt="...">
+                            <img src="../assets/img/kelolaebook.png" class="img-fluid rounded-start" alt="...">
                         </div>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <img src="../assets/img/keloladosen.png" class="img-fluid rounded-start" alt="...">
+                            <img src="../assets/img/listlog.png" class="img-fluid rounded-start" alt="...">
                         </div>
                     </div>
                 </div>

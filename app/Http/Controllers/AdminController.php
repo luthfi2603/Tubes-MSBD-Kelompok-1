@@ -675,6 +675,16 @@ class AdminController extends Controller {
         return redirect()->route('bidang.ilmu.kelola')->with('success', 'Bidang ilmu berhasil diubah');
     }
 
+    public function destroyBidangIlmu(BidangIlmu $bidangIlmu){
+        try {
+            $bidangIlmu->delete();
+    
+            return back()->with('success', 'BIdang Ilmu berhasil dihapus');
+        } catch (\Throwable $th) {
+            return back()->with('failed', 'BIdang Ilmu ini digunakan, penghapusan tidak dapat dilakukan');
+        }
+    }
+
     public function showKataKunci(){
         $kuncis = KataKunci::oldest()->paginate(10);
 
