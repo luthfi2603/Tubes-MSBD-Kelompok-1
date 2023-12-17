@@ -150,6 +150,22 @@ function deleteKataKunci($kataKunci){
     });
 }
 
+function deleteJenisTulisan($jenisTulisan){
+    Swal.fire({
+        title: "Hapus Kata Kunci",
+        text: "Apakah anda yakin untuk menghapus jenis tulisan ini?!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`form-delete-${$jenisTulisan}`).submit();
+        }
+    });
+}
+
 let i = 1;
 
 async function buatKolaborator(){

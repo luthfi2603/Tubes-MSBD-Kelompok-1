@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KataKunciTulisan;
 use App\Models\User;
 use App\Models\Dosen;
+use App\Models\Ebook;
 use App\Models\Prodi;
 use App\Models\KataKunci;
 use App\Models\Mahasiswa;
 use App\Models\BidangIlmu;
-use App\Models\Ebook;
 use App\Models\KaryaTulis;
+use Illuminate\Support\Str;
 use App\Models\JenisTulisan;
-use App\Models\KontributorDosen;
-use App\Models\KontributorMahasiswa;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\KataKunciTulisan;
+use App\Models\KontributorDosen;
 use Illuminate\Support\Facades\DB;
+use App\Models\KontributorMahasiswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller {
@@ -100,8 +101,7 @@ class AdminController extends Controller {
         $kunci = json_encode($kuncip);
         $admin = Auth::user()->username;
 
-        $namaFile = $request->file('file')->getClientOriginalName();
-        $namaFile = hash('sha1', $namaFile);
+        $namaFile = Str::random(40);
         $namaFile2 = $namaFile . '.pdf';
         $namaFile = 'document/' . $namaFile . '.pdf';
 
@@ -179,12 +179,12 @@ class AdminController extends Controller {
         ],[
             'kunci.required' => 'Pilih paling tidak satu kata kunci.'
         ]);
+
         if($request->hasFile('file')){
             $request->validate([
                 'file' => ['required','file', 'mimes:pdf']
             ]);
         }
-        
 
         $kontrib = [];
         $kunci = [];
@@ -201,7 +201,6 @@ class AdminController extends Controller {
             ];
         }
 
-
         foreach ($mahasiswa as $key) {
             $kontrib[] = [
                 'nim_nidn' => $key->nim,
@@ -209,6 +208,7 @@ class AdminController extends Controller {
                 'tingkatan' => '1'
             ];
         }
+
         foreach ($dosen as $key) {
             $kontrib[] = [
                 'nim_nidn' => $key->nidn,
@@ -216,7 +216,6 @@ class AdminController extends Controller {
                 'tingkatan' => '2'
             ];
         }
-        
         
         for ($i = 0; $i < count($request->nim_nidn); $i++) {
             $kontribr[] = [
@@ -226,11 +225,9 @@ class AdminController extends Controller {
             ];
         }
 
-
         $hasil_kunci1 = array_diff($request->kunci, $kunci);
         $hasil_kunci2 = array_diff($kunci, $request->kunci);
         $hasil_kunci = array_merge($hasil_kunci1, $hasil_kunci2);
-
         
         foreach ($kontribr as $key => $item) {
             $nimNidn2 = $item["nim_nidn"];
@@ -273,16 +270,13 @@ class AdminController extends Controller {
             }
         }
 
-
         if ($request->hasFile('file')) {
-            $namaFile = $request->file('file')->getClientOriginalName();
-            $namaFile = hash('sha1', $namaFile);
+            $namaFile = Str::random(40);
             $namaFile2 = $namaFile . '.pdf';
             $namaFile = 'document/' . $namaFile . '.pdf';
         }else{
             $namaFile = $request->oldFile;
         }
-
 
         if(
             empty($hasil_kunci) &&
@@ -296,6 +290,7 @@ class AdminController extends Controller {
         ){
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }
+
         $kolab = json_encode($kolab_temp);
         $kunci = json_encode($kuncip);
 
@@ -303,14 +298,14 @@ class AdminController extends Controller {
             DB::select('call editKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $namaFile, $request->jenis, $request->tahun, $id, $kolab,$kunci));
 
             if(!empty($namaFile2)){
+                Storage::delete($request->oldFile);
                 $request->file('file')->move(storage_path('app\\public\\document'), $namaFile2);
             }
         } catch (\Throwable $th) {
-            return back()->with('failed', 'Terjadi kesalahan karya tulis gagal diedit');
+            return back()->with('failed', 'Terjadi kesalahan karya tulis gagal diubah');
         }
 
-        return redirect()->route('karya.tulis.kelola')->with('success', 'karya tulisan berhasil diubah');
-
+        return redirect()->route('karya.tulis.kelola')->with('success', 'Karya tulis berhasil diubah');
     }
     public function destroyKaryaTulis(KaryaTulis $karya){
         Storage::delete($karya->url_file);
@@ -361,6 +356,15 @@ class AdminController extends Controller {
         $tulisan->save();
 
         return redirect()->route('jenis.tulisan.kelola')->with('success', 'Jenis tulisan berhasil diubah');
+    }
+    public function destroyJenisTulisan(JenisTulisan $jenisTulisan){
+        try {
+            $jenisTulisan->delete();
+    
+            return back()->with('success', 'Jenis tulisan berhasil dihapus');
+        } catch (\Throwable $th) {
+            return back()->with('failed', 'Jenis tulisan ini digunakan, penghapusan tidak dapat dilakukan');
+        }
     }
 
  

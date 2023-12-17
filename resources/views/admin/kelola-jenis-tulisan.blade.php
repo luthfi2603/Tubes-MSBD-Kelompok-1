@@ -53,10 +53,19 @@
                     @else
                         <td>{{ $kategori->updated_at }}</td>
                     @endif
-                    <td class="d-flex">
-                        <a href="{{ route('jenis.tulisan.edit', ['jenis' => $kategori->jenis_tulisan]) }}" id="editkategori">
-                            <i class="fa-solid fa-pen icon-edit"></i>
-                        </a>
+                    <td>
+                        <div class="d-flex">
+                            <a href="{{ route('jenis.tulisan.edit', ['jenis' => $kategori->jenis_tulisan]) }}" id="editkategori">
+                                <i class="fa-solid fa-pen icon-edit"></i>
+                            </a>
+                            <form id="form-delete-{{ $kategori->jenis_tulisan }}" action="{{ route('jenis.tulisan.delete', $kategori->jenis_tulisan) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" onclick="deleteJenisTulisan('{{ $kategori->jenis_tulisan }}')" style="border:none; background:none; !important">
+                                    <i class="fa-solid fa-trash icon-delete"></i>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
