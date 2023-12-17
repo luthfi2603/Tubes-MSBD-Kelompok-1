@@ -20,6 +20,19 @@ return new class extends Migration {
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
             $table->timestamp('waktu');
         });
+
+        DB::unprepared('
+            CREATE TRIGGER dont_delete_log_karya BEFORE DELETE ON `log_karya_tulis` FOR EACH ROW
+            BEGIN
+                SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Tidak dapat menghapus data log karya tulis";
+            END
+        ');
+        DB::unprepared('
+            CREATE TRIGGER dont_update_log_karya BEFORE UPDATE ON `log_karya_tulis` FOR EACH ROW
+            BEGIN
+                SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Tidak dapat mengubah data log karya tulis";
+            END
+        ');
     }
 
     /**
