@@ -132,6 +132,9 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::put('/edit-e-book/{ebook}', [AdminController::class, 'updateEBook']);
     Route::delete('/delete-e-book/{ebook}', [AdminController::class, 'destroyEBook'])
         ->name('ebook.delete');
+
+    Route::get('/log', [AdminController::class, 'showLog'])
+        ->name('log');
 });
 
 Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {

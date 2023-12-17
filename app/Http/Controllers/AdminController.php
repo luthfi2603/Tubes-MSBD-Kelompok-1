@@ -293,9 +293,10 @@ class AdminController extends Controller {
 
         $kolab = json_encode($kolab_temp);
         $kunci = json_encode($kuncip);
+        $admin = Auth::user()->username;
 
         try {
-            DB::select('call editKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $namaFile, $request->jenis, $request->tahun, $id, $kolab,$kunci));
+            DB::select('call editKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $namaFile, $request->jenis, $request->tahun, $id, $admin, $kolab,$kunci));
 
             if(!empty($namaFile2)){
                 Storage::delete($request->oldFile);
@@ -309,7 +310,9 @@ class AdminController extends Controller {
     }
     public function destroyKaryaTulis(KaryaTulis $karya){
         Storage::delete($karya->url_file);
-        $karya->delete();
+        $admin = Auth::user()->username;
+
+        DB::select('call trigger_delete_karya_tulis(?, ?)', array($admin, $karya->id));
 
         return back()->with('success', 'Karya Tulis berhasil dihapus');
     }
@@ -832,9 +835,18 @@ class AdminController extends Controller {
     }
     public function destroyEBook(Ebook $ebook){
         Storage::delete($ebook->url_file);
-        $ebook->delete();
+        // $ebook->delete();
+        $admin = Auth::user()->username;
+        
+        DB::select('call trigger_delete_ebook(?, ?)', array($admin, $ebook->id));
 
         return back()->with('success', 'E-Book berhasil dihapus');
+    }
+
+    public function showLog(){
+        $logs = DB::table('list_log')->get();
+
+        return view('admin.list-log', compact('logs'));
     }
     
     public function getMahasiswaDanDosen(){
@@ -843,4 +855,5 @@ class AdminController extends Controller {
 
         return response()->json(['mahasiswas' => $mahasiswas, 'dosens' => $dosens]);
     }
+    
 }
