@@ -16,11 +16,14 @@
                     <h6 class="sidebar-col"><span><i class="fa-solid fa-heart"></i></span><a href="{{ route('favorite') }}">Karya Tulis Favorite Saya</a></h6>&nbsp;&nbsp;
                     <h6 class="sidebar-col"><span><i class="fa-solid fa-heart"></i></span><a href="{{ route('favorite-ebook') }}">Ebook Favorite Saya</a></h6>
                 </div>
-                <hr class="garis mb-3" style="width: 24%;">
-                @if($karyas->isEmpty())
-                    <h3>Karya Tulis Favorite anda masih kosong</h3>
+                <div class="d-flex">
+                    <hr class="garis-putih mb-3" style="width: 24%;">
+                    <hr class="garis mb-3" style="width: 20%;">
+                </div>
+                @if($ebooks->isEmpty()) 
+                    <h3>Ebook Favorite anda masih kosong</h3>
                 @else
-                    @foreach ($karyas as $karya)
+                    @foreach ($ebooks as $ebook)
                         <div class="card mt-3" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
                                 <div class="col-md-4 my-3">
@@ -29,7 +32,7 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         @php
-                                            $waktuTangkap = $waktu->where('karya_id', $karya->id)->first()->waktu;
+                                            $waktuTangkap = $waktu->where('ebook_id', $ebook->id)->first()->waktu;
                                             $konversiWaktu = strtotime($waktuTangkap);
                                             $namaHariMap = [
                                                 'Monday'    => 'Senin',
@@ -52,28 +55,8 @@
                                             $formattedDateTime = $namaHariIndonesia . ', ' . $formattedDateTime;
                                         @endphp
                                         <span class="text-muted" style="font-size: 13px">Ditambahkan pada : {{ $formattedDateTime }}</span>
-                                        <h5 class="card-title textit mt-2"><a href="{{ route('detail.karya.tulis', $karya->id) }}">{{ $karya->judul }}</a></h5>
-                                        <p class="text-muted">
-                                            <small class="text-body-secondary">
-                                                @php
-                                                    $penulis = "";
-                                                    $penulisTertentu = $penuliss->where('id', $karya->id);
-
-                                                    foreach ($penulisTertentu as $key) {
-                                                        $penulis .= '<a href="' . route('author', ['author' => $key->kontributor]) . '">' . $key->kontributor . '</a>, ';
-                                                    }
-
-                                                    $penulis = rtrim($penulis, ', ');
-                                                @endphp
-                                                {!! $penulis !!}
-                                                ({{ $karya->tahun }})
-                                            </small>
-                                        </p>
-                                        <div style="height: 100px;overflow: hidden;">
-                                            <p class="card-text text">
-                                                {{ $karya->abstrak }}
-                                            </p>
-                                        </div>
+                                        <h5 class="card-title textit mt-2"><a href="{{ route('detail.ebook', $ebook->id) }}">{{ $ebook->judul }}</a></h5>
+                                        <p class="text-muted"><small class="text-body-secondary">{{ $ebook->penulis }} ({{ $ebook->tahun_terbit }})</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +65,7 @@
                 @endif
                 <!-- Pagination -->
                 <nav aria-label="Page navigation example" class="pt-3">
-                    {{ $karyas->links() }}
+                    {{ $ebooks->links() }}
                 </nav>
             </div>
         </div>

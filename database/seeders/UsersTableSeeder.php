@@ -53,5 +53,13 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt('password')
         ]);
+
+        User::create([ // 6
+            'username' => 'Fortyche',
+            'status' => 'mahasiswa',
+            'email' => 'rifqijabrah@gmail.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => bcrypt('password')
+        ]);
     }
 }

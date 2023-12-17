@@ -171,6 +171,10 @@ Route::middleware('auth', 'verified')->group(function () {
         ->name('favorite');
     Route::post('/favorite', [ViewController::class, 'storeFavorite']);
     Route::delete('/favorite', [ViewController::class, 'destroyFavorite']);
+    Route::get('/favorite-ebook', [ViewController::class, 'showFavoriteEbook'])
+        ->name('favorite-ebook');
+    Route::post('/favorite-ebook', [ViewController::class, 'storeFavoriteEbook']);
+    Route::delete('/favorite-ebook', [ViewController::class, 'destroyFavoriteEbook']);
 });
 
 Route::get('/dashboard', function () {

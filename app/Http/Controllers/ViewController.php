@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ebook;
+use App\Models\FavoriteEbook;
 use App\Models\Prodi;
 use App\Models\Favorite;
 use App\Models\BidangIlmu;
@@ -140,9 +141,18 @@ class ViewController extends Controller {
             Session::put('wasRefreshed', $wasRefreshed);
         }
 
+        if (auth()->user()) {
+            $isLiked = FavoriteEbook::where('user_id', auth()->user()->id)
+                ->where('ebook_id', $id)
+                ->get()
+                ->isEmpty();
+        } else {
+            $isLiked = true;
+        }
+
         $ebook = Ebook::where('id', $id)->first();
 
-        return view('detail-e-book', compact('ebook'));
+        return view('detail-e-book', compact('ebook', 'isLiked'));
     }
 
     public function showByKoleksi($jenisTulisan, Request $request){
@@ -484,14 +494,44 @@ class ViewController extends Controller {
         return back()->with('success', 'Berhasil dihapus dari favorite');
     }
 
+    public function showFavoriteEbook(){
+        session()->forget('wasRefreshed');
+        $ebookIds = FavoriteEbook::select('ebook_id')
+            ->where('user_id', auth()->user()->id)
+            ->pluck('ebook_id');
+
+        $waktu = FavoriteEbook::select('ebook_id', 'waktu')
+            ->where('user_id', auth()->user()->id)
+            ->get();
+
+        $ebooks = Ebook::whereIn('id', $ebookIds)->paginate(5);
+
+        return view('favorite-ebook', compact('ebooks', 'waktu'));
+    }
+
+    public function storeFavoriteEbook(Request $request){
+        FavoriteEbook::create([
+            'user_id' => auth()->user()->id,
+            'ebook_id' => $request->ebook_id
+        ]);
+
+        return back()->with('success', 'Berhasil ditambahkan ke favorite');
+    }
+
+    public function destroyFavoriteEbook(Request $request){
+        FavoriteEbook::where('user_id', auth()->user()->id)
+            ->where('ebook_id', $request->ebook_id)
+            ->delete();
+
+        return back()->with('success', 'Berhasil dihapus dari favorite');
+    }
+
     public function statistik(){
         $mostLikes = DB::table('view_most_like')->paginate(5);
 
         $datas = DB::table('view_statistik')->get();
-        $jumlah = 0;
-        foreach ($datas as $key) {
-            $jumlah += $key->jumlah_karya;
-        }
+        $jumlaht = DB::select("select hitungAll() AS jumlah");
+        $jumlah = $jumlaht[0]->jumlah;
 
         $jumlahEbook = Ebook::all()->count();
 
