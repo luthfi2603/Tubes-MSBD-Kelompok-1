@@ -1,7 +1,7 @@
 @extends('layouts.main-admin')
 
 @section('container')
-<div class="container" style="margin-bottom: 10.4%">
+<div class="container admin-mb">
     <form action="{{ route('user.edit', ['id' => $user->id]) }}" method="POST" id="form">
         @csrf
         @method('PUT')   
