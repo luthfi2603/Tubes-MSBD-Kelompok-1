@@ -44,7 +44,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
         ->name('admin.home');
 
     Route::get('/kelola-karya-tulis', [AdminController::class, 'showKaryaTulis'])
-        ->name('kelola.karya.tulis');
+        ->name('karya.tulis.kelola');
     Route::get('/input-karya-tulis', [AdminController::class, 'createKaryaTulis'])
         ->name('karya.tulis.input');
     Route::post('/input-karya-tulis', [AdminController::class, 'storeKaryaTulis']);

@@ -199,7 +199,7 @@
             </div>
             <div class="inputan-form mb-5">
                 <button type="submit" class="btn btn-success tombol">Submit</button>
-                <a href="{{ route('kelola.karya.tulis') }}" class="btn btn-warning tombol">Kembali</a>
+                <a href="{{ route('karya.tulis.kelola') }}" class="btn btn-warning tombol">Kembali</a>
             </div>
         </div>
     </form>

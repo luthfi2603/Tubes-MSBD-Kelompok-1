@@ -23,6 +23,71 @@
 </head>
 
 <body>
+    <nav class="sidebar">
+        
+        <img src="../assets/img/usu.png" class="sidebar-logo" alt="" width="50">
+        <a href="#" class="logo">REPOSITORI</a>
+        <a href="#" class="logo">FASILKOM-TI USU</a>
+        
+        <hr class="lines">
+    
+        <div class="menu-content">
+    
+            <li class="item">
+                <a href="{{ route('karya.tulis.kelola') }}"><i class="fa-solid fa-book"></i><span>Kelola Karya Tulis</span></a>
+            </li>
+            <li class="item">
+                <a href="{{ route('jenis.tulisan.kelola') }}"><i class="fa-solid fa-list"></i><span>Kelola Jenis Tulisan</span></a>
+            </li>
+            <li class="item">
+                @if(auth()->user()->status == 'super_admin')
+                    <a href="{{ route('pegawai.kelola') }}"><i class="fa-solid fa-circle-user"></i><span>Kelola Pegawai</span></a>
+                @endif
+            </li>
+            <li class="item">
+                <a href="{{ route('user.kelola') }}"><i class="fa-solid fa-users"></i><span>Kelola User</span></a>
+            </li>
+            <li class="item">
+                <a href="{{ route('mahasiswa.kelola') }}"><i class="fa-regular fa-address-card"></i><span>Kelola Mahasiswa</span></a>
+            </li>
+            <li class="item">
+                <a href="{{ route('dosen.kelola') }}"><i class="fa-solid fa-user-tie"></i><span>Kelola Dosen</span></a>
+            </li>
+            <li class="item">
+                <a href="{{ route('bidang.ilmu.kelola') }}"><i class="fa-solid fa-book-bookmark"></i><span>Kelola Bidang Ilmu</span></a>
+            </li>
+            <li class="item">
+                <a href="{{ route('kata.kunci.kelola') }}"><i class="fa-solid fa-spell-check"></i><span>Kelola Kata Kunci</span></a>
+            </li>
+            
+            <li class="item">
+                <form action="{{ route('logout') }}" method="POST" id="form-logout">
+                    @csrf
+                    <button type="button" class="button-like-link" id="logout"><i class="bi bi-box-arrow-right"></i>  Logout</button>
+                </form>
+                <script>
+                    document.getElementById('logout').addEventListener('click', () => {
+                        Swal.fire({
+                            icon: "question",
+                            title: "Apakah kamu yakin untuk logout?",
+                            showCancelButton: true,
+                            confirmButtonColor: "#006633",
+                            cancelButtonColor: "#6b6767",
+                            confirmButtonText: "Logout"
+                        }).then((result) => {
+                            if(result.isConfirmed){
+                                document.getElementById('form-logout').submit()
+                            }else{
+                                return false;
+                            }
+                        });
+                    });
+                </script>
+                
+            </li>
+        </div>
+      </nav>
+
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -52,33 +117,10 @@
                                 <a class="nav-link" href="{{ route('super.admin.home') }}">Home</a>
                             @endif
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <form action="{{ route('logout') }}" method="POST" id="form-logout">
-                                    @csrf
-                                    <button type="button" class="dropdown-item" id="logout"><i class="bi bi-box-arrow-right"></i> Logout</button>
-                                </form>
-                                <script>
-                                    document.getElementById('logout').addEventListener('click', () => {
-                                        Swal.fire({
-                                            icon: "question",
-                                            title: "Apakah kamu yakin untuk logout?",
-                                            showCancelButton: true,
-                                            confirmButtonColor: "#006633",
-                                            cancelButtonColor: "#6b6767",
-                                            confirmButtonText: "Logout"
-                                        }).then((result) => {
-                                            if(result.isConfirmed){
-                                                document.getElementById('form-logout').submit()
-                                            }else{
-                                                return false;
-                                            }
-                                        });
-                                    });
-                                </script>
-                            </ul>
+                        <li class="nav-item">
+                            <i class="fa-solid fa-bars" id="sidebar-close"></i>
                         </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -86,7 +128,9 @@
     </nav>
 
     <!-- main -->
+    <div class="main">
     @yield('container')
+    </div>
 
     <!-- Footer-->
     <footer class="footer py-5">
@@ -106,6 +150,37 @@
     </footer>
 
     <!-- include javascript -->
+    <script>
+        // js nya sidebar
+        const sidebar = document.querySelector(".sidebar");
+        const sidebarClose = document.querySelector("#sidebar-close");
+        const menu = document.querySelector(".menu-content");
+        const menuItems = document.querySelectorAll(".submenu-item");
+        const subMenuTitles = document.querySelectorAll(".submenu .menu-title");
+
+        sidebarClose.addEventListener("click", () => sidebar.classList.toggle("close"));
+
+        menuItems.forEach((item, index) => {
+        item.addEventListener("click", () => {
+            menu.classList.add("submenu-active");
+            item.classList.add("show-submenu");
+            menuItems.forEach((item2, index2) => {
+            if (index !== index2) {
+                item2.classList.remove("show-submenu");
+            }
+            });
+        });
+        });
+
+        subMenuTitles.forEach((title) => {
+        title.addEventListener("click", () => {
+            menu.classList.remove("submenu-active");
+        });
+        });
+
+        console.log(menuItems, subMenuTitles);
+
+    </script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
