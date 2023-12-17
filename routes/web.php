@@ -64,6 +64,8 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-jenis-tulisan/{jenis}', [AdminController::class, 'editJenisTulisan'])
         ->name('jenis.tulisan.edit');
     Route::put('/edit-jenis-tulisan/{jenis}', [AdminController::class, 'updateJenisTulisan']);
+    Route::delete('/delete-jenis-tulisan/{jenisTulisan}', [AdminController::class, 'destroyJenisTulisan'])
+        ->name('jenis.tulisan.delete');
 
     Route::get('/kelola-mahasiswa', [AdminController::class, 'showMahasiswa'])
         ->name('mahasiswa.kelola');

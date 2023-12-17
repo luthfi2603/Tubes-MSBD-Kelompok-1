@@ -357,6 +357,15 @@ class AdminController extends Controller {
 
         return redirect()->route('jenis.tulisan.kelola')->with('success', 'Jenis tulisan berhasil diubah');
     }
+    public function destroyJenisTulisan(JenisTulisan $jenisTulisan){
+        try {
+            $jenisTulisan->delete();
+    
+            return back()->with('success', 'Jenis tulisan berhasil dihapus');
+        } catch (\Throwable $th) {
+            return back()->with('failed', 'Jenis tulisan ini digunakan, penghapusan tidak dapat dilakukan');
+        }
+    }
 
  
     public function showMahasiswa(){
