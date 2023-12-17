@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="container">
-    <form action="{{ route('karya.tulis.edit', $karya->id) }}" method="post" enctype="multipart/form-data" id="form">
+    <form id="form" action="{{ route('karya.tulis.edit', $karya->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="text" name="oldFile" value="{{ $karya->url_file }}" hidden>
@@ -86,6 +86,11 @@
                     let j = {{ $j }};
                 </script>
                 <button onclick="buatKolaborator2()" type="button" class="btn btn-success" style="margin-left: 30px !important"> + Kolaborator</button>
+                @error('nim_nidn')
+                    <div style="color: #dc3545; font-size: 87%; margin-top: 5px; margin-left: 30px">
+                        Pilih minimal satu kolaborator
+                    </div>
+                @enderror
             </div>
             @error('nim_nidn')
                 <div style="color: #dc3545; font-size: 87%; margin-top: 5px; margin-left: 30px">

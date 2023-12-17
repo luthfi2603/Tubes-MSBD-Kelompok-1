@@ -49,7 +49,12 @@
                         <td>{{ $user->nim_nidn }}</td>
                         <td>{{ $user->nama }}</td>
                         <td>{{ $user->username }}</td>
-                        <td>{{ $user->email }}</td>
+                        <td>
+                            {{ $user->email }}
+                            @if($user->email_verified_at !== NULL)
+                                <i class="fa-regular fa-circle-check"></i>
+                            @endif
+                        </td>
                         <td>{{ $user->status }}</td>
                         <td>
                             @php
