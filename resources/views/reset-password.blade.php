@@ -22,31 +22,21 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
-                    @if(session()->has('success'))
-                        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
                     <div class="wrap d-md-flex">
-                        <div class="img" style="background-image: url(assets/img/loginimg.png);">
+                        <div class="img" style="background-image: url({{ asset('assets/img/loginimg.png') }});">
                         </div>
                         <div class="login-wrap p-4 p-md-5">
                             <div class="d-flex">
                                 <div class="w-100">
-                                    <h3 class="mb-4" style="font-weight: 600; font-family: 'Montserrat', sans-serif;">Sign In</h3>
+                                    <h3 class="mb-4" style="font-weight: 600; font-family: 'Montserrat', sans-serif;">Reset Password</h3>
                                 </div>
                             </div>
-                            @if(session()->has('status'))
-                                <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
-                            <form action="{{ route('login') }}" method="POST" class="signin-form">
+                            <form action="{{ route('password.store') }}" method="POST" class="reset-password-form">
                                 @csrf
+                                <input type="hidden" name="token" value="{{ $request->route('token') }}">
                                 <div class="form-group mb-3">
                                     <label class="label" for="email">Email</label>
-                                    <input type="text" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" autocomplete="email">
+                                    <input type="text" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email', $request->email) }}" autocomplete="email">
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -60,7 +50,7 @@
                                             <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                                         </div>
                                         <div class="col-1 p-0" style="padding-top: 12px !important">
-                                            <i class="fa-regular fa-eye fa-xl"></i>
+                                            <i class="fa-regular fa-eye fa-xl" id="eye-password"></i>
                                         </div>
                                     </div>
                                     @error('password')
@@ -69,22 +59,26 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
-                                </div>
-                                <div class="form-group d-md-flex my-3">
-                                    {{-- <div class="w-50 text-left">
-                                        <label class="checkbox-wrap checkbox-primary mb-0">Remember Me
-                                            <input type="checkbox" checked>
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div> --}}
-                                    <div class="w-100 d-flex justify-content-center">
-                                        <a href="{{ route('password.request') }}">Forgot Password</a>
+                                <div class="form-group mb-4">
+                                    <label class="label" for="password_confirmation">Konfirmasi Password</label>
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Konfirmasi Password">
+                                        </div>
+                                        <div class="col-1 p-0" style="padding-top: 12px !important">
+                                            <i class="fa-regular fa-eye fa-xl" id="eye-konfirmasi-password"></i>
+                                        </div>
                                     </div>
+                                    @error('password_confirmation')
+                                        <div style="color: #dc3545; font-size: 87%; margin-top: 5px">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Reset Password</button>
                                 </div>
                             </form>
-                            <p class="text-center">Not Registed?? <a data-toggle="tab" href="{{ route('register') }}">Sign Up</a></p>
                         </div>
                     </div>
                 </div>
@@ -92,8 +86,8 @@
         </div>
     </section>
     <script>
-        const passwordInput = document.querySelector('#password');
-        const eyeIcon = document.querySelector('.fa-eye');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-password');
 
         eyeIcon.addEventListener('click', () => {
             const passwordInputType = passwordInput.getAttribute('type');
@@ -109,6 +103,25 @@
             }
 
             eyeIcon.style.right = `${passwordInput.offsetWidth - 20}px`;
+        });
+        
+        const passwordInput2 = document.getElementById('password_confirmation');
+        const eyeIcon2 = document.getElementById('eye-konfirmasi-password');
+
+        eyeIcon2.addEventListener('click', () => {
+            const passwordInputType = passwordInput2.getAttribute('type');
+
+            if (passwordInputType === 'password') {
+                passwordInput2.setAttribute('type', 'text');
+                eyeIcon2.classList.remove('fa-eye');
+                eyeIcon2.classList.add('fa-eye-slash');
+            } else {
+                passwordInput2.setAttribute('type', 'password');
+                eyeIcon2.classList.remove('fa-eye-slash');
+                eyeIcon2.classList.add('fa-eye');
+            }
+
+            eyeIcon2.style.right = `${passwordInput2.offsetWidth - 20}px`;
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
