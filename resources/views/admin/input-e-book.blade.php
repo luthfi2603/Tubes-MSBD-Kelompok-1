@@ -1,7 +1,7 @@
 @extends('layouts.main-admin')
 
 @section('container')
-<div class="container">
+<div class="container admin-mb">
     <form action="{{ route('ebook.input') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row mt-4">
