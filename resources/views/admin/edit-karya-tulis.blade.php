@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="container">
-    <form action="{{ route('karya.tulis.edit', $karya->id) }}" method="post" enctype="multipart/form-data">
+    <form id="form" action="{{ route('karya.tulis.edit', $karya->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="text" name="oldFile" value="{{ $karya->url_file }}" hidden>
@@ -167,11 +167,11 @@
                     </div>
                 @enderror
             </div>
-            <div class="inputan-form mb-5">
-                <button type="submit" class="btn btn-success tombol">Submit</button>
-                <a href="{{ route('kelola.karya.tulis') }}" class="btn btn-warning tombol">Kembali</a>
-            </div>
         </div>
     </form>
+    <div class="inputan-form mb-5">
+        <button type="button" onclick="submit()" class="btn btn-success tombol">Submit</button>
+        <a href="{{ route('kelola.karya.tulis') }}" class="btn btn-warning tombol">Kembali</a>
+    </div>
 </div>
 @endsection
