@@ -75,6 +75,8 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-mahasiswa/{nim}', [AdminController::class, 'editMahasiswa'])
         ->name('mahasiswa.edit');
     Route::put('/edit-mahasiswa/{nim}', [AdminController::class, 'updateMahasiswa']);
+    Route::delete('/delete-mahasiswa/{mahasiswa}', [AdminController::class, 'destroyMahasiswa'])
+        ->name('mahasiswa.delete');
 
     Route::get('/kelola-dosen', [AdminController::class, 'showDosen'])
         ->name('dosen.kelola');
@@ -84,6 +86,8 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/edit-dosen/{nidn}', [AdminController::class, 'editDosen'])
         ->name('dosen.edit');
     Route::put('/edit-dosen/{nidn}', [AdminController::class, 'updateDosen']);
+    Route::delete('/delete-dosen/{dosen}', [AdminController::class, 'destroyDosen'])
+        ->name('dosen.delete');
 
     Route::get('/kelola-user', [AdminController::class, 'showUser'])
         ->name('user.kelola');

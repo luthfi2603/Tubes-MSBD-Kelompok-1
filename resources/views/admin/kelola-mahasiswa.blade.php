@@ -75,7 +75,16 @@
                             {{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}
                         </td>
                         <td>
-                            <a href="{{ route('mahasiswa.edit', ['nim' => $mahasiswa->nim]) }}" id="editmahasiswa"><i class="fa-solid fa-pen icon-edit"></i></a>
+                            <div class="d-flex">
+                                <a href="{{ route('mahasiswa.edit', ['nim' => $mahasiswa->nim]) }}" id="editmahasiswa"><i class="fa-solid fa-pen icon-edit"></i></a>
+                                <form id="form-delete-{{ $mahasiswa->nim }}" action="{{ route('mahasiswa.delete', $mahasiswa->nim) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" onclick="deleteMahasiswa('{{ $mahasiswa->nim }}')" style="border:none; background:none; !important">
+                                        <i class="fa-solid fa-trash icon-delete"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
