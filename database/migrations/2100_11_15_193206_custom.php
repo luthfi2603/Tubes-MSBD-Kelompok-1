@@ -150,12 +150,101 @@ return new class extends Migration {
                     INSERT INTO temp_kolab (nim_nidn, status ,karya_id, tingkat) VALUES (nim_nidnt, statust ,id_temp, tingkatant);
                     SET j = j + 1;
                 END WHILE;
+
                 INSERT INTO kontributor_mahasiswas (nim, status, karya_id) SELECT nim_nidn, status, karya_id FROM temp_kolab WHERE tingkat = 1;
                 INSERT INTO kontributor_dosens (nidn, status, karya_id) SELECT nim_nidn, status, karya_id FROM temp_kolab WHERE tingkat = 2;
                 DROP TEMPORARY TABLE IF EXISTS temp_kolab;
 
                 COMMIT;
             END 
+        ");
+
+        DB::unprepared("
+            DROP PROCEDURE IF EXISTS editKaryaTulis;
+            CREATE PROCEDURE editKaryaTulis(
+                IN judulp varchar(500),
+                IN abstrakp text,
+                IN bidang_ilmup varchar(255),
+                IN url_filep varchar(255),
+                IN jenisp varchar(255),
+                IN tahunp varchar(255),
+                IN karya_idp INT,
+                IN kolabp JSON,
+                IN kuncip JSON
+            )
+            BEGIN
+                DECLARE i INT DEFAULT 0;
+                DECLARE j INT DEFAULT 0;
+                DECLARE kuncit VARCHAR(255);
+                DECLARE nim_nidnt char(10);
+                DECLARE tingkatant INT;
+                DECLARE statust VARCHAR(50);
+                DECLARE kondisi INT;
+            
+                DECLARE EXIT HANDLER FOR SQLEXCEPTION
+                BEGIN
+                    ROLLBACK;
+                    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'error';
+                END;
+            
+                START TRANSACTION;
+            
+                CREATE TEMPORARY TABLE temp_kunci (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    karya_id INT,
+                    kunci VARCHAR(255)
+                );
+                CREATE TEMPORARY TABLE temp_kolab (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    nim_nidn char(10),
+                    tingkat INT
+                );
+            
+                UPDATE karya_tulis SET judul = judulp, abstrak = abstrakp, bidang_ilmu = bidang_ilmup, url_file = url_filep, jenis = jenisp, tahun = tahunp WHERE id = karya_idp;
+            
+                WHILE i < JSON_LENGTH(kuncip) DO 
+                    SET kuncit = JSON_UNQUOTE(JSON_EXTRACT(kuncip, CONCAT('$[', i, '].kunci')));
+            
+                    INSERT INTO temp_kunci (karya_id, kunci) VALUES (karya_idp, kuncit);
+                    SET i = i + 1;
+                END WHILE;
+            
+                DELETE FROM kata_kunci_tulisans WHERE karya_id = karya_idp;
+                INSERT INTO kata_kunci_tulisans (karya_id, kata_kunci) SELECT karya_id, kunci FROM temp_kunci;
+                DROP TEMPORARY TABLE IF EXISTS temp_kunci;
+            
+                WHILE j < JSON_LENGTH(kolabp) DO 
+                    SET nim_nidnt = JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].nim_nidn')));
+                    SET statust = JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].status')));
+                    SET tingkatant = CAST(JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].tingkatan'))) AS SIGNED);
+                    SET kondisi = CAST(JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].kondisi'))) AS SIGNED);
+            
+                    IF (kondisi = 2 AND tingkatant = 1) THEN
+                        UPDATE kontributor_mahasiswas SET status = statust WHERE nim = nim_nidnt COLLATE utf8mb4_unicode_ci AND karya_id = karya_idp;
+                    ELSEIF (kondisi = 2 AND tingkatant = 2) THEN
+                        UPDATE kontributor_dosens SET status = statust WHERE nidn = nim_nidnt COLLATE utf8mb4_unicode_ci AND karya_id = karya_idp;
+                    ELSEIF (kondisi = 3 AND tingkatant = 1) THEN
+                        INSERT INTO kontributor_mahasiswas VALUES (nim_nidnt, statust, karya_idp);
+                    ELSEIF (kondisi = 3 AND tingkatant = 2) THEN
+                        INSERT INTO kontributor_dosens VALUES (nim_nidnt, statust, karya_idp);
+                    END IF;
+            
+                    IF (tingkatant = 1) THEN
+                        INSERT INTO temp_kolab (nim_nidn, tingkat) VALUES (nim_nidnt, 1);
+                    ELSE
+                        INSERT INTO temp_kolab (nim_nidn, tingkat) VALUES (nim_nidnt, 2);
+                    END IF;
+            
+                    SET j = j + 1;
+                END WHILE;
+            
+                DELETE FROM kontributor_mahasiswas WHERE karya_id = karya_idp AND nim NOT IN (SELECT nim_nidn COLLATE utf8mb4_unicode_ci FROM temp_kolab WHERE tingkat = 1);
+                DELETE FROM kontributor_dosens WHERE karya_id = karya_idp AND nidn NOT IN(SELECT nim_nidn COLLATE utf8mb4_unicode_ci FROM temp_kolab WHERE tingkat = 2); 
+                
+                DROP TEMPORARY TABLE IF EXISTS temp_kolab;
+            
+                COMMIT;
+            END
         ");
 
         DB::unprepared('

@@ -5,7 +5,7 @@
     <div class="row mt-4 d-flex align-items-center">
         <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-shield-halved"></i> Selamat Datang SuperAdmin {{ auth()->user()->username }}</h5>
         <div class="col-lg-6 mb-3">
-            <a href="{{ route('kelola.karya.tulis') }}">
+            <a href="{{ route('karya.tulis.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
 
@@ -136,7 +136,7 @@
                         </div>
 
                         <div class="col-md-4">
-                            <img src="../assets/img/keloladosen.png" class="img-fluid rounded-start" alt="...">
+                            <img src="../assets/img/kelolabidangilmu.png" class="img-fluid rounded-start" alt="...">
                         </div>
 
                     </div>
@@ -153,7 +153,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <img src="../assets/img/keloladosen.png" class="img-fluid rounded-start" alt="...">
+                            <img src="../assets/img/kelolakeyword.png" class="img-fluid rounded-start" alt="...">
                         </div>
                     </div>
                 </div>

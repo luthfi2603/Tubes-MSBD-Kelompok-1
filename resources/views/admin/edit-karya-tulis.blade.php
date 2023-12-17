@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="container">
-    <form action="{{ route('karya.tulis.edit', $karya->id) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('karya.tulis.edit', $karya->id) }}" method="post" enctype="multipart/form-data" id="form">
         @csrf
         @method('PUT')
         <input type="text" name="oldFile" value="{{ $karya->url_file }}" hidden>
@@ -11,11 +11,6 @@
             @if(session()->has('failed'))
                 <div class="alert alert-danger alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
                     {{ session('failed') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @elseif(session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
-                    {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
@@ -92,6 +87,11 @@
                 </script>
                 <button onclick="buatKolaborator2()" type="button" class="btn btn-success" style="margin-left: 30px !important"> + Kolaborator</button>
             </div>
+            @error('nim_nidn')
+                <div style="color: #dc3545; font-size: 87%; margin-top: 5px; margin-left: 30px">
+                    Pilih minimal satu kolaborator
+                </div>
+            @enderror
             <!-- tempat menambahkan kolaborator -->
             <div class="row" id="tambah-kolaborator">
                 @php $i = 1; @endphp
@@ -162,11 +162,11 @@
                     </div>
                 @enderror
             </div>
-            <div class="inputan-form mb-5">
-                <button type="submit" class="btn btn-success tombol">Submit</button>
-                <a href="{{ route('kelola.karya.tulis') }}" class="btn btn-warning tombol">Kembali</a>
-            </div>
         </div>
     </form>
+    <div class="inputan-form mb-5">
+        <button type="button" onclick="submit()" class="btn btn-success tombol">Submit</button>
+        <a href="{{ route('karya.tulis.kelola') }}" class="btn btn-warning tombol">Kembali</a>
+    </div>
 </div>
 @endsection

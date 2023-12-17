@@ -149,8 +149,155 @@ class AdminController extends Controller {
 
         return view('admin.edit-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'karya', 'karya_kunci', 'kontributors', 'kontrib'));
     }
-    public function updateKaryaTulis(Request $request){
-        dd($request->request);
+    public function updateKaryaTulis(Request $request, $id){
+        $karya = KaryaTulis::find($id);
+        $mahasiswa = KontributorMahasiswa::where('karya_id', $id)->get();
+        $dosen = KontributorDosen::where('karya_id', $id)->get();
+        $kuncis = KataKunciTulisan::where('karya_id', $id)->get();
+
+        $request->validate([
+            'nim_nidn' => ['required'],
+            'judul' => ['required'],
+            'tahun' => ['required', 'numeric', 'digits:4'],
+            'jenis' => ['required'],
+            'bidang' => ['required'],
+            'kunci' => ['required'],
+            'abstrak' => ['required']
+        ],[
+            'kunci.required' => 'Pilih paling tidak satu kata kunci.'
+        ]);
+        if($request->hasFile('file')){
+            $request->validate([
+                'file' => ['required','file', 'mimes:pdf']
+            ]);
+        }
+        
+
+        $kontrib = [];
+        $kunci = [];
+        $kontribr = [];
+        $kuncip = [];
+
+        foreach ($kuncis as $key) {
+            $kunci[] = $key->kata_kunci;
+        }
+
+        for ($i = 0; $i < count($request->kunci); $i++) {
+            $kuncip[] = [
+                'kunci' => $request->kunci[$i]
+            ];
+        }
+
+
+        foreach ($mahasiswa as $key) {
+            $kontrib[] = [
+                'nim_nidn' => $key->nim,
+                'status' => $key->status,
+                'tingkatan' => '1'
+            ];
+        }
+        foreach ($dosen as $key) {
+            $kontrib[] = [
+                'nim_nidn' => $key->nidn,
+                'status' => $key->status,
+                'tingkatan' => '2'
+            ];
+        }
+        
+        
+        for ($i = 0; $i < count($request->nim_nidn); $i++) {
+            $kontribr[] = [
+                'nim_nidn' => $request->nim_nidn[$i],
+                'tingkatan' => $request->tingkatan[$i],
+                'status' => $request->status[$i]
+            ];
+        }
+
+
+        $hasil_kunci1 = array_diff($request->kunci, $kunci);
+        $hasil_kunci2 = array_diff($kunci, $request->kunci);
+        $hasil_kunci = array_merge($hasil_kunci1, $hasil_kunci2);
+
+        
+        foreach ($kontribr as $key => $item) {
+            $nimNidn2 = $item["nim_nidn"];
+            $status2 = $item["status"];
+        
+            $indexInArray1 = array_search($nimNidn2, array_column($kontrib, "nim_nidn"));
+        
+            if ($indexInArray1 !== false) {
+                $status1 = $kontrib[$indexInArray1]["status"];
+        
+                if ($status1 !== $status2) {
+                    $kolab_temp[] = [
+                        "nim_nidn" => $nimNidn2,
+                        "status" => $status2,
+                        "tingkatan" => $item["tingkatan"],
+                        "kondisi" => 2
+                    ];
+                }else{
+                    $kolab_temp[] = [
+                        "nim_nidn" => $nimNidn2,
+                        "status" => $status1,
+                        "tingkatan" => $item["tingkatan"],
+                        "kondisi" => 1
+                    ];
+                }
+            }else{
+                $kolab_temp[] = [
+                    "nim_nidn" => $nimNidn2,
+                    "status" => $status2,
+                    "tingkatan" => $item["tingkatan"],
+                    "kondisi" => 3
+                ];
+            }
+            $status_kontrib[] = $kolab_temp[$key]['kondisi'];
+        }
+
+        foreach ($kontrib as $key => $kb) {
+            if (!in_array($kb, $kontribr)) {
+                $status_kontrib[$key] = 3;
+            }
+        }
+
+
+        if ($request->hasFile('file')) {
+            $namaFile = $request->file('file')->getClientOriginalName();
+            $namaFile = hash('sha1', $namaFile);
+            $namaFile2 = $namaFile . '.pdf';
+            $namaFile = 'document/' . $namaFile . '.pdf';
+        }else{
+            $namaFile = $request->oldFile;
+        }
+
+
+        if(
+            empty($hasil_kunci) &&
+            count(array_filter($status_kontrib, function ($item) {return $item == 1; })) == count($status_kontrib) &&
+            $karya->judul == $request->judul &&
+            $karya->abstrak == $request->abstrak &&
+            $karya->bidang_ilmu == $request->bidang &&
+            $karya->tahun == $request->tahun &&
+            $karya->jenis == $request->jenis &&
+            $karya->url_file === $namaFile
+        ){
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }
+        $kolab = json_encode($kolab_temp);
+        $kunci = json_encode($kuncip);
+
+        try {
+            DB::select('call editKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $namaFile, $request->jenis, $request->tahun, $id, $kolab,$kunci));
+
+            if(!empty($namaFile2)){
+                $request->file('file')->move(storage_path('app\\public\\document'), $namaFile2);
+            }
+        } catch (\Throwable $th) {
+            return back()->with('failed', 'Terjadi kesalahan karya tulis gagal diedit');
+        }
+
+        return redirect()->route('karya.tulis.kelola')->with('success', 'karya tulisan berhasil diubah');
+
     }
     public function destroyKaryaTulis(KaryaTulis $karya){
         Storage::delete($karya->url_file);
