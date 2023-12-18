@@ -8,10 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
-class RegisterController extends Controller
-{
-    public function store(Request $request)
-    {
+class RegisterController extends Controller {
+    public function store(Request $request){
         $request->validate([
             'username' => ['required', 'min:5', 'max:15', 'unique:users', 'regex:/^[^\s]+$/'],
             'status' => ['required'],

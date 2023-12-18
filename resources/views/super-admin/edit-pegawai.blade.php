@@ -17,7 +17,7 @@
                 <div class="inputan-form">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control custom-form @error('username') is-invalid @enderror" name="username" id="username" placeholder="Input Username Pegawai" value="{{ $akun->username }}">
+                        <input type="text" class="form-control custom-form @error('username') is-invalid @enderror" name="username" id="username" placeholder="Input Username Pegawai" value="{{ old('username', $akun->username) }}">
                         @error('username')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -26,7 +26,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control custom-form @error('email') is-invalid @enderror" name="email" id="email" placeholder="Input Email Pegawai" value="{{ $akun->email }}">
+                        <input type="email" class="form-control custom-form @error('email') is-invalid @enderror" name="email" id="email" placeholder="Input Email Pegawai" value="{{ old('email', $akun->email) }}">
                         @error('email')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -39,7 +39,7 @@
                 <div class="inputan-form">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
-                        <input type="text" class="form-control custom-form @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Input Nama Pegawai" value="{{ $pegawai->nama }}">
+                        <input type="text" class="form-control custom-form @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Input Nama Pegawai" value="{{ old('nama', $pegawai->nama) }}">
                         @error('nama')
                             <div class="invalid-feedback">
                                 {{ $message }}

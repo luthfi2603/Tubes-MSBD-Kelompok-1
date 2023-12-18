@@ -16,8 +16,8 @@
                 <div class="col-lg-6">
                     <div class="inputan-form">
                         <div class="mb-3">
-                            <label for="nim" class="form-label">Nim</label>
-                            <input type="text" class="form-control custom-form @error('nim') is-invalid @enderror" id="nim" name="nim" placeholder="Input NIM Mahasiswa" value="{{ $mahasiswa->nim }}">
+                            <label for="nim" class="form-label">NIM</label>
+                            <input type="text" class="form-control custom-form @error('nim') is-invalid @enderror" id="nim" name="nim" placeholder="Input NIM Mahasiswa" value="{{ old('nim', $mahasiswa->nim) }}">
                             @error('nim')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -29,7 +29,7 @@
                             <label for="nama" class="form-label">Nama Mahasiswa</label>
                             <input type="text" class="form-control custom-form @error('nama') is-invalid @enderror"
                                 id="nama" name="nama" placeholder="Input Nama Mahasiswa"
-                                value="{{ $mahasiswa->nama }}">
+                                value="{{ old('nama', $mahasiswa->nama) }}">
                             @error('nama')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -39,10 +39,10 @@
 
                         <div class="mb-3">
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select custom-form @error('jenis_kelamin') is-invalid @enderror" aria-label="Default select example" id="jenis_kelamin" name="jenis_kelamin">
+                            <select class="form-select custom-form @error('jenis_kelamin') is-invalid @enderror" aria-label="Default select example" id="Pilih Jenis Kelamin" name="jenis_kelamin">
                                 <option value="">Pilih Jenis Kelamin</option>
-                                <option value="L" {{ $mahasiswa->jenis_kelamin === 'L' ? 'selected' : '' }}>Laki-Laki</option>
-                                <option value="P" {{ $mahasiswa->jenis_kelamin === 'P' ? 'selected' : '' }}>Perempuan</option>
+                                <option value="L" {{ old('jenis_kelamin', $mahasiswa->jenis_kelamin) === 'L' ? 'selected' : '' }}>Laki-Laki</option>
+                                <option value="P" {{ old('jenis_kelamin', $mahasiswa->jenis_kelamin) === 'P' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                             @error('jenis_kelamin')
                                 <div class="invalid-feedback">
@@ -60,7 +60,7 @@
                         <div class="mb-3">
                             <label for="angkatan" class="form-label">Angkatan</label>
                             <input type="text" class="form-control custom-form @error('angkatan') is-invalid @enderror"
-                                id="angkatan" name="angkatan" placeholder="Angkatan" value="{{ $mahasiswa->angkatan }}">
+                                id="angkatan" name="angkatan" placeholder="Angkatan" value="{{ old('angkatan', $mahasiswa->angkatan) }}">
                             @error('angkatan')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -70,10 +70,10 @@
 
                         <div class="mb-3">
                             <label for="status" class="form-label">Status Mahasiswa</label>
-                            <select class="form-select custom-form @error('status') is-invalid @enderror" aria-label="Default select example" id="status" name="status">
-                                <option value="aktif" {{ $mahasiswa->status === 'aktif' ? 'selected' : '' }}>Aktif</option>
-                                <option value="tidak_aktif" {{ $mahasiswa->status === 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
-                                <option value="lulus" {{ $mahasiswa->status === 'lulus' ? 'selected' : '' }}>Lulus</option>
+                            <select class="form-select custom-form @error('status') is-invalid @enderror" aria-label="Pilih Status Mahasiswa" id="status" name="status">
+                                <option value="aktif" {{ old('status', $mahasiswa->status) === 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="tidak_aktif" {{ old('status', $mahasiswa->status) === 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                                <option value="lulus" {{ old('status', $mahasiswa->status) === 'lulus' ? 'selected' : '' }}>Lulus</option>
                             </select>
                             @error('status')
                                 <div class="invalid-feedback">
@@ -84,10 +84,10 @@
 
                         <div class="mb-3">
                             <label for="prodi" class="form-label">Program Studi</label>
-                            <select class="form-select custom-form @error('prodi') is-invalid @enderror" aria-label="Default select example" id="prodi" name="prodi">
-                                <option value="" selected>Pilih Program Studi</option>
+                            <select class="form-select custom-form @error('prodi') is-invalid @enderror" aria-label="Pilih Prodi" id="prodi" name="prodi">
+                                <option value="">Pilih Program Studi</option>
                                 @foreach ($prodis as $prodi)
-                                    <option value="{{ $prodi->kode_prodi }}" {{ $mahasiswa->kode_prodi === $prodi->kode_prodi ? 'selected' : '' }}>
+                                    <option value="{{ $prodi->kode_prodi }}" {{ old('prodi', $mahasiswa->kode_prodi) === $prodi->kode_prodi ? 'selected' : '' }}>
                                         {{ $prodi->jenjang }}&nbsp;{{ $prodi->nama_prodi }}
                                     </option>
                                 @endforeach

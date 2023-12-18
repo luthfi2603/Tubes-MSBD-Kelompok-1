@@ -6,7 +6,7 @@
         <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Daftar Log</h5>
         <div class="col-lg-9 justify-content-start">
         </div>
-        <div class="col-lg-3 justify-content-end">
+        {{-- <div class="col-lg-3 justify-content-end">
             <div class="input-group input-search">
                 <input type="text" class="form-control" placeholder="Search this blog">
                 <div class="input-group-append">
@@ -15,7 +15,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     @if(session()->has('failed'))
         <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">

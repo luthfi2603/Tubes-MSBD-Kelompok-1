@@ -19,7 +19,7 @@
                 <div class="inputan-form" style="width: 90%;">
                     <div class="mb-4">
                         <label for="jenis_bidang_ilmu" class="form-label">Bidang Ilmu</label>
-                        <input type="text" class="form-control custom-form @error('jenis_bidang_ilmu') is-invalid @enderror" id="jenis_bidang_ilmu" name="jenis_bidang_ilmu" value="{{ $bidang_ilmu->jenis_bidang_ilmu }}" >
+                        <input type="text" class="form-control custom-form @error('jenis_bidang_ilmu') is-invalid @enderror" id="jenis_bidang_ilmu" name="jenis_bidang_ilmu" value="{{ old('jenis_bidang_ilmu', $bidang_ilmu->jenis_bidang_ilmu) }}" placeholder="Input Bidang Ilmu">
                         @error('jenis_bidang_ilmu')
                             <div class="invalid-feedback">
                                 {{ $message }}

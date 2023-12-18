@@ -69,7 +69,7 @@ class AdminController extends Controller {
     public function storeKaryaTulis(Request $request){
         $request->validate([
             'nim_nidn' => ['required'],
-            'judul' => ['required'],
+            'judul' => ['required', 'max:500'],
             'tahun' => ['required', 'numeric', 'digits:4'],
             'jenis' => ['required'],
             'bidang' => ['required'],
@@ -168,23 +168,21 @@ class AdminController extends Controller {
         $dosen = KontributorDosen::where('karya_id', $id)->get();
         $kuncis = KataKunciTulisan::where('karya_id', $id)->get();
 
-        $request->validate([
+        $rules = [
             'nim_nidn' => ['required'],
-            'judul' => ['required'],
+            'judul' => ['required', 'max:500'],
             'tahun' => ['required', 'numeric', 'digits:4'],
             'jenis' => ['required'],
             'bidang' => ['required'],
             'kunci' => ['required'],
             'abstrak' => ['required']
-        ],[
-            'kunci.required' => 'Pilih paling tidak satu kata kunci.'
-        ]);
+        ];
 
         if($request->hasFile('file')){
-            $request->validate([
-                'file' => ['required','file', 'mimes:pdf']
-            ]);
+            $rules['file'] = ['required','file', 'mimes:pdf'];
         }
+
+        $request->validate($rules, ['kunci.required' => 'Pilih paling tidak satu kata kunci.']);
 
         $kontrib = [];
         $kunci = [];
@@ -328,7 +326,7 @@ class AdminController extends Controller {
     }
     public function storeJenisTulisan(Request $request){
         $request->validate([
-            'jenis_tulisan' => ['required', 'unique:jenis_tulisans']            
+            'jenis_tulisan' => ['required', 'unique:jenis_tulisans', 'max:255']            
         ]);
 
         $jenis_tulisan = new JenisTulisan;
@@ -350,7 +348,7 @@ class AdminController extends Controller {
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }else{
             $request->validate([
-                'jenis_tulisan' => ['required', 'unique:jenis_tulisans']
+                'jenis_tulisan' => ['required', 'unique:jenis_tulisans', 'max:255']
             ]);
         }
         
@@ -385,7 +383,7 @@ class AdminController extends Controller {
     public function storeMahasiswa(Request $request){
         $request->validate([
             'nim' => ['required','numeric', 'digits:9', 'unique:mahasiswas'],
-            'nama' => ['required','regex:/^[^\*\'\"\-]+$/'],
+            'nama' => ['required','regex:/^[^\*\'\"\-]+$/', 'max:255'],
             'jenis_kelamin' => ['required'],
             'angkatan' => ['required', 'numeric', 'digits:4'],
             'status' => ['required'],
@@ -428,18 +426,19 @@ class AdminController extends Controller {
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }
 
-        if($mahasiswa->nim != $request->nim){
-            $request->validate([
-                'nim' => ['required','numeric', 'digits:9', 'unique:mahasiswas']
-            ]);
-        }
-        $request->validate([
-            'nama' => ['required','regex:/^[^\*\'\"\-]+$/'],
+        $rules = [
+            'nama' => ['required','regex:/^[^\*\'\"\-]+$/', 'max:255'],
             'jenis_kelamin' => ['required'],
             'angkatan' => ['required', 'numeric', 'digits:4'],
             'status' => ['required'],
             'prodi' => ['required'],
-        ]);
+        ];
+
+        if($mahasiswa->nim != $request->nim){
+            $rules['nim'] = ['required','numeric', 'digits:9', 'unique:mahasiswas'];
+        }
+
+        $request->validate($rules);
         
         $mahasiswa->nim = $request->nim;
         $mahasiswa->nama = $request->nama;
@@ -480,7 +479,7 @@ class AdminController extends Controller {
         $request->validate([
             'nidn' => ['required','numeric', 'digits:10', 'unique:dosens'],
             'nip' => ['required','numeric', 'digits:18', 'unique:dosens'],
-            'nama' => ['required','regex:/^[^*\/]+$/'],
+            'nama' => ['required','regex:/^[^*\/]+$/', 'max:255'],
             'kode_dosen' => ['required', 'alpha', 'uppercase', 'size:3'],
             'jenis_kelamin' => ['required'],
             'prodi' => ['required'],
@@ -525,25 +524,22 @@ class AdminController extends Controller {
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }
 
-        if($request->nidn != $dosen->nidn){
-            $request->validate([
-                'nidn' => ['required','numeric', 'digits:10', 'unique:dosens'],
-            ]);
-        };
-        if($request->nip != $dosen->nip){
-            $request->validate([
-                'nip' => ['required','numeric', 'digits:18', 'unique:dosens'],
-            ]);
-        };
-
-        $request->validate([
-            'nama' => ['required','regex:/^[^*\/]+$/'],
+        $rules = [
+            'nama' => ['required','regex:/^[^*\/]+$/', 'max:255'],
             'kode_dosen' => ['required', 'alpha', 'uppercase', 'size:3'],
             'jenis_kelamin' => ['required'],
             'prodi' => ['required'],
             'status' => ['required']
-        ]);
-        
+        ];
+
+        if($request->nidn != $dosen->nidn){
+            $rules['nidn'] = ['required','numeric', 'digits:10', 'unique:dosens'];
+        };
+        if($request->nip != $dosen->nip){
+            $rules['nip'] = ['required','numeric', 'digits:18', 'unique:dosens'];
+        };
+
+        $request->validate($rules);
 
         $dosen->nidn = $request->nidn;
         $dosen->nip = $request->nip;
@@ -665,7 +661,7 @@ class AdminController extends Controller {
     }
     public function storeBidangIlmu(Request $request){
         $request->validate([
-            'jenis_bidang_ilmu' => ['required', 'unique:bidang_ilmus']            
+            'jenis_bidang_ilmu' => ['required', 'unique:bidang_ilmus', 'max:255']            
         ]);
 
         $bidang_ilmu = new BidangIlmu;
@@ -687,7 +683,7 @@ class AdminController extends Controller {
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }else{
             $request->validate([
-                'jenis_bidang_ilmu' => ['required', 'unique:bidang_ilmus']
+                'jenis_bidang_ilmu' => ['required', 'unique:bidang_ilmus', 'max:255']
             ]);
         }
 
@@ -718,7 +714,7 @@ class AdminController extends Controller {
     }
     public function storeKataKunci(Request $request){
         $request->validate([
-            'kata_kunci' => ['required', 'unique:kata_kuncis']            
+            'kata_kunci' => ['required', 'unique:kata_kuncis', 'max:20']            
         ]);
 
         $kata_kunci = new KataKunci;
@@ -741,7 +737,7 @@ class AdminController extends Controller {
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }else{
             $request->validate([
-                'kata_kunci' => ['required', 'unique:kata_kuncis']
+                'kata_kunci' => ['required', 'unique:kata_kuncis', 'max:20']
             ]);
         }
 
@@ -752,11 +748,21 @@ class AdminController extends Controller {
         return redirect()->route('kata.kunci.kelola')->with('success', 'Kata kunci berhasil diubah');
     }
     public function destroyKataKunci($kunci){
-        $kata_kunci = KataKunci::find($kunci);
+        $kataKunci = KataKunci::find($kunci);
 
-        $kata_kunci->delete();
+        $kataKunciTulisan = KataKunciTulisan::where('kata_kunci', $kunci)->get();
 
-        return back()->with('success', 'Kata kunci berhasil dihapus');
+        $jumlahKataKunci = [];
+        foreach ($kataKunciTulisan as $key) {
+            $jumlahKataKunci[] = KataKunciTulisan::where('karya_id', $key->karya_id)->count();
+        }
+
+        if(in_array(1, $jumlahKataKunci)){
+            return back()->with('failed', 'Kata Kunci dibutuhkan oleh sebuah karya tulis, penghapusan tidak dapat dilakukan');
+        }else{
+            $kataKunci->delete();
+            return back()->with('success', 'Kata kunci berhasil dihapus');
+        }
     }
 
     public function showEBook(){
@@ -806,7 +812,7 @@ class AdminController extends Controller {
         $request->validate([
             'judul' => ['required', 'max:500'],
             'penulis' => ['required', 'max:255'],
-            'tahun' => ['required', 'min_digits:4', 'max_digits:4'],
+            'tahun' => ['required', 'numeric', 'digits:4'],
             'file' => ['file', 'mimes:pdf']
         ]);
 
@@ -835,9 +841,9 @@ class AdminController extends Controller {
     }
     public function destroyEBook(Ebook $ebook){
         Storage::delete($ebook->url_file);
-        // $ebook->delete();
+
         $admin = Auth::user()->username;
-        
+
         DB::select('call trigger_delete_ebook(?, ?)', array($admin, $ebook->id));
 
         return back()->with('success', 'E-Book berhasil dihapus');

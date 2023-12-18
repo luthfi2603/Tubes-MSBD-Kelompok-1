@@ -22,7 +22,7 @@
                 <div class="inputan-form">
                     <div class="mb-3">
                         <label for="judul" class="form-label">Judul E-Book</label>
-                        <textarea class="form-control custom-form @error('judul') is-invalid @enderror" placeholder="Input Judul E-Book" id="judul" name="judul" style="height: 6rem">{{ $ebook->judul }}</textarea>
+                        <textarea class="form-control custom-form @error('judul') is-invalid @enderror" placeholder="Input Judul E-Book" id="judul" name="judul" style="height: 6rem">{{ old('judul', $ebook->judul) }}</textarea>
                         @error('judul')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -31,7 +31,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="tahun" class="form-label">Tahun Terbit</label>
-                        <input type="number" class="form-control custom-form @error('tahun') is-invalid @enderror" id="tahun" name="tahun" placeholder="Input Tahun Terbit" value="{{ $ebook->tahun_terbit }}">
+                        <input type="number" class="form-control custom-form @error('tahun') is-invalid @enderror" id="tahun" name="tahun" placeholder="Input Tahun Terbit" value="{{ old('tahun', $ebook->tahun_terbit) }}">
                         @error('tahun')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -44,7 +44,7 @@
                 <div class="inputan-form">
                     <div class="mb-3">
                         <label for="penulis" class="form-label">Penulis</label>
-                        <input type="text" class="form-control custom-form @error('penulis') is-invalid @enderror" id="penulis" name="penulis" placeholder="Input Penulis" value="{{ $ebook->penulis }}">
+                        <input type="text" class="form-control custom-form @error('penulis') is-invalid @enderror" id="penulis" name="penulis" placeholder="Input Penulis" value="{{ old('penulis', $ebook->penulis) }}">
                         @error('penulis')
                             <div class="invalid-feedback">
                                 {{ $message }}
