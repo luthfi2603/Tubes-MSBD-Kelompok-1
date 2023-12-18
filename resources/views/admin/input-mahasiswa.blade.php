@@ -15,7 +15,7 @@
             <div class="col-lg-6">
                 <div class="inputan-form">
                     <div class="mb-3">
-                        <label for="nim" class="form-label">Nim</label>
+                        <label for="nim" class="form-label">NIM</label>
                         <input type="text" class="form-control custom-form @error('nim') is-invalid @enderror" id="nim" name="nim" placeholder="Input NIM Mahasiswa" value="{{ old('nim') }}">
                         @error('nim')
                             <div class="invalid-feedback">

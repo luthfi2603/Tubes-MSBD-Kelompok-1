@@ -24,8 +24,8 @@
                     @foreach ($karyas as $karya)
                         <div class="card mt-3" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
-                                <div class="col-md-4 my-3">
-                                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
+                                <div class="col-md-4 my-3 d-flex">
+                                    <img src="{{ asset('assets/img/usu.png') }}" class="m-auto" width="70%">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">

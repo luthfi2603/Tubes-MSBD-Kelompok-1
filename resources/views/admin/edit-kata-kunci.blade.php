@@ -19,7 +19,7 @@
                 <div class="inputan-form" style="width: 90%;">
                     <div class="mb-4">
                         <label for="kata_kunci" class="form-label">Kata kunci</label>
-                        <input type="text" class="form-control custom-form @error('kata_kunci') is-invalid @enderror" id="kata_kunci" name="kata_kunci" value="{{ $kata_kunci->kata_kunci }}" >
+                        <input type="text" class="form-control custom-form @error('kata_kunci') is-invalid @enderror" id="kata_kunci" name="kata_kunci" value="{{ old('kata_kunci', $kata_kunci->kata_kunci) }}" placeholder="Input Kata Kunci">
                         @error('kata_kunci')
                             <div class="invalid-feedback">
                                 {{ $message }}

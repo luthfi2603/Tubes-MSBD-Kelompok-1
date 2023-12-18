@@ -97,8 +97,8 @@ class ProfileController extends Controller
     {
         $request->validate([
             'old_password' => 'required',
-            'new_password' => ['required', 'same:confirm_password', 'min:1'],
-            'confirm_password' => ['required', 'same:new_password', 'min:1']
+            'new_password' => ['required', 'same:confirm_password', 'min:8', 'max:255'],
+            'confirm_password' => ['required', 'same:new_password', 'min:8', 'max:255']
         ]);
 
         $user = User::find(auth()->user()->id);

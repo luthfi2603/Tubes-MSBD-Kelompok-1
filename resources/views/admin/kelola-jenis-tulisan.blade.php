@@ -9,7 +9,7 @@
             <a class="purple-button" href="{{ route('jenis.tulisan.input') }}">Add +</a>
         </div>
 
-        <div class="col-lg-3 justify-content-end">
+        {{-- <div class="col-lg-3 justify-content-end">
             <div class="input-group input-search">
                 <input type="text" class="form-control" placeholder="Search this blog">
                 <div class="input-group-append">
@@ -18,7 +18,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     @if(session()->has('failed'))

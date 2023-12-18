@@ -19,7 +19,7 @@
                 <div class="inputan-form" style="width: 90%;">
                     <div class="mb-4">
                         <label for="jenis_tulisan" class="form-label">Jenis Tulisan</label>
-                        <input type="text" class="form-control custom-form @error('jenis_tulisan') is-invalid @enderror" id="jenis_tulisan" name="jenis_tulisan" value="{{ $tulisan->jenis_tulisan }}" >
+                        <input type="text" class="form-control custom-form @error('jenis_tulisan') is-invalid @enderror" id="jenis_tulisan" name="jenis_tulisan" value="{{ old('jenis_tulisan', $tulisan->jenis_tulisan) }}" placeholder="Input Jenis Tulisan">
                         @error('jenis_tulisan')
                             <div class="invalid-feedback">
                                 {{ $message }}

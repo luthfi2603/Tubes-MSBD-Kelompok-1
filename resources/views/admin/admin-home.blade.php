@@ -142,17 +142,14 @@
             <a href="{{ route('ebook.kelola') }}">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
-
                         <div class="col-md-8 d-flex align-items-center">
                             <div class="card-body">
                                 <h5 class="card-title karyatul textit" style="font-weight: 600;">Kelola E-Book</h5>
                             </div>
                         </div>
-
-                        <div class="col-md-4">
-                            <img src="../assets/img/kelolaebook.png" class="img-fluid rounded-start" alt="...">
+                        <div class="col-md-4 d-flex" style="height: 172.89px">
+                            <img src="../assets/img/kelolaebook.png" class="img-fluid rounded-start m-auto" alt="...">
                         </div>
-
                     </div>
                 </div>
             </a>

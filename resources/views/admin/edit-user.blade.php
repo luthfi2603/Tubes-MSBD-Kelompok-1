@@ -17,7 +17,7 @@
                 <div class="inputan-form">
                     <div class="mb-3">
                         <label for="username" class="form-label">username</label>
-                        <input type="text" class="form-control custom-form @error('username') is-invalid @enderror" id="username" placeholder="" name="username" value="{{ $user->username }}">
+                        <input type="text" class="form-control custom-form @error('username') is-invalid @enderror" id="username" placeholder="Username" name="username" value="{{ old('username', $user->username) }}">
                         @error('username')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -31,7 +31,7 @@
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control custom-form @error('email') is-invalid @enderror" id="email" placeholder="" name="email" value="{{ $user->email }}">
+                        <input type="email" class="form-control custom-form @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="{{ old('email', $user->email) }}">
                         @error('email')
                             <div class="invalid-feedback">
                                 {{ $message }}

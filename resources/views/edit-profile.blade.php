@@ -39,7 +39,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group mb-3">
                                                 <label class="form-label">Username</label>
-                                                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ auth()->user()->username }}">
+                                                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username', auth()->user()->username) }}" placeholder="Username">
                                                 @error('username')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -50,7 +50,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group mb-3">
                                                 <label class="form-label">Email</label>
-                                                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ auth()->user()->email }}">
+                                                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', auth()->user()->email) }}" placeholder="Email">
                                                 @error('email')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -68,7 +68,7 @@
         </form>
         <div class="text-right mt-3 mb-5">
             <button type="button" onclick="submit()" class="btn btn-success">Save changes</button>&nbsp;
-            {{-- <button type="button" id="cancelbutton" class="btn btn-default">Cancel</button> --}}
+            <a href="{{ route('profile.edit') }}" class="btn btn-default">Cancel</a>
         </div>
     </div>
 </div>

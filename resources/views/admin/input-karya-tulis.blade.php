@@ -104,19 +104,14 @@
                         let j = {{ $j }};
                     </script>
                     <button onclick="buatKolaborator2()" type="button" class="btn btn-success" style="margin-left: 30px !important"> + Kolaborator</button>
-                    @error('nim_nidn')
-                        <div style="color: #dc3545; font-size: 87%; margin-top: 5px; margin-left: 30px">
-                            Pilih minimal satu kolaborator
-                        </div>
-                    @enderror
                 @else
                     <button onclick="buatKolaborator()" type="button" class="btn btn-success" style="margin-left: 30px !important"> + Kolaborator</button>
-                    @error('nim_nidn')
-                        <div style="color: #dc3545; font-size: 87%; margin-top: 5px; margin-left: 30px">
-                            Pilih minimal satu kolaborator
-                        </div>
-                    @enderror
                 @endif
+                @error('nim_nidn')
+                    <div style="color: #dc3545; font-size: 87%; margin-top: 5px; margin-left: 30px">
+                        Pilih minimal satu kolaborator
+                    </div>
+                @enderror
             </div>
             <!-- tempat menambahkan kolaborator -->
             <div class="row" id="tambah-kolaborator">

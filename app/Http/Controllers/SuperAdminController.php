@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\DatabaseManager;
 
-class SuperAdminController extends Controller
-{
+class SuperAdminController extends Controller {
     public function index(){
         return view('super-admin.super-admin-home');
     }
@@ -36,7 +35,6 @@ class SuperAdminController extends Controller
         $password = Hash::make($request->password);
 
         DB::select('call createAdmin(?, ?, ?, ?)', array($request->username, $request->email, $password, $request->nama));
-        event(new Registered(User::latest()->first()));
         
         event(new Registered(User::latest()->first()));
 
@@ -59,19 +57,21 @@ class SuperAdminController extends Controller
             return back()->with('failed', 'Gagal update, tidak ada perubahan');
         }
 
+        $rules = [
+            'nama' => ['required', 'max:255']
+        ];
+
         if($request->username != $user->username){
-            $request->validate([
-                'username' => ['required', 'min:5', 'max:15', 'unique:users', 'regex:/^[^\s]+$/']
-            ], ['username.regex' => 'Username tidak boleh mengandung spasi.']);
+            $rules['username'] = ['required', 'min:5', 'max:15', 'unique:users', 'regex:/^[^\s]+$/'];
         }
         if($request->email != $user->email){
-            $request->validate([
-                'email' => ['required', 'string', 'max:255', 'unique:users', 'lowercase', 'email']
-            ]);
+            $rules['email'] = ['required', 'string', 'max:255', 'unique:users', 'lowercase', 'email'];
             $verifikasi = 1;
         }else{
             $verifikasi = 0;
         }
+
+        $request->validate($rules, ['username.regex' => 'Username tidak boleh mengandung spasi.']);
 
         DB::select('call updateAdmin(?, ?, ?, ?, ?, ?)', array($request->username, $request->email, $verifikasi, $request->nama, $idp, $idu));
 

@@ -8,17 +8,6 @@
         <div class="col-lg-9 justify-content-start">
             <a class="purple-button" href="{{ route('user.input') }}">Add +</a>
         </div>
-
-        <div class="col-lg-3 justify-content-end">
-            <div class="input-group input-search">
-                <input type="text" class="form-control" placeholder="Cari User">
-                <div class="input-group-append">
-                    <button class="btn btn-secondary" type="button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 
     @if(session()->has('success'))
