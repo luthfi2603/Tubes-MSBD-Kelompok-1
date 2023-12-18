@@ -572,6 +572,66 @@ return new class extends Migration {
             FROM log_ebooks a 
             ORDER BY waktu
         ');
+
+        DB::unprepared("
+            DROP USER IF EXISTS 'guest'@'localhost';
+            CREATE USER 'guest'@'localhost' IDENTIFIED BY 'passwordGuest';
+            GRANT SELECT ON repositori.* TO 'guest'@'localhost';
+            GRANT INSERT ON repositori.users TO 'guest'@'localhost';
+            GRANT UPDATE (user_id) ON repositori.mahasiswas TO 'guest'@'localhost';
+            GRANT UPDATE (user_id) ON repositori.dosens TO 'guest'@'localhost';
+            GRANT UPDATE (view, updated_at) ON repositori.karya_tulis TO 'guest'@'localhost';
+            GRANT EXECUTE ON FUNCTION repositori.hitungAll TO 'guest'@'localhost';
+        ");
+
+        DB::unprepared("
+            DROP USER IF EXISTS 'mahasiswa'@'localhost';
+            CREATE USER 'mahasiswa'@'localhost' IDENTIFIED BY 'passwordUser';
+            GRANT SELECT ON repositori.* TO 'mahasiswa'@'localhost';
+            GRANT UPDATE ON repositori.users TO 'mahasiswa'@'localhost';
+            GRANT UPDATE (view, updated_at) ON repositori.karya_tulis TO 'mahasiswa'@'localhost';
+            GRANT INSERT, DELETE ON repositori.favorites TO 'mahasiswa'@'localhost';
+            GRANT INSERT, DELETE ON repositori.favorite_ebooks TO 'mahasiswa'@'localhost';
+        ");
+
+        DB::unprepared("
+            DROP USER IF EXISTS 'dosen'@'localhost';
+            CREATE USER 'dosen'@'localhost' IDENTIFIED BY 'passwordUser';
+            GRANT SELECT ON repositori.* TO 'dosen'@'localhost';
+            GRANT UPDATE (view, updated_at) ON repositori.karya_tulis TO 'dosen'@'localhost';
+            GRANT UPDATE ON repositori.users TO 'dosen'@'localhost';
+            GRANT INSERT, DELETE ON repositori.favorites TO 'dosen'@'localhost';
+            GRANT INSERT, DELETE ON repositori.favorite_ebooks TO 'dosen'@'localhost';
+        ");
+
+        DB::unprepared("
+            DROP USER IF EXISTS 'admin'@'localhost';
+            CREATE USER 'admin'@'localhost' IDENTIFIED BY 'passwordAdmin';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.bidang_ilmus TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.dosens TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.ebooks TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.jenis_tulisans TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.karya_tulis TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.kata_kuncis TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.kata_kunci_tulisans TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.kontributor_dosens TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.kontributor_mahasiswas TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.mahasiswas TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.prodis TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.users TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.view_all_user TO 'admin'@'localhost';
+            GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.view_karya_tulis TO 'admin'@'localhost';
+            GRANT EXECUTE ON repositori.* TO 'admin'@'localhost';
+        ");
+
+        DB::unprepared("
+            DROP USER IF EXISTS 'super_admin'@'localhost';
+            CREATE USER 'super_admin'@'localhost' IDENTIFIED BY 'passwordSuperAdmin';
+            GRANT ALL PRIVILEGES ON repositori.* TO 'super_admin'@'localhost';
+        ");
+
+
+        
     }
 
     /**

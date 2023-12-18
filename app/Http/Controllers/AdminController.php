@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\DatabaseManager;
 
 class AdminController extends Controller {
     /**
@@ -110,7 +111,7 @@ class AdminController extends Controller {
 
             $request->file('file')->move(storage_path('app\\public\\document'), $namaFile2);
         } catch (QueryException $th) {
-            return back()->with('failed', 'Terjadi kesalahan, karya tulis gagal ditambahkan');
+            return back()->with('failed', 'Terjadi kesalahan, karya tulis gagal ditambahkan'. $th);
         }
         
         return back()->with('success', 'Karya tulis berhasil ditambahkan');
@@ -850,7 +851,7 @@ class AdminController extends Controller {
     }
 
     public function showLog(){
-        $logs = DB::table('view_list_log')->get();
+        $logs = DB::table('view_list_log')->paginate(10);
 
         return view('admin.list-log', compact('logs'));
     }

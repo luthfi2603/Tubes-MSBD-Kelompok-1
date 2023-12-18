@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -21,6 +22,14 @@ class ProfileController extends Controller
      */
     public function showProfile(): View
     {
+        // dd(Auth::user());
+        session()->forget('wasRefreshed');
+
+        if (auth()->user()) {
+            if (auth()->user()->email_verified_at == NULL) {
+                return redirect('/verify-email');
+            }
+        }
         if(auth()->user()->status == 'mahasiswa'){
             $profile = DB::table('view_profile_mahasiswa')
                 ->select('*')
