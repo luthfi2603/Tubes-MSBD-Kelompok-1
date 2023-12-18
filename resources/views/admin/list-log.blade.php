@@ -32,9 +32,9 @@
         <table class="table">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">operasi</th>
+                    <th scope="col">Operasi</th>
                     <th scope="col" style="white-space: nowrap;">Pada Tabel</th>
-                    <th scope="col">Judul/No Induk</th>
+                    <th scope="col">Judul</th>
                     <th scope="col">Oleh</th>
                     <th scope="col">Waktu</th>
                 </tr>

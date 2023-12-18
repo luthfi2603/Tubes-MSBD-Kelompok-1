@@ -844,7 +844,7 @@ class AdminController extends Controller {
     }
 
     public function showLog(){
-        $logs = DB::table('list_log')->get();
+        $logs = DB::table('view_list_log')->get();
 
         return view('admin.list-log', compact('logs'));
     }
@@ -855,5 +855,4 @@ class AdminController extends Controller {
 
         return response()->json(['mahasiswas' => $mahasiswas, 'dosens' => $dosens]);
     }
-    
 }

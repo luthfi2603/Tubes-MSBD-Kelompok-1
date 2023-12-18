@@ -60,7 +60,7 @@
             </li>
             @if(auth()->user()->status == 'super_admin')
                 <li class="item">
-                    <a href="#log"><i class="fa-solid fa-scroll"></i><span>Log</span></a>
+                    <a href="{{ route('log') }}"><i class="fa-solid fa-scroll"></i><span>Log</span></a>
                 </li>
             @endif
             <li class="item">

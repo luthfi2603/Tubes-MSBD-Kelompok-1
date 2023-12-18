@@ -553,11 +553,11 @@ return new class extends Migration {
         ');
 
         DB::unprepared('
-            DROP VIEW IF EXISTS list_log;
-            CREATE VIEW list_log AS 
+            DROP VIEW IF EXISTS view_list_log;
+            CREATE VIEW view_list_log AS 
             SELECT
                 a.action,
-                "karya Tulis" AS tabel,
+                "Karya Tulis" AS tabel,
                 a.judul,
                 a.diupload_oleh,
                 a.waktu
@@ -565,7 +565,7 @@ return new class extends Migration {
             UNION
             SELECT
                 a.action,
-                "Ebooks" AS tabel,
+                "E-Book" AS tabel,
                 a.judul,
                 a.diupload_oleh,
                 a.waktu
