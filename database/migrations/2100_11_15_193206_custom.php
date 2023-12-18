@@ -581,6 +581,7 @@ return new class extends Migration {
             GRANT UPDATE (user_id) ON repositori.mahasiswas TO 'guest'@'localhost';
             GRANT UPDATE (user_id) ON repositori.dosens TO 'guest'@'localhost';
             GRANT UPDATE (view, updated_at) ON repositori.karya_tulis TO 'guest'@'localhost';
+            GRANT UPDATE (view) ON repositori.ebooks TO 'guest'@'localhost';
             GRANT EXECUTE ON FUNCTION repositori.hitungAll TO 'guest'@'localhost';
         ");
 
