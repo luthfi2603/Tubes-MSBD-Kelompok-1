@@ -6,7 +6,7 @@
         @csrf
         @method('PUT')
         <div class="row mt-4">
-            <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-book"></i> Input E-Book</h5>
+            <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-book"></i> Edit E-Book</h5>
             @if(session()->has('failed'))
                 <div class="alert alert-danger alert-dismissible fade show mb-4 mx-auto" role="alert" style="width: 93%">
                     {{ session('failed') }}

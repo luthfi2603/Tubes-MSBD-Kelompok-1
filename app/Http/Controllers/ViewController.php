@@ -3,26 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ebook;
-use App\Models\FavoriteEbook;
 use App\Models\Prodi;
 use App\Models\Favorite;
 use App\Models\BidangIlmu;
 use App\Models\KaryaTulis;
 use App\Models\JenisTulisan;
 use Illuminate\Http\Request;
+use App\Models\FavoriteEbook;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Database\DatabaseManager;
 
 class ViewController extends Controller {
     public function index(){
-        session()->forget('wasRefreshed');
-
-        if (auth()->user()) {
-            if (auth()->user()->email_verified_at == NULL) {
-                return redirect('/verify-email');
-            }
-        }
-
         $jenisTulisans = JenisTulisan::orderBy('jenis_tulisan')->get();
         $prodis = Prodi::all();
         $karyas = KaryaTulis::paginate(5);

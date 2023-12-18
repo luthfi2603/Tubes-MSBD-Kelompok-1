@@ -152,7 +152,7 @@ Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
         ->name('pegawai.delete');
 });
 
-Route::middleware('auth', 'verified')->group(function () {
+Route::middleware(['auth', 'verified', 'role:mahasiswa,dosen,admin,super_admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'showProfile'])
         ->name('profile');
     Route::get('/edit-profile', [ProfileController::class, 'editProfile'])

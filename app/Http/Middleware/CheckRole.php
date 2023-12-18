@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\DB;
 
 class CheckRole
 {
@@ -16,6 +17,7 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         if(in_array($request->user()->status, $roles)){
+            DB::setDefaultConnection($request->user()->status);
             return $next($request);
         }
         abort(403);
