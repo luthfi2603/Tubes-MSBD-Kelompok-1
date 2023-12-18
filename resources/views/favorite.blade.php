@@ -13,18 +13,17 @@
             <!-- ini untuk koleksi terbaru pake card -->
             <div class="mb-5">
                 <div class="d-flex">
-                    <h6 class="sidebar-col"><span><i class="fa-solid fa-heart"></i></span><a href="{{ route('favorite') }}">Karya Tulis Favorite Saya</a></h6>&nbsp;&nbsp;
-                    <h6 class="sidebar-col"><span><i class="fa-solid fa-heart"></i></span><a href="{{ route('favorite-ebook') }}">Ebook Favorite Saya</a></h6>
+                    <h6 class="sidebar-col underline-active pb-2"><span><i class="fa-solid fa-heart"></i></span><a href="{{ route('favorite') }}">Karya Tulis Favorite Saya</a></h6>&nbsp;&nbsp;
+                    <h6 class="sidebar-col"><span><i class="fa-solid fa-heart"></i></span><a href="{{ route('favorite-ebook') }}">E-Book Favorite Saya</a></h6>
                 </div>
-                <hr class="garis mb-3" style="width: 24%;">
                 @if($karyas->isEmpty())
                     <h3>Karya Tulis Favorite anda masih kosong</h3>
                 @else
                     @foreach ($karyas as $karya)
                         <div class="card mt-3" style="max-width: 100%;">
                             <div class="row g-0 align-items-center">
-                                <div class="col-md-4 my-3">
-                                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
+                                <div class="col-md-4 my-3 d-flex">
+                                    <img src="{{ asset('assets/img/usu.png') }}" class="m-auto" width="70%">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">

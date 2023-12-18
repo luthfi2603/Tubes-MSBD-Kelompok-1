@@ -15,8 +15,8 @@
         <h3 class="textit mb-3" style="font-weight: 600;">{{ $ebook->judul }}</h3>
         <div class="col-lg-3">
             <div class="card-detail">
-                <div class="card-body">
-                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
+                <div class="card-body d-flex">
+                    <img src="{{ asset('assets/img/usu.png') }}" class="m-auto" width="70%">
                 </div>
             </div>
         </div>

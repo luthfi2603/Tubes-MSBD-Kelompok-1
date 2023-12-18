@@ -41,6 +41,11 @@ textarea {
     color: rgba(0, 0, 0, 0.548);
 }
 
+.underline-active {
+    border-bottom: 3.4px solid #006633;
+    opacity: 90% !important;
+}
+
 .garis {
     margin-top: 0;
     margin-bottom: 0;

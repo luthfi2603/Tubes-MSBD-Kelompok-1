@@ -14,7 +14,9 @@
         <div class="col-lg-3 mb-5">
             <div class="card-detail">
                 <div class="card-body">
-                    <img src="{{ asset('assets/img/fasilkom.jpg') }}" class="img-fluid rounded-start" alt="..." style="object-fit: cover; width: 250px; height: 200px;">
+                    <div class="d-flex">
+                        <img src="{{ asset('assets/img/usu.png') }}" class="m-auto" width="70%">
+                    </div>
                     <div class="mt-3">
                         @if(!($penulis->isEmpty()))
                             <h6 class="textit mb-0" style="font-weight: 600;">Author : </h6>
