@@ -1,7 +1,7 @@
 @extends('layouts.main2')
 
 @section('container')
-<div class="container">
+<div class="container admin-mb">
     <div class="col-lg-12 pt-3">
         <h6>
             <a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><span>Profile</span>

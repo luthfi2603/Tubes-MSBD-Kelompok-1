@@ -17,6 +17,7 @@
                 <div class="inputan-form">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
+                        
                         <input type="text" class="form-control custom-form @error('username') is-invalid @enderror" name="username" id="username" placeholder="Input Username Pegawai" value="{{ old('username', $akun->username) }}">
                         @error('username')
                             <div class="invalid-feedback">
