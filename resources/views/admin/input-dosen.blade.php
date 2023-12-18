@@ -1,7 +1,7 @@
 @extends('layouts.main-admin')
 
 @section('container')
-<div class="container">
+<div class="container admin-mb">
     <form action="{{ route('dosen.input') }}" method="post">
     @csrf
         <div class="row mt-4">

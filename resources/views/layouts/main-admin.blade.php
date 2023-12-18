@@ -24,26 +24,22 @@
 
 <body>
     <nav class="sidebar">
-        
         <img src="../assets/img/usu.png" class="sidebar-logo" alt="" width="50">
         <a href="#" class="logo">REPOSITORI</a>
         <a href="#" class="logo">FASILKOM-TI USU</a>
-        
         <hr class="lines">
-    
         <div class="menu-content">
-    
             <li class="item">
                 <a href="{{ route('karya.tulis.kelola') }}"><i class="fa-solid fa-book"></i><span>Kelola Karya Tulis</span></a>
             </li>
             <li class="item">
                 <a href="{{ route('jenis.tulisan.kelola') }}"><i class="fa-solid fa-list"></i><span>Kelola Jenis Tulisan</span></a>
             </li>
-            <li class="item">
-                @if(auth()->user()->status == 'super_admin')
+            @if(auth()->user()->status == 'super_admin')
+                <li class="item">
                     <a href="{{ route('pegawai.kelola') }}"><i class="fa-solid fa-circle-user"></i><span>Kelola Pegawai</span></a>
-                @endif
-            </li>
+                </li>
+            @endif
             <li class="item">
                 <a href="{{ route('user.kelola') }}"><i class="fa-solid fa-users"></i><span>Kelola User</span></a>
             </li>
@@ -59,7 +55,14 @@
             <li class="item">
                 <a href="{{ route('kata.kunci.kelola') }}"><i class="fa-solid fa-spell-check"></i><span>Kelola Kata Kunci</span></a>
             </li>
-            
+            <li class="item">
+                <a href="{{ route('ebook.kelola') }}"><i class="fa-solid fa-file-pdf"></i><span>Kelola E-Book</span></a>
+            </li>
+            @if(auth()->user()->status == 'super_admin')
+                <li class="item">
+                    <a href="#log"><i class="fa-solid fa-scroll"></i><span>Log</span></a>
+                </li>
+            @endif
             <li class="item">
                 <form action="{{ route('logout') }}" method="POST" id="form-logout">
                     @csrf
@@ -83,10 +86,9 @@
                         });
                     });
                 </script>
-                
             </li>
         </div>
-      </nav>
+    </nav>
 
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -117,10 +119,15 @@
                                 <a class="nav-link" href="{{ route('super.admin.home') }}">Home</a>
                             @endif
                         </li>
+                        <li class="nav-item d-flex ps-2">
+                            <i class="fa-solid fa-user m-0" style="color: #ffff; padding-top: 12px"></i>
+                            <span class="nav-link">
+                                {{ auth()->user()->username }}
+                            </span>
+                        </li>
                         <li class="nav-item">
                             <i class="fa-solid fa-bars" id="sidebar-close"></i>
                         </li>
-                        
                     </ul>
                 </div>
             </div>
@@ -129,7 +136,7 @@
 
     <!-- main -->
     <div class="main">
-    @yield('container')
+        @yield('container')
     </div>
 
     <!-- Footer-->
@@ -161,25 +168,22 @@
         sidebarClose.addEventListener("click", () => sidebar.classList.toggle("close"));
 
         menuItems.forEach((item, index) => {
-        item.addEventListener("click", () => {
-            menu.classList.add("submenu-active");
-            item.classList.add("show-submenu");
-            menuItems.forEach((item2, index2) => {
-            if (index !== index2) {
-                item2.classList.remove("show-submenu");
-            }
+            item.addEventListener("click", () => {
+                menu.classList.add("submenu-active");
+                item.classList.add("show-submenu");
+                menuItems.forEach((item2, index2) => {
+                    if (index !== index2) {
+                        item2.classList.remove("show-submenu");
+                    }
+                });
             });
-        });
         });
 
         subMenuTitles.forEach((title) => {
-        title.addEventListener("click", () => {
-            menu.classList.remove("submenu-active");
+            title.addEventListener("click", () => {
+                menu.classList.remove("submenu-active");
+            });
         });
-        });
-
-        console.log(menuItems, subMenuTitles);
-
     </script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

@@ -86,6 +86,24 @@ return new class extends Migration {
             END
         ');
 
+        DB::unprepared('
+            DROP PROCEDURE IF EXISTS trigger_delete_karya_tulis;
+            CREATE PROCEDURE trigger_delete_karya_tulis(IN adminp VARCHAR(255), IN karya_idp INT)
+            BEGIN
+                INSERT INTO log_karya_tulis(judul, abstrak, bidang_ilmu, url_file, jenis, tahun, diupload_oleh, action, waktu) SELECT judul, abstrak, bidang_ilmu, url_file, jenis, tahun, adminp, "DELETE", CURRENT_TIMESTAMP() FROM karya_tulis WHERE id = karya_idp;
+                DELETE FROM karya_tulis WHERE id = karya_idp;
+            END
+        ');
+
+        DB::unprepared('
+            DROP PROCEDURE IF EXISTS trigger_delete_ebook;
+            CREATE PROCEDURE trigger_delete_ebook(IN adminp VARCHAR(255), IN ebook_id INT)
+            BEGIN
+                INSERT INTO log_ebooks(judul, penulis, url_file, tahun_terbit, diupload_oleh, action, waktu) SELECT judul, penulis, url_file, tahun_terbit, adminp, "DELETE", CURRENT_TIMESTAMP() FROM ebooks WHERE id = ebook_id;
+                DELETE FROM ebooks WHERE id = ebook_id;
+            END
+        ');
+
         DB::unprepared("
             DROP PROCEDURE IF EXISTS createKaryaTulis;
             CREATE PROCEDURE createKaryaTulis(
@@ -169,6 +187,7 @@ return new class extends Migration {
                 IN jenisp varchar(255),
                 IN tahunp varchar(255),
                 IN karya_idp INT,
+                IN uploadp varchar(255),
                 IN kolabp JSON,
                 IN kuncip JSON
             )
@@ -200,7 +219,7 @@ return new class extends Migration {
                     tingkat INT
                 );
             
-                UPDATE karya_tulis SET judul = judulp, abstrak = abstrakp, bidang_ilmu = bidang_ilmup, url_file = url_filep, jenis = jenisp, tahun = tahunp WHERE id = karya_idp;
+                UPDATE karya_tulis SET judul = judulp, abstrak = abstrakp, bidang_ilmu = bidang_ilmup, url_file = url_filep, jenis = jenisp, tahun = tahunp, diupload_oleh = uploadp WHERE id = karya_idp;
             
                 WHILE i < JSON_LENGTH(kuncip) DO 
                     SET kuncit = JSON_UNQUOTE(JSON_EXTRACT(kuncip, CONCAT('$[', i, '].kunci')));
@@ -531,6 +550,27 @@ return new class extends Migration {
             FROM users a
             INNER JOIN admins b ON a.id = b.user_id
             WHERE a.status <> "super_admin"
+        ');
+
+        DB::unprepared('
+            DROP VIEW IF EXISTS list_log;
+            CREATE VIEW list_log AS 
+            SELECT
+                a.action,
+                "karya Tulis" AS tabel,
+                a.judul,
+                a.diupload_oleh,
+                a.waktu
+            FROM log_karya_tulis a 
+            UNION
+            SELECT
+                a.action,
+                "Ebooks" AS tabel,
+                a.judul,
+                a.diupload_oleh,
+                a.waktu
+            FROM log_ebooks a 
+            ORDER BY waktu
         ');
     }
 

@@ -78,13 +78,6 @@ return new class extends Migration {
                 END IF;
             END
         ');
-        
-        DB::unprepared('
-            CREATE TRIGGER log_karya_tulis_delete AFTER DELETE ON `karya_tulis` FOR EACH ROW
-            BEGIN
-                INSERT INTO log_karya_tulis VALUES (OLD.judul, OLD.abstrak, OLD.bidang_ilmu, OLD.url_file, OLD.jenis, OLD.tahun, OLD.diupload_oleh, "DELETE", CURRENT_TIMESTAMP());
-            END
-        ');
     }
 
     /**

@@ -61,7 +61,7 @@
                                             <h4><i class="fa-solid fa-scroll"></i></h4>
                                         </td>
                                         <td>
-                                            <h5 class="bold"><a href="#">{{ $jumlah + $jumlahEbook }}</a> Items</h5>
+                                            <h5 class="bold"><a href="#">{{ $jumlah }}</a> Items</h5>
                                         </td>
                                     </tr>
                                     @foreach($datas as $data)

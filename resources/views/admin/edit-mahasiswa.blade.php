@@ -1,7 +1,7 @@
 @extends('layouts.main-admin')
 
 @section('container')
-    <div class="container">
+    <div class="container admin-mb">
         <form id="form" method="POST" action="{{ route('mahasiswa.edit', ['nim' => $mahasiswa->nim]) }}">
             @csrf
             @method('PUT')

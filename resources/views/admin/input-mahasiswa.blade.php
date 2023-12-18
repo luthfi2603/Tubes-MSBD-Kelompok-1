@@ -1,7 +1,7 @@
 @extends('layouts.main-admin')
 
 @section('container')
-<div class="container">
+<div class="container admin-mb">
     <form method="POST" action="{{ route('mahasiswa.input') }}">
         @csrf
         <div class="row mt-4">

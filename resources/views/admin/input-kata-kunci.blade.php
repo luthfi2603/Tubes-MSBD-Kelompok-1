@@ -1,7 +1,7 @@
 @extends('layouts.main-admin')
 
 @section('container')
-<div class="container">
+<div class="container admin-mb">
     <div class="row mt-4">
         <h5 class="textit mb-4" style="font-weight: 600;">
             <i class="fa-solid fa-book"></i> Input Kata Kunci

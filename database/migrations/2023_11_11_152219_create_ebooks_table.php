@@ -64,13 +64,6 @@ return new class extends Migration {
             END
         ');
 
-        DB::unprepared('
-            CREATE TRIGGER log_ebooks_delete AFTER DELETE ON `ebooks` FOR EACH ROW
-            BEGIN
-                INSERT INTO log_ebooks VALUES (OLD.judul, OLD.penulis, OLD.url_file, OLD.tahun_terbit, OLD.diupload_oleh, "DELETE", CURRENT_TIMESTAMP());
-            END
-        ');
-
     /**
      * Reverse the migrations.
      */

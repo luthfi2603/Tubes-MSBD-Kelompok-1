@@ -1,7 +1,7 @@
 @extends('layouts.main-admin')
 
 @section('container')
-<div class="container mb-5">
+<div class="container admin-mb">
     <form action="{{ route('pegawai.edit', ['idu' => $akun->id, 'idp' => $pegawai->id]) }}" method="POST" id="form">
         @csrf
         @method('PUT')

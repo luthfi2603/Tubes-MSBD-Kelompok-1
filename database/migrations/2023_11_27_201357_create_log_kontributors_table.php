@@ -18,6 +18,19 @@ return new class extends Migration
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
             $table->timestamp('waktu');
         });
+
+        DB::unprepared('
+            CREATE TRIGGER dont_delete_log_kontributor BEFORE DELETE ON `log_kontributors` FOR EACH ROW
+            BEGIN
+                SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Tidak dapat menghapus data log kontirbutors";
+            END
+        ');
+        DB::unprepared('
+            CREATE TRIGGER dont_update_log_kontributor BEFORE UPDATE ON `log_kontributors` FOR EACH ROW
+            BEGIN
+                SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Tidak dapat mengubah data log kontirbutors";
+            END
+        ');
     }
 
     /**
