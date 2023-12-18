@@ -52,7 +52,7 @@
             </tbody>
         </table>
         <nav aria-label="Page navigation example">
-            {{-- {{$kuncis->links()}} --}}
+            {{$logs->links()}}
         </nav>
     </div>
 </div>
