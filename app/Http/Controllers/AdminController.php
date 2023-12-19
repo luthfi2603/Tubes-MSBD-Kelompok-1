@@ -113,7 +113,7 @@ class AdminController extends Controller {
 
             $request->file('file')->move(storage_path('app\\public\\document'), $namaFile2);
         } catch (QueryException $th) {
-            return back()->with('failed', 'Terjadi kesalahan, karya tulis gagal ditambahkan'. $th);
+            return back()->with('failed', 'Terjadi kesalahan, karya tulis gagal ditambahkan');
         }
         
         return back()->with('success', 'Karya tulis berhasil ditambahkan');
@@ -297,7 +297,7 @@ class AdminController extends Controller {
         $admin = Auth::user()->username;
 
         try {
-            DB::select('call editKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $namaFile, $request->jenis, $request->tahun, $id, $admin, $kolab,$kunci));
+            DB::select('call editKaryaTulis(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->judul, $request->abstrak, $request->bidang, $namaFile, $request->jenis, $request->tahun, $id, $admin, $kolab, $kunci));
 
             if(!empty($namaFile2)){
                 Storage::delete($request->oldFile);
