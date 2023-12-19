@@ -19,8 +19,28 @@ class AdminsTableSeeder extends Seeder
         ]);
         
         Admin::create([ // 2
-            'nama' => 'Pak Andri',
+            'nama' => 'wahyu jhon',
             'user_id' => '3'
+        ]);
+
+        Admin::create([ // 3
+            'nama' => 'serafim edgar',
+            'user_id' => '9'
+        ]);
+
+        Admin::create([ // 4
+            'nama' => 'ghalbi yustiawan',
+            'user_id' => '7'
+        ]);
+
+        Admin::create([ // 5
+            'nama' => 'jessindy',
+            'user_id' => '10'
+        ]);
+
+        Admin::create([ // 6
+            'nama' => 'siti aulia',
+            'user_id' => '8'
         ]);
     }
 }

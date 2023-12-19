@@ -36,7 +36,7 @@ class KaryaTulisTableSeeder extends Seeder
         KaryaTulis::create([ // 3
             'judul' => 'Eksplorasi Aplikasi Kecerdasan Buatan dalam Pengembangan Sistem Otomatisasi',
             'abstrak' => 'Nostrud nisi ex pariatur proident tempor sint deserunt irure ex nulla. Ea aute exercitation velit enim velit aliqua veniam eiusmod minim excepteur. Reprehenderit anim elit amet occaecat est officia fugiat laboris anim aliqua eu exercitation. Ea ut aliqua ex commodo tempor sunt velit incididunt id occaecat cillum. Fugiat mollit incididunt laborum nulla.',
-            'bidang_ilmu' => 'AI',
+            'bidang_ilmu' => 'Artificial Intelligence',
             'url_file' => 'document/data-dummy-karya-tulis.pdf',
             'jenis' => 'Tesis',
             'tahun' => '2020',
@@ -47,7 +47,7 @@ class KaryaTulisTableSeeder extends Seeder
         KaryaTulis::create([ // 4
             'judul' => 'Integrasi IoT dalam Meningkatkan Efisiensi Sistem Pengelolaan Energi',
             'abstrak' => 'Aliquip consequat commodo eiusmod laboris minim voluptate dolore excepteur. Cupidatat laboris labore sit commodo consequat culpa excepteur. Laboris ad et irure magna. Mollit elit est voluptate proident mollit. Occaecat labore sint consectetur excepteur ut officia laborum sit sint laborum aliqua minim.',
-            'bidang_ilmu' => 'IoT',
+            'bidang_ilmu' => 'Internet of Things',
             'url_file' => 'document/data-dummy-karya-tulis.pdf',
             'jenis' => 'Jurnal',
             'tahun' => '2023',
@@ -57,7 +57,7 @@ class KaryaTulisTableSeeder extends Seeder
         KaryaTulis::create([ // 5
             'judul' => 'Pemanfaatan Teknologi VR dalam Industri Hiburan dan Pendidikan',
             'abstrak' => 'Veniam incididunt nulla aliquip fugiat aliquip adipisicing Lorem elit officia dolore occaecat anim. Consectetur duis pariatur aliqua incididunt nisi. Sit in enim reprehenderit laboris culpa in. Sit culpa eiusmod et Lorem dolor ex aliquip id. Irure voluptate ex ea labore sunt. Labore incididunt reprehenderit quis aute sint id eu. Excepteur culpa proident esse do est excepteur irure culpa consequat nostrud minim velit laboris.',
-            'bidang_ilmu' => 'VR',
+            'bidang_ilmu' => 'Virtual Reality',
             'url_file' => 'document/data-dummy-karya-tulis.pdf',
             'jenis' => 'Karya Ilmiah',
             'tahun' => '2020',
@@ -77,7 +77,7 @@ class KaryaTulisTableSeeder extends Seeder
         KaryaTulis::create([ // 7
             'judul' => 'Dinamika Perkembangan AI: Tantangan dan Peluang di Era Digital',
             'abstrak' => 'Ipsum laborum magna ea culpa amet officia cillum laboris Lorem reprehenderit. Ullamco labore consectetur quis eiusmod sint ad officia eu. Ad adipisicing eiusmod nostrud occaecat id Lorem tempor Lorem incididunt Lorem minim. Excepteur laboris velit quis ipsum anim nisi proident reprehenderit pariatur. Dolor tempor ullamco magna eu exercitation. Ex dolor tempor dolore adipisicing aliquip adipisicing.',
-            'bidang_ilmu' => 'AI',
+            'bidang_ilmu' => 'Virtual Reality',
             'url_file' => 'document/data-dummy-karya-tulis.pdf',
             'jenis' => 'Disertasi',
             'tahun' => '2022',
