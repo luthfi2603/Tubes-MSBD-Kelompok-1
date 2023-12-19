@@ -30,7 +30,7 @@ class AdminController extends Controller {
      */
     public function index(){
         session()->forget('wasRefreshed');
-        
+
         return view('admin.admin-home');
     }
 
@@ -369,7 +369,7 @@ class AdminController extends Controller {
     
             return back()->with('success', 'Jenis tulisan berhasil dihapus');
         } catch (\Throwable $th) {
-            return back()->with('failed', 'Jenis tulisan ini digunakan, penghapusan tidak dapat dilakukan' .$th);
+            return back()->with('failed', 'Jenis tulisan ini digunakan, penghapusan tidak dapat dilakukan');
         }
     }
 
