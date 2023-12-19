@@ -165,7 +165,23 @@
         const menuItems = document.querySelectorAll(".submenu-item");
         const subMenuTitles = document.querySelectorAll(".submenu .menu-title");
 
-        sidebarClose.addEventListener("click", () => sidebar.classList.toggle("close"));
+        sidebarClose.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+
+            if(document.getElementsByClassName('col-lg-4').length != 0){
+                const elements = document.getElementsByClassName('fa-xmark');
+
+                if(elements[0].style.left === '45.4%'){
+                    for (let i = 0; i < elements.length; i++) {
+                        elements[i].style.left = '37.7%';
+                    }
+                }else{
+                    for (let i = 0; i < elements.length; i++) {
+                        elements[i].style.left = '45.4%';
+                    }
+                }
+            }
+        });
 
         menuItems.forEach((item, index) => {
             item.addEventListener("click", () => {

@@ -3,7 +3,7 @@
 @section('container')
 <div class="container">
     <div class="col-lg-12 pt-3">
-        <h6><a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><span>Author</span><i class="fa-solid fa-angle-right ms-2"></i><span>{{ $author }}</span></h6>
+        <h6><a href="/">Home</a><i class="fa-solid fa-angle-right ms-2"></i><span>Author</span><i class="fa-solid fa-angle-right ms-2"></i><a href="{{ route('author', $author) }}">{{ $author }}</a></h6>
         <hr class="mt-0">
     </div>
     <div class="row">
@@ -12,45 +12,51 @@
             <div class="d flex mb-5">
                 <h6 class="sidebar-col"><span><i class="fa-solid fa-user-pen"></i></span>{{ $author }}</h6>
                 <hr class="garis" style="width: 70%;">
-                @foreach ($karyas as $karya)
-                    <div class="card mt-3" style="max-width: 100%;">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4 my-3 d-flex">
-                                <img src="{{ asset('assets/img/usu.png') }}" class="m-auto" width="70%">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title textit"><a href="{{ route('detail.karya.tulis', $karya->id) }}">{{ $karya->judul }}</a></h5>
-                                    <p class="text-muted">
-                                        <small class="text-body-secondary">
-                                            @php
-                                                $penulis = "";
-                                                $penulisTertentu = $penuliss->where('id', $karya->id);
+                @if($karyas->isEmpty())
+                    <div style="text-align: center" class="mt-4">
+                        <h3>Hasil tidak ditemukan</h3>
+                    </div>
+                @else
+                    @foreach ($karyas as $karya)
+                        <div class="card mt-3" style="max-width: 100%;">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-md-4 my-3 d-flex">
+                                    <img src="{{ asset('assets/img/usu.png') }}" class="m-auto" width="70%">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title textit"><a href="{{ route('detail.karya.tulis', $karya->id) }}">{{ $karya->judul }}</a></h5>
+                                        <p class="text-muted">
+                                            <small class="text-body-secondary">
+                                                @php
+                                                    $penulis = "";
+                                                    $penulisTertentu = $penuliss->where('id', $karya->id);
 
-                                                foreach ($penulisTertentu as $key) {
-                                                    $penulis .= '<a href="' . route('author', ['author' => $key->kontributor]) . '">' . $key->kontributor . '</a>, ';
-                                                }
-                                                
-                                                $penulis = rtrim($penulis, ', ');
-                                            @endphp
-                                            {!! $penulis !!}
-                                            ({{ $karya->tahun }})
-                                        </small>
-                                    </p>
-                                    <div style="height: 100px;overflow: hidden;">
-                                        <p class="card-text text">
-                                            {{ $karya->abstrak }}
+                                                    foreach ($penulisTertentu as $key) {
+                                                        $penulis .= '<a href="' . route('author', ['author' => $key->kontributor]) . '">' . $key->kontributor . '</a>, ';
+                                                    }
+                                                    
+                                                    $penulis = rtrim($penulis, ', ');
+                                                @endphp
+                                                {!! $penulis !!}
+                                                ({{ $karya->tahun }})
+                                            </small>
                                         </p>
+                                        <div style="height: 100px;overflow: hidden;">
+                                            <p class="card-text text">
+                                                {{ $karya->abstrak }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-                <!-- Pagination -->
-                <nav aria-label="Page navigation example" class="pt-3">
-                    {{ $karyas->links() }}
-                </nav>
+                    @endforeach
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation example" class="pt-3">
+                        {{ $karyas->links() }}
+                    </nav>
+                @endif
             </div>
         </div>
         <div class="col-lg-3 order-1 order-lg-last mb-5">

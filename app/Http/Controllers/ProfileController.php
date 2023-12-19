@@ -22,7 +22,6 @@ class ProfileController extends Controller
      */
     public function showProfile(): View
     {
-        // dd(Auth::user());
         session()->forget('wasRefreshed');
 
         if (auth()->user()) {
@@ -30,6 +29,7 @@ class ProfileController extends Controller
                 return redirect('/verify-email');
             }
         }
+
         if(auth()->user()->status == 'mahasiswa'){
             $profile = DB::table('view_profile_mahasiswa')
                 ->select('*')

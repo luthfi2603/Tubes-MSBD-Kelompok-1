@@ -576,13 +576,25 @@ return new class extends Migration {
         DB::unprepared("
             DROP USER IF EXISTS 'guest'@'localhost';
             CREATE USER 'guest'@'localhost' IDENTIFIED BY 'passwordGuest';
-            GRANT SELECT ON repositori.* TO 'guest'@'localhost';
-            GRANT INSERT ON repositori.users TO 'guest'@'localhost';
-            GRANT UPDATE (user_id) ON repositori.mahasiswas TO 'guest'@'localhost';
-            GRANT UPDATE (user_id) ON repositori.dosens TO 'guest'@'localhost';
-            GRANT UPDATE (view, updated_at) ON repositori.karya_tulis TO 'guest'@'localhost';
-            GRANT UPDATE (view) ON repositori.ebooks TO 'guest'@'localhost';
+            -- GRANT SELECT ON repositori.* TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.jenis_tulisans TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.prodis TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.view_karya_tulis TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.favorites TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.ebooks TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.favorite_ebooks TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.bidang_ilmus TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.view_most_like TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.view_statistik TO 'guest'@'localhost';
+            GRANT SELECT ON repositori.view_top_author TO 'guest'@'localhost';
+            GRANT SELECT, UPDATE, INSERT ON repositori.users TO 'guest'@'localhost';
+            GRANT SELECT, UPDATE (user_id) ON repositori.mahasiswas TO 'guest'@'localhost';
+            GRANT SELECT, UPDATE (user_id) ON repositori.dosens TO 'guest'@'localhost';
+            GRANT SELECT, UPDATE (view, updated_at) ON repositori.karya_tulis TO 'guest'@'localhost';
+            GRANT SELECT, UPDATE (view) ON repositori.ebooks TO 'guest'@'localhost';
+            GRANT SELECT, INSERT, DELETE ON repositori.password_reset_tokens TO 'guest'@'localhost';
             GRANT EXECUTE ON FUNCTION repositori.hitungAll TO 'guest'@'localhost';
+            GRANT EXECUTE ON PROCEDURE repositori.createUser TO 'guest'@'localhost';
         ");
 
         DB::unprepared("
@@ -590,7 +602,6 @@ return new class extends Migration {
             CREATE USER 'mahasiswa'@'localhost' IDENTIFIED BY 'passwordUser';
             GRANT SELECT ON repositori.* TO 'mahasiswa'@'localhost';
             GRANT UPDATE ON repositori.users TO 'mahasiswa'@'localhost';
-            GRANT UPDATE (view, updated_at) ON repositori.karya_tulis TO 'mahasiswa'@'localhost';
             GRANT INSERT, DELETE ON repositori.favorites TO 'mahasiswa'@'localhost';
             GRANT INSERT, DELETE ON repositori.favorite_ebooks TO 'mahasiswa'@'localhost';
         ");
@@ -599,7 +610,6 @@ return new class extends Migration {
             DROP USER IF EXISTS 'dosen'@'localhost';
             CREATE USER 'dosen'@'localhost' IDENTIFIED BY 'passwordUser';
             GRANT SELECT ON repositori.* TO 'dosen'@'localhost';
-            GRANT UPDATE (view, updated_at) ON repositori.karya_tulis TO 'dosen'@'localhost';
             GRANT UPDATE ON repositori.users TO 'dosen'@'localhost';
             GRANT INSERT, DELETE ON repositori.favorites TO 'dosen'@'localhost';
             GRANT INSERT, DELETE ON repositori.favorite_ebooks TO 'dosen'@'localhost';
@@ -630,9 +640,6 @@ return new class extends Migration {
             CREATE USER 'super_admin'@'localhost' IDENTIFIED BY 'passwordSuperAdmin';
             GRANT ALL PRIVILEGES ON repositori.* TO 'super_admin'@'localhost';
         ");
-
-
-        
     }
 
     /**

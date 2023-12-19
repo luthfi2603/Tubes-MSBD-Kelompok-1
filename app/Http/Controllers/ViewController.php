@@ -16,6 +16,14 @@ use Illuminate\Database\DatabaseManager;
 
 class ViewController extends Controller {
     public function index(){
+        session()->forget('wasRefreshed');
+
+        if (auth()->user()) {
+            if (auth()->user()->email_verified_at == NULL) {
+                return redirect('/verify-email');
+            }
+        }
+        
         $jenisTulisans = JenisTulisan::orderBy('jenis_tulisan')->get();
         $prodis = Prodi::all();
         $karyas = KaryaTulis::paginate(5);
@@ -301,6 +309,7 @@ class ViewController extends Controller {
 
     public function viewAdvSearch(Request $request){
         session()->forget('wasRefreshed');
+
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::orderBy('jenis_tulisan')->get();
         $bidIlmus = BidangIlmu::all();
@@ -392,6 +401,7 @@ class ViewController extends Controller {
 
     public function search(Request $request){
         session()->forget('wasRefreshed');
+
         $prodis = Prodi::all();
         $jenisTulisans = JenisTulisan::orderBy('jenis_tulisan')->get();
         $bidIlmus = BidangIlmu::all();
@@ -402,7 +412,6 @@ class ViewController extends Controller {
             ->get();
 
         $search = $request->input('search');
-
         $sort = $request->input('sort');
 
         $tahunawal = $request->input('tahunawal');
@@ -451,6 +460,7 @@ class ViewController extends Controller {
 
     public function showFavorite(){
         session()->forget('wasRefreshed');
+
         $karyaIds = Favorite::select('karya_id')
             ->where('user_id', auth()->user()->id)
             ->pluck('karya_id');
@@ -489,6 +499,7 @@ class ViewController extends Controller {
 
     public function showFavoriteEbook(){
         session()->forget('wasRefreshed');
+
         $ebookIds = FavoriteEbook::select('ebook_id')
             ->where('user_id', auth()->user()->id)
             ->pluck('ebook_id');
@@ -520,6 +531,8 @@ class ViewController extends Controller {
     }
 
     public function statistik(){
+        session()->forget('wasRefreshed');
+
         $mostLikes = DB::table('view_most_like')->paginate(5);
 
         $datas = DB::table('view_statistik')->get();

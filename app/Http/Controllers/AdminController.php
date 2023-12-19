@@ -29,6 +29,8 @@ class AdminController extends Controller {
      * Display a listing of the resource.
      */
     public function index(){
+        session()->forget('wasRefreshed');
+        
         return view('admin.admin-home');
     }
 
