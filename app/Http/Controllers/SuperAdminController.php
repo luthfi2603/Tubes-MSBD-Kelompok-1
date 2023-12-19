@@ -12,6 +12,8 @@ use Illuminate\Database\DatabaseManager;
 
 class SuperAdminController extends Controller {
     public function index(){
+        session()->forget('wasRefreshed');
+        
         return view('super-admin.super-admin-home');
     }
 

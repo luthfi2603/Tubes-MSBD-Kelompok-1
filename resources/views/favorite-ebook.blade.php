@@ -17,7 +17,7 @@
                     <h6 class="sidebar-col underline-active pb-2"><span><i class="fa-solid fa-heart"></i></span><a href="{{ route('favorite-ebook') }}">E-Book Favorite Saya</a></h6>
                 </div>
                 @if($ebooks->isEmpty()) 
-                    <h3>Ebook Favorite anda masih kosong</h3>
+                    <h3>E-Book favorite anda masih kosong</h3>
                 @else
                     @foreach ($ebooks as $ebook)
                         <div class="card mt-3" style="max-width: 100%;">
