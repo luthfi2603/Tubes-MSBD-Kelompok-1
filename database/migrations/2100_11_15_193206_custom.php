@@ -199,6 +199,7 @@ return new class extends Migration {
                 DECLARE tingkatant INT;
                 DECLARE statust VARCHAR(50);
                 DECLARE kondisi INT;
+                DECLARE pivot INT;
             
                 DECLARE EXIT HANDLER FOR SQLEXCEPTION
                 BEGIN
@@ -238,9 +239,29 @@ return new class extends Migration {
                     SET tingkatant = CAST(JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].tingkatan'))) AS SIGNED);
                     SET kondisi = CAST(JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].kondisi'))) AS SIGNED);
             
+                    IF(kondisi = 1 AND tingkatant = 1) THEN
+                        SELECT COUNT(*) INTO pivot FROM kontributor_mahasiswas WHERE nim = nim_nidnt COLLATE utf8mb4_unicode_ci;
+                    ELSEIF(kondisi = 1 AND tingkatant = 2) THEN
+                        SELECT COUNT(*) INTO pivot FROM kontributor_dosens WHERE nidn = nim_nidnt COLLATE utf8mb4_unicode_ci;
+                    END IF;
+
+                    IF(pivot = 0) THEN
+                        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'error';
+                    END IF;
+
                     IF (kondisi = 2 AND tingkatant = 1) THEN
+                        SELECT COUNT(*) INTO pivot FROM kontributor_mahasiswas WHERE nim = nim_nidnt COLLATE utf8mb4_unicode_ci;
+                        IF(pivot = 0) THEN
+                            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'error';
+                        END IF;
+
                         UPDATE kontributor_mahasiswas SET status = statust WHERE nim = nim_nidnt COLLATE utf8mb4_unicode_ci AND karya_id = karya_idp;
                     ELSEIF (kondisi = 2 AND tingkatant = 2) THEN
+                        SELECT COUNT(*) INTO pivot FROM kontributor_dosens WHERE nidn = nim_nidnt COLLATE utf8mb4_unicode_ci;
+                        IF(pivot = 0) THEN
+                            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'error';
+                        END IF;
+
                         UPDATE kontributor_dosens SET status = statust WHERE nidn = nim_nidnt COLLATE utf8mb4_unicode_ci AND karya_id = karya_idp;
                     ELSEIF (kondisi = 3 AND tingkatant = 1) THEN
                         INSERT INTO kontributor_mahasiswas VALUES (nim_nidnt, statust, karya_idp);
