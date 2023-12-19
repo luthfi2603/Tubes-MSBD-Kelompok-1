@@ -361,13 +361,15 @@ class AdminController extends Controller {
 
         return redirect()->route('jenis.tulisan.kelola')->with('success', 'Jenis tulisan berhasil diubah');
     }
-    public function destroyJenisTulisan(JenisTulisan $jenisTulisan){
+    public function destroyJenisTulisan($jenisTulisan){
+        $jenisTulisan = JenisTulisan::find($jenisTulisan);
+
         try {
             $jenisTulisan->delete();
     
             return back()->with('success', 'Jenis tulisan berhasil dihapus');
         } catch (\Throwable $th) {
-            return back()->with('failed', 'Jenis tulisan ini digunakan, penghapusan tidak dapat dilakukan');
+            return back()->with('failed', 'Jenis tulisan ini digunakan, penghapusan tidak dapat dilakukan' .$th);
         }
     }
 
@@ -455,7 +457,9 @@ class AdminController extends Controller {
         return redirect()->route('mahasiswa.kelola')->with('success', 'Data mahasiswa berhasil diubah');
     }
 
-    public function destroyMahasiswa(Mahasiswa $mahasiswa){
+    public function destroyMahasiswa($mahasiswa){
+        $mahasiswa = Mahasiswa::find($mahasiswa);
+
         try {
             $mahasiswa->delete();
     
@@ -557,7 +561,9 @@ class AdminController extends Controller {
         return redirect()->route('dosen.kelola')->with('success', 'Data dosen berhasil diubah');
     }
 
-    public function destroyDosen(Dosen $dosen){
+    public function destroyDosen($dosen){
+        $dosen = Dosen::find($dosen);
+
         try {
             $dosen->delete();
     
@@ -697,7 +703,9 @@ class AdminController extends Controller {
         return redirect()->route('bidang.ilmu.kelola')->with('success', 'Bidang ilmu berhasil diubah');
     }
 
-    public function destroyBidangIlmu(BidangIlmu $bidangIlmu){
+    public function destroyBidangIlmu($bidangIlmu){
+        $bidangIlmu = BidangIlmu::find($bidangIlmu);
+
         try {
             $bidangIlmu->delete();
     
@@ -802,7 +810,9 @@ class AdminController extends Controller {
     public function editEBook(Ebook $ebook){
         return view('admin.edit-e-book', compact('ebook'));
     }
-    public function updateEBook(Ebook $ebook, Request $request){
+    public function updateEBook($ebook, Request $request){
+        $ebook = Ebook::find($ebook);
+
         if(
             $request->judul == $ebook->judul &&
             $request->tahun == $ebook->tahun_terbit &&
