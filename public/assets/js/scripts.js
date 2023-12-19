@@ -152,7 +152,7 @@ function deleteKataKunci($kataKunci){
 
 function deleteJenisTulisan($jenisTulisan){
     Swal.fire({
-        title: "Hapus Kata Kunci",
+        title: "Hapus Jenis Tulisan",
         text: "Apakah anda yakin untuk menghapus jenis tulisan ini?!",
         icon: "warning",
         showCancelButton: true,
@@ -165,10 +165,11 @@ function deleteJenisTulisan($jenisTulisan){
         }
     });
 }
-function deleteBidangIlmu($jenisTulisan){
+
+function deleteBidangIlmu($bidangIlmu){
     Swal.fire({
-        title: "Hapus Kata Bidang Ilmu",
-        text: "Apakah anda yakin untuk menghapus Bidang Ilmu ini?!",
+        title: "Hapus Bidang Ilmu",
+        text: "Apakah anda yakin untuk menghapus bidang ilmu ini?!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#D80032",
@@ -176,14 +177,15 @@ function deleteBidangIlmu($jenisTulisan){
         confirmButtonText: "Delete"
     }).then((result) => {
         if (result.isConfirmed) {
-            document.getElementById(`form-delete-${$jenisTulisan}`).submit();
+            document.getElementById(`form-delete-${$bidangIlmu}`).submit();
         }
     });
 }
+
 function deleteMahasiswa($mahasiswa){
     Swal.fire({
         title: "Hapus Data Mahasiswa",
-        text: "Apakah anda yakin untuk menghapus Data Mahasiswa ini?!",
+        text: "Apakah anda yakin untuk menghapus data mahasiswa ini?!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#D80032",
@@ -195,10 +197,11 @@ function deleteMahasiswa($mahasiswa){
         }
     });
 }
+
 function deleteDosen($dosen){
     Swal.fire({
         title: "Hapus Data Dosen",
-        text: "Apakah anda yakin untuk menghapus Data Dosen ini?!",
+        text: "Apakah anda yakin untuk menghapus data dosen ini?!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#D80032",
