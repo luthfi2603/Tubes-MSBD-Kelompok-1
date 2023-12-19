@@ -14,37 +14,23 @@ class KontributorDosenTableSeeder extends Seeder
     public function run(): void
     {
         KontributorDosen::create([
-            'nidn' => '0031087905',
-            'status' => 'pembimbing',
-            'karya_id' => '1'
-        ]);
-        KontributorDosen::create([
-            'nidn' => '0107078404',
+            'nidn' => '0004097901',
             'status' => 'pembimbing',
             'karya_id' => '1'
         ]);
 
         KontributorDosen::create([
-            'nidn' => '0031087905',
-            'status' => 'pembimbing',
-            'karya_id' => '2'
-        ]);
-        KontributorDosen::create([
-            'nidn' => '0107078404',
+            'nidn' => '0010116706',
             'status' => 'pembimbing',
             'karya_id' => '2'
         ]);
 
         KontributorDosen::create([
-            'nidn' => '0031087905',
+            'nidn' => '0008017906',
             'status' => 'pembimbing',
             'karya_id' => '3'
         ]);
-        KontributorDosen::create([
-            'nidn' => '0107078404',
-            'status' => 'pembimbing',
-            'karya_id' => '3'
-        ]);
+
         KontributorDosen::create([
             'nidn' => '0107078404',
             'status' => 'penulis',
@@ -61,7 +47,7 @@ class KontributorDosenTableSeeder extends Seeder
             'karya_id' => '5'
         ]);
         KontributorDosen::create([
-            'nidn' => '0031087905',
+            'nidn' => '0101058801',
             'status' => 'pembimbing',
             'karya_id' => '8'
         ]);

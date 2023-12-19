@@ -20,19 +20,25 @@ class KataKuncisTableSeeder extends Seeder
             'kata_kunci' => 'Web'
         ]);
         KataKunci::create([
-            'kata_kunci' => 'Ular'
+            'kata_kunci' => 'AI'
         ]);
         KataKunci::create([
-            'kata_kunci' => 'Kucing'
+            'kata_kunci' => 'VR'
         ]);
         KataKunci::create([
-            'kata_kunci' => 'Kambing'
+            'kata_kunci' => 'AR'
         ]);
         KataKunci::create([
-            'kata_kunci' => 'Ayam'
+            'kata_kunci' => 'Image processing'
         ]);
         KataKunci::create([
-            'kata_kunci' => 'Sihir'
+            'kata_kunci' => 'Computer'
+        ]);
+        KataKunci::create([
+            'kata_kunci' => 'Cloud Computing'
+        ]);
+        KataKunci::create([
+            'kata_kunci' => 'Mathematics'
         ]);
     }
 }

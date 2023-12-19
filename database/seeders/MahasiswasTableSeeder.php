@@ -14,11 +14,11 @@ class MahasiswasTableSeeder extends Seeder
     public function run(): void
     {
         Mahasiswa::create([
-            'nim' => '221402050',
+            'nim' => '171402050',
             'nama' => 'Muhammad Luthfi',
-            'angkatan' => '2022',
+            'angkatan' => '2017',
             'jenis_kelamin' => 'L',
-            'status' => 'aktif',
+            'status' => 'lulus',
             'user_id' => '4',
             'kode_prodi' => '02'
         ]);
@@ -34,11 +34,11 @@ class MahasiswasTableSeeder extends Seeder
         ]);
         
         Mahasiswa::create([
-            'nim' => '221402053',
+            'nim' => '151402053',
             'nama' => 'Andy Septiawan Saragih',
-            'angkatan' => '2022',
+            'angkatan' => '2015',
             'jenis_kelamin' => 'L',
-            'status' => 'aktif',
+            'status' => 'lulus',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -54,11 +54,11 @@ class MahasiswasTableSeeder extends Seeder
         ]);
         
         Mahasiswa::create([
-            'nim' => '221402015',
+            'nim' => '181402015',
             'nama' => 'Ruth Grace Manurung',
-            'angkatan' => '2022',
+            'angkatan' => '2018',
             'jenis_kelamin' => 'P',
-            'status' => 'aktif',
+            'status' => 'lulus',
             'user_id' => '1',
             'kode_prodi' => '02'
         ]);
@@ -91,6 +91,53 @@ class MahasiswasTableSeeder extends Seeder
             'status' => 'aktif',
             'user_id' => '1',
             'kode_prodi' => '01'
+        ]);
+
+        Mahasiswa::create([
+            'nim' => '221401032',
+            'nama' => 'RIO OCTAVIANNUS LOKA',
+            'angkatan' => '2022',
+            'jenis_kelamin' => 'L',
+            'status' => 'aktif',
+            'user_id' => '1',
+            'kode_prodi' => '01'
+        ]);
+
+        Mahasiswa::create([
+            'nim' => '181401016',
+            'nama' => 'JOHANES INGANTA KARO-KARO',
+            'angkatan' => '2018',
+            'jenis_kelamin' => 'L',
+            'status' => 'lulus',
+            'user_id' => '1',
+            'kode_prodi' => '01'
+        ]);
+        Mahasiswa::create([
+            'nim' => '181403014',
+            'nama' => 'Mustafa Kamal',
+            'angkatan' => '2018',
+            'jenis_kelamin' => 'L',
+            'status' => 'lulus',
+            'user_id' => '1',
+            'kode_prodi' => '03'
+        ]);
+        Mahasiswa::create([
+            'nim' => '181404023',
+            'nama' => 'Jamilah Hasibuan',
+            'angkatan' => '2018',
+            'jenis_kelamin' => 'P',
+            'status' => 'lulus',
+            'user_id' => '1',
+            'kode_prodi' => '04'
+        ]);
+        Mahasiswa::create([
+            'nim' => '181405001',
+            'nama' => 'Mahatma Lincoln',
+            'angkatan' => '2018',
+            'jenis_kelamin' => 'L',
+            'status' => 'lulus',
+            'user_id' => '1',
+            'kode_prodi' => '05'
         ]);
     }
 }
