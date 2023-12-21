@@ -34,7 +34,7 @@
                         <div class="search">
                             <form action="{{ route('search') }}" method="get">
                                 <input type="text" class="search-input" style="font-weight: 500; color: #130D19;" placeholder="Search..." name="search">
-                                <button href="#" type="submit" class="search-icon">
+                                <button type="submit" class="search-icon">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </form>

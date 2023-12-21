@@ -426,7 +426,8 @@ class ViewController extends Controller {
             ->where(function ($query) use ($search) {
                 $query->where('judul', 'LIKE', '%' . $search . '%')
                     ->orWhere('kontributor', 'LIKE', '%' . $search . '%')
-                    ->orWhere('kata_kunci', 'LIKE', '%' . $search . '%');
+                    ->orWhere('kata_kunci', 'LIKE', '%' . $search . '%')
+                    ->orWhere('abstrak', 'LIKE', '%' . $search . '%');
             })
             ->where(function ($query) use ($jenis_tulisan, $program_studi, $bidang_ilmu, $tahunawal, $tahunakhir) {
                 if (!empty($tahunawal) && !empty($tahunakhir)) {
