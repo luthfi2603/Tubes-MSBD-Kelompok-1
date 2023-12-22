@@ -15,7 +15,8 @@ return new class extends Migration
         Schema::create('kontributor_dosens', function (Blueprint $table) {
             $table->char('nidn', 10);
             $table->foreign('nidn')->references('nidn')->on('dosens')->onDelete('restrict')->onUpdate('cascade');
-            $table->enum('status', ['penulis','pembimbing', 'kontributor']);
+            $table->string('status', 50);
+            $table->foreign('status')->references('nama_status')->on('statuses')->onDelete('restrict')->onUpdate('cascade');
             $table->unsignedInteger('karya_id');
             $table->foreign('karya_id')->references('id')->on('karya_tulis')->onDelete('cascade')->onUpdate('cascade');
         });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('log_kontributors', function (Blueprint $table) {
             $table->char('nim_nidn', 10);
-            $table->enum('status', ['penulis','pembimbing', 'kontributor']);
+            $table->string('status', 50);
             $table->unsignedInteger('karya_id');
             $table->enum('action', ['INSERT','UPDATE', 'DELETE']);
             $table->timestamp('waktu');
