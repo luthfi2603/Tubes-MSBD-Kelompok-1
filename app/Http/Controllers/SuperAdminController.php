@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Database\DatabaseManager;
 
 class SuperAdminController extends Controller {
     public function index(){
@@ -90,9 +89,8 @@ class SuperAdminController extends Controller {
         return view('super-admin.input-status');
     }
     public function storeStatus(Request $request){
-        // dd($request->request);
         $request->validate([
-            'nama_status' => ['required', 'unique:statuses', 'max:20'],
+            'nama_status' => ['required', 'unique:statuses', 'max:50'],
             'tingkat' => ['required']            
         ]);
 
@@ -124,7 +122,7 @@ class SuperAdminController extends Controller {
         ];
 
         if($estatus->nama_status != $request->nama_status){
-            $rules['nama_status'] = ['required', 'unique:statuses', 'max:20'];
+            $rules['nama_status'] = ['required', 'unique:statuses', 'max:50'];
         }
 
         $request->validate($rules);
@@ -134,7 +132,7 @@ class SuperAdminController extends Controller {
 
         $estatus->save();
 
-        return redirect()->route('status.kelola')->with('success', 'status berhasil diubah');
+        return redirect()->route('status.kelola')->with('success', 'Status berhasil diubah');
     }
     public function destroyStatus($status){
         $dstatus = Status::find($status);

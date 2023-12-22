@@ -15,42 +15,42 @@ class KontributorMahasiswaTableSeeder extends Seeder
     {
         KontributorMahasiswa::create([
             'nim' => '181403014',
-            'status' => 'penulis',
+            'status' => 'Penulis',
             'karya_id' => '1'
         ]);
         KontributorMahasiswa::create([
             'nim' => '181405001',
-            'status' => 'penulis',
+            'status' => 'Penulis',
             'karya_id' => '2'
         ]);
         KontributorMahasiswa::create([
             'nim' => '181404023',
-            'status' => 'penulis',
+            'status' => 'Penulis',
             'karya_id' => '3'
         ]);
         KontributorMahasiswa::create([
             'nim' => '221402031',
-            'status' => 'penulis',
+            'status' => 'Penulis',
             'karya_id' => '6'
         ]);
         KontributorMahasiswa::create([
             'nim' => '171402050',
-            'status' => 'penulis',
+            'status' => 'Penulis',
             'karya_id' => '6'
         ]);
         KontributorMahasiswa::create([
             'nim' => '181405001',
-            'status' => 'penulis',
+            'status' => 'Penulis',
             'karya_id' => '4'
         ]);
         KontributorMahasiswa::create([
             'nim' => '181405001',
-            'status' => 'penulis',
+            'status' => 'Penulis',
             'karya_id' => '7'
         ]);
         KontributorMahasiswa::create([
             'nim' => '181401016',
-            'status' => 'penulis',
+            'status' => 'Penulis',
             'karya_id' => '8'
         ]);
     }

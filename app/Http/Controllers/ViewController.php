@@ -13,8 +13,6 @@ use App\Models\FavoriteEbook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use PharIo\Manifest\Author;
-
 // use Illuminate\Database\DatabaseManager;
 
 class ViewController extends Controller {

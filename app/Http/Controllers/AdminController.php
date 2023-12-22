@@ -17,6 +17,7 @@ use App\Models\KataKunciTulisan;
 use App\Models\KontributorDosen;
 use Illuminate\Support\Facades\DB;
 use App\Models\KontributorMahasiswa;
+use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -51,6 +52,8 @@ class AdminController extends Controller {
         $jeniss = JenisTulisan::orderBy('jenis_tulisan')->get();
         $mahasiswas = Mahasiswa::select('nim', 'nama')->orderBy('nama')->get();
         $dosens = Dosen::select('nidn', 'nama')->orderBy('nama')->get();
+        $statuss = Status::all();
+
         $kontrib = [];
 
         foreach ($mahasiswas as $key) {
@@ -67,7 +70,7 @@ class AdminController extends Controller {
             ];
         }
 
-        return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'kontrib'));
+        return view('admin.input-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'kontrib', 'statuss'));
     }
     public function storeKaryaTulis(Request $request){
         $request->validate([
@@ -126,6 +129,7 @@ class AdminController extends Controller {
         $jeniss = JenisTulisan::all();
         $mahasiswas = KontributorMahasiswa::where('karya_id', $id)->get();
         $dosens = KontributorDosen::where('karya_id', $id)->get();
+        $statuss = Status::all();
 
         $kontributors = [];
 
@@ -163,7 +167,7 @@ class AdminController extends Controller {
             ];
         }
 
-        return view('admin.edit-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'karya', 'karya_kunci', 'kontributors', 'kontrib'));
+        return view('admin.edit-karya-tulis', compact('bidangs', 'kuncis', 'jeniss', 'karya', 'karya_kunci', 'kontributors', 'kontrib', 'statuss'));
     }
     public function updateKaryaTulis(Request $request, $id){
         $karya = KaryaTulis::find($id);
@@ -873,5 +877,11 @@ class AdminController extends Controller {
         $dosens = Dosen::orderBy('nama')->get();
 
         return response()->json(['mahasiswas' => $mahasiswas, 'dosens' => $dosens]);
+    }
+    
+    public function getStatusKontributor(){
+        $statuss = Status::all();
+
+        return response()->json(['statuss' => $statuss]);
     }
 }

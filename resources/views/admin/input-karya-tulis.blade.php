@@ -135,7 +135,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="kategori" class="form-label">Tingkatan</label>
-                                        <select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="tingkatan[]">
+                                        <select class="form-select custom-form" aria-label="Default select example" id="tingkatan" name="tingkatan[]">
                                             <option value="" selected>Pilih Tingkatan</option>
                                             <option value="1" {{ $kontributor['tingkatan'] === 'mahasiswa' ? 'selected' : ''}}>Mahasiswa</option>
                                             <option value="2" {{ $kontributor['tingkatan'] === 'dosen' ? 'selected' : ''}}>Dosen</option>
@@ -143,11 +143,11 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="kategori" class="form-label">Status</label>
-                                        <select class="form-select custom-form" aria-label="Default select example" id="kategori-karyatulis" name="status[]">
+                                        <select class="form-select custom-form" aria-label="Default select example" id="status" name="status[]">
                                             <option value="" selected>Pilih Status</option>
-                                            <option value="penulis" {{ $kontributor['status'] === 'penulis' ? 'selected' : ''}}>Penulis</option>
-                                            <option value="pembimbing" {{ $kontributor['status'] === 'pembimbing' ? 'selected' : ''}}>Pembimbing</option>
-                                            <option value="kontributor" {{ $kontributor['status'] === 'kontributor' ? 'selected' : ''}}>Kontributor</option>
+                                            @foreach($statuss as $status)
+                                                <option value="{{ $status->nama_status }}" {{ $kontributor['status'] === $status->nama_status ? 'selected' : ''}}>{{ $status->nama_status }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
