@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
@@ -80,6 +81,71 @@ class SuperAdminController extends Controller {
         event(new Registered(User::find($idu)));
         
         return redirect()->route('pegawai.kelola')->with('success', 'Data admin berhasil diubah');
+    }
+    public function showStatus(){
+        $statuss = Status::paginate(10);
+        return view('super-admin.kelola-status', compact('statuss'));
+    }
+    public function createStatus(){
+        return view('super-admin.input-status');
+    }
+    public function storeStatus(Request $request){
+        // dd($request->request);
+        $request->validate([
+            'nama_status' => ['required', 'unique:statuses', 'max:20'],
+            'tingkat' => ['required']            
+        ]);
+
+        $status = new Status;
+        $status->nama_status = $request->nama_status;
+        $status->status = $request->tingkat;
+
+        $status->save();
+
+        return back()->with('success', 'Status berhasil ditambahkan');
+    }
+    public function editStatus($status){
+        $estatus = Status::find($status);
+
+        return view('super-admin.edit-status', compact('estatus'));
+    }
+    public function updateStatus(Request $request, $status){
+        $estatus = Status::find($status);
+        // dd($estatus->status, $request->tingkat);
+        if(
+            $estatus->nama_status === $request->nama_status &&
+            $estatus->status === $request->tingkat
+        ){
+            return back()->with('failed', 'Gagal update, tidak ada perubahan');
+        }
+
+        $rules = [
+            'tingkat' => ['required']
+        ];
+
+        if($estatus->nama_status != $request->nama_status){
+            $rules['nama_status'] = ['required', 'unique:statuses', 'max:20'];
+        }
+
+        $request->validate($rules);
+
+        $estatus->nama_status = $request->nama_status;
+        $estatus->status = $request->tingkat;
+
+        $estatus->save();
+
+        return redirect()->route('status.kelola')->with('success', 'status berhasil diubah');
+    }
+    public function destroyStatus($status){
+        $dstatus = Status::find($status);
+
+        try {
+            $dstatus->delete();
+    
+            return back()->with('success', 'Status berhasil dihapus');
+        } catch (\Throwable $th) {
+            return back()->with('failed', 'Status ini sedang digunakan, penghapusan tidak dapat dilakukan');
+        }
     }
     public function destroyPegawai(Request $request){
         DB::select('call deleteAdmin(?, ?)', array($request->id_pegawai, $request->id_user));

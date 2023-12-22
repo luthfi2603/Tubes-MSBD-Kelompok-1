@@ -147,6 +147,16 @@ Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
     Route::put('/edit-pegawai/{idp}/{idu}', [SuperAdminController::class, 'updatePegawai']);
     Route::delete('/kelola-pegawai', [SuperAdminController::class, 'destroyPegawai'])
         ->name('pegawai.delete');
+    Route::get('/kelola-status', [SuperAdminController::class, 'showStatus'])
+        ->name('status.kelola');
+    Route::get('/input-status', [SuperAdminController::class, 'createStatus'])
+        ->name('status.input');
+    Route::post('/input-status', [SuperAdminController::class, 'storeStatus']);
+    Route::get('/edit-status/{status}', [SuperAdminController::class, 'editStatus'])
+        ->name('status.edit');
+    Route::put('/edit-status/{status}', [SuperAdminController::class, 'updateStatus']);
+    Route::delete('/kelola-status/{status}', [SuperAdminController::class, 'destroyStatus'])
+        ->name('status.delete');
 
     Route::get('/log', [AdminController::class, 'showLog'])
         ->name('log');

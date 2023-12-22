@@ -150,6 +150,22 @@ function deleteKataKunci($kataKunci){
     });
 }
 
+function deleteStatus($status){
+    Swal.fire({
+        title: "Hapus Status",
+        text: "Apakah anda yakin untuk menghapus Status ini?!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#D80032",
+        cancelButtonColor: "#006633",
+        confirmButtonText: "Delete"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`form-delete-${$status}`).submit();
+        }
+    });
+}
+
 function deleteJenisTulisan($jenisTulisan){
     Swal.fire({
         title: "Hapus Jenis Tulisan",

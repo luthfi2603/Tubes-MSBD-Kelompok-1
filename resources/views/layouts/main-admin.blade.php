@@ -60,6 +60,9 @@
             </li>
             @if(auth()->user()->status == 'super_admin')
                 <li class="item">
+                    <a href="{{ route('status.kelola') }}"><i class="fa-solid fa-person"></i><span>kelola Status</span></a>
+                </li>
+                <li class="item">
                     <a href="{{ route('log') }}"><i class="fa-solid fa-scroll"></i><span>Log</span></a>
                 </li>
             @endif

@@ -191,6 +191,22 @@
                 </div>
             </a>
         </div>
+        <div class="col-lg-6 mb-3">
+            <a href="{{ route('status.kelola') }}">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-8 d-flex align-items-center">
+                            <div class="card-body">
+                                <h5 class="card-title karyatul textit" style="font-weight: 600;">Kelola Status</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex" style="height: 172.89px">
+                            <img src="../assets/img/listlog.png" class="img-fluid rounded-start m-auto" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 @endsection
