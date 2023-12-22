@@ -126,6 +126,7 @@ return new class extends Migration {
                 DECLARE tingkatant INT;
                 DECLARE statust VARCHAR(50);
                 DECLARE id_temp INT;
+                DECLARE pivot TINYINT(1);
 
                 DECLARE EXIT HANDLER FOR SQLEXCEPTION
                 BEGIN
@@ -164,7 +165,13 @@ return new class extends Migration {
                     SET nim_nidnt = JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].nim_nidn')));
                     SET tingkatant = CAST(JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].tingkatan'))) AS SIGNED);
                     SET statust = JSON_UNQUOTE(JSON_EXTRACT(kolabp, CONCAT('$[', j, '].status')));
-            
+
+                    SELECT status INTO pivot FROM statuses WHERE nama_status = statust COLLATE utf8mb4_unicode_ci;
+
+                    IF(tingkatant = 1 AND pivot) THEN
+                        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'error';
+                    END IF;
+
                     INSERT INTO temp_kolab (nim_nidn, status ,karya_id, tingkat) VALUES (nim_nidnt, statust ,id_temp, tingkatant);
                     SET j = j + 1;
                 END WHILE;
@@ -199,7 +206,7 @@ return new class extends Migration {
                 DECLARE tingkatant INT;
                 DECLARE statust VARCHAR(50);
                 DECLARE kondisi INT;
-                DECLARE pivot INT;
+                DECLARE pivot TINYINT(1);
             
                 DECLARE EXIT HANDLER FOR SQLEXCEPTION
                 BEGIN
@@ -255,6 +262,12 @@ return new class extends Migration {
                             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'error';
                         END IF;
 
+                        SELECT status INTO pivot FROM statuses WHERE nama_status = statust COLLATE utf8mb4_unicode_ci;
+
+                        IF(pivot) THEN
+                            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'error';
+                        END IF;
+
                         UPDATE kontributor_mahasiswas SET status = statust WHERE nim = nim_nidnt COLLATE utf8mb4_unicode_ci AND karya_id = karya_idp;
                     ELSEIF (kondisi = 2 AND tingkatant = 2) THEN
                         SELECT COUNT(*) INTO pivot FROM kontributor_dosens WHERE nidn = nim_nidnt COLLATE utf8mb4_unicode_ci;
@@ -264,6 +277,12 @@ return new class extends Migration {
 
                         UPDATE kontributor_dosens SET status = statust WHERE nidn = nim_nidnt COLLATE utf8mb4_unicode_ci AND karya_id = karya_idp;
                     ELSEIF (kondisi = 3 AND tingkatant = 1) THEN
+                        SELECT status INTO pivot FROM statuses WHERE nama_status = statust COLLATE utf8mb4_unicode_ci;
+
+                        IF(pivot) THEN
+                            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'error';
+                        END IF;
+
                         INSERT INTO kontributor_mahasiswas VALUES (nim_nidnt, statust, karya_idp);
                     ELSEIF (kondisi = 3 AND tingkatant = 2) THEN
                         INSERT INTO kontributor_dosens VALUES (nim_nidnt, statust, karya_idp);
@@ -276,6 +295,7 @@ return new class extends Migration {
                     END IF;
             
                     SET j = j + 1;
+                    SET pivot = 1;
                 END WHILE;
             
                 DELETE FROM kontributor_mahasiswas WHERE karya_id = karya_idp AND nim NOT IN (SELECT nim_nidn COLLATE utf8mb4_unicode_ci FROM temp_kolab WHERE tingkat = 1);

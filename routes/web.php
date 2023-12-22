@@ -58,6 +58,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
         ->name('karya.tulis.delete');
 
     Route::get('/get-mahasiswa-dan-dosen', [AdminController::class, 'getMahasiswaDanDosen']);
+    Route::get('/get-status-kontributor', [AdminController::class, 'getStatusKontributor']);
 
     Route::get('/kelola-jenis-tulisan', [AdminController::class, 'showJenisTulisan'])
         ->name('jenis.tulisan.kelola');
@@ -150,6 +151,7 @@ Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
     Route::put('/edit-pegawai/{idp}/{idu}', [SuperAdminController::class, 'updatePegawai']);
     Route::delete('/kelola-pegawai', [SuperAdminController::class, 'destroyPegawai'])
         ->name('pegawai.delete');
+
     Route::get('/kelola-status', [SuperAdminController::class, 'showStatus'])
         ->name('status.kelola');
     Route::get('/input-status', [SuperAdminController::class, 'createStatus'])

@@ -18,7 +18,17 @@
                         <img src="{{ asset('assets/img/usu.png') }}" class="m-auto" width="70%">
                     </div>
                     <div class="mt-3">
-                        @if(!($penulis->isEmpty()))
+                        @php $pivot = ""; @endphp
+                        @foreach($penuliss as $penulis)
+                            @if($pivot != $penulis->status)
+                                <h6 class="textit mb-0 mt-3" style="font-weight: 600;">{{ $penulis->status }} : </h6>
+                            @endif
+                            <a href="{{ route('author', $penulis->kontributor) }}">
+                                <h6 class="text m-0" style="font-weight: 500;">{{ $penulis->kontributor }}</h6>
+                            </a>
+                            @php $pivot = $penulis->status; @endphp
+                        @endforeach
+                        {{-- @if(!($penulis->isEmpty()))
                             <h6 class="textit mb-0" style="font-weight: 600;">Author : </h6>
                             @foreach ($penulis as $item)
                                 <a href="{{ route('author', $item->kontributor) }}">
@@ -41,7 +51,7 @@
                                     <h6 class="text m-0" style="font-weight: 500;">{{ $item->kontributor }}</h6>
                                 </a>
                             @endforeach
-                        @endif
+                        @endif --}}
                         <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Tahun : </h6>
                         <h6 class="text mb-3" style="font-weight: 500;">{{ $detail->tahun }}</h6>
                         <h6 class="textit mb-0 mt-3" style="font-weight: 600;">Bidang Ilmu : </h6>

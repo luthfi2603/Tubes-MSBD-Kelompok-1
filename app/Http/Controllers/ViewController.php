@@ -13,8 +13,6 @@ use App\Models\FavoriteEbook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use PharIo\Manifest\Author;
-
 // use Illuminate\Database\DatabaseManager;
 
 class ViewController extends Controller {
@@ -72,25 +70,11 @@ class ViewController extends Controller {
             ->where('id', $id)
             ->first();
 
-        $penulis = DB::table('view_karya_tulis')
+        $penuliss = DB::table('view_karya_tulis')
             ->select('kontributor', 'status')
             ->where('id', $id)
-            ->where('status', 'penulis')
             ->groupBy('kontributor', 'status')
-            ->get();
-
-        $pembimbing = DB::table('view_karya_tulis')
-            ->select('kontributor', 'status')
-            ->where('id', $id)
-            ->where('status', 'pembimbing')
-            ->groupBy('kontributor', 'status')
-            ->get();
-
-        $kontributor = DB::table('view_karya_tulis')
-            ->select('kontributor', 'status')
-            ->where('id', $id)
-            ->where('status', 'kontributor')
-            ->groupBy('kontributor', 'status')
+            ->orderBy('status')
             ->get();
 
         $kataKuncis = DB::table('view_karya_tulis')
@@ -105,7 +89,7 @@ class ViewController extends Controller {
         }
         $kataKunci = rtrim($kataKunci, ', ');
 
-        return view('detail-karya-tulis', compact('detail', 'kataKunci', 'penulis', 'pembimbing', 'kontributor', 'isLiked'));
+        return view('detail-karya-tulis', compact('detail', 'kataKunci', 'penuliss', 'isLiked'));
     }
 
     public function showEBook(Request $request){

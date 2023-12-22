@@ -14,27 +14,27 @@ class StatusTableSeeder extends Seeder
     public function run(): void
     {
         Status::create([
-            'nama_status' => 'penulis',
+            'nama_status' => 'Penulis',
             'status' => '0'
         ]);
 
         Status::create([
-            'nama_status' => 'kontributor',
+            'nama_status' => 'Kontributor',
             'status' => '0'
         ]);
 
         Status::create([
-            'nama_status' => 'pembimbing 1',
+            'nama_status' => 'Pembimbing 1',
             'status' => '1'
         ]);
 
         Status::create([
-            'nama_status' => 'pembimbing 2',
+            'nama_status' => 'Pembimbing 2',
             'status' => '1'
         ]);
 
         Status::create([
-            'nama_status' => 'pembimbing 3',
+            'nama_status' => 'Pembimbing 3',
             'status' => '1'
         ]);
     }

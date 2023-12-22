@@ -201,7 +201,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 d-flex" style="height: 172.89px">
-                            <img src="../assets/img/listlog.png" class="img-fluid rounded-start m-auto" alt="...">
+                            <img src="../assets/img/kelolastatus.png" class="img-fluid rounded-start m-auto" alt="...">
                         </div>
                     </div>
                 </div>
