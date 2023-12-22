@@ -3,7 +3,7 @@
 @section('container')
 <div class="container admin-mb">
     <div class="row mt-4 mb-4">
-        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Kelola Bidang ilmu</h5>
+        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-book-bookmark"></i> Kelola Bidang ilmu</h5>
 
         <div class="col-lg-9 justify-content-start">
             <a class="purple-button" href="{{ route('bidang.ilmu.input') }}">Add +</a>

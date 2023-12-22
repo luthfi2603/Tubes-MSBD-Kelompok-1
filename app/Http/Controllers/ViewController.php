@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
 use App\Models\Ebook;
 use App\Models\Prodi;
 use App\Models\Favorite;
 use App\Models\BidangIlmu;
 use App\Models\KaryaTulis;
 use App\Models\JenisTulisan;
-use Illuminate\Http\Request;
 use App\Models\FavoriteEbook;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Database\DatabaseManager;
+use PharIo\Manifest\Author;
+
+// use Illuminate\Database\DatabaseManager;
 
 class ViewController extends Controller {
     public function index(){
@@ -548,5 +551,26 @@ class ViewController extends Controller {
             ->paginate(5);
 
         return view('statistik', compact('mostLikes', 'datas', 'jumlah', 'jumlahEbook', 'topAuthors', 'mostViews'));
+    }
+
+    public function bimbinganSaya(){
+        $karyaIds = DB::table('view_karya_tulis')
+            ->select('id')
+            ->where('kontributor', Dosen::where('user_id', auth()->user()->id)->first()->nama)
+            ->where('status', '<>', 'penulis')
+            ->where('jenis', 'Skripsi')
+            ->groupBy('id')
+            ->pluck('id');
+
+        $karyas = KaryaTulis::select('id', 'judul', 'tahun')
+            ->whereIn('id', $karyaIds)->paginate(10);
+
+        $penuliss = DB::table('view_karya_tulis')
+            ->select('kontributor', 'id')
+            ->where('status', 'penulis')
+            ->groupBy('kontributor', 'id')
+            ->get();
+
+        return view('bimbingan-saya', compact('karyas', 'penuliss'));
     }
 }

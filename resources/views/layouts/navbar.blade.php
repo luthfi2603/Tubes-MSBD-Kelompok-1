@@ -40,6 +40,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('favorite') }}">Favorite</a>
                         </li>
+                        @if(auth()->user()->status == 'dosen')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('bimbingan.saya') }}" style="white-space: nowrap;">Bimbingan Saya</a>
+                            </li>
+                        @endif
                         @if(auth()->user()->status != 'admin' && auth()->user()->status != 'super_admin')
                             <li class="nav-item d-flex ps-2">
                                 <i class="fa-solid fa-user m-0" style="color: #ffff; padding-top: 12px"></i>
