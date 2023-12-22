@@ -34,7 +34,7 @@
                         <div class="search">
                             <form action="{{ route('search') }}" method="get">
                                 <input type="text" class="search-input" style="font-weight: 500; color: #130D19;" placeholder="Search..." name="search">
-                                <button href="#" type="submit" class="search-icon">
+                                <button type="submit" class="search-icon">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </form>
@@ -57,10 +57,10 @@
             <div class="row">
                 <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                     <ul class="list-inline mb-3">
-                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">About</a></li>
-                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Contact</a></li>
-                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Terms of Use</a></li>
-                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#!">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#">About</a></li>
+                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#">Contact</a></li>
+                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#">Terms of Use</a></li>
+                        <li class="list-inline-item"><a style="font-weight: 600; color: #ffff;" href="#">Privacy Policy</a></li>
                     </ul>
                     <p class="text-muted small mb-4 mb-lg-0">&copy; Fasilkom-TI, 2023. All Rights Reserved.</p>
                 </div>

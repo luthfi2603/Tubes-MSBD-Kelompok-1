@@ -3,7 +3,7 @@
 @section('container')
 <div class="container admin-mb">
     <div class="row mt-4 mb-4">
-        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-list"></i> Daftar Log</h5>
+        <h5 class="textit mb-4" style="font-weight: 600;"><i class="fa-solid fa-scroll"></i> Daftar Log</h5>
         <div class="col-lg-9 justify-content-start">
         </div>
         {{-- <div class="col-lg-3 justify-content-end">

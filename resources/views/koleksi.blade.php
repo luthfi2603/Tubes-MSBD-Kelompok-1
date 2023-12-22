@@ -12,8 +12,7 @@
         <div class="col-lg-9 order-2 order-lg-first">
             <!-- ini untuk koleksi terbaru pake card -->
             <div class="d flex mb-5">
-                <h6 class="sidebar-col"><span><i class="fa-solid fa-square-poll-horizontal"></i></span>{{ $jenisTulisan
-                    }}</h6>
+                <h6 class="sidebar-col"><span><i class="fa-solid fa-square-poll-horizontal"></i></span>{{ $jenisTulisan }}</h6>
                 <!-- untuk iconnya bisa diambil di statistik ato mau beda pun bole ambil dari font awesome -->
                 <hr class="garis" style="width: 70%;">
                 @if($karyas->isEmpty())

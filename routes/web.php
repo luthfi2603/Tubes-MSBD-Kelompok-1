@@ -1,8 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuperAdminController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ViewController;
 
@@ -38,6 +38,9 @@ Route::get('/advanced-search', [ViewController::class, 'showAdvSearch'])
     ->name('advanced.search.page');
 Route::get('/statistik', [ViewController::class, 'statistik'])
     ->name('statistik');
+Route::get('/bimbingan-saya', [ViewController::class, 'bimbinganSaya'])
+    ->middleware(['auth', 'verified', 'role:dosen'])
+    ->name('bimbingan.saya');
 
 Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(function () {
     Route::get('/admin-home', [AdminController::class, 'index'])
