@@ -18,6 +18,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">Nama</th>
+                        <th scope="col">Angkatan</th>
                         <th scope="col">Judul</th>
                         <th scope="col" style="white-space: nowrap;">Tahun Skripsi</th>
                     </tr>
@@ -26,11 +27,13 @@
                     @foreach($karyas as $karya)
                         @php
                             $author = $penuliss->where('id', $karya->id)->pluck('kontributor')[0];
+                            $angkatan = $angkatans->where('karya_id', $karya->id)->pluck('angkatan')[0];
                         @endphp
                         <tr>
                             <td>
                                 <a href="{{ route('author', $author) }}">{{ $author }}</a>
                             </td>
+                            <td>{{ $angkatan }}</td>
                             <td><a href="{{ route('detail.karya.tulis', $karya->id) }}">{{ $karya->judul }}</a></td>
                             <td>{{ $karya->tahun }}</td>
                         </tr>

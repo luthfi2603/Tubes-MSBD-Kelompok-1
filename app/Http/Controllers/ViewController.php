@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Ebook;
+use App\Models\KontributorMahasiswa;
 use App\Models\Prodi;
 use App\Models\Favorite;
 use App\Models\BidangIlmu;
@@ -555,6 +556,11 @@ class ViewController extends Controller {
             ->groupBy('kontributor', 'id')
             ->get();
 
-        return view('bimbingan-saya', compact('karyas', 'penuliss'));
+        $angkatans = KontributorMahasiswa::join('mahasiswas', 'kontributor_mahasiswas.nim', '=', 'mahasiswas.nim')
+            ->whereIn('kontributor_mahasiswas.karya_id', $karyaIds)
+            ->select('kontributor_mahasiswas.*', 'mahasiswas.angkatan')
+            ->get();
+
+        return view('bimbingan-saya', compact('karyas', 'penuliss', 'angkatans'));
     }
 }
