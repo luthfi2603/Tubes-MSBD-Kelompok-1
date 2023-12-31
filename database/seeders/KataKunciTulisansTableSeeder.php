@@ -85,5 +85,9 @@ class KataKunciTulisansTableSeeder extends Seeder
             'karya_id' => '8',
             'kata_kunci' => 'Cloud Computing'
         ]);
+        KataKunciTulisan::create([
+            'karya_id' => '9',
+            'kata_kunci' => 'Cloud Computing'
+        ]);
     }
 }
