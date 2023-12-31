@@ -94,5 +94,15 @@ class KaryaTulisTableSeeder extends Seeder
             'view' => '345',
             'diupload_oleh' => 'Maia Cibebe'
         ]);
+        KaryaTulis::create([ // 9
+            'judul' => 'Laborum nulla pariatur quis incididunt voluptate et Lorem pariatur adipisicing.',
+            'abstrak' => 'Tempor do quis mollit cupidatat voluptate ex eiusmod commodo reprehenderit mollit velit ad excepteur quis. Consectetur do ea nisi excepteur et aliquip ipsum anim tempor commodo commodo est. Anim enim voluptate sunt et sint veniam quis in sit labore dolor. Eiusmod cillum aute officia Lorem id sint consectetur sit magna. Non ea occaecat pariatur nostrud sunt proident Lorem anim pariatur pariatur reprehenderit consectetur velit quis. Ea non sint ad reprehenderit.',
+            'bidang_ilmu' => 'Robotics',
+            'url_file' => 'document/data-dummy-karya-tulis.pdf',
+            'jenis' => 'Skripsi',
+            'tahun' => '2012',
+            'view' => '652',
+            'diupload_oleh' => 'Maia Cibebe'
+        ]);
     }
 }
