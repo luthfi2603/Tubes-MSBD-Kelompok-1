@@ -673,6 +673,7 @@ return new class extends Migration {
             GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.users TO 'admin'@'localhost';
             GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.view_all_user TO 'admin'@'localhost';
             GRANT SELECT, INSERT, UPDATE, DELETE ON repositori.view_karya_tulis TO 'admin'@'localhost';
+            GRANT SELECT ON repositori.statuses TO 'admin'@'localhost';
             GRANT EXECUTE ON repositori.* TO 'admin'@'localhost';
         ");
 
